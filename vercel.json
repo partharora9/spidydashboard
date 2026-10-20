@@ -3,12 +3,6 @@
   "framework": "vite",
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
-  "crons": [
-    {
-      "path": "/api/cron/retry-emails",
-      "schedule": "0 0 * * *"
-    }
-  ],
   "rewrites": [
     {
       "source": "/((?!api/).*)",
