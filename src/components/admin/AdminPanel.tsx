@@ -10,7 +10,6 @@ import {
   Folder,
   Video,
 } from 'lucide-react';
-import { DELIVERY_LINKS } from '../../config/deliveryLinks';
 
 export const AdminPanel = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -18,6 +17,7 @@ export const AdminPanel = () => {
   const [activeTab, setActiveTab] = useState<'pending' | 'reconciler' | 'all' | 'audit'>('pending');
   const [orders, setOrders] = useState<any[]>([]);
   const [counts, setCounts] = useState<any>({ total: 0, pending: 0, approved: 0 });
+  const [planDeliveryLinks, setPlanDeliveryLinks] = useState<any>(null);
   const [auditLogs, setAuditLogs] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -42,6 +42,7 @@ export const AdminPanel = () => {
       const data = await res.json();
       setOrders(data.orders || []);
       setCounts(data.counts || {});
+      setPlanDeliveryLinks(data.planDeliveryLinks || null);
       setIsAuthenticated(true);
     } catch (err: any) {
       setError(err.message);
@@ -103,9 +104,11 @@ export const AdminPanel = () => {
       if (!res.ok) throw new Error(data.error);
       const targetOrder = pendingOrders.find((o) => o.id === orderId) || orders.find((o) => o.id === orderId);
       const isComplete = targetOrder?.plan === 'complete';
+      const cLinks = targetOrder?.deliveryLinks || planDeliveryLinks?.complete?.links || [];
+      const sUrl = targetOrder?.primaryDeliveryUrl || planDeliveryLinks?.standard?.primaryUrl || data.downloadUrl;
       const deliveryMsg = isComplete
-        ? `Delivery Links for Complete Kit (₹799):\n1. Google Drive Package:\n${DELIVERY_LINKS.complete.links[0].url}\n\n2. Video Walkthrough:\n${DELIVERY_LINKS.complete.links[1].url}\n\n3. MEGA Repository Mirror:\n${DELIVERY_LINKS.complete.links[2].url}`
-        : `Delivery Link (Standard ₹499):\n${data.downloadUrl || DELIVERY_LINKS.standard.primaryUrl}`;
+        ? `Delivery Links for Complete Kit (₹799):\n1. Google Drive Package:\n${cLinks[0]?.url || 'Drive link ready'}\n\n2. Video Walkthrough:\n${cLinks[1]?.url || 'Video link ready'}\n\n3. MEGA Repository Mirror:\n${cLinks[2]?.url || 'MEGA link ready'}`
+        : `Delivery Link (Standard ₹499):\n${sUrl}`;
       alert(`Order approved successfully!\n\n${deliveryMsg}`);
       fetchOrders();
     } catch (err: any) {
@@ -256,6 +259,62 @@ export const AdminPanel = () => {
           </div>
         </div>
 
+        {/* Manual Delivery Quick Actions */}
+        <div className="p-4 rounded-2xl bg-gradient-to-r from-blue-50/70 via-indigo-50/50 to-white border border-[#4F8FF7]/20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-xs">
+          <div>
+            <div className="flex items-center gap-2">
+              <span className="p-1 rounded-md bg-[#4F8FF7] text-white">
+                <Shield className="w-3.5 h-3.5" />
+              </span>
+              <span className="font-bold text-[13.5px] text-gray-900">Manual Delivery Links Quick Dispatch</span>
+            </div>
+            <p className="text-[12px] text-gray-600 mt-0.5">
+              Copy verified fulfillment links to manually paste into WhatsApp, Email, or chat for verified buyers.
+            </p>
+          </div>
+          <div className="flex flex-wrap items-center gap-2 shrink-0">
+            <button
+              type="button"
+              onClick={() => {
+                const cLinks = planDeliveryLinks?.complete?.links || [];
+                const text = `SpidyDashboard Complete Kit (₹799) Delivery Package:
+1. Google Drive Package (Source Code, Reports, PPT, Viva):
+${cLinks[0]?.url || ''}
+
+2. Video Walkthrough & Tour:
+${cLinks[1]?.url || ''}
+
+3. MEGA Download Mirror:
+${cLinks[2]?.url || ''}
+
+Setup guide & license are included in the package. If you need any assistance, reach out directly!`;
+                navigator.clipboard.writeText(text);
+                alert('Copied Complete Kit (₹799) fulfillment message with all 3 links to clipboard!');
+              }}
+              className="px-3.5 py-1.5 rounded-xl bg-white border border-blue-200 hover:border-blue-300 text-[12px] font-semibold text-blue-900 inline-flex items-center gap-1.5 shadow-xs transition-all cursor-pointer"
+            >
+              <Copy className="w-3.5 h-3.5 text-[#4F8FF7]" />
+              <span>Copy ₹799 Kit Links</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                const sUrl = planDeliveryLinks?.standard?.primaryUrl || '';
+                const text = `SpidyDashboard Standard (₹499) Delivery Link:
+${sUrl}
+
+Complete step-by-step setup guide and walkthrough video tour are included in the package.`;
+                navigator.clipboard.writeText(text);
+                alert('Copied Standard (₹499) fulfillment link to clipboard!');
+              }}
+              className="px-3.5 py-1.5 rounded-xl bg-white border border-gray-200 hover:border-gray-300 text-[12px] font-semibold text-gray-800 inline-flex items-center gap-1.5 shadow-xs transition-all cursor-pointer"
+            >
+              <Copy className="w-3.5 h-3.5 text-gray-600" />
+              <span>Copy ₹499 Standard Link</span>
+            </button>
+          </div>
+        </div>
+
         {/* Navigation Tabs */}
         <div className="flex border-b border-gray-200 space-x-6 text-[15px] font-medium">
           <button
@@ -343,17 +402,19 @@ export const AdminPanel = () => {
                           <button
                             onClick={() => {
                               const isComplete = order.plan === 'complete';
+                              const cLinks = order.deliveryLinks?.length ? order.deliveryLinks : planDeliveryLinks?.complete?.links || [];
+                              const sUrl = order.primaryDeliveryUrl || planDeliveryLinks?.standard?.primaryUrl;
                               const link = isComplete
                                 ? `SpidyDashboard Complete Kit (₹799) Delivery Links:
 1. Google Drive Package (Source Code, Reports, PPT, Viva):
-${DELIVERY_LINKS.complete.links[0].url}
+${cLinks[0]?.url || ''}
 
 2. Video Walkthrough & Tour:
-${DELIVERY_LINKS.complete.links[1].url}
+${cLinks[1]?.url || ''}
 
 3. MEGA Download Mirror:
-${DELIVERY_LINKS.complete.links[2].url}`
-                                : DELIVERY_LINKS.standard.primaryUrl;
+${cLinks[2]?.url || ''}`
+                                : `SpidyDashboard Standard (₹499) Delivery Link:\n${sUrl || ''}`;
                               navigator.clipboard.writeText(link);
                               alert(`Copied ${isComplete ? 'Complete Kit (₹799)' : 'Standard (₹499)'} delivery link(s):\n\n${link}`);
                             }}
@@ -512,53 +573,67 @@ ${DELIVERY_LINKS.complete.links[2].url}`
                         {new Date(o.created_at).toLocaleDateString()}
                       </td>
                       <td className="py-3 px-4 text-right">
-                        {o.plan === 'complete' ? (
-                          <div className="flex items-center justify-end gap-1.5">
+                        {o.plan === 'complete' ? (() => {
+                          const cLinks = o.deliveryLinks?.length ? o.deliveryLinks : planDeliveryLinks?.complete?.links || [];
+                          return (
+                            <div className="flex items-center justify-end gap-1.5">
+                              {cLinks[0]?.url && (
+                                <a
+                                  href={cLinks[0].url}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="px-2 py-1 rounded bg-blue-50 text-[11px] font-semibold text-[#4F8FF7] hover:bg-blue-100 transition-colors inline-flex items-center gap-1"
+                                  title="Google Drive Complete Kit"
+                                >
+                                  <Folder className="w-3 h-3" />
+                                  <span>Drive Kit</span>
+                                  <ExternalLink className="w-2.5 h-2.5 opacity-70" />
+                                </a>
+                              )}
+                              {cLinks[1]?.url && (
+                                <a
+                                  href={cLinks[1].url}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="px-2 py-1 rounded bg-indigo-50 text-[11px] font-semibold text-indigo-600 hover:bg-indigo-100 transition-colors inline-flex items-center gap-1"
+                                  title="Walkthrough Video (MP4)"
+                                >
+                                  <Video className="w-3 h-3" />
+                                  <span>Video</span>
+                                  <ExternalLink className="w-2.5 h-2.5 opacity-70" />
+                                </a>
+                              )}
+                              {cLinks[2]?.url && (
+                                <a
+                                  href={cLinks[2].url}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="px-2 py-1 rounded bg-emerald-50 text-[11px] font-semibold text-emerald-700 hover:bg-emerald-100 transition-colors inline-flex items-center gap-1"
+                                  title="MEGA Download Mirror"
+                                >
+                                  <Download className="w-3 h-3" />
+                                  <span>MEGA</span>
+                                  <ExternalLink className="w-2.5 h-2.5 opacity-70" />
+                                </a>
+                              )}
+                            </div>
+                          );
+                        })() : (() => {
+                          const sUrl = o.primaryDeliveryUrl || planDeliveryLinks?.standard?.primaryUrl;
+                          return sUrl ? (
                             <a
-                              href={DELIVERY_LINKS.complete.links[0].url}
+                              href={sUrl}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="px-2 py-1 rounded bg-blue-50 text-[11px] font-semibold text-[#4F8FF7] hover:bg-blue-100 transition-colors inline-flex items-center gap-1"
-                              title="Google Drive Complete Kit"
+                              className="text-[12px] font-semibold text-[#4F8FF7] hover:underline inline-flex items-center gap-1"
                             >
-                              <Folder className="w-3 h-3" />
-                              <span>Drive Kit</span>
-                              <ExternalLink className="w-2.5 h-2.5 opacity-70" />
+                              <span>MEGA Download</span>
+                              <ExternalLink className="w-3.5 h-3.5" />
                             </a>
-                            <a
-                              href={DELIVERY_LINKS.complete.links[1].url}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="px-2 py-1 rounded bg-indigo-50 text-[11px] font-semibold text-indigo-600 hover:bg-indigo-100 transition-colors inline-flex items-center gap-1"
-                              title="Walkthrough Video (MP4)"
-                            >
-                              <Video className="w-3 h-3" />
-                              <span>Video</span>
-                              <ExternalLink className="w-2.5 h-2.5 opacity-70" />
-                            </a>
-                            <a
-                              href={DELIVERY_LINKS.complete.links[2].url}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="px-2 py-1 rounded bg-emerald-50 text-[11px] font-semibold text-emerald-700 hover:bg-emerald-100 transition-colors inline-flex items-center gap-1"
-                              title="MEGA Download Mirror"
-                            >
-                              <Download className="w-3 h-3" />
-                              <span>MEGA</span>
-                              <ExternalLink className="w-2.5 h-2.5 opacity-70" />
-                            </a>
-                          </div>
-                        ) : (
-                          <a
-                            href={DELIVERY_LINKS.standard.primaryUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-[12px] font-semibold text-[#4F8FF7] hover:underline inline-flex items-center gap-1"
-                          >
-                            <span>MEGA Download</span>
-                            <ExternalLink className="w-3.5 h-3.5" />
-                          </a>
-                        )}
+                          ) : (
+                            <span className="text-gray-400 text-[11px]">Pending Approval</span>
+                          );
+                        })()}
                       </td>
                     </tr>
                   ))}

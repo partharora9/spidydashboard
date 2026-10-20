@@ -13,7 +13,6 @@ import {
   Video,
   Sparkles,
 } from 'lucide-react';
-import { getDeliveryLinksForPlan } from '../../config/deliveryLinks';
 
 export const RecoveryPage = () => {
   const [step, setStep] = useState<'REQUEST' | 'VERIFY' | 'SUCCESS'>('REQUEST');
@@ -199,8 +198,21 @@ export const RecoveryPage = () => {
 
           {step === 'SUCCESS' && downloadData && (() => {
             const isComplete = downloadData.plan === 'complete' || reference.toUpperCase().includes('COMPLETE');
-            const deliveryConfig = getDeliveryLinksForPlan(isComplete ? 'complete' : 'standard');
-            const links = downloadData.accessUrls || deliveryConfig.links;
+            const links: any[] = downloadData.accessUrls || (downloadData.directAccessUrl ? [{
+              id: 'direct-access',
+              label: isComplete ? 'Complete Package Download' : 'MEGA Dashboard Repository Download',
+              url: downloadData.directAccessUrl,
+              description: 'Direct repository archive download.',
+              badge: 'Direct Download',
+              iconType: 'mega',
+            }] : (downloadData.downloadUrl ? [{
+              id: 'token-download',
+              label: 'Secure Platform Package Download',
+              url: downloadData.downloadUrl,
+              description: 'One-time secure download link.',
+              badge: 'Direct Download',
+              iconType: 'mega',
+            }] : []));
 
             return (
               <div className="space-y-5 text-center">

@@ -13,7 +13,6 @@ import {
   Video,
   Sparkles,
 } from 'lucide-react';
-import { getDeliveryLinksForPlan } from '../../config/deliveryLinks';
 
 interface OrderStatusPageProps {
   reference: string;
@@ -150,22 +149,30 @@ export const OrderStatusPage = ({ reference }: OrderStatusPageProps) => {
 
               {/* Status Specific Actions */}
               {order.status === 'approved' && (() => {
-                const deliveryConfig = getDeliveryLinksForPlan(order.plan);
                 const isComplete = order.plan === 'complete';
-                const linksToDisplay = deliveryConfig.links;
+                const linksToDisplay: any[] = order.accessLinks || (order.accessUrl ? [{
+                  id: 'direct-mega',
+                  label: isComplete ? 'Complete Package Download' : 'MEGA Dashboard Repository Download',
+                  url: order.accessUrl,
+                  description: isComplete
+                    ? 'Complete kit archive download.'
+                    : 'Complete step-by-step setup guide, architecture documentation, and walkthrough video tour archive.',
+                  badge: 'Direct Download',
+                  iconType: 'mega',
+                }] : []);
 
                 const copyAll = () => {
                   const allText = isComplete
                     ? `SpidyDashboard Complete Kit (₹799) Delivery Package:
 1. Google Drive Complete Kit (Source Code, IEEE Report, PPTX, Viva):
-${linksToDisplay[0]?.url}
+${linksToDisplay[0]?.url || ''}
 
 2. Video Walkthrough & Architecture Tour:
-${linksToDisplay[1]?.url}
+${linksToDisplay[1]?.url || ''}
 
 3. MEGA Repository Mirror:
-${linksToDisplay[2]?.url}`
-                    : linksToDisplay[0]?.url;
+${linksToDisplay[2]?.url || ''}`
+                    : linksToDisplay[0]?.url || '';
 
                   navigator.clipboard.writeText(allText);
                   setCopiedAllLinks(true);
@@ -317,15 +324,15 @@ ${linksToDisplay[2]?.url}`
                 <div className="p-6 rounded-2xl bg-blue-50/90 border border-blue-200 text-[13px] text-blue-900 space-y-4">
                   <div className="flex items-center gap-2 font-semibold text-blue-950 text-[15px]">
                     <Clock className="w-5 h-5 text-blue-600" />
-                    <span>Payment Recorded — Under Fast Verification</span>
+                    <span>Payment Recorded — Under Manual Verification</span>
                   </div>
                   <p className="leading-relaxed">
-                    Your 12-digit UTR has been submitted. Parth Arora (SOC Analyst) will reconcile this with the bank statement.
+                    Your 12-digit UTR has been submitted. Parth Arora (SOC Analyst) will manually verify this transaction against bank records.
                   </p>
 
                   <div className="pt-2 border-t border-blue-200/80 text-[12px] text-blue-800">
                     <p>
-                      🔒 Once reconciled, your access credentials and repository link will be activated here and dispatched directly to your registered email.
+                      🔒 To ensure licensing and protect package integrity, links are not provided before payment verification. Once your payment is verified, Parth Arora will provide your delivery links manually to your registered email.
                     </p>
                   </div>
                 </div>

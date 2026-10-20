@@ -17,7 +17,6 @@ import {
   Sparkles,
 } from 'lucide-react';
 import type { Plan } from '../../data/plans';
-import { getDeliveryLinksForPlan } from '../../config/deliveryLinks';
 
 interface CheckoutModalProps {
   isOpen: boolean;
@@ -38,6 +37,7 @@ interface OrderData {
   vpa?: string;
   qrCodeDataUrl: string;
   accessUrl?: string;
+  accessLinks?: any[];
 }
 
 export const CheckoutModal = ({ isOpen, onClose, plan }: CheckoutModalProps) => {
@@ -86,7 +86,7 @@ export const CheckoutModal = ({ isOpen, onClose, plan }: CheckoutModalProps) => 
         if (!res.ok) return;
         const data = await res.json();
         if (data.status === 'approved' && isMounted) {
-          setOrder((prev) => (prev ? { ...prev, accessUrl: data.accessUrl } : prev));
+          setOrder((prev) => (prev ? { ...prev, accessUrl: data.accessUrl, accessLinks: data.accessLinks } : prev));
           setStep('APPROVED');
           clearInterval(pollInterval);
         }
@@ -180,8 +180,9 @@ export const CheckoutModal = ({ isOpen, onClose, plan }: CheckoutModalProps) => 
       }
 
       const accessUrl = data?.accessUrl;
-      if (accessUrl) {
-        setOrder((prev) => (prev ? { ...prev, accessUrl } : prev));
+      const accessLinks = data?.accessLinks;
+      if (accessUrl || accessLinks) {
+        setOrder((prev) => (prev ? { ...prev, accessUrl, accessLinks } : prev));
         setStep('APPROVED');
       } else {
         setStep('PENDING');
@@ -507,8 +508,7 @@ export const CheckoutModal = ({ isOpen, onClose, plan }: CheckoutModalProps) => 
               </div>
 
               <p className="text-[14px] text-gray-600 leading-relaxed max-w-[420px] mx-auto">
-                Delivery happens after I verify your payment against my bank statement (usually within a few hours). You
-                will receive an email confirmation at <strong>{email}</strong> with your secure download link.
+                Fulfillment links are strictly not provided before payment verification. Parth Arora will manually verify your 12-digit UTR against bank records and provide your delivery links to <strong>{email}</strong>.
               </p>
 
               <div className="pt-4 flex flex-col sm:flex-row gap-3 justify-center">
@@ -532,8 +532,14 @@ export const CheckoutModal = ({ isOpen, onClose, plan }: CheckoutModalProps) => 
           {/* STEP 4: APPROVED & DELIVERY ACCESS */}
           {step === 'APPROVED' && order && (() => {
             const isComplete = (order.planName || plan.name).toLowerCase().includes('complete') || plan.id === 'complete';
-            const deliveryConfig = getDeliveryLinksForPlan(isComplete ? 'complete' : 'standard');
-            const links = deliveryConfig.links;
+            const links: any[] = order.accessLinks || (order.accessUrl ? [{
+              id: 'direct-access',
+              label: isComplete ? 'Complete Package Download' : 'MEGA Dashboard Repository Download',
+              url: order.accessUrl,
+              description: 'Direct repository archive download.',
+              badge: 'Direct Download',
+              iconType: 'mega',
+            }] : []);
 
             return (
               <div className="text-center py-4 space-y-4">

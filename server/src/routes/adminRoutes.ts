@@ -75,11 +75,14 @@ router.get('/admin/orders', (req: Request, res: Response) => {
   const enriched = orders.map((order) => {
     const payment = db.getPaymentByOrderId(order.id);
     const purchase = db.getPurchaseByOrderId(order.id);
+    const planConfig = SERVER_PLANS[order.plan];
     return {
       ...order,
       formattedAmount: PaiseAllocator.formatAmountINR(order.total_amount_cents),
       payment: payment || null,
       purchase: purchase || null,
+      deliveryLinks: planConfig?.directAccessUrls || [],
+      primaryDeliveryUrl: planConfig?.directAccessUrl || '',
     };
   });
 
@@ -91,6 +94,20 @@ router.get('/admin/orders', (req: Request, res: Response) => {
       approved: db.getAllOrders().filter((o) => o.status === 'approved').length,
       created: db.getAllOrders().filter((o) => o.status === 'created').length,
       rejected: db.getAllOrders().filter((o) => o.status === 'rejected').length,
+    },
+    planDeliveryLinks: {
+      standard: {
+        planId: 'standard',
+        name: SERVER_PLANS.standard?.name || 'Standard Plan',
+        primaryUrl: SERVER_PLANS.standard?.directAccessUrl || '',
+        links: SERVER_PLANS.standard?.directAccessUrls || [],
+      },
+      complete: {
+        planId: 'complete',
+        name: SERVER_PLANS.complete?.name || 'Complete Kit',
+        primaryUrl: SERVER_PLANS.complete?.directAccessUrl || '',
+        links: SERVER_PLANS.complete?.directAccessUrls || [],
+      },
     },
   });
 });
