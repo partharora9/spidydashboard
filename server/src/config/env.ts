@@ -69,16 +69,40 @@ const envSchema = z.object({
 export type EnvConfig = z.infer<typeof envSchema>;
 
 function parseEnv(): EnvConfig {
-  const result = envSchema.safeParse(process.env);
-  if (!result.success) {
-    console.warn('⚠️ Environment validation warning: using fallback defaults.');
-    return envSchema.parse({
-      ...process.env,
-      MERCHANT_UPI_ID: process.env.MERCHANT_UPI_ID || '8700383626@axl',
-      ADMIN_SECRET: process.env.ADMIN_SECRET || 'dev-admin-secret-key-32-chars-long!',
-    });
+  const cleanEnv: Record<string, any> = {};
+  for (const [key, val] of Object.entries(process.env)) {
+    if (val !== undefined && val !== '') {
+      cleanEnv[key] = val;
+    }
   }
-  return result.data;
+
+  const result = envSchema.safeParse(cleanEnv);
+  if (result.success) {
+    return result.data;
+  }
+
+  console.warn('⚠️ Environment validation warning: using safe fallback defaults.');
+  return {
+    NODE_ENV: (process.env.NODE_ENV as any) || 'production',
+    PORT: Number(process.env.PORT) || 4000,
+    CLIENT_ORIGIN: process.env.CLIENT_ORIGIN || 'http://localhost:5173',
+    MERCHANT_UPI_ID: process.env.MERCHANT_UPI_ID || '8700383626@axl',
+    MERCHANT_NAME: process.env.MERCHANT_NAME || 'Parth Arora',
+    UNIQUE_AMOUNT_MATCHING: false,
+    ADMIN_SECRET: process.env.ADMIN_SECRET || 'dev-admin-secret-key-32-chars-long!',
+    ADMIN_SESSION_SECRET: process.env.ADMIN_SESSION_SECRET || 'super-secret-session-key-32chars-min!',
+    STORAGE_PROVIDER: 'local',
+    S3_BUCKET_NAME: process.env.S3_BUCKET_NAME || 'spidydashboard-releases',
+    S3_REGION: process.env.S3_REGION || 'auto',
+    EMAIL_PROVIDER: 'resend',
+    EMAIL_FROM: process.env.EMAIL_FROM || 'SpidyDashboard <hello@spidydashboard.com>',
+    ORDER_EXPIRY_MINUTES: Number(process.env.ORDER_EXPIRY_MINUTES) || 30,
+    DOWNLOAD_TOKEN_EXPIRY_MINUTES: Number(process.env.DOWNLOAD_TOKEN_EXPIRY_MINUTES) || 2880,
+    MAX_DOWNLOADS_PER_TOKEN: Number(process.env.MAX_DOWNLOADS_PER_TOKEN) || 3,
+    OTP_EXPIRY_MINUTES: Number(process.env.OTP_EXPIRY_MINUTES) || 10,
+    GMAIL_AUTO_RESPONDER: false,
+    ...cleanEnv,
+  } as unknown as EnvConfig;
 }
 
 export const env = parseEnv();

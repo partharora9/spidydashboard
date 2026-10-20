@@ -129,7 +129,7 @@ export default async function handler(req: any, res: any) {
     return res.end(JSON.stringify(payload));
   } catch (err: any) {
     console.error('[Orders API] Order creation error:', err);
-    const errPayload = { error: 'Failed to initiate order. Please try again.' };
+    const errPayload = { error: err?.message || 'Failed to initiate order. Please try again.' };
     if (res.status && res.json) return res.status(500).json(errPayload);
     res.statusCode = 500;
     res.setHeader('Content-Type', 'application/json');
