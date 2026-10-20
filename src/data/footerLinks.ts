@@ -34,7 +34,6 @@ export const footerColumnsData: FooterColumnData[] = [
       { label: 'About SpidyDashboard', href: '/about' },
       { label: 'Meet the Developer', href: '/about#developer' },
       { label: 'Security & Privacy', href: '/about#security' },
-      { label: 'parthxcore@gmail.com', href: 'mailto:parthxcore@gmail.com' },
     ],
   },
   {
