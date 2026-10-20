@@ -11,7 +11,6 @@ import { z } from 'zod';
 import crypto from 'crypto';
 import { db } from '../db';
 import { SERVER_PLANS, PLAN_ID, BASE_PRICE_PAISE, getPlanOrThrow } from '../config/plans';
-import { PaiseAllocator } from '../services/paiseAllocator';
 import { manualUpiProvider } from '../services/payment/ManualUpiProvider';
 import { emailService, EmailTemplates } from '../services/email/EmailProvider';
 import { orderCreationLimiter, utrSubmissionLimiter, statusPollingLimiter } from '../middleware/rateLimiter';

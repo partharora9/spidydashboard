@@ -41,12 +41,21 @@ app.get('/api/health', (_req: Request, res: Response) => {
   });
 });
 
-// 6. Mount API Routers
+// 6. Mount API Routers (Mount on /api and root / for dual compatibility)
 app.use('/api', orderRoutes);
+app.use('/', orderRoutes);
+
 app.use('/api', downloadRoutes);
+app.use('/', downloadRoutes);
+
 app.use('/api', recoveryRoutes);
+app.use('/', recoveryRoutes);
+
 app.use('/api', privacyRoutes);
+app.use('/', privacyRoutes);
+
 app.use('/api', adminRoutes);
+app.use('/', adminRoutes);
 
 // Instant Inquiry / Access Request Endpoint (Uses deliverability-optimized sender)
 app.post('/api/inquiry', async (req: Request, res: Response) => {
@@ -159,8 +168,14 @@ app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
   });
 });
 
-// Start listening if run directly
-if (process.env.NODE_ENV !== 'test') {
+// Start listening if run directly (standalone server)
+const isVercel = Boolean(process.env.VERCEL);
+const isTest = process.env.NODE_ENV === 'test';
+const isDirectRun =
+  Boolean(process.env.RUN_SERVER) ||
+  (process.argv[1] ? /server\.[jt]s$/.test(process.argv[1]) : false);
+
+if (!isVercel && !isTest && isDirectRun) {
   const PORT = env.PORT;
   app.listen(PORT, () => {
     console.log(`\n🛡️  SpidyDashboard Checkout Engine running on port ${PORT}`);

@@ -31,6 +31,7 @@ function assert(condition: boolean, testName: string) {
 }
 
 async function runTestSuite() {
+  db.clear();
   console.log('\n============================================================');
   console.log('🛡️  RUNNING SPIDYDASHBOARD SECURITY & BACKEND TEST SUITE');
   console.log('============================================================\n');

@@ -6,16 +6,13 @@
  *   npx tsx server/scripts/uploadRelease.ts
  */
 
-import fs from 'fs';
-import path from 'path';
-import crypto from 'crypto';
 import { storage } from '../src/services/storage/StorageProvider';
 import { SERVER_PLANS } from '../src/config/plans';
 
 async function stageReleases() {
   console.log('📦 Starting SpidyDashboard Release Asset Packaging...');
 
-  for (const [key, plan] of Object.entries(SERVER_PLANS)) {
+  for (const [, plan] of Object.entries(SERVER_PLANS)) {
     const fileName = plan.releaseFileName;
     console.log(`\nProcessing ${plan.name} (${fileName})...`);
 

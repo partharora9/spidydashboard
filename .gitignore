@@ -21,6 +21,7 @@ out
 *.env
 !.env.example
 .spidy_requests_cache.json
+.spidy_orders_cache.json
 
 # Logs
 logs

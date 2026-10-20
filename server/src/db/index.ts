@@ -1,6 +1,13 @@
 import crypto from 'crypto';
+import fs from 'fs';
+import path from 'path';
 
 const uuidv4 = () => crypto.randomUUID();
+
+const DB_STORAGE_FILE = path.join(
+  process.platform === 'win32' ? process.cwd() : '/tmp',
+  '.spidy_orders_cache.json'
+);
 
 export interface OrderRow {
   id: string;
@@ -100,20 +107,123 @@ class InMemoryDatabase {
   otpCodes: Map<string, OtpCodeRow> = new Map();
   adminAudits: AdminAuditRow[] = [];
 
+  constructor() {
+    this.load();
+  }
+
+  clear(): void {
+    this.orders.clear();
+    this.payments.clear();
+    this.purchases.clear();
+    this.downloadTokens.clear();
+    this.otpCodes.clear();
+    this.adminAudits = [];
+    try {
+      if (fs.existsSync(DB_STORAGE_FILE)) {
+        fs.unlinkSync(DB_STORAGE_FILE);
+      }
+    } catch {
+      // Best-effort cache cleanup
+    }
+  }
+
+  private load(): void {
+    try {
+      if (fs.existsSync(DB_STORAGE_FILE)) {
+        const raw = fs.readFileSync(DB_STORAGE_FILE, 'utf-8');
+        const data = JSON.parse(raw);
+        if (data.orders) {
+          for (const [k, v] of Object.entries(data.orders)) {
+            const existing = this.orders.get(k);
+            if (existing) {
+              Object.assign(existing, v);
+            } else {
+              this.orders.set(k, v as OrderRow);
+            }
+          }
+        }
+        if (data.payments) {
+          for (const [k, v] of Object.entries(data.payments)) {
+            const existing = this.payments.get(k);
+            if (existing) {
+              Object.assign(existing, v);
+            } else {
+              this.payments.set(k, v as PaymentRow);
+            }
+          }
+        }
+        if (data.purchases) {
+          for (const [k, v] of Object.entries(data.purchases)) {
+            const existing = this.purchases.get(k);
+            if (existing) {
+              Object.assign(existing, v);
+            } else {
+              this.purchases.set(k, v as PurchaseRow);
+            }
+          }
+        }
+        if (data.downloadTokens) {
+          for (const [k, v] of Object.entries(data.downloadTokens)) {
+            const existing = this.downloadTokens.get(k);
+            if (existing) {
+              Object.assign(existing, v);
+            } else {
+              this.downloadTokens.set(k, v as DownloadTokenRow);
+            }
+          }
+        }
+        if (data.otpCodes) {
+          for (const [k, v] of Object.entries(data.otpCodes)) {
+            const existing = this.otpCodes.get(k);
+            if (existing) {
+              Object.assign(existing, v);
+            } else {
+              this.otpCodes.set(k, v as OtpCodeRow);
+            }
+          }
+        }
+        if (Array.isArray(data.adminAudits) && this.adminAudits.length === 0) {
+          this.adminAudits = data.adminAudits;
+        }
+      }
+    } catch {
+      // Best-effort in-memory fallback
+    }
+  }
+
+  private persist(): void {
+    try {
+      const data = {
+        orders: Object.fromEntries(this.orders),
+        payments: Object.fromEntries(this.payments),
+        purchases: Object.fromEntries(this.purchases),
+        downloadTokens: Object.fromEntries(this.downloadTokens),
+        otpCodes: Object.fromEntries(this.otpCodes),
+        adminAudits: this.adminAudits,
+      };
+      fs.writeFileSync(DB_STORAGE_FILE, JSON.stringify(data), 'utf-8');
+    } catch {
+      // Best-effort in constrained environments
+    }
+  }
+
   // Orders
   createOrder(data: Omit<OrderRow, 'id' | 'created_at'>): OrderRow {
     const id = uuidv4();
     const created_at = new Date().toISOString();
     const order: OrderRow = { ...data, id, created_at };
     this.orders.set(id, order);
+    this.persist();
     return order;
   }
 
   getOrderById(id: string): OrderRow | null {
+    this.load();
     return this.orders.get(id) || null;
   }
 
   getOrderByReference(reference: string): OrderRow | null {
+    this.load();
     for (const order of this.orders.values()) {
       if (order.reference.toUpperCase() === reference.toUpperCase()) {
         return order;
@@ -145,6 +255,7 @@ class InMemoryDatabase {
     status: OrderRow['status'],
     extras?: { approved_by?: string; rejection_reason?: string }
   ): OrderRow | null {
+    this.load();
     const order = this.orders.get(orderId);
     if (!order) return null;
     order.status = status;
@@ -156,6 +267,7 @@ class InMemoryDatabase {
       order.rejection_reason = extras?.rejection_reason || 'Rejected by administrator';
     }
     this.orders.set(orderId, order);
+    this.persist();
     return order;
   }
 
@@ -164,10 +276,12 @@ class InMemoryDatabase {
     const id = uuidv4();
     const payment: PaymentRow = { ...data, id };
     this.payments.set(id, payment);
+    this.persist();
     return payment;
   }
 
   getPaymentByOrderId(orderId: string): PaymentRow | null {
+    this.load();
     for (const payment of this.payments.values()) {
       if (payment.order_id === orderId) {
         return payment;
@@ -177,6 +291,7 @@ class InMemoryDatabase {
   }
 
   getPaymentByUtr(utr: string): PaymentRow | null {
+    this.load();
     const cleanUtr = utr.trim();
     for (const payment of this.payments.values()) {
       if (payment.utr && payment.utr.trim() === cleanUtr) {
@@ -187,6 +302,7 @@ class InMemoryDatabase {
   }
 
   updatePaymentUtr(orderId: string, utr: string, receiptKey?: string, mimeType?: string, screenshotData?: string): PaymentRow {
+    this.load();
     let payment = this.getPaymentByOrderId(orderId);
     if (!payment) {
       payment = this.createPayment({
@@ -206,6 +322,7 @@ class InMemoryDatabase {
       if (mimeType) payment.receipt_mime_type = mimeType;
       if (screenshotData) payment.screenshot_data = screenshotData;
       this.payments.set(payment.id, payment);
+      this.persist();
     }
     return payment;
   }
@@ -216,10 +333,12 @@ class InMemoryDatabase {
     const created_at = new Date().toISOString();
     const purchase: PurchaseRow = { ...data, id, created_at };
     this.purchases.set(id, purchase);
+    this.persist();
     return purchase;
   }
 
   getPurchaseByOrderId(orderId: string): PurchaseRow | null {
+    this.load();
     for (const p of this.purchases.values()) {
       if (p.order_id === orderId) return p;
     }
@@ -238,10 +357,12 @@ class InMemoryDatabase {
       created_at,
     };
     this.downloadTokens.set(id, token);
+    this.persist();
     return token;
   }
 
   getDownloadTokenByHash(tokenHash: string): DownloadTokenRow | null {
+    this.load();
     for (const t of this.downloadTokens.values()) {
       if (t.token_hash === tokenHash) return t;
     }
@@ -249,16 +370,19 @@ class InMemoryDatabase {
   }
 
   incrementDownloadCount(tokenId: string, ipAddress?: string): DownloadTokenRow | null {
+    this.load();
     const token = this.downloadTokens.get(tokenId);
     if (!token) return null;
     token.download_count += 1;
     token.last_downloaded_at = new Date().toISOString();
     if (ipAddress) token.last_download_ip = ipAddress;
     this.downloadTokens.set(tokenId, token);
+    this.persist();
     return token;
   }
 
   revokeDownloadTokensForOrder(orderId: string, reason: string): void {
+    this.load();
     for (const t of this.downloadTokens.values()) {
       if (t.order_id === orderId) {
         t.revoked = true;
@@ -266,6 +390,7 @@ class InMemoryDatabase {
         this.downloadTokens.set(t.id, t);
       }
     }
+    this.persist();
   }
 
   // OTP Codes
@@ -281,10 +406,12 @@ class InMemoryDatabase {
       created_at,
     };
     this.otpCodes.set(id, row);
+    this.persist();
     return row;
   }
 
   getLatestValidOtp(targetEmail: string, purpose: OtpCodeRow['purpose']): OtpCodeRow | null {
+    this.load();
     const now = new Date();
     const matches: OtpCodeRow[] = [];
     for (const o of this.otpCodes.values()) {
@@ -302,18 +429,22 @@ class InMemoryDatabase {
   }
 
   consumeOtp(id: string): void {
+    this.load();
     const row = this.otpCodes.get(id);
     if (row) {
       row.consumed = true;
       this.otpCodes.set(id, row);
+      this.persist();
     }
   }
 
   incrementOtpAttempt(id: string): void {
+    this.load();
     const row = this.otpCodes.get(id);
     if (row) {
       row.attempts += 1;
       this.otpCodes.set(id, row);
+      this.persist();
     }
   }
 
@@ -323,15 +454,18 @@ class InMemoryDatabase {
     const timestamp = new Date().toISOString();
     const audit: AdminAuditRow = { ...data, id, timestamp };
     this.adminAudits.unshift(audit); // Most recent first
+    this.persist();
     return audit;
   }
 
   getAuditLogs(limit = 100): AdminAuditRow[] {
+    this.load();
     return this.adminAudits.slice(0, limit);
   }
 
   // GDPR Anonymization
   anonymizeUserData(email: string): { ordersAnonymized: number } {
+    this.load();
     const norm = email.toLowerCase().trim();
     let count = 0;
     const anonEmail = `anonymized-${crypto.randomBytes(6).toString('hex')}@privacy.local`;
@@ -355,6 +489,7 @@ class InMemoryDatabase {
       }
     }
 
+    this.persist();
     return { ordersAnonymized: count };
   }
 }

@@ -37,7 +37,13 @@ export const corsMiddleware = cors({
     if (!origin) return callback(null, true);
 
     const allowed = [env.CLIENT_ORIGIN, 'http://localhost:5173', 'http://127.0.0.1:5173'];
-    if (allowed.includes(origin)) {
+    if (
+      allowed.includes(origin) ||
+      origin.includes('localhost') ||
+      origin.includes('127.0.0.1') ||
+      origin.endsWith('.vercel.app') ||
+      origin.includes('spidydashboard.com')
+    ) {
       callback(null, true);
     } else {
       callback(new Error(`CORS blocked for unauthorized origin: ${origin}`));

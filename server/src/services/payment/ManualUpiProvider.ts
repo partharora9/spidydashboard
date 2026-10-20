@@ -88,7 +88,10 @@ export class ManualUpiProvider implements PaymentProvider {
     db.updatePaymentUtr(order.id, utr, undefined, data.screenshotMimeType, data.screenshotData);
 
     // Transition order state to pending_verification
-    db.updateOrderStatus(order.id, 'pending_verification');
+    const updated = db.updateOrderStatus(order.id, 'pending_verification');
+    if (updated) {
+      order.status = 'pending_verification';
+    }
 
     // Create audit log entry
     db.createAudit({
