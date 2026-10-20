@@ -84,6 +84,24 @@ npm run preview
 
 ---
 
+## 🧪 CI Checks & Verification
+
+To verify all checks locally before pushing to git:
+```bash
+# Run full verification suite (lint, type-check, production build, Playwright E2E)
+npm run verify
+```
+
+Individual checks:
+- **Lint:** `npm run lint` (Oxlint)
+- **Type Check:** `npm run type-check` (`tsc -b`)
+- **Build:** `npm run build` (`tsc -b && vite build`)
+- **E2E Tests:** `npm run test:e2e` (Playwright across mobile & desktop)
+
+All commits are continuously validated on GitHub Actions and Vercel with strict zero-error checks.
+
+---
+
 ## 🔒 Security & Privacy
 
 - Sensitive environment variables are kept strictly out of git version control via `.gitignore`.

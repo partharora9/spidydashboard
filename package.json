@@ -9,7 +9,10 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "type-check": "tsc -b",
     "lint": "oxlint",
+    "test:e2e": "playwright test",
+    "verify": "npm run lint && npm run type-check && npm run build && npm run test:e2e",
     "preview": "vite preview",
     "server": "tsx server/src/server.ts",
     "test:backend": "tsx server/scripts/testSuite.ts",
