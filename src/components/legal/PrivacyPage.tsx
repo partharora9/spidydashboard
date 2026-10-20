@@ -167,7 +167,7 @@ export const PrivacyPage = () => {
           <br />
           <strong>Parth Arora (SOC Analyst)</strong>
           <br />
-          Email: <a href="mailto:hello@spidydashboard.com" className="text-[#4F8FF7]">hello@spidydashboard.com</a>
+          Email: <a href="mailto:parthxcore@gmail.com" className="text-[#4F8FF7]">parthxcore@gmail.com</a>
         </p>
       </section>
     </LegalPageLayout>

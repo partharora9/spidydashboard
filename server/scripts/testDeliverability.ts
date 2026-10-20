@@ -458,7 +458,7 @@ async function runDeliverabilityTestSuite() {
   // -------------------------------------------------------------------------
   console.log(`\n${BOLD}10. Zero-PII Audit (Frontend Bundle & Repository Leak Check)${RESET}`);
   {
-    const targetString = 'parthxcore@gmail.com';
+    const targetString = 'partharora06e@gmail.com';
     let leakCount = 0;
     const scannedPaths: string[] = [];
 
@@ -503,7 +503,7 @@ async function runDeliverabilityTestSuite() {
 
     assert(
       leakCount === 0,
-      `Zero personal Gmail address leaks across ${scannedPaths.length} production files & bundles (Found: ${leakCount})`
+      `Zero private owner inbox leaks across ${scannedPaths.length} production files & bundles (Found: ${leakCount})`
     );
   }
 

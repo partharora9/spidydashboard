@@ -13,9 +13,9 @@ export const socialLinks: SocialLink[] = [
   {
     id: 'email',
     name: 'Email',
-    url: 'mailto:hello@spidydashboard.com',
-    label: 'hello@spidydashboard.com',
-    ariaLabel: 'Email SpidyDashboard directly at hello@spidydashboard.com',
+    url: 'mailto:parthxcore@gmail.com',
+    label: 'parthxcore@gmail.com',
+    ariaLabel: 'Email SpidyDashboard directly at parthxcore@gmail.com',
     descriptor: 'Direct inquiries, purchase verification, and technical support.',
     actionText: 'Email SpidyDashboard',
     iconType: 'email',

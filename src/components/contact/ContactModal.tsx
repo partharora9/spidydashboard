@@ -28,7 +28,7 @@ export const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
   const [error, setError] = useState<string | null>(null);
 
   const handleCopyEmail = () => {
-    navigator.clipboard.writeText('hello@spidydashboard.com');
+    navigator.clipboard.writeText('parthxcore@gmail.com');
     setCopied(true);
     setTimeout(() => setCopied(false), 2500);
   };
@@ -68,17 +68,17 @@ export const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
       if (res.ok) {
         setSubmitted(true);
       } else {
-        setError(data.error || 'Failed to dispatch message. You can email hello@spidydashboard.com directly.');
+        setError(data.error || 'Failed to dispatch message. You can email parthxcore@gmail.com directly.');
       }
     } catch {
-      setError('Network connection error. Please email hello@spidydashboard.com directly.');
+      setError('Network connection error. Please email parthxcore@gmail.com directly.');
     } finally {
       setSubmitting(false);
     }
   };
 
   const handleOpenGmail = () => {
-    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=hello@spidydashboard.com&su=${encodeURIComponent(
+    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=parthxcore@gmail.com&su=${encodeURIComponent(
       'Inquiry: SpidyDashboard Student Edition'
     )}`;
     window.open(gmailUrl, '_blank', 'noopener,noreferrer');
@@ -142,7 +142,7 @@ export const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
               </span>
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <div className="font-mono text-[16px] sm:text-[17px] font-bold text-[#0B0B14] select-all break-all">
-                  hello@spidydashboard.com
+                  parthxcore@gmail.com
                 </div>
 
                 <div className="flex items-center gap-2">
@@ -183,7 +183,7 @@ export const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
                 </button>
 
                 <a
-                  href="mailto:hello@spidydashboard.com?subject=Inquiry: SpidyDashboard OSINT"
+                  href="mailto:parthxcore@gmail.com?subject=Inquiry: SpidyDashboard OSINT"
                   className="px-4 py-2 rounded-xl bg-white hover:bg-gray-100 text-gray-700 border border-gray-200 text-[13px] font-medium inline-flex items-center gap-1.5 transition-colors"
                 >
                   <Mail className="w-3.5 h-3.5 text-gray-500" />

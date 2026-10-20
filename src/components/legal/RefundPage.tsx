@@ -35,7 +35,7 @@ export const RefundPage = () => {
           <br />
           <strong>Parth Arora (SOC Analyst)</strong>
           <br />
-          Email: <a href="mailto:hello@spidydashboard.com" className="text-[#4F8FF7] hover:underline font-semibold">hello@spidydashboard.com</a>
+          Email: <a href="mailto:parthxcore@gmail.com" className="text-[#4F8FF7] hover:underline font-semibold">parthxcore@gmail.com</a>
         </p>
       </section>
     </LegalPageLayout>

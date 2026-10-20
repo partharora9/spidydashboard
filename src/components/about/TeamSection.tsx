@@ -80,10 +80,10 @@ export const TeamSection = () => {
         <p className="font-sans text-[15px] sm:text-[16px] text-[#555555]">
           Want to build something together or buy?{' '}
           <a
-            href="mailto:hello@spidydashboard.com?subject=Inquiry to Parth Arora (SpidyDashboard)"
+            href="mailto:parthxcore@gmail.com?subject=Inquiry to Parth Arora (SpidyDashboard)"
             className="text-[#4F8FF7] hover:underline font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-[#4F8FF7]/40 rounded px-1"
           >
-            Connect on hello@spidydashboard.com
+            Connect on parthxcore@gmail.com
           </a>
         </p>
       </motion.div>

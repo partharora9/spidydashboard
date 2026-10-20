@@ -79,7 +79,7 @@ export const TermsPage = () => {
           <br />
           <strong>Parth Arora</strong>
           <br />
-          Email: <a href="mailto:hello@spidydashboard.com" className="text-[#4F8FF7]">hello@spidydashboard.com</a>
+          Email: <a href="mailto:parthxcore@gmail.com" className="text-[#4F8FF7]">parthxcore@gmail.com</a>
           <br />
           Portfolio: <a href="https://partharora-soc.vercel.app/" target="_blank" className="text-[#4F8FF7]">partharora-soc.vercel.app</a>
         </p>

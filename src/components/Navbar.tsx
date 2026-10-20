@@ -93,7 +93,7 @@ export const dropdownData: Record<string, DropdownItem[]> = {
     },
     {
       title: 'Contact Developer',
-      desc: 'Direct email: hello@spidydashboard.com',
+      desc: 'Direct email: parthxcore@gmail.com',
       icon: <Mail className="w-4 h-4 text-[#4F8FF7]" />,
       href: '#contact-developer',
     },

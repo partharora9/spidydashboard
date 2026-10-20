@@ -340,8 +340,8 @@ python sf.py -s targetcorp.com -u footprint -o json > results.json`}
             <h4 className="font-semibold text-blue-950">Need Deployment Help or Technical Support?</h4>
             <p className="mt-1 text-blue-800">
               Reach out directly to creator Parth Arora (SOC Analyst) at{' '}
-              <a href="mailto:hello@spidydashboard.com" className="font-semibold underline hover:text-blue-900">
-                hello@spidydashboard.com
+              <a href="mailto:parthxcore@gmail.com" className="font-semibold underline hover:text-blue-900">
+                parthxcore@gmail.com
               </a>{' '}
               for instant troubleshooting, module integration, or custom setup guidance.
             </p>

@@ -169,7 +169,7 @@ test.describe('Mobile Responsiveness & Layout Quality Suite', () => {
     }
 
     // Verify dedicated domain email contact link is rendered
-    const emailLink = footer.locator('a[href^="mailto:hello@spidydashboard.com"]').first();
+    const emailLink = footer.locator('a[href^="mailto:parthxcore@gmail.com"]').first();
     await expect(emailLink).toBeVisible();
   });
 

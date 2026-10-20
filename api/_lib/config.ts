@@ -22,7 +22,7 @@ export function getEmailConfig(): AppEmailConfig {
   const ownerEmail = process.env.OWNER_EMAIL || process.env.GMAIL_USER || '';
   const fromRequests = process.env.FROM_REQUESTS || `SpidyDashboard <requests@mail.${mailDomain}>`;
   const fromHello = process.env.FROM_HELLO || `SpidyDashboard <hello@mail.${mailDomain}>`;
-  const replyToHello = process.env.REPLY_TO_HELLO || `hello@${mailDomain}`;
+  const replyToHello = process.env.REPLY_TO_HELLO || 'parthxcore@gmail.com';
   const resendApiKey = process.env.RESEND_API_KEY || '';
   const ntfyTopic = process.env.NTFY_TOPIC || 'spidydashboard-requests';
   const telegramBotToken = process.env.TELEGRAM_BOT_TOKEN;

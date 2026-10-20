@@ -56,7 +56,7 @@ const envSchema = z.object({
     .default('false')
     .transform((val) => val === 'true' || val === '1'),
   RESEND_API_KEY: z.string().optional(),
-  EMAIL_FROM: z.string().default('SpidyDashboard <hello@spidydashboard.com>'),
+  EMAIL_FROM: z.string().default('SpidyDashboard <parthxcore@gmail.com>'),
   ADMIN_ALERT_EMAIL: z.string().email().optional(),
 
   // Order settings
@@ -95,7 +95,7 @@ function parseEnv(): EnvConfig {
     S3_BUCKET_NAME: process.env.S3_BUCKET_NAME || 'spidydashboard-releases',
     S3_REGION: process.env.S3_REGION || 'auto',
     EMAIL_PROVIDER: 'resend',
-    EMAIL_FROM: process.env.EMAIL_FROM || 'SpidyDashboard <hello@spidydashboard.com>',
+    EMAIL_FROM: process.env.EMAIL_FROM || 'SpidyDashboard <parthxcore@gmail.com>',
     ORDER_EXPIRY_MINUTES: Number(process.env.ORDER_EXPIRY_MINUTES) || 30,
     DOWNLOAD_TOKEN_EXPIRY_MINUTES: Number(process.env.DOWNLOAD_TOKEN_EXPIRY_MINUTES) || 2880,
     MAX_DOWNLOADS_PER_TOKEN: Number(process.env.MAX_DOWNLOADS_PER_TOKEN) || 3,

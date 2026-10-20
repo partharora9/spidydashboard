@@ -166,7 +166,7 @@ If you have any questions or need custom deployment assistance, feel free to rep
 Best regards,
 Parth Arora (SOC Analyst)
 Creator of SpidyDashboard
-hello@spidydashboard.com
+parthxcore@gmail.com
 UPI: 8700383626@axl
 `;
 
@@ -217,7 +217,7 @@ UPI: 8700383626@axl
   <hr style="border: none; border-top: 1px solid #E5E7EB; margin: 24px 0;" />
   <p style="margin: 0; font-size: 13px; font-weight: bold;">Parth Arora (SOC Analyst)</p>
   <p style="margin: 2px 0; font-size: 12px; color: #6B7280;">Creator & Author, SpidyDashboard</p>
-  <p style="margin: 2px 0; font-size: 12px; color: #6B7280;">Email: hello@spidydashboard.com &bull; UPI: 8700383626@axl</p>
+  <p style="margin: 2px 0; font-size: 12px; color: #6B7280;">Email: parthxcore@gmail.com &bull; UPI: 8700383626@axl</p>
 </div>
 `;
 

@@ -185,7 +185,7 @@ If you have already transferred the payment or have any questions about the setu
 Best regards,
 Parth Arora
 Security Analyst & Creator of SpidyDashboard
-hello@${ctx.mailDomain}
+parthxcore@gmail.com
 
 --
 You are receiving this because you submitted a request on spidydashboard.${ctx.mailDomain}.
@@ -252,7 +252,7 @@ Privacy Policy: https://spidydashboard.${ctx.mailDomain}/privacy`;
 
     <div style="border-top: 1px solid #E5E7EB; padding-top: 14px; font-size: 12px; color: #9CA3AF; line-height: 1.4;">
       <p style="margin: 0 0 4px 0;">You are receiving this because you submitted a request on spidydashboard.${escapeHtml(ctx.mailDomain)}.</p>
-      <p style="margin: 0;">Contact: hello@${escapeHtml(ctx.mailDomain)} &bull; <a href="https://spidydashboard.${escapeHtml(ctx.mailDomain)}/privacy" style="color: #6B7280; text-decoration: underline;">Privacy Policy</a></p>
+      <p style="margin: 0;">Contact: parthxcore@gmail.com &bull; <a href="https://spidydashboard.${escapeHtml(ctx.mailDomain)}/privacy" style="color: #6B7280; text-decoration: underline;">Privacy Policy</a></p>
     </div>
 
   </div>

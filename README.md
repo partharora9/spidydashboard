@@ -105,4 +105,4 @@ All commits are continuously validated on GitHub Actions and Vercel with strict 
 ## 🔒 Security & Privacy
 
 - Sensitive environment variables are kept strictly out of git version control via `.gitignore`.
-- Contact: [hello@spidydashboard.com](mailto:hello@spidydashboard.com)
+- Contact: [parthxcore@gmail.com](mailto:parthxcore@gmail.com)

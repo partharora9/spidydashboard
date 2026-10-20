@@ -74,7 +74,7 @@ export const InvoiceView = ({ reference }: InvoiceViewProps) => {
               <div className="text-[12px] text-gray-600 mt-3 space-y-0.5">
                 <div>Developer: {invoice.merchant.name}</div>
                 <div>Role: SOC Analyst & Cybersecurity Practitioner</div>
-                <div>Contact: hello@spidydashboard.com</div>
+                <div>Contact: parthxcore@gmail.com</div>
               </div>
             </div>
 

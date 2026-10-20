@@ -104,7 +104,7 @@ Once paid, reply to this email with your 12-digit UTR number or payment screensh
 
 Best regards,
 Parth Arora (SOC Analyst)
-hello@spidydashboard.com
+parthxcore@gmail.com
 UPI: 8700383626@axl
 `,
       html: `
@@ -140,7 +140,7 @@ UPI: 8700383626@axl
 
   <hr style="border: none; border-top: 1px solid #E5E7EB; margin: 24px 0;" />
   <p style="margin: 0; font-size: 13px; font-weight: bold;">Parth Arora (SOC Analyst)</p>
-  <p style="margin: 2px 0; font-size: 12px; color: #6B7280;">Email: hello@spidydashboard.com &bull; UPI: 8700383626@axl</p>
+  <p style="margin: 2px 0; font-size: 12px; color: #6B7280;">Email: parthxcore@gmail.com &bull; UPI: 8700383626@axl</p>
 </div>
 `,
     });
@@ -151,7 +151,7 @@ UPI: 8700383626@axl
     });
   } catch (err: any) {
     console.error('[Inquiry API Error]:', err);
-    return res.status(500).json({ error: 'Failed to dispatch email. Please try again or email hello@spidydashboard.com directly.' });
+    return res.status(500).json({ error: 'Failed to dispatch email. Please try again or email parthxcore@gmail.com directly.' });
   }
 });
 
