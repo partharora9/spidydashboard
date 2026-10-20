@@ -1,0 +1,189 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background-color: #ffffff;
+    color: #0b0b14;
+    overflow-x: clip;
+  }
+}
+
+/* Custom 3D Perspective Utility */
+.perspective-container {
+  perspective: 1800px;
+}
+
+/* Hardware accelerated card wrapper */
+.gpu-card {
+  will-change: transform;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+/* Custom shine sweep for buttons */
+@keyframes shine-sweep {
+  0% {
+    transform: translateX(-120%) skewX(-20deg);
+  }
+  100% {
+    transform: translateX(250%) skewX(-20deg);
+  }
+}
+
+.animate-shine {
+  animation: shine-sweep 1.8s ease-in-out infinite;
+}
+
+/* Bottom fade mask for fan cards */
+.mask-bottom-fade {
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 68%, rgba(0, 0, 0, 0) 100%);
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 68%, rgba(0, 0, 0, 0) 100%);
+}
+
+/* Word Reveal Wrapper with generous room for ascenders, descenders, and glyph overhangs */
+.word-mask {
+  display: inline-block;
+  overflow: hidden;
+  padding: 0.12em 0.08em 0.28em;
+  margin: -0.12em -0.08em -0.28em;
+  vertical-align: top;
+}
+
+/* Hide scrollbar for mini components */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* ==============================================================================
+   RESPONSIVE OVERRIDES (MOBILE & TABLET ONLY)
+   Strictly scoped to screens below 1024px.
+   Desktop layout (1024px and above) remains 100% UNTOUCHED.
+   ============================================================================== */
+
+/* ------------------------------------------------------------------------------
+   1. TABLETS & SMALL LAPTOPS (max-width: 1023px)
+   ------------------------------------------------------------------------------ */
+@media (max-width: 1023px) {
+  /* Prevent horizontal blowout from 3D card perspective or entrance animations */
+  html, body {
+    overflow-x: clip;
+    max-width: 100vw;
+  }
+
+  /* Optimize Docs layout on tablets */
+  aside[class*="w-full lg:w-[260px]"] {
+    position: static;
+    margin-bottom: 2rem;
+  }
+
+  /* Make sure sticky elements adjust to mobile top header */
+  .sticky {
+    top: 76px;
+  }
+}
+
+/* ------------------------------------------------------------------------------
+   2. MOBILE PHONES (max-width: 767px)
+   ------------------------------------------------------------------------------ */
+@media (max-width: 767px) {
+  /* Prevent iOS Safari auto-zoom on input focus by guaranteeing 16px font size */
+  input, select, textarea {
+    font-size: 16px !important;
+  }
+
+  /* Minimum 44x44px accessible touch targets for buttons and interactive controls */
+  button:not(.p-1):not(.p-0):not(.cursor-help),
+  a.rounded-full,
+  a[class*="py-2.5"],
+  a[class*="py-3"],
+  a[class*="py-3.5"],
+  button[class*="py-2.5"],
+  button[class*="py-3"],
+  button[class*="py-3.5"],
+  input[type="checkbox"] {
+    min-height: 44px;
+    box-sizing: border-box;
+  }
+
+  /* Smooth momentum touch-scrolling for wide tables & code blocks */
+  .overflow-x-auto {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+    padding-bottom: 0.75rem;
+  }
+
+  /* Pricing Cards: Compact padding on mobile so content has maximum readable width */
+  div[class*="min-h-[580px]"] {
+    min-height: auto !important;
+    padding: 1.5rem 1.25rem !important;
+  }
+
+  /* Hero Headings: Smooth fluid clamp on mobile phones to prevent awkward line wraps */
+  h1 {
+    font-size: clamp(2rem, 8.5vw, 2.75rem) !important;
+    line-height: 1.15 !important;
+    letter-spacing: -0.03em !important;
+  }
+
+  /* Modal Dialogs: Safe viewport heights with top-to-bottom scrollability */
+  .fixed.inset-0 {
+    padding: 0.75rem !important;
+    align-items: flex-start !important;
+  }
+
+  .fixed.inset-0 > div {
+    margin-top: 1rem !important;
+    margin-bottom: 1rem !important;
+    max-height: calc(100vh - 2rem) !important;
+    overflow-y: auto !important;
+  }
+
+  /* Footer column grid: Compact gap on mobile */
+  footer .grid-cols-2 {
+    gap: 1.75rem 1.25rem !important;
+  }
+}
+
+/* ------------------------------------------------------------------------------
+   3. SMALL PHONES (max-width: 480px)
+   ------------------------------------------------------------------------------ */
+@media (max-width: 480px) {
+  /* Navbar: Compact header padding so brand logo & hamburger never crowd out */
+  header > div {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+
+  /* Brand Logo text scaling on micro screens */
+  header span.font-headline {
+    font-size: 19px !important;
+  }
+
+  /* Newsletter bar on footer: Comfortable input padding */
+  #newsletter-email {
+    padding-right: 7.25rem !important;
+  }
+
+  /* Full-width CTA buttons on small screens */
+  .w-full[class*="sm:w-auto"] {
+    width: 100% !important;
+  }
+
+  /* QR code responsive image sizing */
+  img[alt*="UPI QR Code"] {
+    width: 170px !important;
+    height: 170px !important;
+  }
+}

@@ -1,0 +1,7624 @@
+[
+  {
+    "module": "sfp__stor_db",
+    "name": "Storage",
+    "description": "Stores scan results into the back-end SpiderFoot database. You will need this.",
+    "service": "Storage",
+    "base_url": "free / no external url",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "*"
+    ],
+    "events_out": [],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [],
+    "use_cases": []
+  },
+  {
+    "module": "sfp__stor_stdout",
+    "name": "Command-line output",
+    "description": "Dumps output to standard out. Used for when a SpiderFoot scan is run via the command-line.",
+    "service": "Command-line output",
+    "base_url": "free / no external url",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "*"
+    ],
+    "events_out": [],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [],
+    "use_cases": []
+  },
+  {
+    "module": "sfp_abstractapi",
+    "name": "AbstractAPI",
+    "description": "Look up domain, phone and IP address information from AbstractAPI.",
+    "service": "AbstractAPI",
+    "base_url": "https://app.abstractapi.com/",
+    "needs_key": "true",
+    "key_option": "companyenrichment_api_key",
+    "all_key_options": [
+      "companyenrichment_api_key",
+      "phonevalidation_api_key",
+      "ipgeolocation_api_key"
+    ],
+    "events_in": [
+      "DOMAIN_NAME",
+      "PHONE_NUMBER",
+      "IP_ADDRESS",
+      "IPV6_ADDRESS"
+    ],
+    "events_out": [
+      "COMPANY_NAME",
+      "SOCIAL_MEDIA",
+      "GEOINFO",
+      "PHYSICAL_COORDINATES",
+      "PROVIDER_TELCO",
+      "RAW_RIR_DATA"
+    ],
+    "endpoints_called": [
+      "GET https://companyenrichment.abstractapi.com/v1/?{params}",
+      "GET https://ipgeolocation.abstractapi.com/v1/?{params}",
+      "GET https://phonevalidation.abstractapi.com/v1/?{params}"
+    ],
+    "rate_limits": "Rate limited to one request per second",
+    "categories": [
+      "Search Engines"
+    ],
+    "use_cases": [
+      "Passive",
+      "Footprint",
+      "Investigate"
+    ]
+  },
+  {
+    "module": "sfp_abusech",
+    "name": "abuse.ch",
+    "description": "Check if a host/domain, IP address or netblock is malicious according to Abuse.ch.",
+    "service": "abuse.ch",
+    "base_url": "https://www.abuse.ch",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "INTERNET_NAME",
+      "IP_ADDRESS",
+      "NETBLOCK_MEMBER",
+      "AFFILIATE_INTERNET_NAME",
+      "AFFILIATE_IPADDR",
+      "CO_HOSTED_SITE",
+      "NETBLOCK_OWNER"
+    ],
+    "events_out": [
+      "MALICIOUS_IPADDR",
+      "MALICIOUS_INTERNET_NAME",
+      "MALICIOUS_AFFILIATE_IPADDR",
+      "MALICIOUS_AFFILIATE_INTERNET_NAME",
+      "MALICIOUS_SUBNET",
+      "MALICIOUS_COHOST",
+      "MALICIOUS_NETBLOCK"
+    ],
+    "endpoints_called": [
+      "GET https://feodotracker.abuse.ch/downloads/ipblocklist.txt",
+      "GET https://sslbl.abuse.ch/blacklist/sslipblacklist.csv",
+      "GET https://urlhaus.abuse.ch/downloads/csv_recent/"
+    ],
+    "rate_limits": "None noted",
+    "categories": [
+      "Reputation Systems"
+    ],
+    "use_cases": [
+      "Passive",
+      "Investigate"
+    ]
+  },
+  {
+    "module": "sfp_abuseipdb",
+    "name": "AbuseIPDB",
+    "description": "Check if an IP address is malicious according to AbuseIPDB.com blacklist.",
+    "service": "AbuseIPDB",
+    "base_url": "https://www.abuseipdb.com",
+    "needs_key": "true",
+    "key_option": "api_key",
+    "all_key_options": [
+      "api_key"
+    ],
+    "events_in": [
+      "IP_ADDRESS",
+      "IPV6_ADDRESS",
+      "AFFILIATE_IPADDR",
+      "AFFILIATE_IPV6_ADDRESS"
+    ],
+    "events_out": [
+      "BLACKLISTED_IPADDR",
+      "BLACKLISTED_AFFILIATE_IPADDR",
+      "MALICIOUS_IPADDR",
+      "MALICIOUS_AFFILIATE_IPADDR"
+    ],
+    "endpoints_called": [
+      "GET https://api.abuseipdb.com/api/v2/blacklist?{params}",
+      "GET https://api.abuseipdb.com/api/v2/check-block?{params}",
+      "GET https://api.abuseipdb.com/api/v2/check?{params}"
+    ],
+    "rate_limits": "None noted",
+    "categories": [
+      "Reputation Systems"
+    ],
+    "use_cases": [
+      "Passive",
+      "Investigate"
+    ]
+  },
+  {
+    "module": "sfp_abusix",
+    "name": "Abusix Mail Intelligence",
+    "description": "Check if a netblock or IP address is in the Abusix Mail Intelligence blacklist.",
+    "service": "Abusix Mail Intelligence",
+    "base_url": "https://abusix.org/",
+    "needs_key": "true",
+    "key_option": "api_key",
+    "all_key_options": [
+      "api_key"
+    ],
+    "events_in": [
+      "IP_ADDRESS",
+      "IPV6_ADDRESS",
+      "AFFILIATE_IPADDR",
+      "AFFILIATE_IPV6_ADDRESS",
+      "NETBLOCK_MEMBER",
+      "NETBLOCKV6_MEMBER",
+      "NETBLOCK_OWNER",
+      "NETBLOCKV6_OWNER",
+      "INTERNET_NAME",
+      "AFFILIATE_INTERNET_NAME",
+      "CO_HOSTED_SITE"
+    ],
+    "events_out": [
+      "BLACKLISTED_IPADDR",
+      "BLACKLISTED_AFFILIATE_IPADDR",
+      "BLACKLISTED_SUBNET",
+      "BLACKLISTED_NETBLOCK",
+      "BLACKLISTED_INTERNET_NAME",
+      "BLACKLISTED_AFFILIATE_INTERNET_NAME",
+      "BLACKLISTED_COHOST",
+      "MALICIOUS_IPADDR",
+      "MALICIOUS_AFFILIATE_IPADDR",
+      "MALICIOUS_NETBLOCK",
+      "MALICIOUS_SUBNET",
+      "MALICIOUS_INTERNET_NAME",
+      "MALICIOUS_AFFILIATE_INTERNET_NAME",
+      "MALICIOUS_COHOST"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Reputation Systems"
+    ],
+    "use_cases": [
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_accounts",
+    "name": "Account Finder",
+    "description": "Look for possible associated accounts on over 500 social and other websites such as Instagram, Reddit, etc.",
+    "service": "Account Finder",
+    "base_url": "https://raw.githubusercontent.com",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "EMAILADDR",
+      "DOMAIN_NAME",
+      "HUMAN_NAME",
+      "USERNAME"
+    ],
+    "events_out": [
+      "USERNAME",
+      "ACCOUNT_EXTERNAL_OWNED",
+      "SIMILAR_ACCOUNT_EXTERNAL"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Social Media"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_adblock",
+    "name": "AdBlock Check",
+    "description": "Check if linked pages would be blocked by AdBlock Plus.",
+    "service": "AdBlock Check",
+    "base_url": "https://adblockplus.org/",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "LINKED_URL_INTERNAL",
+      "LINKED_URL_EXTERNAL",
+      "PROVIDER_JAVASCRIPT"
+    ],
+    "events_out": [
+      "URL_ADBLOCKED_INTERNAL",
+      "URL_ADBLOCKED_EXTERNAL"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Reputation Systems"
+    ],
+    "use_cases": [
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_adguard_dns",
+    "name": "AdGuard DNS",
+    "description": "Check if a host would be blocked by AdGuard DNS.",
+    "service": "AdGuard DNS",
+    "base_url": "https://adguard.com/",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "INTERNET_NAME",
+      "AFFILIATE_INTERNET_NAME",
+      "CO_HOSTED_SITE"
+    ],
+    "events_out": [
+      "BLACKLISTED_INTERNET_NAME",
+      "BLACKLISTED_AFFILIATE_INTERNET_NAME",
+      "BLACKLISTED_COHOST"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Reputation Systems"
+    ],
+    "use_cases": [
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_ahmia",
+    "name": "Ahmia",
+    "description": "Search Tor 'Ahmia' search engine for mentions of the target.",
+    "service": "Ahmia",
+    "base_url": "https://ahmia.fi/",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "DOMAIN_NAME",
+      "HUMAN_NAME",
+      "EMAILADDR"
+    ],
+    "events_out": [
+      "DARKNET_MENTION_URL",
+      "DARKNET_MENTION_CONTENT"
+    ],
+    "endpoints_called": [
+      "GET https://ahmia.fi/search/?{params}"
+    ],
+    "rate_limits": "None noted",
+    "categories": [
+      "Search Engines"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate"
+    ]
+  },
+  {
+    "module": "sfp_alienvault",
+    "name": "AlienVault OTX",
+    "description": "Obtain information from AlienVault Open Threat Exchange (OTX)",
+    "service": "AlienVault OTX",
+    "base_url": "https://otx.alienvault.com/",
+    "needs_key": "true",
+    "key_option": "api_key",
+    "all_key_options": [
+      "api_key"
+    ],
+    "events_in": [
+      "INTERNET_NAME",
+      "IP_ADDRESS",
+      "IPV6_ADDRESS",
+      "AFFILIATE_IPADDR",
+      "AFFILIATE_IPV6_ADDRESS",
+      "NETBLOCK_OWNER",
+      "NETBLOCKV6_OWNER",
+      "NETBLOCK_MEMBER",
+      "NETBLOCKV6_MEMBER",
+      "NETBLOCK_OWNER",
+      "NETBLOCK_MEMBER"
+    ],
+    "events_out": [
+      "IP_ADDRESS",
+      "IPV6_ADDRESS",
+      "AFFILIATE_IPADDR",
+      "AFFILIATE_IPV6_ADDRESS",
+      "CO_HOSTED_SITE",
+      "INTERNET_NAME",
+      "INTERNET_NAME_UNRESOLVED",
+      "MALICIOUS_IPADDR",
+      "MALICIOUS_AFFILIATE_IPADDR",
+      "MALICIOUS_NETBLOCK",
+      "LINKED_URL_INTERNAL"
+    ],
+    "endpoints_called": [
+      "GET https://otx.alienvault.com/api/v1/indicators/domain/{qry}/url_list?{params}",
+      "GET https://otx.alienvault.com/api/v1/indicators/hostname/{qry}/url_list?{params}",
+      "GET https://otx.alienvault.com/api/v1/indicators/{target_type}/{qry}/passive_dns",
+      "GET https://otx.alienvault.com/api/v1/indicators/{target_type}/{qry}/reputation"
+    ],
+    "rate_limits": "Future proofing - AlienVault OTX does not implement rate limiting",
+    "categories": [
+      "Reputation Systems"
+    ],
+    "use_cases": [
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_alienvaultiprep",
+    "name": "AlienVault IP Reputation",
+    "description": "Check if an IP or netblock is malicious according to the AlienVault IP Reputation database.",
+    "service": "AlienVault IP Reputation",
+    "base_url": "https://cybersecurity.att.com/",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "IP_ADDRESS",
+      "AFFILIATE_IPADDR",
+      "NETBLOCK_MEMBER",
+      "NETBLOCK_OWNER"
+    ],
+    "events_out": [
+      "BLACKLISTED_IPADDR",
+      "BLACKLISTED_AFFILIATE_IPADDR",
+      "BLACKLISTED_SUBNET",
+      "BLACKLISTED_NETBLOCK",
+      "MALICIOUS_IPADDR",
+      "MALICIOUS_AFFILIATE_IPADDR",
+      "MALICIOUS_SUBNET",
+      "MALICIOUS_NETBLOCK"
+    ],
+    "endpoints_called": [
+      "GET https://reputation.alienvault.com/reputation.generic"
+    ],
+    "rate_limits": "None noted",
+    "categories": [
+      "Reputation Systems"
+    ],
+    "use_cases": [
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_apple_itunes",
+    "name": "Apple iTunes",
+    "description": "Search Apple iTunes for mobile apps.",
+    "service": "Apple iTunes",
+    "base_url": "https://itunes.apple.com/",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "DOMAIN_NAME"
+    ],
+    "events_out": [
+      "APPSTORE_ENTRY",
+      "INTERNET_NAME",
+      "LINKED_URL_INTERNAL",
+      "AFFILIATE_INTERNET_NAME",
+      "RAW_RIR_DATA"
+    ],
+    "endpoints_called": [
+      "GET https://itunes.apple.com/search?{params}"
+    ],
+    "rate_limits": "None noted",
+    "categories": [
+      "Search Engines"
+    ],
+    "use_cases": [
+      "Investigate",
+      "Footprint",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_archiveorg",
+    "name": "Archive.org",
+    "description": "Identifies historic versions of interesting files/pages from the Wayback Machine.",
+    "service": "Archive.org",
+    "base_url": "https://archive.org/",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "INTERESTING_FILE",
+      "URL_PASSWORD",
+      "URL_FORM",
+      "URL_FLASH",
+      "URL_STATIC",
+      "URL_JAVA_APPLET",
+      "URL_UPLOAD",
+      "URL_JAVASCRIPT",
+      "URL_WEB_FRAMEWORK"
+    ],
+    "events_out": [
+      "INTERESTING_FILE_HISTORIC",
+      "URL_PASSWORD_HISTORIC",
+      "URL_FORM_HISTORIC",
+      "URL_FLASH_HISTORIC",
+      "URL_STATIC_HISTORIC",
+      "URL_JAVA_APPLET_HISTORIC",
+      "URL_UPLOAD_HISTORIC",
+      "URL_WEB_FRAMEWORK_HISTORIC",
+      "URL_JAVASCRIPT_HISTORIC"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Search Engines"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_arin",
+    "name": "ARIN",
+    "description": "Queries ARIN registry for contact information.",
+    "service": "ARIN",
+    "base_url": "https://www.arin.net/",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "DOMAIN_NAME",
+      "HUMAN_NAME"
+    ],
+    "events_out": [
+      "RAW_RIR_DATA",
+      "HUMAN_NAME"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Public Registries"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_azureblobstorage",
+    "name": "Azure Blob Finder",
+    "description": "Search for potential Azure blobs associated with the target and attempt to list their contents.",
+    "service": "Azure Blob Finder",
+    "base_url": "https://azure.microsoft.com/en-in/services/storage/blobs/",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "DOMAIN_NAME",
+      "LINKED_URL_EXTERNAL"
+    ],
+    "events_out": [
+      "CLOUD_STORAGE_BUCKET"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Crawling and Scanning"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_base64",
+    "name": "Base64 Decoder",
+    "description": "Identify Base64-encoded strings in URLs, often revealing interesting hidden information.",
+    "service": "Base64 Decoder",
+    "base_url": "free / no external url",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "LINKED_URL_INTERNAL"
+    ],
+    "events_out": [
+      "BASE64_DATA"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Content Analysis"
+    ],
+    "use_cases": [
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_bgpview",
+    "name": "BGPView",
+    "description": "Obtain network information from BGPView API.",
+    "service": "BGPView",
+    "base_url": "https://bgpview.io/",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "IP_ADDRESS",
+      "IPV6_ADDRESS",
+      "BGP_AS_MEMBER",
+      "NETBLOCK_MEMBER",
+      "NETBLOCKV6_MEMBER"
+    ],
+    "events_out": [
+      "BGP_AS_MEMBER",
+      "NETBLOCK_MEMBER",
+      "NETBLOCKV6_MEMBER",
+      "PHYSICAL_ADDRESS",
+      "RAW_RIR_DATA"
+    ],
+    "endpoints_called": [
+      "GET https://api.bgpview.io/asn/",
+      "GET https://api.bgpview.io/ip/",
+      "GET https://api.bgpview.io/prefix/"
+    ],
+    "rate_limits": "None noted",
+    "categories": [
+      "Search Engines"
+    ],
+    "use_cases": [
+      "Investigate",
+      "Footprint",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_binaryedge",
+    "name": "BinaryEdge",
+    "description": "Obtain information from BinaryEdge.io Internet scanning systems, including breaches, vulnerabilities, torrents and passive DNS.",
+    "service": "BinaryEdge",
+    "base_url": "https://www.binaryedge.io/",
+    "needs_key": "true",
+    "key_option": "binaryedge_api_key",
+    "all_key_options": [
+      "binaryedge_api_key"
+    ],
+    "events_in": [
+      "IP_ADDRESS",
+      "DOMAIN_NAME",
+      "EMAILADDR",
+      "NETBLOCK_OWNER",
+      "NETBLOCK_MEMBER"
+    ],
+    "events_out": [
+      "INTERNET_NAME",
+      "DOMAIN_NAME",
+      "VULNERABILITY_CVE_CRITICAL",
+      "VULNERABILITY_CVE_HIGH",
+      "VULNERABILITY_CVE_MEDIUM",
+      "VULNERABILITY_CVE_LOW",
+      "VULNERABILITY_GENERAL",
+      "TCP_PORT_OPEN",
+      "TCP_PORT_OPEN_BANNER",
+      "EMAILADDR_COMPROMISED",
+      "UDP_PORT_OPEN",
+      "UDP_PORT_OPEN_INFO",
+      "CO_HOSTED_SITE",
+      "MALICIOUS_IPADDR"
+    ],
+    "endpoints_called": [
+      "GET https://api.binaryedge.io/v2/query/{queryurl}/{qry}?page={page}"
+    ],
+    "rate_limits": "None noted",
+    "categories": [
+      "Search Engines"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_bingsearch",
+    "name": "Bing",
+    "description": "Obtain information from bing to identify sub-domains and links.",
+    "service": "Bing",
+    "base_url": "https://www.bing.com/",
+    "needs_key": "true",
+    "key_option": "api_key",
+    "all_key_options": [
+      "api_key"
+    ],
+    "events_in": [
+      "INTERNET_NAME"
+    ],
+    "events_out": [
+      "LINKED_URL_INTERNAL",
+      "RAW_RIR_DATA"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Search Engines"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_bingsharedip",
+    "name": "Bing (Shared IPs)",
+    "description": "Search Bing for hosts sharing the same IP.",
+    "service": "Bing (Shared IPs)",
+    "base_url": "https://www.bing.com/",
+    "needs_key": "true",
+    "key_option": "api_key",
+    "all_key_options": [
+      "api_key"
+    ],
+    "events_in": [
+      "IP_ADDRESS",
+      "NETBLOCK_OWNER"
+    ],
+    "events_out": [
+      "CO_HOSTED_SITE",
+      "IP_ADDRESS",
+      "RAW_RIR_DATA"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Search Engines"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_binstring",
+    "name": "Binary String Extractor",
+    "description": "Attempt to identify strings in binary content.",
+    "service": "Binary String Extractor",
+    "base_url": "free / no external url",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "LINKED_URL_INTERNAL"
+    ],
+    "events_out": [
+      "RAW_FILE_META_DATA"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Content Analysis"
+    ],
+    "use_cases": [
+      "Footprint"
+    ]
+  },
+  {
+    "module": "sfp_bitcoin",
+    "name": "Bitcoin Finder",
+    "description": "Identify bitcoin addresses in scraped webpages.",
+    "service": "Bitcoin Finder",
+    "base_url": "https://stackoverflow.com",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "TARGET_WEB_CONTENT"
+    ],
+    "events_out": [
+      "BITCOIN_ADDRESS"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Content Analysis"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_bitcoinabuse",
+    "name": "BitcoinAbuse",
+    "description": "Check Bitcoin addresses against the bitcoinabuse.com database of suspect/malicious addresses.",
+    "service": "BitcoinAbuse",
+    "base_url": "https://www.bitcoinabuse.com/",
+    "needs_key": "true",
+    "key_option": "api_key",
+    "all_key_options": [
+      "api_key"
+    ],
+    "events_in": [
+      "BITCOIN_ADDRESS"
+    ],
+    "events_out": [
+      "MALICIOUS_BITCOIN_ADDRESS",
+      "RAW_RIR_DATA"
+    ],
+    "endpoints_called": [
+      "GET https://www.bitcoinabuse.com/api/reports/check?{urllib.parse.urlencode(params)}"
+    ],
+    "rate_limits": "All endpoints other than Report Address have a rate limit of",
+    "categories": [
+      "Reputation Systems"
+    ],
+    "use_cases": [
+      "Passive",
+      "Investigate"
+    ]
+  },
+  {
+    "module": "sfp_bitcoinwhoswho",
+    "name": "Bitcoin Who's Who",
+    "description": "Check for Bitcoin addresses against the Bitcoin Who's Who database of suspect/malicious addresses.",
+    "service": "Bitcoin Who's Who",
+    "base_url": "https://bitcoinwhoswho.com/",
+    "needs_key": "true",
+    "key_option": "api_key",
+    "all_key_options": [
+      "api_key"
+    ],
+    "events_in": [
+      "BITCOIN_ADDRESS"
+    ],
+    "events_out": [
+      "MALICIOUS_BITCOIN_ADDRESS",
+      "RAW_RIR_DATA"
+    ],
+    "endpoints_called": [
+      "GET https://bitcoinwhoswho.com/api/scam/{self.opts["
+    ],
+    "rate_limits": "None noted",
+    "categories": [
+      "Reputation Systems"
+    ],
+    "use_cases": [
+      "Passive",
+      "Investigate"
+    ]
+  },
+  {
+    "module": "sfp_blockchain",
+    "name": "Blockchain",
+    "description": "Queries blockchain.info to find the balance of identified bitcoin wallet addresses.",
+    "service": "Blockchain",
+    "base_url": "https://www.blockchain.com/",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "BITCOIN_ADDRESS"
+    ],
+    "events_out": [
+      "BITCOIN_BALANCE"
+    ],
+    "endpoints_called": [
+      "GET https://blockchain.info/balance?active="
+    ],
+    "rate_limits": "None noted",
+    "categories": [
+      "Public Registries"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_blocklistde",
+    "name": "blocklist.de",
+    "description": "Check if a netblock or IP is malicious according to blocklist.de.",
+    "service": "blocklist.de",
+    "base_url": "http://www.blocklist.de/en/index.html",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "IP_ADDRESS",
+      "IPV6_ADDRESS",
+      "AFFILIATE_IPADDR",
+      "AFFILIATE_IPV6_ADDRESS",
+      "NETBLOCK_MEMBER",
+      "NETBLOCKV6_MEMBER",
+      "NETBLOCK_OWNER",
+      "NETBLOCKV6_OWNER"
+    ],
+    "events_out": [
+      "BLACKLISTED_IPADDR",
+      "BLACKLISTED_AFFILIATE_IPADDR",
+      "BLACKLISTED_SUBNET",
+      "BLACKLISTED_NETBLOCK",
+      "MALICIOUS_IPADDR",
+      "MALICIOUS_AFFILIATE_IPADDR",
+      "MALICIOUS_NETBLOCK",
+      "MALICIOUS_SUBNET"
+    ],
+    "endpoints_called": [
+      "GET https://lists.blocklist.de/lists/all.txt"
+    ],
+    "rate_limits": "None noted",
+    "categories": [
+      "Reputation Systems"
+    ],
+    "use_cases": [
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_botscout",
+    "name": "BotScout",
+    "description": "Searches BotScout.com's database of spam-bot IP addresses and e-mail addresses.",
+    "service": "BotScout",
+    "base_url": "https://botscout.com/",
+    "needs_key": "true",
+    "key_option": "api_key",
+    "all_key_options": [
+      "api_key"
+    ],
+    "events_in": [
+      "IP_ADDRESS",
+      "EMAILADDR"
+    ],
+    "events_out": [
+      "MALICIOUS_IPADDR",
+      "BLACKLISTED_IPADDR",
+      "MALICIOUS_EMAILADDR"
+    ],
+    "endpoints_called": [
+      "GET https://botscout.com/test/?{params}"
+    ],
+    "rate_limits": "None noted",
+    "categories": [
+      "Reputation Systems"
+    ],
+    "use_cases": [
+      "Passive",
+      "Investigate"
+    ]
+  },
+  {
+    "module": "sfp_botvrij",
+    "name": "botvrij.eu",
+    "description": "Check if a domain is malicious according to botvrij.eu.",
+    "service": "botvrij.eu",
+    "base_url": "https://botvrij.eu/",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "INTERNET_NAME",
+      "AFFILIATE_INTERNET_NAME",
+      "CO_HOSTED_SITE"
+    ],
+    "events_out": [
+      "BLACKLISTED_INTERNET_NAME",
+      "BLACKLISTED_AFFILIATE_INTERNET_NAME",
+      "BLACKLISTED_COHOST",
+      "MALICIOUS_INTERNET_NAME",
+      "MALICIOUS_AFFILIATE_INTERNET_NAME",
+      "MALICIOUS_COHOST"
+    ],
+    "endpoints_called": [
+      "GET https://www.botvrij.eu/data/blocklist/blocklist_full.csv"
+    ],
+    "rate_limits": "None noted",
+    "categories": [
+      "Reputation Systems"
+    ],
+    "use_cases": [
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_builtwith",
+    "name": "BuiltWith",
+    "description": "Query BuiltWith.com's Domain API for information about your target's web technology stack, e-mail addresses and more.",
+    "service": "BuiltWith",
+    "base_url": "https://builtwith.com/",
+    "needs_key": "true",
+    "key_option": "api_key",
+    "all_key_options": [
+      "api_key"
+    ],
+    "events_in": [
+      "DOMAIN_NAME"
+    ],
+    "events_out": [
+      "INTERNET_NAME",
+      "EMAILADDR",
+      "EMAILADDR_GENERIC",
+      "RAW_RIR_DATA",
+      "WEBSERVER_TECHNOLOGY",
+      "PHONE_NUMBER",
+      "DOMAIN_NAME",
+      "CO_HOSTED_SITE",
+      "IP_ADDRESS",
+      "WEB_ANALYTICS_ID"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Search Engines"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_c99",
+    "name": "C99",
+    "description": "Queries the C99 API which offers various data (geo location, proxy detection, phone lookup, etc).",
+    "service": "C99",
+    "base_url": "https://api.c99.nl/",
+    "needs_key": "true",
+    "key_option": "api_key",
+    "all_key_options": [
+      "api_key"
+    ],
+    "events_in": [
+      "DOMAIN_NAME",
+      "PHONE_NUMBER",
+      "IP_ADDRESS",
+      "USERNAME",
+      "EMAILADDR"
+    ],
+    "events_out": [
+      "RAW_RIR_DATA",
+      "GEOINFO",
+      "INTERNET_NAME",
+      "INTERNET_NAME_UNRESOLVED",
+      "PROVIDER_TELCO",
+      "PHYSICAL_ADDRESS",
+      "PHYSICAL_COORDINATES",
+      "PROVIDER_DNS",
+      "IP_ADDRESS",
+      "USERNAME",
+      "ACCOUNT_EXTERNAL_OWNED",
+      "WEBSERVER_TECHNOLOGY",
+      "PROVIDER_HOSTING",
+      "CO_HOSTED_SITE"
+    ],
+    "endpoints_called": [
+      "GET https://api.c99.nl/{path}?key={self.opts["
+    ],
+    "rate_limits": "self.error(\"Reaching rate limit on C99 API\")",
+    "categories": [
+      "Search Engines"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Passive",
+      "Investigate"
+    ]
+  },
+  {
+    "module": "sfp_callername",
+    "name": "CallerName",
+    "description": "Lookup US phone number location and reputation information.",
+    "service": "CallerName",
+    "base_url": "http://callername.com/",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "PHONE_NUMBER"
+    ],
+    "events_out": [
+      "GEOINFO",
+      "MALICIOUS_PHONE_NUMBER"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Real World"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_censys",
+    "name": "Censys",
+    "description": "Obtain host information from Censys.io.",
+    "service": "Censys",
+    "base_url": "https://censys.io/",
+    "needs_key": "true",
+    "key_option": "censys_api_key_uid",
+    "all_key_options": [
+      "censys_api_key_uid",
+      "censys_api_key_secret"
+    ],
+    "events_in": [
+      "IP_ADDRESS",
+      "IPV6_ADDRESS",
+      "NETBLOCK_OWNER",
+      "NETBLOCKV6_OWNER"
+    ],
+    "events_out": [
+      "BGP_AS_MEMBER",
+      "UDP_PORT_OPEN",
+      "TCP_PORT_OPEN",
+      "TCP_PORT_OPEN_BANNER",
+      "OPERATING_SYSTEM",
+      "SOFTWARE_USED",
+      "WEBSERVER_HTTPHEADERS",
+      "NETBLOCK_MEMBER",
+      "NETBLOCKV6_MEMBER",
+      "GEOINFO",
+      "RAW_RIR_DATA"
+    ],
+    "endpoints_called": [
+      "GET https://search.censys.io/api/v2/hosts/search/?{params}",
+      "GET https://search.censys.io/api/v2/hosts/{qry}"
+    ],
+    "rate_limits": "API rate limit: 0.4 actions/second (120.0 per 5 minute interval)",
+    "categories": [
+      "Search Engines"
+    ],
+    "use_cases": [
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_certspotter",
+    "name": "CertSpotter",
+    "description": "Gather information about SSL certificates from SSLMate CertSpotter API.",
+    "service": "CertSpotter",
+    "base_url": "https://sslmate.com/certspotter/",
+    "needs_key": "true",
+    "key_option": "api_key",
+    "all_key_options": [
+      "api_key"
+    ],
+    "events_in": [
+      "DOMAIN_NAME"
+    ],
+    "events_out": [
+      "INTERNET_NAME",
+      "INTERNET_NAME_UNRESOLVED",
+      "DOMAIN_NAME",
+      "CO_HOSTED_SITE",
+      "CO_HOSTED_SITE_DOMAIN",
+      "SSL_CERTIFICATE_ISSUED",
+      "SSL_CERTIFICATE_ISSUER",
+      "SSL_CERTIFICATE_MISMATCH",
+      "SSL_CERTIFICATE_EXPIRED",
+      "SSL_CERTIFICATE_EXPIRING",
+      "SSL_CERTIFICATE_RAW",
+      "RAW_RIR_DATA"
+    ],
+    "endpoints_called": [
+      "GET https://api.certspotter.com/v1/issuances?{urllib.parse.urlencode(params)}&expand"
+    ],
+    "rate_limits": "None noted",
+    "categories": [
+      "Crawling and Scanning"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_cinsscore",
+    "name": "CINS Army List",
+    "description": "Check if a netblock or IP address is malicious according to Collective Intelligence Network Security (CINS) Army list.",
+    "service": "CINS Army List",
+    "base_url": "https://cinsscore.com/",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "IP_ADDRESS",
+      "AFFILIATE_IPADDR",
+      "NETBLOCK_MEMBER",
+      "NETBLOCK_OWNER"
+    ],
+    "events_out": [
+      "BLACKLISTED_IPADDR",
+      "BLACKLISTED_AFFILIATE_IPADDR",
+      "BLACKLISTED_SUBNET",
+      "BLACKLISTED_NETBLOCK",
+      "MALICIOUS_IPADDR",
+      "MALICIOUS_AFFILIATE_IPADDR",
+      "MALICIOUS_SUBNET",
+      "MALICIOUS_NETBLOCK"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Reputation Systems"
+    ],
+    "use_cases": [
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_circllu",
+    "name": "CIRCL.LU",
+    "description": "Obtain information from CIRCL.LU's Passive DNS and Passive SSL databases.",
+    "service": "CIRCL.LU",
+    "base_url": "https://www.circl.lu/",
+    "needs_key": "true",
+    "key_option": "api_key_login",
+    "all_key_options": [
+      "api_key_login",
+      "api_key_password"
+    ],
+    "events_in": [
+      "INTERNET_NAME",
+      "NETBLOCK_OWNER",
+      "IP_ADDRESS",
+      "DOMAIN_NAME"
+    ],
+    "events_out": [
+      "IP_ADDRESS",
+      "SSL_CERTIFICATE_ISSUED",
+      "CO_HOSTED_SITE"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Reputation Systems"
+    ],
+    "use_cases": [
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_citadel",
+    "name": "Leak-Lookup",
+    "description": "Searches Leak-Lookup.com's database of breaches.",
+    "service": "Leak-Lookup",
+    "base_url": "https://leak-lookup.com/",
+    "needs_key": "true",
+    "key_option": "api_key",
+    "all_key_options": [
+      "api_key"
+    ],
+    "events_in": [
+      "EMAILADDR"
+    ],
+    "events_out": [
+      "EMAILADDR_COMPROMISED"
+    ],
+    "endpoints_called": [
+      "GET https://leak-lookup.com/api/search"
+    ],
+    "rate_limits": "None noted",
+    "categories": [
+      "Leaks, Dumps and Breaches"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_cleanbrowsing",
+    "name": "CleanBrowsing.org",
+    "description": "Check if a host would be blocked by CleanBrowsing.org DNS content filters.",
+    "service": "CleanBrowsing.org",
+    "base_url": "https://cleanbrowsing.org/",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "INTERNET_NAME",
+      "AFFILIATE_INTERNET_NAME",
+      "CO_HOSTED_SITE"
+    ],
+    "events_out": [
+      "BLACKLISTED_INTERNET_NAME",
+      "BLACKLISTED_AFFILIATE_INTERNET_NAME",
+      "BLACKLISTED_COHOST",
+      "MALICIOUS_INTERNET_NAME",
+      "MALICIOUS_AFFILIATE_INTERNET_NAME",
+      "MALICIOUS_COHOST"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Reputation Systems"
+    ],
+    "use_cases": [
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_cleantalk",
+    "name": "CleanTalk Spam List",
+    "description": "Check if a netblock or IP address is on CleanTalk.org's spam IP list.",
+    "service": "CleanTalk Spam List",
+    "base_url": "https://cleantalk.org",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "IP_ADDRESS",
+      "AFFILIATE_IPADDR",
+      "NETBLOCK_OWNER",
+      "NETBLOCK_MEMBER"
+    ],
+    "events_out": [
+      "BLACKLISTED_IPADDR",
+      "BLACKLISTED_AFFILIATE_IPADDR",
+      "BLACKLISTED_SUBNET",
+      "BLACKLISTED_NETBLOCK",
+      "MALICIOUS_IPADDR",
+      "MALICIOUS_AFFILIATE_IPADDR",
+      "MALICIOUS_NETBLOCK",
+      "MALICIOUS_SUBNET"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Reputation Systems"
+    ],
+    "use_cases": [
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_clearbit",
+    "name": "Clearbit",
+    "description": "Check for names, addresses, domains and more based on lookups of e-mail addresses on clearbit.com.",
+    "service": "Clearbit",
+    "base_url": "https://clearbit.com/",
+    "needs_key": "true",
+    "key_option": "api_key",
+    "all_key_options": [
+      "api_key"
+    ],
+    "events_in": [
+      "EMAILADDR"
+    ],
+    "events_out": [
+      "RAW_RIR_DATA",
+      "PHONE_NUMBER",
+      "PHYSICAL_ADDRESS",
+      "AFFILIATE_INTERNET_NAME",
+      "EMAILADDR",
+      "EMAILADDR_GENERIC",
+      "INTERNET_NAME"
+    ],
+    "endpoints_called": [
+      "GET https://person.clearbit.com/v2/combined/find?{urllib.parse.urlencode(params)}"
+    ],
+    "rate_limits": "Rate limit is 600 requests per minute",
+    "categories": [
+      "Search Engines"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_cloudflaredns",
+    "name": "CloudFlare DNS",
+    "description": "Check if a host would be blocked by CloudFlare DNS.",
+    "service": "CloudFlare DNS",
+    "base_url": "https://www.cloudflare.com/",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "INTERNET_NAME",
+      "AFFILIATE_INTERNET_NAME",
+      "CO_HOSTED_SITE"
+    ],
+    "events_out": [
+      "BLACKLISTED_INTERNET_NAME",
+      "BLACKLISTED_AFFILIATE_INTERNET_NAME",
+      "BLACKLISTED_COHOST",
+      "MALICIOUS_INTERNET_NAME",
+      "MALICIOUS_AFFILIATE_INTERNET_NAME",
+      "MALICIOUS_COHOST"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Reputation Systems"
+    ],
+    "use_cases": [
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_coinblocker",
+    "name": "CoinBlocker Lists",
+    "description": "Check if a domain appears on CoinBlocker lists.",
+    "service": "CoinBlocker Lists",
+    "base_url": "https://zerodot1.gitlab.io/CoinBlockerListsWeb/",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "INTERNET_NAME",
+      "AFFILIATE_INTERNET_NAME",
+      "CO_HOSTED_SITE"
+    ],
+    "events_out": [
+      "BLACKLISTED_INTERNET_NAME",
+      "BLACKLISTED_AFFILIATE_INTERNET_NAME",
+      "BLACKLISTED_COHOST",
+      "MALICIOUS_INTERNET_NAME",
+      "MALICIOUS_AFFILIATE_INTERNET_NAME",
+      "MALICIOUS_COHOST"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Reputation Systems"
+    ],
+    "use_cases": [
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_commoncrawl",
+    "name": "CommonCrawl",
+    "description": "Searches for URLs found through CommonCrawl.org.",
+    "service": "CommonCrawl",
+    "base_url": "http://commoncrawl.org/",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "INTERNET_NAME"
+    ],
+    "events_out": [
+      "LINKED_URL_INTERNAL"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Search Engines"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_comodo",
+    "name": "Comodo Secure DNS",
+    "description": "Check if a host would be blocked by Comodo Secure DNS.",
+    "service": "Comodo Secure DNS",
+    "base_url": "https://www.comodo.com/secure-dns/",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "INTERNET_NAME",
+      "AFFILIATE_INTERNET_NAME",
+      "CO_HOSTED_SITE"
+    ],
+    "events_out": [
+      "BLACKLISTED_INTERNET_NAME",
+      "BLACKLISTED_AFFILIATE_INTERNET_NAME",
+      "BLACKLISTED_COHOST",
+      "MALICIOUS_INTERNET_NAME",
+      "MALICIOUS_AFFILIATE_INTERNET_NAME",
+      "MALICIOUS_COHOST"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Reputation Systems"
+    ],
+    "use_cases": [
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_company",
+    "name": "Company Name Extractor",
+    "description": "Identify company names in any obtained data.",
+    "service": "Company Name Extractor",
+    "base_url": "free / no external url",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "TARGET_WEB_CONTENT",
+      "SSL_CERTIFICATE_ISSUED",
+      "DOMAIN_WHOIS",
+      "NETBLOCK_WHOIS",
+      "AFFILIATE_DOMAIN_WHOIS",
+      "AFFILIATE_WEB_CONTENT"
+    ],
+    "events_out": [
+      "COMPANY_NAME",
+      "AFFILIATE_COMPANY_NAME"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Content Analysis"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_cookie",
+    "name": "Cookie Extractor",
+    "description": "Extract Cookies from HTTP headers.",
+    "service": "Cookie Extractor",
+    "base_url": "free / no external url",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "WEBSERVER_HTTPHEADERS"
+    ],
+    "events_out": [
+      "TARGET_WEB_COOKIE"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Content Analysis"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_countryname",
+    "name": "Country Name Extractor",
+    "description": "Identify country names in any obtained data.",
+    "service": "Country Name Extractor",
+    "base_url": "free / no external url",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "IBAN_NUMBER",
+      "PHONE_NUMBER",
+      "AFFILIATE_DOMAIN_NAME",
+      "CO_HOSTED_SITE_DOMAIN",
+      "DOMAIN_NAME",
+      "SIMILARDOMAIN",
+      "AFFILIATE_DOMAIN_WHOIS",
+      "CO_HOSTED_SITE_DOMAIN_WHOIS",
+      "DOMAIN_WHOIS",
+      "GEOINFO",
+      "PHYSICAL_ADDRESS"
+    ],
+    "events_out": [
+      "COUNTRY_NAME"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Content Analysis"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_creditcard",
+    "name": "Credit Card Number Extractor",
+    "description": "Identify Credit Card Numbers in any data",
+    "service": "Credit Card Number Extractor",
+    "base_url": "free / no external url",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "DARKNET_MENTION_CONTENT",
+      "LEAKSITE_CONTENT"
+    ],
+    "events_out": [
+      "CREDIT_CARD_NUMBER"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Content Analysis"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_crobat_api",
+    "name": "Crobat API",
+    "description": "Search Crobat API for subdomains.",
+    "service": "Crobat API",
+    "base_url": "https://sonar.omnisint.io/",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "DOMAIN_NAME"
+    ],
+    "events_out": [
+      "RAW_RIR_DATA",
+      "INTERNET_NAME",
+      "INTERNET_NAME_UNRESOLVED"
+    ],
+    "endpoints_called": [
+      "GET https://sonar.omnisint.io/subdomains/{domain}?{params}"
+    ],
+    "rate_limits": "Future proofing - Crobat API does not implement rate limiting",
+    "categories": [
+      "Passive DNS"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_crossref",
+    "name": "Cross-Referencer",
+    "description": "Identify whether other domains are associated ('Affiliates') of the target by looking for links back to the target site(s).",
+    "service": "Cross-Referencer",
+    "base_url": "free / no external url",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "LINKED_URL_EXTERNAL",
+      "SIMILARDOMAIN",
+      "CO_HOSTED_SITE",
+      "DARKNET_MENTION_URL"
+    ],
+    "events_out": [
+      "AFFILIATE_INTERNET_NAME",
+      "AFFILIATE_WEB_CONTENT"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Crawling and Scanning"
+    ],
+    "use_cases": [
+      "Footprint"
+    ]
+  },
+  {
+    "module": "sfp_crt",
+    "name": "Certificate Transparency",
+    "description": "Gather hostnames from historical certificates in crt.sh.",
+    "service": "Certificate Transparency",
+    "base_url": "https://crt.sh/",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "DOMAIN_NAME",
+      "INTERNET_NAME"
+    ],
+    "events_out": [
+      "SSL_CERTIFICATE_RAW",
+      "RAW_RIR_DATA",
+      "INTERNET_NAME",
+      "INTERNET_NAME_UNRESOLVED",
+      "DOMAIN_NAME",
+      "CO_HOSTED_SITE",
+      "CO_HOSTED_SITE_DOMAIN"
+    ],
+    "endpoints_called": [
+      "GET https://crt.sh/?"
+    ],
+    "rate_limits": "Future proofing - crt.sh does not implement rate limiting",
+    "categories": [
+      "Search Engines"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_crxcavator",
+    "name": "CRXcavator",
+    "description": "Search CRXcavator for Chrome extensions.",
+    "service": "CRXcavator",
+    "base_url": "https://crxcavator.io/",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "DOMAIN_NAME"
+    ],
+    "events_out": [
+      "APPSTORE_ENTRY",
+      "INTERNET_NAME",
+      "INTERNET_NAME_UNRESOLVED",
+      "LINKED_URL_INTERNAL",
+      "AFFILIATE_INTERNET_NAME",
+      "AFFILIATE_INTERNET_NAME_UNRESOLVED",
+      "PHYSICAL_ADDRESS",
+      "RAW_RIR_DATA"
+    ],
+    "endpoints_called": [
+      "GET https://api.crxcavator.io/v1/report/{extension_id}",
+      "GET https://api.crxcavator.io/v1/search?{params}"
+    ],
+    "rate_limits": "None noted",
+    "categories": [
+      "Search Engines"
+    ],
+    "use_cases": [
+      "Investigate",
+      "Footprint",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_customfeed",
+    "name": "Custom Threat Feed",
+    "description": "Check if a host/domain, netblock, ASN or IP is malicious according to your custom feed.",
+    "service": "Custom Threat Feed",
+    "base_url": "free / no external url",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "INTERNET_NAME",
+      "IP_ADDRESS",
+      "AFFILIATE_INTERNET_NAME",
+      "AFFILIATE_IPADDR",
+      "CO_HOSTED_SITE"
+    ],
+    "events_out": [
+      "MALICIOUS_IPADDR",
+      "MALICIOUS_INTERNET_NAME",
+      "MALICIOUS_AFFILIATE_IPADDR",
+      "MALICIOUS_AFFILIATE_INTERNET_NAME",
+      "MALICIOUS_COHOST"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Reputation Systems"
+    ],
+    "use_cases": [
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_cybercrimetracker",
+    "name": "CyberCrime-Tracker.net",
+    "description": "Check if a host/domain or IP address is malicious according to CyberCrime-Tracker.net.",
+    "service": "CyberCrime-Tracker.net",
+    "base_url": "https://cybercrime-tracker.net/",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "INTERNET_NAME",
+      "IP_ADDRESS",
+      "AFFILIATE_INTERNET_NAME",
+      "AFFILIATE_IPADDR",
+      "CO_HOSTED_SITE"
+    ],
+    "events_out": [
+      "BLACKLISTED_IPADDR",
+      "BLACKLISTED_INTERNET_NAME",
+      "BLACKLISTED_AFFILIATE_IPADDR",
+      "BLACKLISTED_AFFILIATE_INTERNET_NAME",
+      "BLACKLISTED_COHOST",
+      "MALICIOUS_IPADDR",
+      "MALICIOUS_INTERNET_NAME",
+      "MALICIOUS_AFFILIATE_IPADDR",
+      "MALICIOUS_AFFILIATE_INTERNET_NAME",
+      "MALICIOUS_COHOST"
+    ],
+    "endpoints_called": [
+      "GET https://cybercrime-tracker.net/all.php"
+    ],
+    "rate_limits": "None noted",
+    "categories": [
+      "Reputation Systems"
+    ],
+    "use_cases": [
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_debounce",
+    "name": "Debounce",
+    "description": "Check whether an email is disposable",
+    "service": "Debounce",
+    "base_url": "https://debounce.io/",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "EMAILADDR"
+    ],
+    "events_out": [
+      "EMAILADDR_DISPOSABLE",
+      "RAW_RIR_DATA"
+    ],
+    "endpoints_called": [
+      "GET https://disposable.debounce.io?email={qry}"
+    ],
+    "rate_limits": "None noted",
+    "categories": [
+      "Reputation Systems"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_dehashed",
+    "name": "Dehashed",
+    "description": "Gather breach data from Dehashed API.",
+    "service": "Dehashed",
+    "base_url": "https://www.dehashed.com/",
+    "needs_key": "true",
+    "key_option": "api_key_username",
+    "all_key_options": [
+      "api_key_username",
+      "api_key"
+    ],
+    "events_in": [
+      "DOMAIN_NAME",
+      "EMAILADDR"
+    ],
+    "events_out": [
+      "EMAILADDR",
+      "EMAILADDR_COMPROMISED",
+      "PASSWORD_COMPROMISED",
+      "HASH_COMPROMISED",
+      "RAW_RIR_DATA"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Leaks, Dumps and Breaches"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_digitaloceanspace",
+    "name": "Digital Ocean Space Finder",
+    "description": "Search for potential Digital Ocean Spaces associated with the target and attempt to list their contents.",
+    "service": "Digital Ocean Space Finder",
+    "base_url": "https://www.digitalocean.com/products/spaces/",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "DOMAIN_NAME",
+      "LINKED_URL_EXTERNAL"
+    ],
+    "events_out": [
+      "CLOUD_STORAGE_BUCKET",
+      "CLOUD_STORAGE_BUCKET_OPEN"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Crawling and Scanning"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_dns_for_family",
+    "name": "DNS for Family",
+    "description": "Check if a host would be blocked by DNS for Family.",
+    "service": "DNS for Family",
+    "base_url": "https://dnsforfamily.com/",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "INTERNET_NAME",
+      "AFFILIATE_INTERNET_NAME",
+      "CO_HOSTED_SITE"
+    ],
+    "events_out": [
+      "BLACKLISTED_INTERNET_NAME",
+      "BLACKLISTED_AFFILIATE_INTERNET_NAME",
+      "BLACKLISTED_COHOST"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Reputation Systems"
+    ],
+    "use_cases": [
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_dnsbrute",
+    "name": "DNS Brute-forcer",
+    "description": "Attempts to identify hostnames through brute-forcing common names and iterations.",
+    "service": "DNS Brute-forcer",
+    "base_url": "free / no external url",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "DOMAIN_NAME",
+      "INTERNET_NAME"
+    ],
+    "events_out": [
+      "INTERNET_NAME"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "DNS"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate"
+    ]
+  },
+  {
+    "module": "sfp_dnscommonsrv",
+    "name": "DNS Common SRV",
+    "description": "Attempts to identify hostnames through brute-forcing common DNS SRV records.",
+    "service": "DNS Common SRV",
+    "base_url": "https://technet.microsoft.com",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "INTERNET_NAME",
+      "DOMAIN_NAME"
+    ],
+    "events_out": [
+      "INTERNET_NAME",
+      "AFFILIATE_INTERNET_NAME"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "DNS"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate"
+    ]
+  },
+  {
+    "module": "sfp_dnsdb",
+    "name": "DNSDB",
+    "description": "Query FarSight's DNSDB for historical and passive DNS data.",
+    "service": "DNSDB",
+    "base_url": "https://www.farsightsecurity.com",
+    "needs_key": "true",
+    "key_option": "api_key",
+    "all_key_options": [
+      "api_key"
+    ],
+    "events_in": [
+      "IP_ADDRESS",
+      "IPV6_ADDRESS",
+      "DOMAIN_NAME"
+    ],
+    "events_out": [
+      "RAW_RIR_DATA",
+      "INTERNET_NAME",
+      "INTERNET_NAME_UNRESOLVED",
+      "PROVIDER_DNS",
+      "DNS_TEXT",
+      "PROVIDER_MAIL",
+      "IP_ADDRESS",
+      "IPV6_ADDRESS",
+      "CO_HOSTED_SITE"
+    ],
+    "endpoints_called": [
+      "GET https://api.dnsdb.info/dnsdb/v2/lookup/{endpoint}/{queryType}/{query}"
+    ],
+    "rate_limits": "None noted",
+    "categories": [
+      "Passive DNS"
+    ],
+    "use_cases": [
+      "Passive",
+      "Footprint",
+      "Investigate"
+    ]
+  },
+  {
+    "module": "sfp_dnsdumpster",
+    "name": "DNSDumpster",
+    "description": "Passive subdomain enumeration using HackerTarget's DNSDumpster",
+    "service": "DNSDumpster",
+    "base_url": "https://dnsdumpster.com/",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "DOMAIN_NAME",
+      "INTERNET_NAME"
+    ],
+    "events_out": [
+      "INTERNET_NAME",
+      "INTERNET_NAME_UNRESOLVED"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Passive DNS"
+    ],
+    "use_cases": [
+      "Investigate",
+      "Footprint",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_dnsgrep",
+    "name": "DNSGrep",
+    "description": "Obtain Passive DNS information from Rapid7 Sonar Project using DNSGrep API.",
+    "service": "DNSGrep",
+    "base_url": "https://opendata.rapid7.com/",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "DOMAIN_NAME"
+    ],
+    "events_out": [
+      "INTERNET_NAME",
+      "INTERNET_NAME_UNRESOLVED",
+      "RAW_RIR_DATA"
+    ],
+    "endpoints_called": [
+      "GET https://dns.bufferover.run/dns?"
+    ],
+    "rate_limits": "None noted",
+    "categories": [
+      "Passive DNS"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_dnsneighbor",
+    "name": "DNS Look-aside",
+    "description": "Attempt to reverse-resolve the IP addresses next to your target to see if they are related.",
+    "service": "DNS Look-aside",
+    "base_url": "free / no external url",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "IP_ADDRESS"
+    ],
+    "events_out": [
+      "AFFILIATE_IPADDR",
+      "IP_ADDRESS"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "DNS"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate"
+    ]
+  },
+  {
+    "module": "sfp_dnsraw",
+    "name": "DNS Raw Records",
+    "description": "Retrieves raw DNS records such as MX, TXT and others.",
+    "service": "DNS Raw Records",
+    "base_url": "free / no external url",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "INTERNET_NAME",
+      "DOMAIN_NAME",
+      "DOMAIN_NAME_PARENT"
+    ],
+    "events_out": [
+      "PROVIDER_MAIL",
+      "PROVIDER_DNS",
+      "RAW_DNS_RECORDS",
+      "DNS_TEXT",
+      "DNS_SPF",
+      "INTERNET_NAME",
+      "INTERNET_NAME_UNRESOLVED",
+      "AFFILIATE_INTERNET_NAME",
+      "AFFILIATE_INTERNET_NAME_UNRESOLVED"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "DNS"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_dnsresolve",
+    "name": "DNS Resolver",
+    "description": "Resolves hosts and IP addresses identified, also extracted from raw content.",
+    "service": "DNS Resolver",
+    "base_url": "free / no external url",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "CO_HOSTED_SITE",
+      "AFFILIATE_INTERNET_NAME",
+      "NETBLOCK_OWNER",
+      "NETBLOCKV6_OWNER",
+      "IP_ADDRESS",
+      "IPV6_ADDRESS",
+      "INTERNET_NAME",
+      "AFFILIATE_IPADDR",
+      "AFFILIATE_IPV6_ADDRESS",
+      "TARGET_WEB_CONTENT",
+      "BASE64_DATA",
+      "AFFILIATE_DOMAIN_WHOIS",
+      "CO_HOSTED_SITE_DOMAIN_WHOIS",
+      "DOMAIN_WHOIS",
+      "NETBLOCK_WHOIS",
+      "LEAKSITE_CONTENT",
+      "RAW_DNS_RECORDS",
+      "RAW_FILE_META_DATA",
+      "RAW_RIR_DATA",
+      "SIMILARDOMAIN_WHOIS",
+      "SSL_CERTIFICATE_RAW",
+      "SSL_CERTIFICATE_ISSUED",
+      "TCP_PORT_OPEN_BANNER",
+      "WEBSERVER_BANNER",
+      "WEBSERVER_HTTPHEADERS"
+    ],
+    "events_out": [
+      "IP_ADDRESS",
+      "INTERNET_NAME",
+      "AFFILIATE_INTERNET_NAME",
+      "AFFILIATE_IPADDR",
+      "AFFILIATE_IPV6_ADDRESS",
+      "DOMAIN_NAME",
+      "IPV6_ADDRESS",
+      "INTERNAL_IP_ADDRESS",
+      "DOMAIN_NAME_PARENT",
+      "CO_HOSTED_SITE_DOMAIN",
+      "AFFILIATE_DOMAIN_NAME",
+      "INTERNET_NAME_UNRESOLVED"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "DNS"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_dnszonexfer",
+    "name": "DNS Zone Transfer",
+    "description": "Attempts to perform a full DNS zone transfer.",
+    "service": "DNS Zone Transfer",
+    "base_url": "free / no external url",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "PROVIDER_DNS"
+    ],
+    "events_out": [
+      "RAW_DNS_RECORDS",
+      "INTERNET_NAME"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "DNS"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate"
+    ]
+  },
+  {
+    "module": "sfp_dronebl",
+    "name": "DroneBL",
+    "description": "Query the DroneBL database for open relays, open proxies, vulnerable servers, etc.",
+    "service": "DroneBL",
+    "base_url": "https://dronebl.org/",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "IP_ADDRESS",
+      "AFFILIATE_IPADDR",
+      "NETBLOCK_OWNER",
+      "NETBLOCK_MEMBER"
+    ],
+    "events_out": [
+      "BLACKLISTED_IPADDR",
+      "BLACKLISTED_AFFILIATE_IPADDR",
+      "BLACKLISTED_SUBNET",
+      "BLACKLISTED_NETBLOCK",
+      "MALICIOUS_IPADDR",
+      "MALICIOUS_AFFILIATE_IPADDR",
+      "MALICIOUS_NETBLOCK",
+      "MALICIOUS_SUBNET",
+      "VPN_HOST",
+      "PROXY_HOST"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Reputation Systems"
+    ],
+    "use_cases": [
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_duckduckgo",
+    "name": "DuckDuckGo",
+    "description": "Query DuckDuckGo's API for descriptive information about your target.",
+    "service": "DuckDuckGo",
+    "base_url": "https://duckduckgo.com/",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "DOMAIN_NAME",
+      "DOMAIN_NAME_PARENT",
+      "INTERNET_NAME",
+      "AFFILIATE_INTERNET_NAME"
+    ],
+    "events_out": [
+      "DESCRIPTION_CATEGORY",
+      "DESCRIPTION_ABSTRACT",
+      "AFFILIATE_DESCRIPTION_CATEGORY",
+      "AFFILIATE_DESCRIPTION_ABSTRACT"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Search Engines"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_email",
+    "name": "E-Mail Address Extractor",
+    "description": "Identify e-mail addresses in any obtained data.",
+    "service": "E-Mail Address Extractor",
+    "base_url": "free / no external url",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "TARGET_WEB_CONTENT",
+      "BASE64_DATA",
+      "AFFILIATE_DOMAIN_WHOIS",
+      "CO_HOSTED_SITE_DOMAIN_WHOIS",
+      "DOMAIN_WHOIS",
+      "NETBLOCK_WHOIS",
+      "LEAKSITE_CONTENT",
+      "RAW_DNS_RECORDS",
+      "RAW_FILE_META_DATA",
+      "RAW_RIR_DATA",
+      "SIMILARDOMAIN_WHOIS",
+      "SSL_CERTIFICATE_RAW",
+      "SSL_CERTIFICATE_ISSUED",
+      "TCP_PORT_OPEN_BANNER",
+      "WEBSERVER_BANNER",
+      "WEBSERVER_HTTPHEADERS"
+    ],
+    "events_out": [
+      "EMAILADDR",
+      "EMAILADDR_GENERIC",
+      "AFFILIATE_EMAILADDR"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Content Analysis"
+    ],
+    "use_cases": [
+      "Passive",
+      "Investigate",
+      "Footprint"
+    ]
+  },
+  {
+    "module": "sfp_emailcrawlr",
+    "name": "EmailCrawlr",
+    "description": "Search EmailCrawlr for email addresses and phone numbers associated with a domain.",
+    "service": "EmailCrawlr",
+    "base_url": "https://emailcrawlr.com/",
+    "needs_key": "true",
+    "key_option": "api_key",
+    "all_key_options": [
+      "api_key"
+    ],
+    "events_in": [
+      "DOMAIN_NAME"
+    ],
+    "events_out": [
+      "RAW_RIR_DATA",
+      "EMAILADDR",
+      "EMAILADDR_GENERIC",
+      "PHONE_NUMBER",
+      "GEOINFO"
+    ],
+    "endpoints_called": [
+      "GET https://api.emailcrawlr.com/v2/domain?{urllib.parse.urlencode(params)}"
+    ],
+    "rate_limits": "None noted",
+    "categories": [
+      "Search Engines"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_emailformat",
+    "name": "EmailFormat",
+    "description": "Look up e-mail addresses on email-format.com.",
+    "service": "EmailFormat",
+    "base_url": "https://www.email-format.com/",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "INTERNET_NAME",
+      "DOMAIN_NAME"
+    ],
+    "events_out": [
+      "EMAILADDR",
+      "EMAILADDR_GENERIC"
+    ],
+    "endpoints_called": [
+      "GET https://www.email-format.com/d/{eventData}/"
+    ],
+    "rate_limits": "None noted",
+    "categories": [
+      "Search Engines"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_emailrep",
+    "name": "EmailRep",
+    "description": "Search EmailRep.io for email address reputation.",
+    "service": "EmailRep",
+    "base_url": "https://emailrep.io/",
+    "needs_key": "true",
+    "key_option": "api_key",
+    "all_key_options": [
+      "api_key"
+    ],
+    "events_in": [
+      "EMAILADDR"
+    ],
+    "events_out": [
+      "RAW_RIR_DATA",
+      "EMAILADDR_COMPROMISED",
+      "MALICIOUS_EMAILADDR"
+    ],
+    "endpoints_called": [
+      "GET https://emailrep.io/"
+    ],
+    "rate_limits": "Documentation does not indicate rate limit threshold (50 queries/day)",
+    "categories": [
+      "Search Engines"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_emergingthreats",
+    "name": "Emerging Threats",
+    "description": "Check if a netblock or IP address is malicious according to EmergingThreats.net.",
+    "service": "Emerging Threats",
+    "base_url": "https://rules.emergingthreats.net/",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "IP_ADDRESS",
+      "AFFILIATE_IPADDR",
+      "NETBLOCK_MEMBER",
+      "NETBLOCK_OWNER"
+    ],
+    "events_out": [
+      "BLACKLISTED_IPADDR",
+      "BLACKLISTED_AFFILIATE_IPADDR",
+      "BLACKLISTED_SUBNET",
+      "BLACKLISTED_NETBLOCK",
+      "MALICIOUS_IPADDR",
+      "MALICIOUS_AFFILIATE_IPADDR",
+      "MALICIOUS_SUBNET",
+      "MALICIOUS_NETBLOCK"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Reputation Systems"
+    ],
+    "use_cases": [
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_errors",
+    "name": "Error String Extractor",
+    "description": "Identify common error messages in content like SQL errors, etc.",
+    "service": "Error String Extractor",
+    "base_url": "free / no external url",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "TARGET_WEB_CONTENT"
+    ],
+    "events_out": [
+      "ERROR_MESSAGE"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Content Analysis"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_ethereum",
+    "name": "Ethereum Address Extractor",
+    "description": "Identify ethereum addresses in scraped webpages.",
+    "service": "Ethereum Address Extractor",
+    "base_url": "https://stackoverflow.com",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "TARGET_WEB_CONTENT"
+    ],
+    "events_out": [
+      "ETHEREUM_ADDRESS"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Content Analysis"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_etherscan",
+    "name": "Etherscan",
+    "description": "Queries etherscan.io to find the balance of identified ethereum wallet addresses.",
+    "service": "Etherscan",
+    "base_url": "https://etherscan.io",
+    "needs_key": "true",
+    "key_option": "api_key",
+    "all_key_options": [
+      "api_key"
+    ],
+    "events_in": [
+      "ETHEREUM_ADDRESS"
+    ],
+    "events_out": [
+      "ETHEREUM_BALANCE",
+      "RAW_RIR_DATA"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Public Registries"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_filemeta",
+    "name": "File Metadata Extractor",
+    "description": "Extracts meta data from documents and images.",
+    "service": "File Metadata Extractor",
+    "base_url": "free / no external url",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "LINKED_URL_INTERNAL",
+      "INTERESTING_FILE"
+    ],
+    "events_out": [
+      "RAW_FILE_META_DATA",
+      "SOFTWARE_USED"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Content Analysis"
+    ],
+    "use_cases": [
+      "Footprint"
+    ]
+  },
+  {
+    "module": "sfp_flickr",
+    "name": "Flickr",
+    "description": "Search Flickr for domains, URLs and emails related to the specified domain.",
+    "service": "Flickr",
+    "base_url": "https://www.flickr.com/",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "DOMAIN_NAME"
+    ],
+    "events_out": [
+      "EMAILADDR",
+      "EMAILADDR_GENERIC",
+      "INTERNET_NAME",
+      "DOMAIN_NAME",
+      "LINKED_URL_INTERNAL"
+    ],
+    "endpoints_called": [
+      "GET https://api.flickr.com/services/rest?",
+      "GET https://www.flickr.com/"
+    ],
+    "rate_limits": "None noted",
+    "categories": [
+      "Social Media"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_focsec",
+    "name": "Focsec",
+    "description": "Look up IP address information from Focsec.",
+    "service": "Focsec",
+    "base_url": "https://focsec.com/",
+    "needs_key": "true",
+    "key_option": "api_key",
+    "all_key_options": [
+      "api_key"
+    ],
+    "events_in": [
+      "IP_ADDRESS",
+      "IPV6_ADDRESS"
+    ],
+    "events_out": [
+      "RAW_RIR_DATA",
+      "GEOINFO",
+      "MALICIOUS_IPADDR",
+      "PROXY_HOST",
+      "VPN_HOST",
+      "TOR_EXIT_NODE"
+    ],
+    "endpoints_called": [
+      "GET https://api.focsec.com/v1/ip/{qry}?{params}"
+    ],
+    "rate_limits": "Future proofing - Focsec does not implement rate limiting",
+    "categories": [
+      "Search Engines"
+    ],
+    "use_cases": [
+      "Passive",
+      "Footprint",
+      "Investigate"
+    ]
+  },
+  {
+    "module": "sfp_fortinet",
+    "name": "FortiGuard Antispam",
+    "description": "Check if an IP address is malicious according to FortiGuard Antispam.",
+    "service": "FortiGuard Antispam",
+    "base_url": "https://www.fortiguard.com/",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "IP_ADDRESS",
+      "IPV6_ADDRESS",
+      "AFFILIATE_IPADDR",
+      "AFFILIATE_IPV6_ADDRESS"
+    ],
+    "events_out": [
+      "BLACKLISTED_IPADDR",
+      "BLACKLISTED_AFFILIATE_IPADDR",
+      "MALICIOUS_IPADDR",
+      "MALICIOUS_AFFILIATE_IPADDR"
+    ],
+    "endpoints_called": [
+      "GET https://www.fortiguard.com/search?q={ip}&engine=8"
+    ],
+    "rate_limits": "None noted",
+    "categories": [
+      "Reputation Systems"
+    ],
+    "use_cases": [
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_fraudguard",
+    "name": "Fraudguard",
+    "description": "Obtain threat information from Fraudguard.io",
+    "service": "Fraudguard",
+    "base_url": "https://fraudguard.io/",
+    "needs_key": "true",
+    "key_option": "fraudguard_api_key_account",
+    "all_key_options": [
+      "fraudguard_api_key_account",
+      "fraudguard_api_key_password"
+    ],
+    "events_in": [
+      "IP_ADDRESS",
+      "IPV6_ADDRESS",
+      "AFFILIATE_IPADDR",
+      "AFFILIATE_IPV6_ADDRESS",
+      "NETBLOCK_MEMBER",
+      "NETBLOCKV6_MEMBER",
+      "NETBLOCK_OWNER",
+      "NETBLOCKV6_OWNER"
+    ],
+    "events_out": [
+      "GEOINFO",
+      "MALICIOUS_IPADDR",
+      "MALICIOUS_AFFILIATE_IPADDR",
+      "MALICIOUS_SUBNET",
+      "MALICIOUS_NETBLOCK"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Reputation Systems"
+    ],
+    "use_cases": [
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_fsecure_riddler",
+    "name": "F-Secure Riddler.io",
+    "description": "Obtain network information from F-Secure Riddler.io API.",
+    "service": "F-Secure Riddler.io",
+    "base_url": "https://riddler.io/",
+    "needs_key": "true",
+    "key_option": "password",
+    "all_key_options": [
+      "password"
+    ],
+    "events_in": [
+      "DOMAIN_NAME",
+      "INTERNET_NAME",
+      "INTERNET_NAME_UNRESOLVED",
+      "IP_ADDRESS"
+    ],
+    "events_out": [
+      "INTERNET_NAME",
+      "AFFILIATE_INTERNET_NAME",
+      "INTERNET_NAME_UNRESOLVED",
+      "AFFILIATE_INTERNET_NAME_UNRESOLVED",
+      "DOMAIN_NAME",
+      "AFFILIATE_DOMAIN_NAME",
+      "IP_ADDRESS",
+      "PHYSICAL_COORDINATES",
+      "RAW_RIR_DATA"
+    ],
+    "endpoints_called": [
+      "GET https://riddler.io/api/search",
+      "GET https://riddler.io/auth/login"
+    ],
+    "rate_limits": "None noted",
+    "categories": [
+      "Search Engines"
+    ],
+    "use_cases": [
+      "Investigate",
+      "Footprint",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_fullcontact",
+    "name": "FullContact",
+    "description": "Gather domain and e-mail information from FullContact.com API.",
+    "service": "FullContact",
+    "base_url": "https://www.fullcontact.com",
+    "needs_key": "true",
+    "key_option": "api_key",
+    "all_key_options": [
+      "api_key"
+    ],
+    "events_in": [
+      "DOMAIN_NAME",
+      "EMAILADDR"
+    ],
+    "events_out": [
+      "EMAILADDR",
+      "EMAILADDR_GENERIC",
+      "RAW_RIR_DATA",
+      "PHONE_NUMBER",
+      "GEOINFO",
+      "PHYSICAL_ADDRESS"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Search Engines"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_fullhunt",
+    "name": "FullHunt",
+    "description": "Identify domain attack surface using FullHunt API.",
+    "service": "FullHunt",
+    "base_url": "https://fullhunt.io/",
+    "needs_key": "true",
+    "key_option": "api_key",
+    "all_key_options": [
+      "api_key"
+    ],
+    "events_in": [
+      "DOMAIN_NAME"
+    ],
+    "events_out": [
+      "INTERNET_NAME",
+      "INTERNET_NAME_UNRESOLVED",
+      "AFFILIATE_INTERNET_NAME",
+      "AFFILIATE_INTERNET_NAME_UNRESOLVED",
+      "TCP_PORT_OPEN",
+      "PROVIDER_DNS",
+      "PROVIDER_MAIL",
+      "RAW_RIR_DATA"
+    ],
+    "endpoints_called": [
+      "GET https://fullhunt.io/api/v1/domain/{qry}/details"
+    ],
+    "rate_limits": "None noted",
+    "categories": [
+      "Search Engines"
+    ],
+    "use_cases": [
+      "Passive",
+      "Footprint",
+      "Investigate"
+    ]
+  },
+  {
+    "module": "sfp_github",
+    "name": "Github",
+    "description": "Identify associated public code repositories on Github.",
+    "service": "Github",
+    "base_url": "https://github.com/",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "DOMAIN_NAME",
+      "USERNAME",
+      "SOCIAL_MEDIA"
+    ],
+    "events_out": [
+      "RAW_RIR_DATA",
+      "GEOINFO",
+      "PUBLIC_CODE_REPO"
+    ],
+    "endpoints_called": [
+      "GET https://api.github.com/users/{username}"
+    ],
+    "rate_limits": "None noted",
+    "categories": [
+      "Social Media"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_gleif",
+    "name": "GLEIF",
+    "description": "Look up company information from Global Legal Entity Identifier Foundation (GLEIF).",
+    "service": "GLEIF",
+    "base_url": "https://search.gleif.org/",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "COMPANY_NAME",
+      "LEI"
+    ],
+    "events_out": [
+      "COMPANY_NAME",
+      "LEI",
+      "PHYSICAL_ADDRESS",
+      "RAW_RIR_DATA"
+    ],
+    "endpoints_called": [
+      "GET https://api.gleif.org/api/v1/autocompletions?{params}",
+      "GET https://api.gleif.org/api/v1/fuzzycompletions?{params}",
+      "GET https://api.gleif.org/api/v1/lei-records/{lei}"
+    ],
+    "rate_limits": "None noted",
+    "categories": [
+      "Search Engines"
+    ],
+    "use_cases": [
+      "Passive",
+      "Footprint",
+      "Investigate"
+    ]
+  },
+  {
+    "module": "sfp_google_tag_manager",
+    "name": "Google Tag Manager",
+    "description": "Search Google Tag Manager (GTM) for hosts sharing the same GTM code.",
+    "service": "Google Tag Manager",
+    "base_url": "https://tagmanager.google.com",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "WEB_ANALYTICS_ID"
+    ],
+    "events_out": [
+      "DOMAIN_NAME",
+      "INTERNET_NAME",
+      "AFFILIATE_DOMAIN_NAME",
+      "AFFILIATE_INTERNET_NAME"
+    ],
+    "endpoints_called": [
+      "GET https://googletagmanager.com/gtm.js?{params}"
+    ],
+    "rate_limits": "None noted",
+    "categories": [
+      "Passive DNS"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_googlemaps",
+    "name": "Google Maps",
+    "description": "Identifies potential physical addresses and latitude/longitude coordinates.",
+    "service": "Google Maps",
+    "base_url": "https://cloud.google.com/maps-platform/",
+    "needs_key": "true",
+    "key_option": "api_key",
+    "all_key_options": [
+      "api_key"
+    ],
+    "events_in": [
+      "DOMAIN_NAME",
+      "PHYSICAL_ADDRESS"
+    ],
+    "events_out": [
+      "PHYSICAL_ADDRESS",
+      "PHYSICAL_COORDINATES",
+      "RAW_RIR_DATA"
+    ],
+    "endpoints_called": [
+      "GET https://maps.googleapis.com/maps/api/geocode/json?{params}"
+    ],
+    "rate_limits": "None noted",
+    "categories": [
+      "Real World"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_googleobjectstorage",
+    "name": "Google Object Storage Finder",
+    "description": "Search for potential Google Object Storage buckets associated with the target and attempt to list their contents.",
+    "service": "Google Object Storage Finder",
+    "base_url": "https://cloud.google.com/storage",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "DOMAIN_NAME",
+      "LINKED_URL_EXTERNAL"
+    ],
+    "events_out": [
+      "CLOUD_STORAGE_BUCKET",
+      "CLOUD_STORAGE_BUCKET_OPEN"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Crawling and Scanning"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_googlesafebrowsing",
+    "name": "Google SafeBrowsing",
+    "description": "Check if the URL is included on any of the Safe Browsing lists.",
+    "service": "Google SafeBrowsing",
+    "base_url": "https://developers.google.com/safe-browsing/v4/lookup-api",
+    "needs_key": "true",
+    "key_option": "api_key",
+    "all_key_options": [
+      "api_key"
+    ],
+    "events_in": [
+      "INTERNET_NAME",
+      "IP_ADDRESS",
+      "AFFILIATE_INTERNET_NAME",
+      "AFFILIATE_IPADDR",
+      "CO_HOSTED_SITE"
+    ],
+    "events_out": [
+      "MALICIOUS_IPADDR",
+      "MALICIOUS_INTERNET_NAME",
+      "MALICIOUS_AFFILIATE_IPADDR",
+      "MALICIOUS_AFFILIATE_INTERNET_NAME",
+      "MALICIOUS_COHOST",
+      "RAW_RIR_DATA"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "self.error(\"Reaching rate limit on Google Safe Browsing API\")",
+    "categories": [
+      "Reputation Systems"
+    ],
+    "use_cases": [
+      "Passive",
+      "Investigate"
+    ]
+  },
+  {
+    "module": "sfp_googlesearch",
+    "name": "Google",
+    "description": "Obtain information from the Google Custom Search API to identify sub-domains and links.",
+    "service": "Google",
+    "base_url": "https://developers.google.com/custom-search",
+    "needs_key": "true",
+    "key_option": "api_key",
+    "all_key_options": [
+      "api_key"
+    ],
+    "events_in": [
+      "INTERNET_NAME"
+    ],
+    "events_out": [
+      "LINKED_URL_INTERNAL",
+      "RAW_RIR_DATA"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Search Engines"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_gravatar",
+    "name": "Gravatar",
+    "description": "Retrieve user information from Gravatar API.",
+    "service": "Gravatar",
+    "base_url": "https://secure.gravatar.com/",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "EMAILADDR"
+    ],
+    "events_out": [
+      "RAW_RIR_DATA",
+      "USERNAME",
+      "EMAILADDR",
+      "EMAILADDR_GENERIC",
+      "PHONE_NUMBER",
+      "GEOINFO",
+      "ACCOUNT_EXTERNAL_OWNED",
+      "SOCIAL_MEDIA"
+    ],
+    "endpoints_called": [
+      "GET https://secure.gravatar.com/"
+    ],
+    "rate_limits": "None noted",
+    "categories": [
+      "Social Media"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_grayhatwarfare",
+    "name": "Grayhat Warfare",
+    "description": "Find bucket names matching the keyword extracted from a domain from Grayhat API.",
+    "service": "Grayhat Warfare",
+    "base_url": "https://buckets.grayhatwarfare.com/",
+    "needs_key": "true",
+    "key_option": "api_key",
+    "all_key_options": [
+      "api_key"
+    ],
+    "events_in": [
+      "DOMAIN_NAME"
+    ],
+    "events_out": [
+      "CLOUD_STORAGE_BUCKET",
+      "CLOUD_STORAGE_BUCKET_OPEN",
+      "RAW_RIR_DATA"
+    ],
+    "endpoints_called": [
+      "GET https://buckets.grayhatwarfare.com/api/v1/buckets/{start}/{self.opts["
+    ],
+    "rate_limits": "None noted",
+    "categories": [
+      "Reputation Systems"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_greensnow",
+    "name": "Greensnow",
+    "description": "Check if a netblock or IP address is malicious according to greensnow.co.",
+    "service": "Greensnow",
+    "base_url": "https://greensnow.co/",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "IP_ADDRESS",
+      "AFFILIATE_IPADDR",
+      "NETBLOCK_OWNER",
+      "NETBLOCK_MEMBER"
+    ],
+    "events_out": [
+      "BLACKLISTED_IPADDR",
+      "BLACKLISTED_AFFILIATE_IPADDR",
+      "BLACKLISTED_SUBNET",
+      "BLACKLISTED_NETBLOCK",
+      "MALICIOUS_IPADDR",
+      "MALICIOUS_AFFILIATE_IPADDR",
+      "MALICIOUS_NETBLOCK",
+      "MALICIOUS_SUBNET"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Reputation Systems"
+    ],
+    "use_cases": [
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_grep_app",
+    "name": "grep.app",
+    "description": "Search grep.app API for links and emails related to the specified domain.",
+    "service": "grep.app",
+    "base_url": "https://grep.app/",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "DOMAIN_NAME"
+    ],
+    "events_out": [
+      "EMAILADDR",
+      "EMAILADDR_GENERIC",
+      "DOMAIN_NAME",
+      "INTERNET_NAME",
+      "RAW_RIR_DATA",
+      "INTERNET_NAME_UNRESOLVED",
+      "LINKED_URL_INTERNAL"
+    ],
+    "endpoints_called": [
+      "GET https://grep.app/api/search?"
+    ],
+    "rate_limits": "None noted",
+    "categories": [
+      "Search Engines"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_greynoise",
+    "name": "GreyNoise",
+    "description": "Obtain IP enrichment data from GreyNoise",
+    "service": "GreyNoise",
+    "base_url": "https://greynoise.io/",
+    "needs_key": "true",
+    "key_option": "api_key",
+    "all_key_options": [
+      "api_key"
+    ],
+    "events_in": [
+      "IP_ADDRESS",
+      "AFFILIATE_IPADDR",
+      "NETBLOCK_MEMBER",
+      "NETBLOCK_OWNER"
+    ],
+    "events_out": [
+      "MALICIOUS_IPADDR",
+      "MALICIOUS_ASN",
+      "MALICIOUS_SUBNET",
+      "MALICIOUS_AFFILIATE_IPADDR",
+      "MALICIOUS_NETBLOCK",
+      "COMPANY_NAME",
+      "GEOINFO",
+      "BGP_AS_MEMBER",
+      "OPERATING_SYSTEM",
+      "RAW_RIR_DATA"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Reputation Systems"
+    ],
+    "use_cases": [
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_greynoise_community",
+    "name": "GreyNoise Community",
+    "description": "Obtain IP enrichment data from GreyNoise Community API",
+    "service": "GreyNoise Community",
+    "base_url": "https://greynoise.io/",
+    "needs_key": "true",
+    "key_option": "api_key",
+    "all_key_options": [
+      "api_key"
+    ],
+    "events_in": [
+      "IP_ADDRESS",
+      "AFFILIATE_IPADDR",
+      "NETBLOCK_MEMBER",
+      "NETBLOCK_OWNER"
+    ],
+    "events_out": [
+      "MALICIOUS_IPADDR",
+      "COMPANY_NAME",
+      "RAW_RIR_DATA"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Reputation Systems"
+    ],
+    "use_cases": [
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_h1nobbdde",
+    "name": "HackerOne (Unofficial)",
+    "description": "Check external vulnerability scanning/reporting service h1.nobbd.de to see if the target is listed.",
+    "service": "HackerOne (Unofficial)",
+    "base_url": "http://www.nobbd.de/",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "DOMAIN_NAME"
+    ],
+    "events_out": [
+      "VULNERABILITY_DISCLOSURE"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Leaks, Dumps and Breaches"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_hackertarget",
+    "name": "HackerTarget",
+    "description": "Search HackerTarget.com for hosts sharing the same IP.",
+    "service": "HackerTarget",
+    "base_url": "https://hackertarget.com/",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "IP_ADDRESS",
+      "NETBLOCK_OWNER",
+      "DOMAIN_NAME_PARENT"
+    ],
+    "events_out": [
+      "CO_HOSTED_SITE",
+      "IP_ADDRESS",
+      "WEBSERVER_HTTPHEADERS",
+      "RAW_DNS_RECORDS",
+      "INTERNET_NAME",
+      "INTERNET_NAME_UNRESOLVED",
+      "DOMAIN_NAME",
+      "AFFILIATE_DOMAIN_NAME",
+      "AFFILIATE_INTERNET_NAME",
+      "AFFILIATE_INTERNET_NAME_UNRESOLVED"
+    ],
+    "endpoints_called": [
+      "GET https://api.hackertarget.com/httpheaders/?{params}",
+      "GET https://api.hackertarget.com/reverseiplookup/?{params}",
+      "GET https://api.hackertarget.com/zonetransfer/?{params}"
+    ],
+    "rate_limits": "None noted",
+    "categories": [
+      "Passive DNS"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate"
+    ]
+  },
+  {
+    "module": "sfp_hashes",
+    "name": "Hash Extractor",
+    "description": "Identify MD5 and SHA hashes in web content, files and more.",
+    "service": "Hash Extractor",
+    "base_url": "free / no external url",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "TARGET_WEB_CONTENT",
+      "BASE64_DATA",
+      "LEAKSITE_CONTENT",
+      "RAW_DNS_RECORDS",
+      "RAW_FILE_META_DATA"
+    ],
+    "events_out": [
+      "HASH"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Content Analysis"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_haveibeenpwned",
+    "name": "HaveIBeenPwned",
+    "description": "Check HaveIBeenPwned.com for hacked e-mail addresses identified in breaches.",
+    "service": "HaveIBeenPwned",
+    "base_url": "https://haveibeenpwned.com/",
+    "needs_key": "true",
+    "key_option": "api_key",
+    "all_key_options": [
+      "api_key"
+    ],
+    "events_in": [
+      "EMAILADDR",
+      "PHONE_NUMBER"
+    ],
+    "events_out": [
+      "EMAILADDR_COMPROMISED",
+      "PHONE_NUMBER_COMPROMISED",
+      "LEAKSITE_CONTENT",
+      "LEAKSITE_URL"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "https://haveibeenpwned.com/API/v2#RateLimiting",
+    "categories": [
+      "Leaks, Dumps and Breaches"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_honeypot",
+    "name": "Project Honey Pot",
+    "description": "Query the Project Honey Pot database for IP addresses.",
+    "service": "Project Honey Pot",
+    "base_url": "https://www.projecthoneypot.org/",
+    "needs_key": "true",
+    "key_option": "api_key",
+    "all_key_options": [
+      "api_key"
+    ],
+    "events_in": [
+      "IP_ADDRESS",
+      "AFFILIATE_IPADDR",
+      "NETBLOCK_OWNER",
+      "NETBLOCK_MEMBER"
+    ],
+    "events_out": [
+      "BLACKLISTED_IPADDR",
+      "BLACKLISTED_AFFILIATE_IPADDR",
+      "BLACKLISTED_NETBLOCK",
+      "BLACKLISTED_SUBNET",
+      "MALICIOUS_IPADDR",
+      "MALICIOUS_AFFILIATE_IPADDR",
+      "MALICIOUS_NETBLOCK",
+      "MALICIOUS_SUBNET"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Reputation Systems"
+    ],
+    "use_cases": [
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_hosting",
+    "name": "Hosting Provider Identifier",
+    "description": "Find out if any IP addresses identified fall within known 3rd party hosting ranges, e.g. Amazon, Azure, etc.",
+    "service": "Hosting Provider Identifier",
+    "base_url": "https://raw.githubusercontent.com",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "IP_ADDRESS"
+    ],
+    "events_out": [
+      "PROVIDER_HOSTING"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Content Analysis"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_hostio",
+    "name": "Host.io",
+    "description": "Obtain information about domain names from host.io.",
+    "service": "Host.io",
+    "base_url": "https://host.io",
+    "needs_key": "true",
+    "key_option": "api_key",
+    "all_key_options": [
+      "api_key"
+    ],
+    "events_in": [
+      "DOMAIN_NAME"
+    ],
+    "events_out": [
+      "IP_ADDRESS",
+      "RAW_RIR_DATA",
+      "EMAILADDR",
+      "WEB_ANALYTICS_ID",
+      "WEBSERVER_TECHNOLOGY",
+      "PHYSICAL_COORDINATES",
+      "DESCRIPTION_ABSTRACT",
+      "GEOINFO"
+    ],
+    "endpoints_called": [
+      "GET https://host.io/api/full/{qry}"
+    ],
+    "rate_limits": "None noted",
+    "categories": [
+      "Passive DNS"
+    ],
+    "use_cases": [
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_hunter",
+    "name": "Hunter.io",
+    "description": "Check for e-mail addresses and names on hunter.io.",
+    "service": "Hunter.io",
+    "base_url": "https://hunter.io/",
+    "needs_key": "true",
+    "key_option": "api_key",
+    "all_key_options": [
+      "api_key"
+    ],
+    "events_in": [
+      "DOMAIN_NAME",
+      "INTERNET_NAME"
+    ],
+    "events_out": [
+      "EMAILADDR",
+      "EMAILADDR_GENERIC",
+      "RAW_RIR_DATA"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Search Engines"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_hybrid_analysis",
+    "name": "Hybrid Analysis",
+    "description": "Search Hybrid Analysis for domains and URLs related to the target.",
+    "service": "Hybrid Analysis",
+    "base_url": "https://www.hybrid-analysis.com",
+    "needs_key": "true",
+    "key_option": "api_key",
+    "all_key_options": [
+      "api_key"
+    ],
+    "events_in": [
+      "IP_ADDRESS",
+      "DOMAIN_NAME"
+    ],
+    "events_out": [
+      "RAW_RIR_DATA",
+      "INTERNET_NAME",
+      "DOMAIN_NAME",
+      "LINKED_URL_INTERNAL"
+    ],
+    "endpoints_called": [
+      "GET https://www.hybrid-analysis.com/api/v2/search/hash",
+      "GET https://www.hybrid-analysis.com/api/v2/search/terms"
+    ],
+    "rate_limits": "Future proofing - Hybrid Analysis does not implement rate limiting",
+    "categories": [
+      "Reputation Systems"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_iban",
+    "name": "IBAN Number Extractor",
+    "description": "Identify International Bank Account Numbers (IBANs) in any data.",
+    "service": "IBAN Number Extractor",
+    "base_url": "free / no external url",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "TARGET_WEB_CONTENT",
+      "DARKNET_MENTION_CONTENT",
+      "LEAKSITE_CONTENT"
+    ],
+    "events_out": [
+      "IBAN_NUMBER"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Content Analysis"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_iknowwhatyoudownload",
+    "name": "Iknowwhatyoudownload.com",
+    "description": "Check iknowwhatyoudownload.com for IP addresses that have been using torrents.",
+    "service": "Iknowwhatyoudownload.com",
+    "base_url": "https://iknowwhatyoudownload.com/en/peer/",
+    "needs_key": "true",
+    "key_option": "api_key",
+    "all_key_options": [
+      "api_key"
+    ],
+    "events_in": [
+      "IP_ADDRESS",
+      "IPV6_ADDRESS"
+    ],
+    "events_out": [
+      "MALICIOUS_IPADDR"
+    ],
+    "endpoints_called": [
+      "GET https://api.antitor.com/history/peer/?{params}"
+    ],
+    "rate_limits": "None noted",
+    "categories": [
+      "Secondary Networks"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_intelx",
+    "name": "IntelligenceX",
+    "description": "Obtain information from IntelligenceX about identified IP addresses, domains, e-mail addresses and phone numbers.",
+    "service": "IntelligenceX",
+    "base_url": "https://intelx.io/",
+    "needs_key": "true",
+    "key_option": "api_key",
+    "all_key_options": [
+      "api_key"
+    ],
+    "events_in": [
+      "IP_ADDRESS",
+      "AFFILIATE_IPADDR",
+      "INTERNET_NAME",
+      "EMAILADDR",
+      "CO_HOSTED_SITE",
+      "PHONE_NUMBER",
+      "BITCOIN_ADDRESS"
+    ],
+    "events_out": [
+      "LEAKSITE_URL",
+      "DARKNET_MENTION_URL",
+      "INTERNET_NAME",
+      "DOMAIN_NAME",
+      "EMAILADDR",
+      "EMAILADDR_GENERIC"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Search Engines"
+    ],
+    "use_cases": [
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_intfiles",
+    "name": "Interesting File Finder",
+    "description": "Identifies potential files of interest, e.g. office documents, zip files.",
+    "service": "Interesting File Finder",
+    "base_url": "free / no external url",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "LINKED_URL_INTERNAL"
+    ],
+    "events_out": [
+      "INTERESTING_FILE"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Crawling and Scanning"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_ipapico",
+    "name": "ipapi.co",
+    "description": "Queries ipapi.co to identify geolocation of IP Addresses using ipapi.co API",
+    "service": "ipapi.co",
+    "base_url": "https://ipapi.co/",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "IP_ADDRESS",
+      "IPV6_ADDRESS"
+    ],
+    "events_out": [
+      "GEOINFO",
+      "RAW_RIR_DATA"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Real World"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_ipapicom",
+    "name": "ipapi.com",
+    "description": "Queries ipapi.com to identify geolocation of IP Addresses using ipapi.com API",
+    "service": "ipapi.com",
+    "base_url": "https://ipapi.com/",
+    "needs_key": "true",
+    "key_option": "api_key",
+    "all_key_options": [
+      "api_key"
+    ],
+    "events_in": [
+      "IP_ADDRESS",
+      "IPV6_ADDRESS"
+    ],
+    "events_out": [
+      "GEOINFO",
+      "RAW_RIR_DATA"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Real World"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_ipinfo",
+    "name": "IPInfo.io",
+    "description": "Identifies the physical location of IP addresses identified using ipinfo.io.",
+    "service": "IPInfo.io",
+    "base_url": "https://ipinfo.io",
+    "needs_key": "true",
+    "key_option": "api_key",
+    "all_key_options": [
+      "api_key"
+    ],
+    "events_in": [
+      "IP_ADDRESS",
+      "IPV6_ADDRESS"
+    ],
+    "events_out": [
+      "GEOINFO"
+    ],
+    "endpoints_called": [
+      "GET https://ipinfo.io/"
+    ],
+    "rate_limits": "None noted",
+    "categories": [
+      "Real World"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_ipqualityscore",
+    "name": "IPQualityScore",
+    "description": "Determine if target is malicious using IPQualityScore API",
+    "service": "IPQualityScore",
+    "base_url": "https://www.ipqualityscore.com/",
+    "needs_key": "true",
+    "key_option": "api_key",
+    "all_key_options": [
+      "api_key"
+    ],
+    "events_in": [
+      "DOMAIN_NAME",
+      "EMAILADDR",
+      "IP_ADDRESS",
+      "PHONE_NUMBER"
+    ],
+    "events_out": [
+      "EMAILADDR_DISPOSABLE",
+      "EMAILADDR_COMPROMISED",
+      "GEOINFO",
+      "MALICIOUS_PHONE_NUMBER",
+      "MALICIOUS_EMAILADDR",
+      "MALICIOUS_IPADDR",
+      "MALICIOUS_INTERNET_NAME",
+      "PHONE_NUMBER_TYPE",
+      "RAW_RIR_DATA"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Reputation Systems"
+    ],
+    "use_cases": [
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_ipregistry",
+    "name": "ipregistry",
+    "description": "Query the ipregistry.co database for reputation and geo-location.",
+    "service": "ipregistry",
+    "base_url": "https://ipregistry.co/",
+    "needs_key": "true",
+    "key_option": "api_key",
+    "all_key_options": [
+      "api_key"
+    ],
+    "events_in": [
+      "IP_ADDRESS",
+      "IPV6_ADDRESS"
+    ],
+    "events_out": [
+      "GEOINFO",
+      "MALICIOUS_IPADDR",
+      "PHYSICAL_COORDINATES",
+      "RAW_RIR_DATA"
+    ],
+    "endpoints_called": [
+      "GET https://api.ipregistry.co/{qry}?{qs}"
+    ],
+    "rate_limits": "None noted",
+    "categories": [
+      "Reputation Systems"
+    ],
+    "use_cases": [
+      "Passive",
+      "Footprint",
+      "Investigate"
+    ]
+  },
+  {
+    "module": "sfp_ipstack",
+    "name": "ipstack",
+    "description": "Identifies the physical location of IP addresses identified using ipstack.com.",
+    "service": "ipstack",
+    "base_url": "https://ipstack.com/",
+    "needs_key": "true",
+    "key_option": "api_key",
+    "all_key_options": [
+      "api_key"
+    ],
+    "events_in": [
+      "IP_ADDRESS"
+    ],
+    "events_out": [
+      "GEOINFO"
+    ],
+    "endpoints_called": [
+      "GET http://api.ipstack.com/"
+    ],
+    "rate_limits": "None noted",
+    "categories": [
+      "Real World"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_isc",
+    "name": "Internet Storm Center",
+    "description": "Check if an IP address is malicious according to SANS ISC.",
+    "service": "Internet Storm Center",
+    "base_url": "https://isc.sans.edu",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "IP_ADDRESS",
+      "IPV6_ADDRESS",
+      "AFFILIATE_IPADDR",
+      "AFFILIATE_IPV6_ADDRESS"
+    ],
+    "events_out": [
+      "BLACKLISTED_IPADDR",
+      "BLACKLISTED_AFFILIATE_IPADDR",
+      "MALICIOUS_IPADDR",
+      "MALICIOUS_AFFILIATE_IPADDR"
+    ],
+    "endpoints_called": [
+      "GET https://isc.sans.edu/api/ip/{ip}"
+    ],
+    "rate_limits": "None noted",
+    "categories": [
+      "Reputation Systems"
+    ],
+    "use_cases": [
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_jsonwhoiscom",
+    "name": "JsonWHOIS.com",
+    "description": "Search JsonWHOIS.com for WHOIS records associated with a domain.",
+    "service": "JsonWHOIS.com",
+    "base_url": "https://jsonwhois.com",
+    "needs_key": "true",
+    "key_option": "api_key",
+    "all_key_options": [
+      "api_key"
+    ],
+    "events_in": [
+      "DOMAIN_NAME",
+      "AFFILIATE_DOMAIN_NAME"
+    ],
+    "events_out": [
+      "RAW_RIR_DATA",
+      "DOMAIN_REGISTRAR",
+      "DOMAIN_WHOIS",
+      "PROVIDER_DNS",
+      "EMAILADDR",
+      "EMAILADDR_GENERIC",
+      "PHONE_NUMBER",
+      "PHYSICAL_ADDRESS",
+      "AFFILIATE_DOMAIN_UNREGISTERED"
+    ],
+    "endpoints_called": [
+      "GET https://jsonwhois.com/api/v1/whois?{urllib.parse.urlencode(params)}"
+    ],
+    "rate_limits": "None noted",
+    "categories": [
+      "Search Engines"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_junkfiles",
+    "name": "Junk File Finder",
+    "description": "Looks for old/temporary and other similar files.",
+    "service": "Junk File Finder",
+    "base_url": "http://www",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "LINKED_URL_INTERNAL"
+    ],
+    "events_out": [
+      "JUNK_FILE"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Crawling and Scanning"
+    ],
+    "use_cases": [
+      "Footprint"
+    ]
+  },
+  {
+    "module": "sfp_keybase",
+    "name": "Keybase",
+    "description": "Obtain additional information about domain names and identified usernames.",
+    "service": "Keybase",
+    "base_url": "https://keybase.io/",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "USERNAME",
+      "LINKED_URL_EXTERNAL",
+      "DOMAIN_NAME"
+    ],
+    "events_out": [
+      "RAW_RIR_DATA",
+      "SOCIAL_MEDIA",
+      "USERNAME",
+      "GEOINFO",
+      "BITCOIN_ADDRESS",
+      "PGP_KEY"
+    ],
+    "endpoints_called": [
+      "GET https://keybase.io/_/api/1.0/user/lookup.json?"
+    ],
+    "rate_limits": "None noted",
+    "categories": [
+      "Public Registries"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_koodous",
+    "name": "Koodous",
+    "description": "Search Koodous for mobile apps.",
+    "service": "Koodous",
+    "base_url": "https://koodous.com/apks/",
+    "needs_key": "true",
+    "key_option": "api_key",
+    "all_key_options": [
+      "api_key"
+    ],
+    "events_in": [
+      "DOMAIN_NAME"
+    ],
+    "events_out": [
+      "APPSTORE_ENTRY",
+      "RAW_RIR_DATA"
+    ],
+    "endpoints_called": [
+      "GET https://developer.koodous.com/apks/?{params}"
+    ],
+    "rate_limits": "100 requests per minute",
+    "categories": [
+      "Search Engines"
+    ],
+    "use_cases": [
+      "Investigate",
+      "Footprint",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_leakix",
+    "name": "LeakIX",
+    "description": "Search LeakIX for host data leaks, open ports, software and geoip.",
+    "service": "LeakIX",
+    "base_url": "https://leakix.net/",
+    "needs_key": "true",
+    "key_option": "api_key",
+    "all_key_options": [
+      "api_key"
+    ],
+    "events_in": [
+      "IP_ADDRESS",
+      "DOMAIN_NAME"
+    ],
+    "events_out": [
+      "RAW_RIR_DATA",
+      "GEOINFO",
+      "TCP_PORT_OPEN",
+      "OPERATING_SYSTEM",
+      "SOFTWARE_USED",
+      "WEBSERVER_BANNER",
+      "LEAKSITE_CONTENT",
+      "INTERNET_NAME"
+    ],
+    "endpoints_called": [
+      "GET https://leakix.net/"
+    ],
+    "rate_limits": "Future proofing - LeakIX does not implement rate limiting",
+    "categories": [
+      "Leaks, Dumps and Breaches"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_maltiverse",
+    "name": "Maltiverse",
+    "description": "Obtain information about any malicious activities involving IP addresses",
+    "service": "Maltiverse",
+    "base_url": "https://maltiverse.com",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "IP_ADDRESS",
+      "NETBLOCK_OWNER",
+      "NETBLOCK_MEMBER",
+      "AFFILIATE_IPADDR"
+    ],
+    "events_out": [
+      "IP_ADDRESS",
+      "MALICIOUS_IPADDR",
+      "RAW_RIR_DATA",
+      "MALICIOUS_AFFILIATE_IPADDR"
+    ],
+    "endpoints_called": [
+      "GET https://api.maltiverse.com/ip/"
+    ],
+    "rate_limits": "None noted",
+    "categories": [
+      "Reputation Systems"
+    ],
+    "use_cases": [
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_malwarepatrol",
+    "name": "MalwarePatrol",
+    "description": "Searches malwarepatrol.net's database of malicious URLs/IPs.",
+    "service": "MalwarePatrol",
+    "base_url": "https://www.malwarepatrol.net/",
+    "needs_key": "true",
+    "key_option": "api_key",
+    "all_key_options": [
+      "api_key"
+    ],
+    "events_in": [
+      "INTERNET_NAME",
+      "AFFILIATE_INTERNET_NAME",
+      "IP_ADDRESS",
+      "AFFILIATE_IPADDR",
+      "CO_HOSTED_SITE"
+    ],
+    "events_out": [
+      "BLACKLISTED_IPADDR",
+      "BLACKLISTED_AFFILIATE_IPADDR",
+      "BLACKLISTED_INTERNET_NAME",
+      "BLACKLISTED_AFFILIATE_INTERNET_NAME",
+      "BLACKLISTED_COHOST",
+      "MALICIOUS_IPADDR",
+      "MALICIOUS_AFFILIATE_IPADDR",
+      "MALICIOUS_INTERNET_NAME",
+      "MALICIOUS_AFFILIATE_INTERNET_NAME",
+      "MALICIOUS_COHOST"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Reputation Systems"
+    ],
+    "use_cases": [
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_metadefender",
+    "name": "MetaDefender",
+    "description": "Search MetaDefender API for IP address and domain IP reputation.",
+    "service": "MetaDefender",
+    "base_url": "https://metadefender.opswat.com/",
+    "needs_key": "true",
+    "key_option": "api_key",
+    "all_key_options": [
+      "api_key"
+    ],
+    "events_in": [
+      "IP_ADDRESS",
+      "INTERNET_NAME"
+    ],
+    "events_out": [
+      "MALICIOUS_IPADDR",
+      "MALICIOUS_INTERNET_NAME",
+      "BLACKLISTED_IPADDR",
+      "BLACKLISTED_INTERNET_NAME",
+      "GEOINFO"
+    ],
+    "endpoints_called": [
+      "GET https://api.metadefender.com/v4/domain/",
+      "GET https://api.metadefender.com/v4/ip/"
+    ],
+    "rate_limits": "None noted",
+    "categories": [
+      "Reputation Systems"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_mnemonic",
+    "name": "Mnemonic PassiveDNS",
+    "description": "Obtain Passive DNS information from PassiveDNS.mnemonic.no.",
+    "service": "Mnemonic PassiveDNS",
+    "base_url": "https://www.mnemonic.no",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "IP_ADDRESS",
+      "IPV6_ADDRESS",
+      "INTERNET_NAME",
+      "DOMAIN_NAME"
+    ],
+    "events_out": [
+      "IP_ADDRESS",
+      "IPV6_ADDRESS",
+      "INTERNAL_IP_ADDRESS",
+      "CO_HOSTED_SITE",
+      "INTERNET_NAME",
+      "DOMAIN_NAME"
+    ],
+    "endpoints_called": [
+      "GET https://api.mnemonic.no/pdns/v3/{qry}?{params}"
+    ],
+    "rate_limits": "Unauthenticated users are limited to 100 requests per minute, and 1000 requests per day.",
+    "categories": [
+      "Passive DNS"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_multiproxy",
+    "name": "multiproxy.org Open Proxies",
+    "description": "Check if an IP address is an open proxy according to multiproxy.org open proxy list.",
+    "service": "multiproxy.org Open Proxies",
+    "base_url": "https://multiproxy.org/",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "IP_ADDRESS",
+      "AFFILIATE_IPADDR",
+      "NETBLOCK_OWNER",
+      "NETBLOCK_MEMBER"
+    ],
+    "events_out": [
+      "BLACKLISTED_IPADDR",
+      "BLACKLISTED_AFFILIATE_IPADDR",
+      "BLACKLISTED_SUBNET",
+      "BLACKLISTED_NETBLOCK",
+      "MALICIOUS_IPADDR",
+      "MALICIOUS_AFFILIATE_IPADDR",
+      "MALICIOUS_NETBLOCK",
+      "MALICIOUS_SUBNET"
+    ],
+    "endpoints_called": [
+      "GET http://multiproxy.org/txt_all/proxy.txt"
+    ],
+    "rate_limits": "None noted",
+    "categories": [
+      "Secondary Networks"
+    ],
+    "use_cases": [
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_myspace",
+    "name": "MySpace",
+    "description": "Gather username and location from MySpace.com profiles.",
+    "service": "MySpace",
+    "base_url": "https://myspace.com/",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "EMAILADDR",
+      "SOCIAL_MEDIA"
+    ],
+    "events_out": [
+      "SOCIAL_MEDIA",
+      "GEOINFO"
+    ],
+    "endpoints_called": [
+      "GET https://myspace.com/search/people?q="
+    ],
+    "rate_limits": "None noted",
+    "categories": [
+      "Social Media"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_nameapi",
+    "name": "NameAPI",
+    "description": "Check whether an email is disposable",
+    "service": "NameAPI",
+    "base_url": "https://www.nameapi.org/",
+    "needs_key": "true",
+    "key_option": "api_key",
+    "all_key_options": [
+      "api_key"
+    ],
+    "events_in": [
+      "EMAILADDR"
+    ],
+    "events_out": [
+      "EMAILADDR_DISPOSABLE",
+      "RAW_RIR_DATA"
+    ],
+    "endpoints_called": [
+      "GET http://api.nameapi.org/rest/v5.3/email/disposableemailaddressdetector?apiKey={se"
+    ],
+    "rate_limits": "None noted",
+    "categories": [
+      "Reputation Systems"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_names",
+    "name": "Human Name Extractor",
+    "description": "Attempt to identify human names in fetched content.",
+    "service": "Human Name Extractor",
+    "base_url": "free / no external url",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "TARGET_WEB_CONTENT",
+      "EMAILADDR",
+      "DOMAIN_WHOIS",
+      "NETBLOCK_WHOIS",
+      "RAW_RIR_DATA",
+      "RAW_FILE_META_DATA"
+    ],
+    "events_out": [
+      "HUMAN_NAME"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Content Analysis"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_networksdb",
+    "name": "NetworksDB",
+    "description": "Search NetworksDB.io API for IP address and domain information.",
+    "service": "NetworksDB",
+    "base_url": "https://networksdb.io/",
+    "needs_key": "true",
+    "key_option": "api_key",
+    "all_key_options": [
+      "api_key"
+    ],
+    "events_in": [
+      "IP_ADDRESS",
+      "IPV6_ADDRESS",
+      "INTERNET_NAME",
+      "DOMAIN_NAME"
+    ],
+    "events_out": [
+      "INTERNET_NAME",
+      "IP_ADDRESS",
+      "IPV6_ADDRESS",
+      "NETBLOCK_MEMBER",
+      "CO_HOSTED_SITE",
+      "GEOINFO",
+      "RAW_RIR_DATA"
+    ],
+    "endpoints_called": [
+      "GET https://networksdb.io/api/asn",
+      "GET https://networksdb.io/api/asn-networks",
+      "GET https://networksdb.io/api/dns",
+      "GET https://networksdb.io/api/ip-geo",
+      "GET https://networksdb.io/api/ip-info"
+    ],
+    "rate_limits": "Future proofing - NetworksDB does not implement rate limiting",
+    "categories": [
+      "Passive DNS"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_neutrinoapi",
+    "name": "NeutrinoAPI",
+    "description": "Search NeutrinoAPI for phone location information, IP address information, and host reputation.",
+    "service": "NeutrinoAPI",
+    "base_url": "https://www.neutrinoapi.com/",
+    "needs_key": "true",
+    "key_option": "api_key",
+    "all_key_options": [
+      "api_key"
+    ],
+    "events_in": [
+      "IP_ADDRESS",
+      "IPV6_ADDRESS",
+      "PHONE_NUMBER"
+    ],
+    "events_out": [
+      "RAW_RIR_DATA",
+      "BLACKLISTED_IPADDR",
+      "MALICIOUS_IPADDR",
+      "PROXY_HOST",
+      "VPN_HOST",
+      "TOR_EXIT_NODE",
+      "GEOINFO"
+    ],
+    "endpoints_called": [
+      "GET https://neutrinoapi.com/host-reputation",
+      "GET https://neutrinoapi.com/ip-blocklist",
+      "GET https://neutrinoapi.com/ip-info",
+      "GET https://neutrinoapi.com/phone-validate"
+    ],
+    "rate_limits": "None noted",
+    "categories": [
+      "Reputation Systems"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_numverify",
+    "name": "numverify",
+    "description": "Lookup phone number location and carrier information from numverify.com.",
+    "service": "numverify",
+    "base_url": "http://numverify.com/",
+    "needs_key": "true",
+    "key_option": "api_key",
+    "all_key_options": [
+      "api_key"
+    ],
+    "events_in": [
+      "PHONE_NUMBER"
+    ],
+    "events_out": [
+      "RAW_RIR_DATA",
+      "GEOINFO",
+      "PROVIDER_TELCO"
+    ],
+    "endpoints_called": [
+      "GET http://apilayer.net/api/validate?"
+    ],
+    "rate_limits": "None noted",
+    "categories": [
+      "Real World"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_onioncity",
+    "name": "Onion.link",
+    "description": "Search Tor 'Onion City' search engine for mentions of the target domain using Google Custom Search.",
+    "service": "Onion.link",
+    "base_url": "https://onion.link/",
+    "needs_key": "true",
+    "key_option": "api_key",
+    "all_key_options": [
+      "api_key"
+    ],
+    "events_in": [
+      "INTERNET_NAME",
+      "DOMAIN_NAME"
+    ],
+    "events_out": [
+      "DARKNET_MENTION_URL",
+      "DARKNET_MENTION_CONTENT",
+      "RAW_RIR_DATA"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Search Engines"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate"
+    ]
+  },
+  {
+    "module": "sfp_onionsearchengine",
+    "name": "Onionsearchengine.com",
+    "description": "Search Tor onionsearchengine.com for mentions of the target domain.",
+    "service": "Onionsearchengine.com",
+    "base_url": "https://as.onionsearchengine.com",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "DOMAIN_NAME",
+      "HUMAN_NAME",
+      "EMAILADDR"
+    ],
+    "events_out": [
+      "DARKNET_MENTION_URL",
+      "DARKNET_MENTION_CONTENT"
+    ],
+    "endpoints_called": [
+      "GET https://onionsearchengine.com/search.php?"
+    ],
+    "rate_limits": "None noted",
+    "categories": [
+      "Search Engines"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate"
+    ]
+  },
+  {
+    "module": "sfp_onyphe",
+    "name": "Onyphe",
+    "description": "Check Onyphe data (threat list, geo-location, pastries, vulnerabilities)  about a given IP.",
+    "service": "Onyphe",
+    "base_url": "https://www.onyphe.io",
+    "needs_key": "true",
+    "key_option": "api_key",
+    "all_key_options": [
+      "api_key"
+    ],
+    "events_in": [
+      "IP_ADDRESS",
+      "IPV6_ADDRESS"
+    ],
+    "events_out": [
+      "GEOINFO",
+      "MALICIOUS_IPADDR",
+      "LEAKSITE_CONTENT",
+      "VULNERABILITY_CVE_CRITICAL",
+      "VULNERABILITY_CVE_HIGH",
+      "VULNERABILITY_CVE_MEDIUM",
+      "VULNERABILITY_CVE_LOW",
+      "VULNERABILITY_GENERAL",
+      "RAW_RIR_DATA",
+      "INTERNET_NAME",
+      "INTERNET_NAME_UNRESOLVED",
+      "PHYSICAL_COORDINATES"
+    ],
+    "endpoints_called": [
+      "GET https://www.onyphe.io/api/v2/simple/{endpoint}/{ip}?page={page}"
+    ],
+    "rate_limits": "self.error(\"Reaching rate limit on Onyphe API\")",
+    "categories": [
+      "Reputation Systems"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Passive",
+      "Investigate"
+    ]
+  },
+  {
+    "module": "sfp_openbugbounty",
+    "name": "Open Bug Bounty",
+    "description": "Check external vulnerability scanning/reporting service openbugbounty.org to see if the target is listed.",
+    "service": "Open Bug Bounty",
+    "base_url": "https://www.openbugbounty.org/",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "INTERNET_NAME"
+    ],
+    "events_out": [
+      "VULNERABILITY_DISCLOSURE"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Leaks, Dumps and Breaches"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_opencorporates",
+    "name": "OpenCorporates",
+    "description": "Look up company information from OpenCorporates.",
+    "service": "OpenCorporates",
+    "base_url": "https://opencorporates.com",
+    "needs_key": "true",
+    "key_option": "api_key",
+    "all_key_options": [
+      "api_key"
+    ],
+    "events_in": [
+      "COMPANY_NAME"
+    ],
+    "events_out": [
+      "COMPANY_NAME",
+      "PHYSICAL_ADDRESS",
+      "RAW_RIR_DATA"
+    ],
+    "endpoints_called": [
+      "GET https://api.opencorporates.com/v{version}/companies/search?{params}{apiparam}"
+    ],
+    "rate_limits": "None noted",
+    "categories": [
+      "Search Engines"
+    ],
+    "use_cases": [
+      "Passive",
+      "Footprint",
+      "Investigate"
+    ]
+  },
+  {
+    "module": "sfp_opendns",
+    "name": "OpenDNS",
+    "description": "Check if a host would be blocked by OpenDNS.",
+    "service": "OpenDNS",
+    "base_url": "https://www.opendns.com/",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "INTERNET_NAME",
+      "AFFILIATE_INTERNET_NAME",
+      "CO_HOSTED_SITE"
+    ],
+    "events_out": [
+      "BLACKLISTED_INTERNET_NAME",
+      "BLACKLISTED_AFFILIATE_INTERNET_NAME",
+      "BLACKLISTED_COHOST",
+      "MALICIOUS_INTERNET_NAME",
+      "MALICIOUS_AFFILIATE_INTERNET_NAME",
+      "MALICIOUS_COHOST"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Reputation Systems"
+    ],
+    "use_cases": [
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_opennic",
+    "name": "OpenNIC DNS",
+    "description": "Resolves host names in the OpenNIC alternative DNS system.",
+    "service": "OpenNIC DNS",
+    "base_url": "https://www.opennic.org/",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "INTERNET_NAME",
+      "INTERNET_NAME_UNRESOLVED",
+      "AFFILIATE_INTERNET_NAME",
+      "AFFILIATE_INTERNET_NAME_UNRESOLVED"
+    ],
+    "events_out": [
+      "IP_ADDRESS",
+      "IPV6_ADDRESS",
+      "AFFILIATE_IPADDR",
+      "AFFILIATE_IPV6_ADDRESS"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "DNS"
+    ],
+    "use_cases": [
+      "Investigate",
+      "Footprint",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_openphish",
+    "name": "OpenPhish",
+    "description": "Check if a host/domain is malicious according to OpenPhish.com.",
+    "service": "OpenPhish",
+    "base_url": "https://openphish.com/",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "INTERNET_NAME",
+      "AFFILIATE_INTERNET_NAME",
+      "CO_HOSTED_SITE"
+    ],
+    "events_out": [
+      "BLACKLISTED_INTERNET_NAME",
+      "BLACKLISTED_AFFILIATE_INTERNET_NAME",
+      "BLACKLISTED_COHOST",
+      "MALICIOUS_INTERNET_NAME",
+      "MALICIOUS_AFFILIATE_INTERNET_NAME",
+      "MALICIOUS_COHOST"
+    ],
+    "endpoints_called": [
+      "GET https://www.openphish.com/feed.txt"
+    ],
+    "rate_limits": "None noted",
+    "categories": [
+      "Reputation Systems"
+    ],
+    "use_cases": [
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_openstreetmap",
+    "name": "OpenStreetMap",
+    "description": "Retrieves latitude/longitude coordinates for physical addresses from OpenStreetMap API.",
+    "service": "OpenStreetMap",
+    "base_url": "https://www.openstreetmap.org/",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "PHYSICAL_ADDRESS"
+    ],
+    "events_out": [
+      "PHYSICAL_COORDINATES"
+    ],
+    "endpoints_called": [
+      "GET https://nominatim.openstreetmap.org/search?"
+    ],
+    "rate_limits": "None noted",
+    "categories": [
+      "Real World"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_pageinfo",
+    "name": "Page Information",
+    "description": "Obtain information about web pages (do they take passwords, do they contain forms, etc.)",
+    "service": "Page Information",
+    "base_url": "free / no external url",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "TARGET_WEB_CONTENT"
+    ],
+    "events_out": [
+      "URL_STATIC",
+      "URL_JAVASCRIPT",
+      "URL_FORM",
+      "URL_PASSWORD",
+      "URL_UPLOAD",
+      "URL_JAVA_APPLET",
+      "URL_FLASH",
+      "PROVIDER_JAVASCRIPT"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Content Analysis"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_pastebin",
+    "name": "PasteBin",
+    "description": "PasteBin search (via Google Search API) to identify related content.",
+    "service": "PasteBin",
+    "base_url": "https://pastebin.com/",
+    "needs_key": "true",
+    "key_option": "api_key",
+    "all_key_options": [
+      "api_key"
+    ],
+    "events_in": [
+      "DOMAIN_NAME",
+      "INTERNET_NAME",
+      "EMAILADDR"
+    ],
+    "events_out": [
+      "LEAKSITE_CONTENT",
+      "LEAKSITE_URL"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Leaks, Dumps and Breaches"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_pgp",
+    "name": "PGP Key Servers",
+    "description": "Look up domains and e-mail addresses in PGP public key servers.",
+    "service": "PGP Key Servers",
+    "base_url": "https://pgp.key-server.io",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "INTERNET_NAME",
+      "EMAILADDR",
+      "DOMAIN_NAME"
+    ],
+    "events_out": [
+      "EMAILADDR",
+      "EMAILADDR_GENERIC",
+      "AFFILIATE_EMAILADDR",
+      "PGP_KEY"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Public Registries"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_phishstats",
+    "name": "PhishStats",
+    "description": "Check if a netblock or IP address is malicious according to PhishStats.",
+    "service": "PhishStats",
+    "base_url": "https://phishstats.info/",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "IP_ADDRESS",
+      "AFFILIATE_IPADDR",
+      "NETBLOCK_MEMBER",
+      "NETBLOCK_OWNER"
+    ],
+    "events_out": [
+      "BLACKLISTED_IPADDR",
+      "BLACKLISTED_AFFILIATE_IPADDR",
+      "BLACKLISTED_SUBNET",
+      "BLACKLISTED_NETBLOCK",
+      "MALICIOUS_IPADDR",
+      "MALICIOUS_AFFILIATE_IPADDR",
+      "MALICIOUS_NETBLOCK",
+      "MALICIOUS_SUBNET",
+      "RAW_RIR_DATA"
+    ],
+    "endpoints_called": [
+      "GET https://phishstats.info:2096/api/phishing?"
+    ],
+    "rate_limits": "None noted",
+    "categories": [
+      "Reputation Systems"
+    ],
+    "use_cases": [
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_phishtank",
+    "name": "PhishTank",
+    "description": "Check if a host/domain is malicious according to PhishTank.",
+    "service": "PhishTank",
+    "base_url": "https://phishtank.com/",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "INTERNET_NAME",
+      "AFFILIATE_INTERNET_NAME",
+      "CO_HOSTED_SITE"
+    ],
+    "events_out": [
+      "BLACKLISTED_INTERNET_NAME",
+      "BLACKLISTED_AFFILIATE_INTERNET_NAME",
+      "BLACKLISTED_COHOST",
+      "MALICIOUS_INTERNET_NAME",
+      "MALICIOUS_AFFILIATE_INTERNET_NAME",
+      "MALICIOUS_COHOST"
+    ],
+    "endpoints_called": [
+      "GET https://data.phishtank.com/data/online-valid.csv"
+    ],
+    "rate_limits": "None noted",
+    "categories": [
+      "Reputation Systems"
+    ],
+    "use_cases": [
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_phone",
+    "name": "Phone Number Extractor",
+    "description": "Identify phone numbers in scraped webpages.",
+    "service": "Phone Number Extractor",
+    "base_url": "free / no external url",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "TARGET_WEB_CONTENT",
+      "DOMAIN_WHOIS",
+      "NETBLOCK_WHOIS",
+      "PHONE_NUMBER"
+    ],
+    "events_out": [
+      "PHONE_NUMBER",
+      "PROVIDER_TELCO"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Content Analysis"
+    ],
+    "use_cases": [
+      "Passive",
+      "Footprint",
+      "Investigate"
+    ]
+  },
+  {
+    "module": "sfp_portscan_tcp",
+    "name": "Port Scanner - TCP",
+    "description": "Scans for commonly open TCP ports on Internet-facing systems.",
+    "service": "Port Scanner - TCP",
+    "base_url": "free / no external url",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "IP_ADDRESS",
+      "NETBLOCK_OWNER"
+    ],
+    "events_out": [
+      "TCP_PORT_OPEN",
+      "TCP_PORT_OPEN_BANNER"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Crawling and Scanning"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate"
+    ]
+  },
+  {
+    "module": "sfp_projectdiscovery",
+    "name": "ProjectDiscovery Chaos",
+    "description": "Search for hosts/subdomains using chaos.projectdiscovery.io",
+    "service": "ProjectDiscovery Chaos",
+    "base_url": "https://chaos.projectdiscovery.io",
+    "needs_key": "true",
+    "key_option": "api_key",
+    "all_key_options": [
+      "api_key"
+    ],
+    "events_in": [
+      "DOMAIN_NAME"
+    ],
+    "events_out": [
+      "RAW_RIR_DATA",
+      "INTERNET_NAME",
+      "INTERNET_NAME_UNRESOLVED"
+    ],
+    "endpoints_called": [
+      "GET https://dns.projectdiscovery.io/dns/{qry}/subdomains"
+    ],
+    "rate_limits": "None noted",
+    "categories": [
+      "Passive DNS"
+    ],
+    "use_cases": [
+      "Passive",
+      "Footprint",
+      "Investigate"
+    ]
+  },
+  {
+    "module": "sfp_psbdmp",
+    "name": "Psbdmp",
+    "description": "Check psbdmp.cc (PasteBin Dump) for potentially hacked e-mails and domains.",
+    "service": "Psbdmp",
+    "base_url": "https://psbdmp.cc/",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "EMAILADDR",
+      "DOMAIN_NAME",
+      "INTERNET_NAME"
+    ],
+    "events_out": [
+      "LEAKSITE_URL",
+      "LEAKSITE_CONTENT"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Leaks, Dumps and Breaches"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_pulsedive",
+    "name": "Pulsedive",
+    "description": "Obtain information from Pulsedive's API.",
+    "service": "Pulsedive",
+    "base_url": "https://pulsedive.com/",
+    "needs_key": "true",
+    "key_option": "api_key",
+    "all_key_options": [
+      "api_key"
+    ],
+    "events_in": [
+      "IP_ADDRESS",
+      "IPV6_ADDRESS",
+      "AFFILIATE_IPADDR",
+      "AFFILIATE_IPV6_ADDRESS",
+      "INTERNET_NAME",
+      "NETBLOCK_OWNER",
+      "NETBLOCKV6_OWNER",
+      "NETBLOCK_MEMBER",
+      "NETBLOCKV6_MEMBER"
+    ],
+    "events_out": [
+      "MALICIOUS_INTERNET_NAME",
+      "MALICIOUS_IPADDR",
+      "MALICIOUS_AFFILIATE_IPADDR",
+      "MALICIOUS_NETBLOCK",
+      "TCP_PORT_OPEN"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "The rate limit for free users is 30 requests per minute",
+    "categories": [
+      "Reputation Systems"
+    ],
+    "use_cases": [
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_punkspider",
+    "name": "PunkSpider",
+    "description": "Check the QOMPLX punkspider.io service to see if the target is listed as vulnerable.",
+    "service": "PunkSpider",
+    "base_url": "https://punkspider.io/",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "INTERNET_NAME"
+    ],
+    "events_out": [
+      "VULNERABILITY_GENERAL"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Leaks, Dumps and Breaches"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_quad9",
+    "name": "Quad9",
+    "description": "Check if a host would be blocked by Quad9 DNS.",
+    "service": "Quad9",
+    "base_url": "https://quad9.net/",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "INTERNET_NAME",
+      "AFFILIATE_INTERNET_NAME",
+      "CO_HOSTED_SITE"
+    ],
+    "events_out": [
+      "BLACKLISTED_INTERNET_NAME",
+      "BLACKLISTED_AFFILIATE_INTERNET_NAME",
+      "BLACKLISTED_COHOST",
+      "MALICIOUS_INTERNET_NAME",
+      "MALICIOUS_AFFILIATE_INTERNET_NAME",
+      "MALICIOUS_COHOST"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Reputation Systems"
+    ],
+    "use_cases": [
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_reversewhois",
+    "name": "ReverseWhois",
+    "description": "Reverse Whois lookups using reversewhois.io.",
+    "service": "ReverseWhois",
+    "base_url": "https://www.reversewhois.io/",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "DOMAIN_NAME"
+    ],
+    "events_out": [
+      "AFFILIATE_INTERNET_NAME",
+      "AFFILIATE_DOMAIN_NAME",
+      "DOMAIN_REGISTRAR"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Search Engines"
+    ],
+    "use_cases": [
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_ripe",
+    "name": "RIPE",
+    "description": "Queries the RIPE registry (includes ARIN data) to identify netblocks and other info.",
+    "service": "RIPE",
+    "base_url": "https://www.ripe.net/",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "IP_ADDRESS",
+      "IPV6_ADDRESS",
+      "NETBLOCK_MEMBER",
+      "NETBLOCK_OWNER",
+      "NETBLOCKV6_MEMBER",
+      "NETBLOCKV6_OWNER",
+      "BGP_AS_OWNER",
+      "BGP_AS_MEMBER"
+    ],
+    "events_out": [
+      "NETBLOCK_MEMBER",
+      "NETBLOCK_OWNER",
+      "NETBLOCKV6_MEMBER",
+      "NETBLOCKV6_OWNER",
+      "BGP_AS_MEMBER",
+      "BGP_AS_OWNER",
+      "RAW_RIR_DATA"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Public Registries"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_riskiq",
+    "name": "RiskIQ",
+    "description": "Obtain information from RiskIQ's (formerly PassiveTotal) Passive DNS and Passive SSL databases.",
+    "service": "RiskIQ",
+    "base_url": "https://community.riskiq.com/",
+    "needs_key": "true",
+    "key_option": "api_key_login",
+    "all_key_options": [
+      "api_key_login",
+      "api_key_password"
+    ],
+    "events_in": [
+      "INTERNET_NAME",
+      "IP_ADDRESS",
+      "DOMAIN_NAME",
+      "EMAILADDR"
+    ],
+    "events_out": [
+      "IP_ADDRESS",
+      "INTERNET_NAME",
+      "AFFILIATE_INTERNET_NAME",
+      "DOMAIN_NAME",
+      "AFFILIATE_DOMAIN_NAME",
+      "INTERNET_NAME_UNRESOLVED",
+      "CO_HOSTED_SITE",
+      "NETBLOCK_OWNER"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Reputation Systems"
+    ],
+    "use_cases": [
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_robtex",
+    "name": "Robtex",
+    "description": "Search Robtex.com for hosts sharing the same IP.",
+    "service": "Robtex",
+    "base_url": "https://www.robtex.com/",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "IP_ADDRESS",
+      "IPV6_ADDRESS",
+      "NETBLOCK_OWNER",
+      "NETBLOCKV6_OWNER",
+      "NETBLOCK_MEMBER",
+      "NETBLOCKV6_MEMBER"
+    ],
+    "events_out": [
+      "CO_HOSTED_SITE",
+      "IP_ADDRESS",
+      "IPV6_ADDRESS",
+      "RAW_RIR_DATA"
+    ],
+    "endpoints_called": [
+      "GET https://freeapi.robtex.com/ipquery/"
+    ],
+    "rate_limits": "if status and status == \"ratelimited\":",
+    "categories": [
+      "Passive DNS"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_s3bucket",
+    "name": "Amazon S3 Bucket Finder",
+    "description": "Search for potential Amazon S3 buckets associated with the target and attempt to list their contents.",
+    "service": "Amazon S3 Bucket Finder",
+    "base_url": "https://aws.amazon.com/s3/",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "DOMAIN_NAME",
+      "LINKED_URL_EXTERNAL"
+    ],
+    "events_out": [
+      "CLOUD_STORAGE_BUCKET",
+      "CLOUD_STORAGE_BUCKET_OPEN"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Crawling and Scanning"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_searchcode",
+    "name": "searchcode",
+    "description": "Search searchcode for code repositories mentioning the target domain.",
+    "service": "searchcode",
+    "base_url": "https://searchcode.com/",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "DOMAIN_NAME"
+    ],
+    "events_out": [
+      "EMAILADDR",
+      "EMAILADDR_GENERIC",
+      "LINKED_URL_INTERNAL",
+      "PUBLIC_CODE_REPO",
+      "RAW_RIR_DATA"
+    ],
+    "endpoints_called": [
+      "GET https://searchcode.com/api/codesearch_I/?{params}"
+    ],
+    "rate_limits": "None noted",
+    "categories": [
+      "Search Engines"
+    ],
+    "use_cases": [
+      "Investigate",
+      "Footprint",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_securitytrails",
+    "name": "SecurityTrails",
+    "description": "Obtain Passive DNS and other information from SecurityTrails",
+    "service": "SecurityTrails",
+    "base_url": "https://securitytrails.com/",
+    "needs_key": "true",
+    "key_option": "api_key",
+    "all_key_options": [
+      "api_key"
+    ],
+    "events_in": [
+      "IP_ADDRESS",
+      "IPV6_ADDRESS",
+      "DOMAIN_NAME",
+      "EMAILADDR",
+      "NETBLOCK_OWNER"
+    ],
+    "events_out": [
+      "CO_HOSTED_SITE",
+      "DOMAIN_NAME",
+      "AFFILIATE_DOMAIN_NAME",
+      "INTERNET_NAME",
+      "AFFILIATE_INTERNET_NAME",
+      "PROVIDER_HOSTING"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Search Engines"
+    ],
+    "use_cases": [
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_seon",
+    "name": "Seon",
+    "description": "Queries seon.io to gather intelligence about IP Addresses, email addresses, and phone numbers",
+    "service": "Seon",
+    "base_url": "https://seon.io/",
+    "needs_key": "true",
+    "key_option": "api_key",
+    "all_key_options": [
+      "api_key"
+    ],
+    "events_in": [
+      "IP_ADDRESS",
+      "IPV6_ADDRESS",
+      "EMAILADDR",
+      "PHONE_NUMBER"
+    ],
+    "events_out": [
+      "GEOINFO",
+      "MALICIOUS_IPADDR",
+      "TCP_PORT_OPEN",
+      "MALICIOUS_EMAILADDR",
+      "EMAILADDR_DELIVERABLE",
+      "EMAILADDR_UNDELIVERABLE",
+      "SOCIAL_MEDIA",
+      "HUMAN_NAME",
+      "COMPANY_NAME",
+      "EMAILADDR_COMPROMISED",
+      "MALICIOUS_PHONE_NUMBER",
+      "PROVIDER_TELCO",
+      "PHONE_NUMBER_TYPE",
+      "WEBSERVER_TECHNOLOGY",
+      "RAW_RIR_DATA",
+      "TOR_EXIT_NODE",
+      "VPN_HOST",
+      "PROXY_HOST"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Real World"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_shodan",
+    "name": "SHODAN",
+    "description": "Obtain information from SHODAN about identified IP addresses.",
+    "service": "SHODAN",
+    "base_url": "https://www.shodan.io/",
+    "needs_key": "true",
+    "key_option": "api_key",
+    "all_key_options": [
+      "api_key"
+    ],
+    "events_in": [
+      "IP_ADDRESS",
+      "NETBLOCK_OWNER",
+      "DOMAIN_NAME",
+      "WEB_ANALYTICS_ID"
+    ],
+    "events_out": [
+      "OPERATING_SYSTEM",
+      "DEVICE_TYPE",
+      "TCP_PORT_OPEN",
+      "TCP_PORT_OPEN_BANNER",
+      "RAW_RIR_DATA",
+      "GEOINFO",
+      "IP_ADDRESS",
+      "VULNERABILITY_CVE_CRITICAL",
+      "VULNERABILITY_CVE_HIGH",
+      "VULNERABILITY_CVE_MEDIUM",
+      "VULNERABILITY_CVE_LOW",
+      "VULNERABILITY_GENERAL"
+    ],
+    "endpoints_called": [
+      "GET https://api.shodan.io/shodan/host/search?{urllib.parse.urlencode(params)}",
+      "GET https://api.shodan.io/shodan/host/{qry}?key={self.opts["
+    ],
+    "rate_limits": "None noted",
+    "categories": [
+      "Search Engines"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_similar",
+    "name": "Similar Domain Finder",
+    "description": "Search various sources to identify similar looking domain names, for instance squatted domains.",
+    "service": "Similar Domain Finder",
+    "base_url": "free / no external url",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "DOMAIN_NAME"
+    ],
+    "events_out": [
+      "SIMILARDOMAIN"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "DNS"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate"
+    ]
+  },
+  {
+    "module": "sfp_skymem",
+    "name": "Skymem",
+    "description": "Look up e-mail addresses on Skymem.",
+    "service": "Skymem",
+    "base_url": "http://www.skymem.info/",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "INTERNET_NAME",
+      "DOMAIN_NAME"
+    ],
+    "events_out": [
+      "EMAILADDR",
+      "EMAILADDR_GENERIC"
+    ],
+    "endpoints_called": [
+      "GET http://www.skymem.info/domain/{domain_id}?p={page}",
+      "GET http://www.skymem.info/srch?q="
+    ],
+    "rate_limits": "None noted",
+    "categories": [
+      "Search Engines"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_slideshare",
+    "name": "SlideShare",
+    "description": "Gather name and location from SlideShare profiles.",
+    "service": "SlideShare",
+    "base_url": "https://www.slideshare.net",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "SOCIAL_MEDIA"
+    ],
+    "events_out": [
+      "RAW_RIR_DATA",
+      "GEOINFO"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Social Media"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_snov",
+    "name": "Snov",
+    "description": "Gather available email IDs from identified domains",
+    "service": "Snov",
+    "base_url": "https://snov.io/",
+    "needs_key": "true",
+    "key_option": "api_key_client_id",
+    "all_key_options": [
+      "api_key_client_id",
+      "api_key_client_secret"
+    ],
+    "events_in": [
+      "DOMAIN_NAME",
+      "INTERNET_NAME"
+    ],
+    "events_out": [
+      "EMAILADDR",
+      "EMAILADDR_GENERIC"
+    ],
+    "endpoints_called": [
+      "GET https://api.snov.io/v1/oauth/access_token?",
+      "GET https://api.snov.io/v2/domain-emails-with-info?"
+    ],
+    "rate_limits": "None noted",
+    "categories": [
+      "Search Engines"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_social",
+    "name": "Social Network Identifier",
+    "description": "Identify presence on social media networks such as LinkedIn, Twitter and others.",
+    "service": "Social Network Identifier",
+    "base_url": "free / no external url",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "LINKED_URL_EXTERNAL"
+    ],
+    "events_out": [
+      "SOCIAL_MEDIA",
+      "USERNAME"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Social Media"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_sociallinks",
+    "name": "Social Links",
+    "description": "Queries SocialLinks.io to gather intelligence from social media platforms and dark web.",
+    "service": "Social Links",
+    "base_url": "https://sociallinks.io/",
+    "needs_key": "true",
+    "key_option": "api_key",
+    "all_key_options": [
+      "api_key"
+    ],
+    "events_in": [
+      "USERNAME",
+      "EMAILADDR",
+      "PHONE_NUMBER"
+    ],
+    "events_out": [
+      "GEOINFO",
+      "SOCIAL_MEDIA",
+      "HUMAN_NAME",
+      "JOB_TITLE",
+      "COMPANY_NAME",
+      "PHONE_NUMBER",
+      "ACCOUNT_EXTERNAL_OWNED",
+      "RAW_RIR_DATA"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Real World"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_socialprofiles",
+    "name": "Social Media Profile Finder",
+    "description": "Tries to discover the social media profiles for human names identified.",
+    "service": "Social Media Profile Finder",
+    "base_url": "https://developers.google.com/custom-search",
+    "needs_key": "true",
+    "key_option": "bing_api_key",
+    "all_key_options": [
+      "bing_api_key",
+      "google_api_key"
+    ],
+    "events_in": [
+      "HUMAN_NAME"
+    ],
+    "events_out": [
+      "SOCIAL_MEDIA",
+      "RAW_RIR_DATA"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Social Media"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_sorbs",
+    "name": "SORBS",
+    "description": "Query the SORBS database for open relays, open proxies, vulnerable servers, etc.",
+    "service": "SORBS",
+    "base_url": "http://www.sorbs.net/",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "IP_ADDRESS",
+      "AFFILIATE_IPADDR",
+      "NETBLOCK_OWNER",
+      "NETBLOCK_MEMBER"
+    ],
+    "events_out": [
+      "BLACKLISTED_IPADDR",
+      "BLACKLISTED_AFFILIATE_IPADDR",
+      "BLACKLISTED_SUBNET",
+      "BLACKLISTED_NETBLOCK",
+      "MALICIOUS_IPADDR",
+      "MALICIOUS_AFFILIATE_IPADDR",
+      "MALICIOUS_NETBLOCK",
+      "MALICIOUS_SUBNET",
+      "PROXY_HOST"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Reputation Systems"
+    ],
+    "use_cases": [
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_spamcop",
+    "name": "SpamCop",
+    "description": "Check if a netblock or IP address is in the SpamCop database.",
+    "service": "SpamCop",
+    "base_url": "https://www.spamcop.net/",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "IP_ADDRESS",
+      "AFFILIATE_IPADDR",
+      "NETBLOCK_OWNER",
+      "NETBLOCK_MEMBER"
+    ],
+    "events_out": [
+      "BLACKLISTED_IPADDR",
+      "BLACKLISTED_AFFILIATE_IPADDR",
+      "BLACKLISTED_SUBNET",
+      "BLACKLISTED_NETBLOCK",
+      "MALICIOUS_IPADDR",
+      "MALICIOUS_AFFILIATE_IPADDR",
+      "MALICIOUS_NETBLOCK",
+      "MALICIOUS_SUBNET"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Reputation Systems"
+    ],
+    "use_cases": [
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_spamhaus",
+    "name": "Spamhaus Zen",
+    "description": "Check if a netblock or IP address is in the Spamhaus Zen database.",
+    "service": "Spamhaus Zen",
+    "base_url": "https://www.spamhaus.org/",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "IP_ADDRESS",
+      "AFFILIATE_IPADDR",
+      "NETBLOCK_OWNER",
+      "NETBLOCK_MEMBER"
+    ],
+    "events_out": [
+      "BLACKLISTED_IPADDR",
+      "BLACKLISTED_AFFILIATE_IPADDR",
+      "BLACKLISTED_SUBNET",
+      "BLACKLISTED_NETBLOCK",
+      "MALICIOUS_IPADDR",
+      "MALICIOUS_AFFILIATE_IPADDR",
+      "MALICIOUS_NETBLOCK",
+      "MALICIOUS_SUBNET"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Reputation Systems"
+    ],
+    "use_cases": [
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_spider",
+    "name": "Web Spider",
+    "description": "Spidering of web-pages to extract content for searching.",
+    "service": "Web Spider",
+    "base_url": "free / no external url",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "LINKED_URL_INTERNAL",
+      "INTERNET_NAME"
+    ],
+    "events_out": [
+      "WEBSERVER_HTTPHEADERS",
+      "HTTP_CODE",
+      "LINKED_URL_INTERNAL",
+      "LINKED_URL_EXTERNAL",
+      "TARGET_WEB_CONTENT",
+      "TARGET_WEB_CONTENT_TYPE"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Crawling and Scanning"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate"
+    ]
+  },
+  {
+    "module": "sfp_spur",
+    "name": "spur.us",
+    "description": "Obtain information about any malicious activities involving IP addresses found",
+    "service": "spur.us",
+    "base_url": "https://spur.us/",
+    "needs_key": "true",
+    "key_option": "api_key",
+    "all_key_options": [
+      "api_key"
+    ],
+    "events_in": [
+      "IP_ADDRESS",
+      "NETBLOCK_OWNER",
+      "NETBLOCK_MEMBER",
+      "AFFILIATE_IPADDR"
+    ],
+    "events_out": [
+      "IP_ADDRESS",
+      "MALICIOUS_IPADDR",
+      "RAW_RIR_DATA",
+      "GEOINFO",
+      "COMPANY_NAME",
+      "MALICIOUS_AFFILIATE_IPADDR"
+    ],
+    "endpoints_called": [
+      "GET https://api.spur.us/v1/context/"
+    ],
+    "rate_limits": "None noted",
+    "categories": [
+      "Reputation Systems"
+    ],
+    "use_cases": [
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_spyonweb",
+    "name": "SpyOnWeb",
+    "description": "Search SpyOnWeb for hosts sharing the same IP address, Google Analytics code, or Google Adsense code.",
+    "service": "SpyOnWeb",
+    "base_url": "http://spyonweb.com/",
+    "needs_key": "true",
+    "key_option": "api_key",
+    "all_key_options": [
+      "api_key"
+    ],
+    "events_in": [
+      "IP_ADDRESS",
+      "INTERNET_NAME",
+      "DOMAIN_NAME",
+      "WEB_ANALYTICS_ID"
+    ],
+    "events_out": [
+      "CO_HOSTED_SITE",
+      "INTERNET_NAME",
+      "AFFILIATE_INTERNET_NAME",
+      "WEB_ANALYTICS_ID",
+      "DOMAIN_NAME",
+      "AFFILIATE_DOMAIN_NAME"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Passive DNS"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_sslcert",
+    "name": "SSL Certificate Analyzer",
+    "description": "Gather information about SSL certificates used by the target's HTTPS sites.",
+    "service": "SSL Certificate Analyzer",
+    "base_url": "free / no external url",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "INTERNET_NAME",
+      "LINKED_URL_INTERNAL",
+      "IP_ADDRESS"
+    ],
+    "events_out": [
+      "TCP_PORT_OPEN",
+      "INTERNET_NAME",
+      "INTERNET_NAME_UNRESOLVED",
+      "CO_HOSTED_SITE",
+      "CO_HOSTED_SITE_DOMAIN",
+      "SSL_CERTIFICATE_ISSUED",
+      "SSL_CERTIFICATE_ISSUER",
+      "SSL_CERTIFICATE_MISMATCH",
+      "SSL_CERTIFICATE_EXPIRED",
+      "SSL_CERTIFICATE_EXPIRING",
+      "SSL_CERTIFICATE_RAW",
+      "DOMAIN_NAME"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Crawling and Scanning"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate"
+    ]
+  },
+  {
+    "module": "sfp_stackoverflow",
+    "name": "StackOverflow",
+    "description": "Search StackOverflow for any mentions of a target domain. Returns potentially related information.",
+    "service": "StackOverflow",
+    "base_url": "https://www.stackexchange.com",
+    "needs_key": "true",
+    "key_option": "api_key",
+    "all_key_options": [
+      "api_key"
+    ],
+    "events_in": [
+      "DOMAIN_NAME"
+    ],
+    "events_out": [
+      "RAW_RIR_DATA",
+      "EMAILADDR",
+      "AFFILIATE_EMAILADDR",
+      "USERNAME",
+      "AFFILIATE_IPADDR",
+      "AFFILIATE_IPV6_ADDRESS",
+      "HUMAN_NAME"
+    ],
+    "endpoints_called": [
+      "GET https://api.stackexchange.com/2.3/questions/{qry}?order=desc&sort=activity&site=",
+      "GET https://api.stackexchange.com/2.3/search/excerpts?order=desc&q={qry}&site=stacko"
+    ],
+    "rate_limits": "None noted",
+    "categories": [
+      "Content Analysis"
+    ],
+    "use_cases": [
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_stevenblack_hosts",
+    "name": "Steven Black Hosts",
+    "description": "Check if a domain is malicious (malware or adware) according to Steven Black Hosts list.",
+    "service": "Steven Black Hosts",
+    "base_url": "https://github.com/StevenBlack/hosts",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "INTERNET_NAME",
+      "AFFILIATE_INTERNET_NAME",
+      "CO_HOSTED_SITE"
+    ],
+    "events_out": [
+      "BLACKLISTED_INTERNET_NAME",
+      "BLACKLISTED_AFFILIATE_INTERNET_NAME",
+      "BLACKLISTED_COHOST",
+      "MALICIOUS_INTERNET_NAME",
+      "MALICIOUS_AFFILIATE_INTERNET_NAME",
+      "MALICIOUS_COHOST"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Reputation Systems"
+    ],
+    "use_cases": [
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_strangeheaders",
+    "name": "Strange Header Identifier",
+    "description": "Obtain non-standard HTTP headers returned by web servers.",
+    "service": "Strange Header Identifier",
+    "base_url": "http://en.wikipedia.org",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "WEBSERVER_HTTPHEADERS"
+    ],
+    "events_out": [
+      "WEBSERVER_STRANGEHEADER"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Content Analysis"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_subdomain_takeover",
+    "name": "Subdomain Takeover Checker",
+    "description": "Check if affiliated subdomains are vulnerable to takeover.",
+    "service": "Subdomain Takeover Checker",
+    "base_url": "https://raw.githubusercontent.com",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "AFFILIATE_INTERNET_NAME",
+      "AFFILIATE_INTERNET_NAME_UNRESOLVED"
+    ],
+    "events_out": [
+      "AFFILIATE_INTERNET_NAME_HIJACKABLE"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Crawling and Scanning"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate"
+    ]
+  },
+  {
+    "module": "sfp_sublist3r",
+    "name": "Sublist3r PassiveDNS",
+    "description": "Passive subdomain enumeration using Sublist3r's API",
+    "service": "Sublist3r PassiveDNS",
+    "base_url": "https://api.sublist3r.com",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "DOMAIN_NAME",
+      "INTERNET_NAME"
+    ],
+    "events_out": [
+      "INTERNET_NAME",
+      "INTERNET_NAME_UNRESOLVED"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Passive DNS"
+    ],
+    "use_cases": [
+      "Investigate",
+      "Footprint",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_surbl",
+    "name": "SURBL",
+    "description": "Check if a netblock, IP address or domain is in the SURBL blacklist.",
+    "service": "SURBL",
+    "base_url": "http://www.surbl.org/",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "IP_ADDRESS",
+      "AFFILIATE_IPADDR",
+      "NETBLOCK_OWNER",
+      "NETBLOCK_MEMBER",
+      "INTERNET_NAME",
+      "AFFILIATE_INTERNET_NAME",
+      "CO_HOSTED_SITE"
+    ],
+    "events_out": [
+      "BLACKLISTED_IPADDR",
+      "BLACKLISTED_AFFILIATE_IPADDR",
+      "BLACKLISTED_SUBNET",
+      "BLACKLISTED_NETBLOCK",
+      "BLACKLISTED_INTERNET_NAME",
+      "BLACKLISTED_AFFILIATE_INTERNET_NAME",
+      "BLACKLISTED_COHOST",
+      "MALICIOUS_IPADDR",
+      "MALICIOUS_AFFILIATE_IPADDR",
+      "MALICIOUS_NETBLOCK",
+      "MALICIOUS_SUBNET",
+      "MALICIOUS_INTERNET_NAME",
+      "MALICIOUS_AFFILIATE_INTERNET_NAME",
+      "MALICIOUS_COHOST"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Reputation Systems"
+    ],
+    "use_cases": [
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_talosintel",
+    "name": "Talos Intelligence",
+    "description": "Check if a netblock or IP address is malicious according to TalosIntelligence.",
+    "service": "Talos Intelligence",
+    "base_url": "https://talosintelligence.com/",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "IP_ADDRESS",
+      "AFFILIATE_IPADDR",
+      "NETBLOCK_MEMBER",
+      "NETBLOCK_OWNER"
+    ],
+    "events_out": [
+      "BLACKLISTED_IPADDR",
+      "BLACKLISTED_AFFILIATE_IPADDR",
+      "BLACKLISTED_SUBNET",
+      "BLACKLISTED_NETBLOCK",
+      "MALICIOUS_IPADDR",
+      "MALICIOUS_AFFILIATE_IPADDR",
+      "MALICIOUS_SUBNET",
+      "MALICIOUS_NETBLOCK"
+    ],
+    "endpoints_called": [
+      "GET https://snort.org/downloads/ip-block-list"
+    ],
+    "rate_limits": "None noted",
+    "categories": [
+      "Reputation Systems"
+    ],
+    "use_cases": [
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_template",
+    "name": "Template Module",
+    "description": "This is an example module to help developers create their own SpiderFoot modules.",
+    "service": "Template Module",
+    "base_url": "https://www.datasource.com",
+    "needs_key": "true",
+    "key_option": "api_key",
+    "all_key_options": [
+      "api_key"
+    ],
+    "events_in": [
+      "IP_ADDRESS",
+      "NETBLOCK_OWNER",
+      "DOMAIN_NAME",
+      "WEB_ANALYTICS_ID"
+    ],
+    "events_out": [
+      "OPERATING_SYSTEM",
+      "DEVICE_TYPE",
+      "TCP_PORT_OPEN",
+      "TCP_PORT_OPEN_BANNER",
+      "RAW_RIR_DATA",
+      "GEOINFO",
+      "VULNERABILITY_GENERAL"
+    ],
+    "endpoints_called": [
+      "GET https://api.shodan.io/shodan/host/{qry}?key={self.opts["
+    ],
+    "rate_limits": "None noted",
+    "categories": [
+      "Social Media"
+    ],
+    "use_cases": [
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_textmagic",
+    "name": "TextMagic",
+    "description": "Obtain phone number type from TextMagic API",
+    "service": "TextMagic",
+    "base_url": "https://www.textmagic.com/",
+    "needs_key": "true",
+    "key_option": "api_key_username",
+    "all_key_options": [
+      "api_key_username",
+      "api_key"
+    ],
+    "events_in": [
+      "PHONE_NUMBER"
+    ],
+    "events_out": [
+      "PHONE_NUMBER_TYPE",
+      "RAW_RIR_DATA"
+    ],
+    "endpoints_called": [
+      "GET https://rest.textmagic.com/api/v2/lookups/{qry}"
+    ],
+    "rate_limits": "None noted",
+    "categories": [
+      "Search Engines"
+    ],
+    "use_cases": [
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_threatcrowd",
+    "name": "ThreatCrowd",
+    "description": "Obtain information from ThreatCrowd about identified IP addresses, domains and e-mail addresses.",
+    "service": "ThreatCrowd",
+    "base_url": "https://www.threatcrowd.org",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "IP_ADDRESS",
+      "AFFILIATE_IPADDR",
+      "INTERNET_NAME",
+      "CO_HOSTED_SITE",
+      "NETBLOCK_OWNER",
+      "EMAILADDR",
+      "NETBLOCK_MEMBER",
+      "AFFILIATE_INTERNET_NAME"
+    ],
+    "events_out": [
+      "MALICIOUS_IPADDR",
+      "MALICIOUS_INTERNET_NAME",
+      "MALICIOUS_COHOST",
+      "MALICIOUS_AFFILIATE_INTERNET_NAME",
+      "MALICIOUS_AFFILIATE_IPADDR",
+      "MALICIOUS_NETBLOCK",
+      "MALICIOUS_SUBNET",
+      "MALICIOUS_EMAILADDR"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Reputation Systems"
+    ],
+    "use_cases": [
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_threatfox",
+    "name": "ThreatFox",
+    "description": "Check if an IP address is malicious according to ThreatFox.",
+    "service": "ThreatFox",
+    "base_url": "https://threatfox.abuse.ch",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "IP_ADDRESS",
+      "AFFILIATE_IPADDR"
+    ],
+    "events_out": [
+      "BLACKLISTED_IPADDR",
+      "BLACKLISTED_AFFILIATE_IPADDR",
+      "MALICIOUS_IPADDR",
+      "MALICIOUS_AFFILIATE_IPADDR"
+    ],
+    "endpoints_called": [
+      "GET https://threatfox-api.abuse.ch/api/v1/"
+    ],
+    "rate_limits": "None noted",
+    "categories": [
+      "Reputation Systems"
+    ],
+    "use_cases": [
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_threatjammer",
+    "name": "Threat Jammer",
+    "description": "Check if an IP address is malicious according to ThreatJammer.com",
+    "service": "Threat Jammer",
+    "base_url": "https://threatjammer.com",
+    "needs_key": "true",
+    "key_option": "api_key",
+    "all_key_options": [
+      "api_key"
+    ],
+    "events_in": [
+      "IP_ADDRESS",
+      "IPV6_ADDRESS",
+      "AFFILIATE_IPADDR",
+      "AFFILIATE_IPV6_ADDRESS"
+    ],
+    "events_out": [
+      "BLACKLISTED_IPADDR",
+      "BLACKLISTED_AFFILIATE_IPADDR",
+      "MALICIOUS_IPADDR",
+      "MALICIOUS_AFFILIATE_IPADDR"
+    ],
+    "endpoints_called": [
+      "GET https://{self.opts["
+    ],
+    "rate_limits": "None noted",
+    "categories": [
+      "Reputation Systems"
+    ],
+    "use_cases": [
+      "Passive",
+      "Investigate"
+    ]
+  },
+  {
+    "module": "sfp_threatminer",
+    "name": "ThreatMiner",
+    "description": "Obtain information from ThreatMiner's database for passive DNS and threat intelligence.",
+    "service": "ThreatMiner",
+    "base_url": "https://www.threatminer.org/",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "IP_ADDRESS",
+      "DOMAIN_NAME",
+      "NETBLOCK_OWNER",
+      "NETBLOCK_MEMBER"
+    ],
+    "events_out": [
+      "INTERNET_NAME",
+      "CO_HOSTED_SITE"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Search Engines"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_tldsearch",
+    "name": "TLD Searcher",
+    "description": "Search all Internet TLDs for domains with the same name as the target (this can be very slow.)",
+    "service": "TLD Searcher",
+    "base_url": "free / no external url",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "INTERNET_NAME"
+    ],
+    "events_out": [
+      "SIMILARDOMAIN"
+    ],
+    "endpoints_called": [
+      "GET http://"
+    ],
+    "rate_limits": "None noted",
+    "categories": [
+      "DNS"
+    ],
+    "use_cases": [
+      "Footprint"
+    ]
+  },
+  {
+    "module": "sfp_tool_cmseek",
+    "name": "Tool - CMSeeK",
+    "description": "Identify what Content Management System (CMS) might be used.",
+    "service": "Tool - CMSeeK",
+    "base_url": "free / no external url",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "INTERNET_NAME"
+    ],
+    "events_out": [
+      "WEBSERVER_TECHNOLOGY"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Content Analysis"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate"
+    ]
+  },
+  {
+    "module": "sfp_tool_dnstwist",
+    "name": "Tool - DNSTwist",
+    "description": "Identify bit-squatting, typo and other similar domains to the target using a local DNSTwist installation.",
+    "service": "Tool - DNSTwist",
+    "base_url": "free / no external url",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "DOMAIN_NAME"
+    ],
+    "events_out": [
+      "SIMILARDOMAIN"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "DNS"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate"
+    ]
+  },
+  {
+    "module": "sfp_tool_nbtscan",
+    "name": "Tool - nbtscan",
+    "description": "Scans for open NETBIOS nameservers on your target's network.",
+    "service": "Tool - nbtscan",
+    "base_url": "http://www.unixwiz.net",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "IP_ADDRESS",
+      "NETBLOCK_OWNER"
+    ],
+    "events_out": [
+      "UDP_PORT_OPEN",
+      "UDP_PORT_OPEN_INFO",
+      "IP_ADDRESS"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Crawling and Scanning"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate"
+    ]
+  },
+  {
+    "module": "sfp_tool_nmap",
+    "name": "Tool - Nmap",
+    "description": "Identify what Operating System might be used.",
+    "service": "Tool - Nmap",
+    "base_url": "https://nmap.org",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "IP_ADDRESS",
+      "NETBLOCK_OWNER"
+    ],
+    "events_out": [
+      "OPERATING_SYSTEM",
+      "IP_ADDRESS"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Crawling and Scanning"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate"
+    ]
+  },
+  {
+    "module": "sfp_tool_nuclei",
+    "name": "Tool - Nuclei",
+    "description": "Fast and customisable vulnerability scanner.",
+    "service": "Tool - Nuclei",
+    "base_url": "https://nuclei.projectdiscovery.io",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "INTERNET_NAME",
+      "IP_ADDRESS",
+      "NETBLOCK_OWNER"
+    ],
+    "events_out": [
+      "VULNERABILITY_CVE_CRITICAL",
+      "VULNERABILITY_CVE_HIGH",
+      "VULNERABILITY_CVE_MEDIUM",
+      "VULNERABILITY_CVE_LOW",
+      "IP_ADDRESS",
+      "VULNERABILITY_GENERAL",
+      "WEBSERVER_TECHNOLOGY"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Crawling and Scanning"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate"
+    ]
+  },
+  {
+    "module": "sfp_tool_onesixtyone",
+    "name": "Tool - onesixtyone",
+    "description": "Fast scanner to find publicly exposed SNMP services.",
+    "service": "Tool - onesixtyone",
+    "base_url": "free / no external url",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "IP_ADDRESS",
+      "NETBLOCK_OWNER"
+    ],
+    "events_out": [
+      "UDP_PORT_OPEN_INFO",
+      "UDP_PORT_OPEN",
+      "IP_ADDRESS"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Crawling and Scanning"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate"
+    ]
+  },
+  {
+    "module": "sfp_tool_retirejs",
+    "name": "Tool - Retire.js",
+    "description": "Scanner detecting the use of JavaScript libraries with known vulnerabilities",
+    "service": "Tool - Retire.js",
+    "base_url": "http://retirejs.github.io",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "LINKED_URL_INTERNAL",
+      "LINKED_URL_EXTERNAL"
+    ],
+    "events_out": [
+      "VULNERABILITY_CVE_CRITICAL",
+      "VULNERABILITY_CVE_HIGH",
+      "VULNERABILITY_CVE_MEDIUM",
+      "VULNERABILITY_CVE_LOW",
+      "VULNERABILITY_GENERAL"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Content Analysis"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate"
+    ]
+  },
+  {
+    "module": "sfp_tool_snallygaster",
+    "name": "Tool - snallygaster",
+    "description": "Finds file leaks and other security problems on HTTP servers.",
+    "service": "Tool - snallygaster",
+    "base_url": "free / no external url",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "INTERNET_NAME"
+    ],
+    "events_out": [
+      "VULNERABILITY_GENERAL",
+      "VULNERABILITY_CVE_CRITICAL",
+      "VULNERABILITY_CVE_HIGH",
+      "VULNERABILITY_CVE_MEDIUM",
+      "VULNERABILITY_CVE_LOW"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Crawling and Scanning"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate"
+    ]
+  },
+  {
+    "module": "sfp_tool_testsslsh",
+    "name": "Tool - testssl.sh",
+    "description": "Identify various TLS/SSL weaknesses, including Heartbleed, CRIME and ROBOT.",
+    "service": "Tool - testssl.sh",
+    "base_url": "https://testssl.sh",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "INTERNET_NAME",
+      "IP_ADDRESS",
+      "NETBLOCK_OWNER"
+    ],
+    "events_out": [
+      "VULNERABILITY_CVE_CRITICAL",
+      "VULNERABILITY_CVE_HIGH",
+      "VULNERABILITY_CVE_MEDIUM",
+      "VULNERABILITY_CVE_LOW",
+      "VULNERABILITY_GENERAL",
+      "IP_ADDRESS"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Crawling and Scanning"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate"
+    ]
+  },
+  {
+    "module": "sfp_tool_trufflehog",
+    "name": "Tool - TruffleHog",
+    "description": "Searches through git repositories for high entropy strings and secrets, digging deep into commit history.",
+    "service": "Tool - TruffleHog",
+    "base_url": "free / no external url",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "SOCIAL_MEDIA",
+      "PUBLIC_CODE_REPO"
+    ],
+    "events_out": [
+      "PASSWORD_COMPROMISED"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Crawling and Scanning"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate"
+    ]
+  },
+  {
+    "module": "sfp_tool_wafw00f",
+    "name": "Tool - WAFW00F",
+    "description": "Identify what web application firewall (WAF) is in use on the specified website.",
+    "service": "Tool - WAFW00F",
+    "base_url": "free / no external url",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "INTERNET_NAME"
+    ],
+    "events_out": [
+      "RAW_RIR_DATA",
+      "WEBSERVER_TECHNOLOGY"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Crawling and Scanning"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate"
+    ]
+  },
+  {
+    "module": "sfp_tool_wappalyzer",
+    "name": "Tool - Wappalyzer",
+    "description": "Wappalyzer indentifies technologies on websites.",
+    "service": "Tool - Wappalyzer",
+    "base_url": "https://www.wappalyzer.com",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "INTERNET_NAME"
+    ],
+    "events_out": [
+      "OPERATING_SYSTEM",
+      "SOFTWARE_USED",
+      "WEBSERVER_TECHNOLOGY"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Content Analysis"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate"
+    ]
+  },
+  {
+    "module": "sfp_tool_whatweb",
+    "name": "Tool - WhatWeb",
+    "description": "Identify what software is in use on the specified website.",
+    "service": "Tool - WhatWeb",
+    "base_url": "free / no external url",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "INTERNET_NAME"
+    ],
+    "events_out": [
+      "RAW_RIR_DATA",
+      "WEBSERVER_BANNER",
+      "WEBSERVER_TECHNOLOGY"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Content Analysis"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate"
+    ]
+  },
+  {
+    "module": "sfp_torch",
+    "name": "TORCH",
+    "description": "Search Tor 'TORCH' search engine for mentions of the target domain.",
+    "service": "TORCH",
+    "base_url": "https://torchsearch.wordpress.com/",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "DOMAIN_NAME",
+      "HUMAN_NAME",
+      "EMAILADDR"
+    ],
+    "events_out": [
+      "DARKNET_MENTION_URL",
+      "DARKNET_MENTION_CONTENT"
+    ],
+    "endpoints_called": [
+      "GET http://torchdeedp3i2jigzjdmfpn5ttjhthh5wbmda2rr3jvqjg5p77c54dqd.onion/",
+      "GET http://torchdeedp3i2jigzjdmfpn5ttjhthh5wbmda2rr3jvqjg5p77c54dqd.onion/search?{qr"
+    ],
+    "rate_limits": "None noted",
+    "categories": [
+      "Search Engines"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate"
+    ]
+  },
+  {
+    "module": "sfp_torexits",
+    "name": "TOR Exit Nodes",
+    "description": "Check if an IP adddress or netblock appears on the Tor Metrics exit node list.",
+    "service": "TOR Exit Nodes",
+    "base_url": "https://metrics.torproject.org/",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "IP_ADDRESS",
+      "IPV6_ADDRESS",
+      "AFFILIATE_IPADDR",
+      "AFFILIATE_IPV6_ADDRESS",
+      "NETBLOCK_OWNER",
+      "NETBLOCKV6_OWNER"
+    ],
+    "events_out": [
+      "IP_ADDRESS",
+      "IPV6_ADDRESS",
+      "TOR_EXIT_NODE"
+    ],
+    "endpoints_called": [
+      "GET https://onionoo.torproject.org/details?search=flag:exit"
+    ],
+    "rate_limits": "None noted",
+    "categories": [
+      "Secondary Networks"
+    ],
+    "use_cases": [
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_trashpanda",
+    "name": "Trashpanda",
+    "description": "Queries Trashpanda to gather intelligence about mentions of target in pastesites",
+    "service": "Trashpanda",
+    "base_url": "https://got-hacked.wtf",
+    "needs_key": "true",
+    "key_option": "api_key_username",
+    "all_key_options": [
+      "api_key_username",
+      "api_key_password"
+    ],
+    "events_in": [
+      "DOMAIN_NAME",
+      "INTERNET_NAME",
+      "EMAILADDR"
+    ],
+    "events_out": [
+      "LEAKSITE_CONTENT",
+      "LEAKSITE_URL",
+      "PASSWORD_COMPROMISED"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Leaks, Dumps and Breaches"
+    ],
+    "use_cases": [
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_trumail",
+    "name": "Trumail",
+    "description": "Check whether an email is disposable",
+    "service": "Trumail",
+    "base_url": "https://trumail.io/",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "EMAILADDR"
+    ],
+    "events_out": [
+      "EMAILADDR_DISPOSABLE",
+      "RAW_RIR_DATA"
+    ],
+    "endpoints_called": [
+      "GET https://api.trumail.io/v2/lookups/json?email={qry}"
+    ],
+    "rate_limits": "None noted",
+    "categories": [
+      "Reputation Systems"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_twilio",
+    "name": "Twilio",
+    "description": "Obtain information from Twilio about phone numbers. Ensure you have the Caller Name add-on installed in Twilio.",
+    "service": "Twilio",
+    "base_url": "https://www.twilio.com/",
+    "needs_key": "true",
+    "key_option": "api_key_account_sid",
+    "all_key_options": [
+      "api_key_account_sid",
+      "api_key_auth_token"
+    ],
+    "events_in": [
+      "PHONE_NUMBER"
+    ],
+    "events_out": [
+      "COMPANY_NAME",
+      "RAW_RIR_DATA"
+    ],
+    "endpoints_called": [
+      "GET https://lookups.twilio.com/v1/PhoneNumbers/{phoneNumber}?Type=caller-name"
+    ],
+    "rate_limits": "None noted",
+    "categories": [
+      "Search Engines"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_twitter",
+    "name": "Twitter",
+    "description": "Gather name and location from Twitter profiles.",
+    "service": "Twitter",
+    "base_url": "https://twitter.com/",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "SOCIAL_MEDIA"
+    ],
+    "events_out": [
+      "RAW_RIR_DATA",
+      "GEOINFO"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Social Media"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_uceprotect",
+    "name": "UCEPROTECT",
+    "description": "Check if a netblock or IP address is in the UCEPROTECT database.",
+    "service": "UCEPROTECT",
+    "base_url": "http://www.uceprotect.net/",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "IP_ADDRESS",
+      "AFFILIATE_IPADDR",
+      "NETBLOCK_OWNER",
+      "NETBLOCK_MEMBER"
+    ],
+    "events_out": [
+      "BLACKLISTED_IPADDR",
+      "BLACKLISTED_AFFILIATE_IPADDR",
+      "BLACKLISTED_SUBNET",
+      "BLACKLISTED_NETBLOCK",
+      "MALICIOUS_IPADDR",
+      "MALICIOUS_AFFILIATE_IPADDR",
+      "MALICIOUS_NETBLOCK",
+      "MALICIOUS_SUBNET"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Reputation Systems"
+    ],
+    "use_cases": [
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_urlscan",
+    "name": "URLScan.io",
+    "description": "Search URLScan.io cache for domain information.",
+    "service": "URLScan.io",
+    "base_url": "https://urlscan.io/",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "INTERNET_NAME"
+    ],
+    "events_out": [
+      "GEOINFO",
+      "LINKED_URL_INTERNAL",
+      "RAW_RIR_DATA",
+      "DOMAIN_NAME",
+      "INTERNET_NAME",
+      "INTERNET_NAME_UNRESOLVED",
+      "BGP_AS_MEMBER",
+      "WEBSERVER_BANNER"
+    ],
+    "endpoints_called": [
+      "GET https://urlscan.io/api/v1/search/?"
+    ],
+    "rate_limits": "None noted",
+    "categories": [
+      "Search Engines"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_venmo",
+    "name": "Venmo",
+    "description": "Gather user information from Venmo API.",
+    "service": "Venmo",
+    "base_url": "https://venmo.com/",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "USERNAME"
+    ],
+    "events_out": [
+      "RAW_RIR_DATA",
+      "HUMAN_NAME"
+    ],
+    "endpoints_called": [
+      "GET https://api.venmo.com/v1/users/"
+    ],
+    "rate_limits": "None noted",
+    "categories": [
+      "Social Media"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_viewdns",
+    "name": "ViewDNS.info",
+    "description": "Identify co-hosted websites and perform reverse Whois lookups using ViewDNS.info.",
+    "service": "ViewDNS.info",
+    "base_url": "https://viewdns.info/",
+    "needs_key": "true",
+    "key_option": "api_key",
+    "all_key_options": [
+      "api_key"
+    ],
+    "events_in": [
+      "EMAILADDR",
+      "IP_ADDRESS",
+      "PROVIDER_DNS"
+    ],
+    "events_out": [
+      "AFFILIATE_INTERNET_NAME",
+      "AFFILIATE_DOMAIN_NAME",
+      "CO_HOSTED_SITE"
+    ],
+    "endpoints_called": [
+      "GET https://api.viewdns.info/{querytype}/?{params}"
+    ],
+    "rate_limits": "None noted",
+    "categories": [
+      "Search Engines"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_virustotal",
+    "name": "VirusTotal",
+    "description": "Obtain information from VirusTotal about identified IP addresses.",
+    "service": "VirusTotal",
+    "base_url": "https://www.virustotal.com/",
+    "needs_key": "true",
+    "key_option": "api_key",
+    "all_key_options": [
+      "api_key"
+    ],
+    "events_in": [
+      "IP_ADDRESS",
+      "AFFILIATE_IPADDR",
+      "INTERNET_NAME",
+      "CO_HOSTED_SITE",
+      "NETBLOCK_OWNER",
+      "NETBLOCK_MEMBER"
+    ],
+    "events_out": [
+      "MALICIOUS_IPADDR",
+      "MALICIOUS_INTERNET_NAME",
+      "MALICIOUS_COHOST",
+      "MALICIOUS_AFFILIATE_INTERNET_NAME",
+      "MALICIOUS_AFFILIATE_IPADDR",
+      "MALICIOUS_NETBLOCK",
+      "MALICIOUS_SUBNET",
+      "INTERNET_NAME",
+      "AFFILIATE_INTERNET_NAME",
+      "INTERNET_NAME_UNRESOLVED",
+      "DOMAIN_NAME"
+    ],
+    "endpoints_called": [
+      "GET https://www.virustotal.com/vtapi/v2/domain/report?{params}",
+      "GET https://www.virustotal.com/vtapi/v2/ip-address/report?{params}"
+    ],
+    "rate_limits": "Public API is limited to 4 queries per minute",
+    "categories": [
+      "Reputation Systems"
+    ],
+    "use_cases": [
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_voipbl",
+    "name": "VoIP Blacklist (VoIPBL)",
+    "description": "Check if an IP address or netblock is malicious according to VoIP Blacklist (VoIPBL).",
+    "service": "VoIP Blacklist (VoIPBL)",
+    "base_url": "https://voipbl.org/",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "IP_ADDRESS",
+      "AFFILIATE_IPADDR",
+      "NETBLOCK_MEMBER",
+      "NETBLOCK_OWNER"
+    ],
+    "events_out": [
+      "BLACKLISTED_IPADDR",
+      "BLACKLISTED_AFFILIATE_IPADDR",
+      "BLACKLISTED_SUBNET",
+      "BLACKLISTED_NETBLOCK",
+      "MALICIOUS_IPADDR",
+      "MALICIOUS_AFFILIATE_IPADDR",
+      "MALICIOUS_SUBNET",
+      "MALICIOUS_NETBLOCK"
+    ],
+    "endpoints_called": [
+      "GET https://voipbl.org/update"
+    ],
+    "rate_limits": "None noted",
+    "categories": [
+      "Reputation Systems"
+    ],
+    "use_cases": [
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_vxvault",
+    "name": "VXVault.net",
+    "description": "Check if a domain or IP address is malicious according to VXVault.net.",
+    "service": "VXVault.net",
+    "base_url": "http://vxvault.net/",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "INTERNET_NAME",
+      "IP_ADDRESS",
+      "IPV6_ADDRESS",
+      "AFFILIATE_IPADDR",
+      "AFFILIATE_IPV6_ADDRESS",
+      "AFFILIATE_INTERNET_NAME",
+      "CO_HOSTED_SITE"
+    ],
+    "events_out": [
+      "MALICIOUS_IPADDR",
+      "MALICIOUS_INTERNET_NAME",
+      "MALICIOUS_AFFILIATE_IPADDR",
+      "MALICIOUS_AFFILIATE_INTERNET_NAME",
+      "MALICIOUS_COHOST"
+    ],
+    "endpoints_called": [
+      "GET http://vxvault.net/URL_List.php"
+    ],
+    "rate_limits": "None noted",
+    "categories": [
+      "Reputation Systems"
+    ],
+    "use_cases": [
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_webanalytics",
+    "name": "Web Analytics Extractor",
+    "description": "Identify web analytics IDs in scraped webpages and DNS TXT records.",
+    "service": "Web Analytics Extractor",
+    "base_url": "https://developers.google.com",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "TARGET_WEB_CONTENT",
+      "DNS_TEXT"
+    ],
+    "events_out": [
+      "WEB_ANALYTICS_ID"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Content Analysis"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_webframework",
+    "name": "Web Framework Identifier",
+    "description": "Identify the usage of popular web frameworks like jQuery, YUI and others.",
+    "service": "Web Framework Identifier",
+    "base_url": "free / no external url",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "TARGET_WEB_CONTENT"
+    ],
+    "events_out": [
+      "URL_WEB_FRAMEWORK"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Content Analysis"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_webserver",
+    "name": "Web Server Identifier",
+    "description": "Obtain web server banners to identify versions of web servers being used.",
+    "service": "Web Server Identifier",
+    "base_url": "free / no external url",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "WEBSERVER_HTTPHEADERS"
+    ],
+    "events_out": [
+      "WEBSERVER_BANNER",
+      "WEBSERVER_TECHNOLOGY",
+      "LINKED_URL_INTERNAL",
+      "LINKED_URL_EXTERNAL"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Content Analysis"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_whatcms",
+    "name": "WhatCMS",
+    "description": "Check web technology using WhatCMS.org API.",
+    "service": "WhatCMS",
+    "base_url": "https://whatcms.org/",
+    "needs_key": "true",
+    "key_option": "api_key",
+    "all_key_options": [
+      "api_key"
+    ],
+    "events_in": [
+      "DOMAIN_NAME"
+    ],
+    "events_out": [
+      "RAW_RIR_DATA",
+      "WEBSERVER_TECHNOLOGY"
+    ],
+    "endpoints_called": [
+      "GET https://whatcms.org/APIEndpoint/Detect?",
+      "GET https://whatcms.org/APIEndpoint/Technology?"
+    ],
+    "rate_limits": "None noted",
+    "categories": [
+      "Content Analysis"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_whois",
+    "name": "Whois",
+    "description": "Perform a WHOIS look-up on domain names and owned netblocks.",
+    "service": "Whois",
+    "base_url": "free / no external url",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "DOMAIN_NAME",
+      "DOMAIN_NAME_PARENT",
+      "NETBLOCK_OWNER",
+      "NETBLOCKV6_OWNER",
+      "CO_HOSTED_SITE_DOMAIN",
+      "AFFILIATE_DOMAIN_NAME",
+      "SIMILARDOMAIN"
+    ],
+    "events_out": [
+      "DOMAIN_WHOIS",
+      "NETBLOCK_WHOIS",
+      "DOMAIN_REGISTRAR",
+      "CO_HOSTED_SITE_DOMAIN_WHOIS",
+      "AFFILIATE_DOMAIN_WHOIS",
+      "SIMILARDOMAIN_WHOIS"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Public Registries"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_whoisology",
+    "name": "Whoisology",
+    "description": "Reverse Whois lookups using Whoisology.com.",
+    "service": "Whoisology",
+    "base_url": "https://whoisology.com/",
+    "needs_key": "true",
+    "key_option": "api_key",
+    "all_key_options": [
+      "api_key"
+    ],
+    "events_in": [
+      "EMAILADDR"
+    ],
+    "events_out": [
+      "AFFILIATE_INTERNET_NAME",
+      "AFFILIATE_DOMAIN_NAME"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Search Engines"
+    ],
+    "use_cases": [
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_whoxy",
+    "name": "Whoxy",
+    "description": "Reverse Whois lookups using Whoxy.com.",
+    "service": "Whoxy",
+    "base_url": "https://www.whoxy.com/",
+    "needs_key": "true",
+    "key_option": "api_key",
+    "all_key_options": [
+      "api_key"
+    ],
+    "events_in": [
+      "EMAILADDR"
+    ],
+    "events_out": [
+      "AFFILIATE_INTERNET_NAME",
+      "AFFILIATE_DOMAIN_NAME"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Search Engines"
+    ],
+    "use_cases": [
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_wigle",
+    "name": "WiGLE",
+    "description": "Query WiGLE to identify nearby WiFi access points.",
+    "service": "WiGLE",
+    "base_url": "https://wigle.net/",
+    "needs_key": "true",
+    "key_option": "api_key_encoded",
+    "all_key_options": [
+      "api_key_encoded"
+    ],
+    "events_in": [
+      "PHYSICAL_COORDINATES"
+    ],
+    "events_out": [
+      "WIFI_ACCESS_POINT"
+    ],
+    "endpoints_called": [
+      "GET https://api.wigle.net/api/v2/network/search?"
+    ],
+    "rate_limits": "None noted",
+    "categories": [
+      "Secondary Networks"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_wikileaks",
+    "name": "Wikileaks",
+    "description": "Search Wikileaks for mentions of domain names and e-mail addresses.",
+    "service": "Wikileaks",
+    "base_url": "https://wikileaks.org/",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "DOMAIN_NAME",
+      "EMAILADDR",
+      "HUMAN_NAME"
+    ],
+    "events_out": [
+      "LEAKSITE_CONTENT",
+      "LEAKSITE_URL"
+    ],
+    "endpoints_called": [
+      "GET https://search.wikileaks.org/?"
+    ],
+    "rate_limits": "None noted",
+    "categories": [
+      "Leaks, Dumps and Breaches"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_wikipediaedits",
+    "name": "Wikipedia Edits",
+    "description": "Identify edits to Wikipedia articles made from a given IP address or username.",
+    "service": "Wikipedia Edits",
+    "base_url": "https://www.wikipedia.org/",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "IP_ADDRESS",
+      "USERNAME"
+    ],
+    "events_out": [
+      "WIKIPEDIA_PAGE_EDIT"
+    ],
+    "endpoints_called": [
+      "GET https://en.wikipedia.org/w/api.php?{urllib.parse.urlencode(params)}"
+    ],
+    "rate_limits": "None noted",
+    "categories": [
+      "Secondary Networks"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_xforce",
+    "name": "XForce Exchange",
+    "description": "Obtain IP reputation and passive DNS information from IBM X-Force Exchange.",
+    "service": "XForce Exchange",
+    "base_url": "https://exchange.xforce.ibmcloud.com/",
+    "needs_key": "true",
+    "key_option": "xforce_api_key",
+    "all_key_options": [
+      "xforce_api_key",
+      "xforce_api_key_password"
+    ],
+    "events_in": [
+      "IP_ADDRESS",
+      "AFFILIATE_IPADDR",
+      "IPV6_ADDRESS",
+      "AFFILIATE_IPV6_ADDRESS",
+      "NETBLOCK_MEMBER",
+      "NETBLOCKV6_MEMBER",
+      "NETBLOCK_OWNER",
+      "NETBLOCKV6_OWNER"
+    ],
+    "events_out": [
+      "BLACKLISTED_IPADDR",
+      "BLACKLISTED_AFFILIATE_IPADDR",
+      "BLACKLISTED_SUBNET",
+      "BLACKLISTED_NETBLOCK",
+      "MALICIOUS_IPADDR",
+      "MALICIOUS_AFFILIATE_IPADDR",
+      "MALICIOUS_NETBLOCK",
+      "MALICIOUS_SUBNET",
+      "INTERNET_NAME",
+      "INTERNET_NAME_UNRESOLVED",
+      "DOMAIN_NAME",
+      "CO_HOSTED_SITE",
+      "RAW_RIR_DATA"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "self.error(\"Rate limit exceeded\")",
+    "categories": [
+      "Reputation Systems"
+    ],
+    "use_cases": [
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_yandexdns",
+    "name": "Yandex DNS",
+    "description": "Check if a host would be blocked by Yandex DNS.",
+    "service": "Yandex DNS",
+    "base_url": "https://yandex.com/",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "INTERNET_NAME",
+      "AFFILIATE_INTERNET_NAME",
+      "CO_HOSTED_SITE"
+    ],
+    "events_out": [
+      "BLACKLISTED_INTERNET_NAME",
+      "BLACKLISTED_AFFILIATE_INTERNET_NAME",
+      "BLACKLISTED_COHOST",
+      "MALICIOUS_INTERNET_NAME",
+      "MALICIOUS_AFFILIATE_INTERNET_NAME",
+      "MALICIOUS_COHOST"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Reputation Systems"
+    ],
+    "use_cases": [
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_zetalytics",
+    "name": "Zetalytics",
+    "description": "Query the Zetalytics database for hosts on your target domain(s).",
+    "service": "Zetalytics",
+    "base_url": "https://zetalytics.com/",
+    "needs_key": "true",
+    "key_option": "api_key",
+    "all_key_options": [
+      "api_key"
+    ],
+    "events_in": [
+      "INTERNET_NAME",
+      "DOMAIN_NAME",
+      "EMAILADDR"
+    ],
+    "events_out": [
+      "INTERNET_NAME",
+      "AFFILIATE_DOMAIN_NAME",
+      "INTERNET_NAME_UNRESOLVED"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Passive DNS"
+    ],
+    "use_cases": [
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_zonefiles",
+    "name": "ZoneFile.io",
+    "description": "Search ZoneFiles.io Domain query API for domain information.",
+    "service": "ZoneFile.io",
+    "base_url": "https://zonefiles.io",
+    "needs_key": "true",
+    "key_option": "api_key",
+    "all_key_options": [
+      "api_key"
+    ],
+    "events_in": [
+      "DOMAIN_NAME"
+    ],
+    "events_out": [
+      "RAW_RIR_DATA",
+      "IP_ADDRESS",
+      "PHONE_NUMBER",
+      "EMAILADDR",
+      "PROVIDER_DNS",
+      "SOFTWARE_USED"
+    ],
+    "endpoints_called": [
+      "GET https://zonefiles.io/q/{self.opts["
+    ],
+    "rate_limits": "Future proofing - ZoneFiles.io does not implement rate limiting",
+    "categories": [
+      "Passive DNS"
+    ],
+    "use_cases": [
+      "Footprint",
+      "Investigate",
+      "Passive"
+    ]
+  },
+  {
+    "module": "sfp_zoneh",
+    "name": "Zone-H Defacement Check",
+    "description": "Check if a hostname/domain appears on the zone-h.org 'special defacements' RSS feed.",
+    "service": "Zone-H Defacement Check",
+    "base_url": "https://zone-h.org/",
+    "needs_key": "false",
+    "key_option": "none",
+    "all_key_options": [],
+    "events_in": [
+      "INTERNET_NAME",
+      "IP_ADDRESS",
+      "IPV6_ADDRESS",
+      "AFFILIATE_INTERNET_NAME",
+      "AFFILIATE_IPADDR",
+      "AFFILIATE_IPV6_ADDRESS",
+      "CO_HOSTED_SITE"
+    ],
+    "events_out": [
+      "DEFACED_INTERNET_NAME",
+      "DEFACED_IPADDR",
+      "DEFACED_AFFILIATE_INTERNET_NAME",
+      "DEFACED_COHOST",
+      "DEFACED_AFFILIATE_IPADDR"
+    ],
+    "endpoints_called": [],
+    "rate_limits": "None noted",
+    "categories": [
+      "Leaks, Dumps and Breaches"
+    ],
+    "use_cases": [
+      "Investigate",
+      "Passive"
+    ]
+  }
+]
