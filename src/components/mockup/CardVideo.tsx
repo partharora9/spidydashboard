@@ -25,11 +25,21 @@ export const CardVideo = ({
   const videoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [inView, setInView] = useState(false);
   const prefersReduced = useReducedMotion();
 
-  // If prefers-reduced-motion is enabled or responsive tier disables playback for this card,
-  // we show the high-res poster image instead
-  const shouldPlay = allowPlay && !prefersReduced;
+  // Check Save-Data and slow connection
+  const isSaveDataOrSlow =
+    typeof navigator !== 'undefined' &&
+    Boolean(
+      (navigator as any).connection?.saveData ||
+        (navigator as any).connection?.effectiveType === '2g' ||
+        (navigator as any).connection?.effectiveType === 'slow-2g'
+    );
+
+  // If prefers-reduced-motion is enabled, or Save-Data is active, or tier disables playback:
+  // Show high-res poster image instead
+  const shouldPlay = allowPlay && !prefersReduced && !isSaveDataOrSlow;
 
   // Register video in parent sync hook
   useEffect(() => {
@@ -43,27 +53,26 @@ export const CardVideo = ({
     };
   }, [id, registerVideo]);
 
-  // IntersectionObserver (threshold 0.3) to play when visible and pause when out of view
+  // IntersectionObserver to load/play when in viewport and pause when off-screen
   useEffect(() => {
     const el = containerRef.current;
-    if (!el || !shouldPlay) return;
+    if (!el) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
+          setInView(entry.isIntersecting);
           const video = videoRef.current;
           if (!video) return;
 
-          if (entry.isIntersecting && !document.hidden) {
-            video.play().catch(() => {
-              // Ignore standard autoplay abort errors
-            });
+          if (entry.isIntersecting && !document.hidden && shouldPlay) {
+            video.play().catch(() => {});
           } else {
             video.pause();
           }
         });
       },
-      { threshold: 0.3 }
+      { threshold: 0.2 }
     );
 
     observer.observe(el);
@@ -78,19 +87,19 @@ export const CardVideo = ({
 
       if (document.hidden) {
         video.pause();
-      } else if (shouldPlay) {
+      } else if (shouldPlay && inView) {
         video.play().catch(() => {});
       }
     };
 
     document.addEventListener('visibilitychange', handleVisibility);
     return () => document.removeEventListener('visibilitychange', handleVisibility);
-  }, [shouldPlay]);
+  }, [shouldPlay, inView]);
 
   return (
     <div
       ref={containerRef}
-      className={`relative w-full ${aspectRatio} overflow-hidden rounded-[inherit] bg-slate-100 select-none ${className}`}
+      className={`relative w-full ${aspectRatio} overflow-hidden rounded-[inherit] bg-slate-900 select-none ${className}`}
       style={{
         transform: 'translateZ(0)',
         WebkitTransform: 'translateZ(0)',
@@ -99,33 +108,33 @@ export const CardVideo = ({
         willChange: 'transform',
       }}
     >
-      {/* Soft gradient placeholder so there is never a blank flash */}
+      {/* Soft gradient placeholder */}
       <div
         className={`absolute inset-0 bg-gradient-to-tr from-[#0F172A] via-[#1E293B] to-[#0F172A] transition-opacity duration-700 pointer-events-none ${
           isLoaded ? 'opacity-0' : 'opacity-100'
         }`}
       />
 
-      {/* Poster image fallback (used for reduced motion, disabled tiers, and initial load) */}
+      {/* Poster image fallback */}
       <img
         src={poster}
         alt="Screen preview"
-        loading="eager"
+        loading="lazy"
         decoding="async"
         className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-600 pointer-events-none rounded-[inherit] ${
           shouldPlay && isLoaded ? 'opacity-0' : 'opacity-100'
         }`}
       />
 
-      {/* Video Element: Autoplay, muted, loop, playsInline, no controls, hardware accelerated */}
-      {shouldPlay && (
+      {/* Video Element: Lazy mounted upon entering viewport, Save-Data respected */}
+      {shouldPlay && inView && (
         <video
           ref={videoRef}
           autoPlay
           muted
           loop
           playsInline
-          preload="metadata"
+          preload="none"
           disablePictureInPicture
           controls={false}
           tabIndex={-1}

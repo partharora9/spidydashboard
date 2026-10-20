@@ -54,11 +54,11 @@ export const CardD = () => {
           boxShadow: '0 28px 70px rgba(20, 30, 60, 0.12)',
         }}
         transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] as const }}
-        className="relative h-full min-h-[536px] rounded-[24px] bg-[#FFFFFF] border border-black/[0.04] p-8 shadow-[0_20px_60px_rgba(20,30,60,0.06)] overflow-hidden flex flex-col justify-between select-none"
+        className="relative h-full min-h-[480px] sm:min-h-[536px] rounded-[24px] bg-[#FFFFFF] border border-black/[0.04] p-6 sm:p-8 shadow-[0_20px_60px_rgba(20,30,60,0.06)] overflow-hidden flex flex-col justify-between select-none"
       >
         {/* 1. Risk Severity Color Swatches */}
         <div>
-          <div className="flex items-center justify-between gap-3.5">
+          <div className="flex items-center justify-between gap-2 sm:gap-3.5">
             {severityLevels.map((swatch, idx) => (
               <motion.div
                 key={idx}
@@ -73,9 +73,9 @@ export const CardD = () => {
                 }}
                 whileHover={{ y: -4, scale: 1.05 }}
                 style={{ backgroundColor: swatch.color }}
-                className="w-[62px] h-[62px] rounded-[10px] shadow-sm flex flex-col items-center justify-center text-white text-[10px] font-bold cursor-pointer border border-black/[0.03] transition-shadow hover:shadow-md"
+                className="flex-1 min-w-0 max-w-[62px] h-[52px] sm:h-[62px] rounded-[10px] shadow-sm flex flex-col items-center justify-center text-white text-[9px] sm:text-[10px] font-bold cursor-pointer border border-black/[0.03] transition-shadow hover:shadow-md"
               >
-                <span>{swatch.name}</span>
+                <span className="truncate px-0.5">{swatch.name}</span>
               </motion.div>
             ))}
           </div>
@@ -84,22 +84,22 @@ export const CardD = () => {
         </div>
 
         {/* 2. Format Badges + Action Buttons */}
-        <div className="mt-8 flex items-center justify-between gap-4">
+        <div className="mt-8 flex items-center justify-between gap-3 sm:gap-4">
           {/* LEFT: Format badges */}
-          <div className="flex flex-col gap-2 select-none">
-            <span className="font-mono font-bold text-[28px] text-[#0B0B14]">
+          <div className="flex flex-col gap-1.5 sm:gap-2 select-none">
+            <span className="font-mono font-bold text-[24px] sm:text-[28px] text-[#0B0B14]">
               .PDF
             </span>
-            <span className="font-mono font-semibold text-[22px] text-[#555555]">
+            <span className="font-mono font-semibold text-[19px] sm:text-[22px] text-[#555555]">
               .JSON
             </span>
-            <span className="font-mono font-medium text-[18px] text-[#888888]">
+            <span className="font-mono font-medium text-[16px] sm:text-[18px] text-[#888888]">
               .CSV
             </span>
           </div>
 
           {/* RIGHT: Export & Download Buttons */}
-          <div className="flex flex-col gap-3.5">
+          <div className="flex flex-col gap-3">
             <motion.button
               initial={{ x: 30, opacity: 0 }}
               whileInView={{ x: 0, opacity: 1 }}
@@ -109,9 +109,9 @@ export const CardD = () => {
               onAnimationEnd={() => setIsPrimaryShining(false)}
               whileHover={{ y: -2 }}
               whileTap={{ scale: 0.97 }}
-              className="relative overflow-hidden w-[160px] h-[48px] rounded-full bg-gradient-to-b from-[#5B9BFA] to-[#3B7FF0] text-white text-[13px] font-medium shadow-[0_6px_16px_rgba(79,143,247,0.3)] hover:shadow-[0_10px_22px_rgba(79,143,247,0.4)] transition-shadow flex items-center justify-center gap-2 select-none"
+              className="relative overflow-hidden w-[140px] sm:w-[160px] h-[44px] sm:h-[48px] rounded-full bg-gradient-to-b from-[#5B9BFA] to-[#3B7FF0] text-white text-[12px] sm:text-[13px] font-medium shadow-[0_6px_16px_rgba(79,143,247,0.3)] hover:shadow-[0_10px_22px_rgba(79,143,247,0.4)] transition-shadow flex items-center justify-center gap-1.5 sm:gap-2 select-none cursor-pointer"
             >
-              <FileText className="w-4 h-4" />
+              <FileText className="w-4 h-4 shrink-0" />
               <span className="relative z-10">Export report</span>
               <motion.div
                 initial={false}
@@ -128,29 +128,29 @@ export const CardD = () => {
               transition={{ delay: 0.45, duration: 0.6, ease: [0.22, 1, 0.36, 1] as const }}
               whileHover={{ y: -2, backgroundColor: '#ECECF0' }}
               whileTap={{ scale: 0.97 }}
-              className="w-[160px] h-[48px] rounded-full bg-[#F5F5F7] text-[#0B0B14] text-[13px] font-medium transition-colors flex items-center justify-center gap-2 select-none"
+              className="w-[140px] sm:w-[160px] h-[44px] sm:h-[48px] rounded-full bg-[#F5F5F7] text-[#0B0B14] text-[12px] sm:text-[13px] font-medium transition-colors flex items-center justify-center gap-1.5 sm:gap-2 select-none cursor-pointer"
             >
-              <Download className="w-4 h-4 text-gray-600" />
+              <Download className="w-4 h-4 text-gray-600 shrink-0" />
               Download JSON
             </motion.button>
           </div>
         </div>
 
         {/* 3. Security Icon Row */}
-        <div className="mt-8 flex justify-center items-center gap-6 w-full text-gray-500">
+        <div className="mt-8 flex justify-center items-center gap-4 sm:gap-6 w-full text-gray-500">
           <div className="flex items-center gap-2 text-[12px] font-medium">
-            <FileSpreadsheet className="w-5 h-5 text-emerald-600" />
+            <FileSpreadsheet className="w-4 sm:w-5 h-4 sm:h-5 text-emerald-600 shrink-0" />
             <span>CSV Reports</span>
           </div>
           <div className="flex items-center gap-2 text-[12px] font-medium">
-            <ShieldAlert className="w-5 h-5 text-rose-500" />
+            <ShieldAlert className="w-4 sm:w-5 h-4 sm:h-5 text-rose-500 shrink-0" />
             <span>Risk Matrix</span>
           </div>
         </div>
 
         {/* 4. Bottom Title */}
         <div className="mt-auto pt-8 text-center">
-          <h3 className="font-headline text-[32px] font-medium leading-[1.2] text-[#0B0B14] tracking-[-0.03em] max-w-[300px] mx-auto">
+          <h3 className="font-headline text-[24px] sm:text-[32px] font-medium leading-[1.2] text-[#0B0B14] tracking-[-0.03em] max-w-[300px] mx-auto">
             Pre-built reports and exports (CSV, JSON, PDF)
           </h3>
         </div>

@@ -75,7 +75,7 @@ export const CardC = () => {
           boxShadow: '0 28px 70px rgba(20, 30, 60, 0.12)',
         }}
         transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] as const }}
-        className="relative h-full min-h-[244px] rounded-[24px] bg-gradient-to-r from-[#E8E9FB] via-[#EFF0FC] to-[#F3F3FD] border border-black/[0.04] p-8 shadow-[0_20px_60px_rgba(20,30,60,0.06)] overflow-hidden flex flex-col justify-end select-none"
+        className="relative h-full min-h-[244px] rounded-[24px] bg-gradient-to-r from-[#E8E9FB] via-[#EFF0FC] to-[#F3F3FD] border border-black/[0.04] p-6 sm:p-8 shadow-[0_20px_60px_rgba(20,30,60,0.06)] overflow-hidden flex flex-col justify-end select-none"
       >
         {/* Soft Lavender / Blue glow from the left */}
         <motion.div
@@ -96,20 +96,20 @@ export const CardC = () => {
         />
 
         {/* Left Side: "50+" and "Ready-made scan profiles" */}
-        <div className="relative z-20 max-w-[200px] sm:max-w-[240px]">
+        <div className="relative z-20 max-w-[180px] sm:max-w-[240px]">
           <TabularCounter
             target={50}
             duration={1.6}
             suffix="+"
-            className="font-headline text-[64px] font-semibold tracking-[-0.03em] leading-none text-[#0B0B14]"
+            className="font-headline text-[52px] sm:text-[64px] font-semibold tracking-[-0.03em] leading-none text-[#0B0B14]"
           />
-          <h3 className="font-headline text-[24px] font-medium leading-[1.2] text-[#0B0B14] tracking-[-0.02em] mt-3">
+          <h3 className="font-headline text-[20px] sm:text-[24px] font-medium leading-[1.2] text-[#0B0B14] tracking-[-0.02em] mt-3">
             Ready-made scan profiles
           </h3>
         </div>
 
         {/* Right Side: Stacked collage of 3 real dashboard photos */}
-        <div className="absolute right-0 left-[42%] sm:left-[45%] top-0 bottom-0 overflow-visible pointer-events-auto">
+        <div className="absolute right-0 left-[38%] sm:left-[45%] top-0 bottom-0 overflow-hidden pointer-events-auto">
           <PhotoStack photos={dashboardPhotos} isCardHovered={isHovered} />
         </div>
       </motion.div>

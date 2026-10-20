@@ -106,7 +106,7 @@ export const NewsletterForm = () => {
       ref={containerRef}
       onMouseMove={handleContainerMouseMove}
       onMouseLeave={handleContainerMouseLeave}
-      className="w-full max-w-[370px] flex flex-col"
+      className="w-full max-w-full sm:max-w-[370px] flex flex-col"
     >
       {/* Newsletter Block Title: *SUBSCRIBE TO OUR NEWSLETTER */}
       <motion.h4
@@ -114,13 +114,13 @@ export const NewsletterForm = () => {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
         transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] as const }}
-        className="text-[20px] font-semibold uppercase tracking-[0.02em] text-[#0B0B14]"
+        className="text-[18px] sm:text-[20px] font-semibold uppercase tracking-[0.02em] text-[#0B0B14]"
       >
         *SUBSCRIBE FOR SECURITY UPDATES
       </motion.h4>
 
       {/* Form Row with Underline */}
-      <form onSubmit={handleSubmit} className="relative mt-8">
+      <form onSubmit={handleSubmit} className="relative mt-6 sm:mt-8 w-full">
         <motion.div
           key={shakeKey}
           animate={
@@ -129,41 +129,44 @@ export const NewsletterForm = () => {
               : { x: 0 }
           }
           transition={{ duration: 0.4 }}
-          className="relative h-[60px] flex items-center justify-between pb-1"
+          className="relative flex flex-col min-[480px]:flex-row min-[480px]:items-center min-[480px]:justify-between min-[480px]:h-[60px] pb-1 gap-3 min-[480px]:gap-0"
         >
           {/* Floating Label / Placeholder */}
-          <motion.label
-            htmlFor="newsletter-email"
-            animate={{
-              y: isFocused || email.length > 0 ? -18 : 0,
-              scale: isFocused || email.length > 0 ? 0.8 : 1,
-              color: isFocused
-                ? '#4F8FF7'
-                : 'rgba(51, 51, 51, 0.9)',
-            }}
-            transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] as const }}
-            className="absolute left-4 text-[15px] font-normal pointer-events-none origin-left select-none"
-          >
-            Email
-          </motion.label>
+          <div className="relative w-full h-[52px] min-[480px]:h-full flex items-center">
+            <motion.label
+              htmlFor="newsletter-email"
+              animate={{
+                y: isFocused || email.length > 0 ? -18 : 0,
+                scale: isFocused || email.length > 0 ? 0.8 : 1,
+                color: isFocused
+                  ? '#4F8FF7'
+                  : 'rgba(51, 51, 51, 0.9)',
+              }}
+              transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] as const }}
+              className="absolute left-4 text-[16px] min-[480px]:text-[15px] font-normal pointer-events-none origin-left select-none"
+            >
+              Email
+            </motion.label>
 
-          {/* Text Input */}
-          <input
-            id="newsletter-email"
-            type="email"
-            value={email}
-            onChange={(e) => {
-              setEmail(e.target.value);
-              if (errorMsg) setErrorMsg('');
-            }}
-            onFocus={() => setIsFocused(true)}
-            onBlur={() => setIsFocused(false)}
-            autoComplete="email"
-            disabled={isSubscribed}
-            className="w-full h-full bg-transparent pl-4 pr-32 text-[15px] text-[#0B0B14] placeholder-transparent focus:outline-none disabled:opacity-70"
-          />
+            {/* Text Input */}
+            <input
+              id="newsletter-email"
+              type="email"
+              value={email}
+              onChange={(e) => {
+                setEmail(e.target.value);
+                if (errorMsg) setErrorMsg('');
+              }}
+              onFocus={() => setIsFocused(true)}
+              onBlur={() => setIsFocused(false)}
+              autoComplete="email"
+              inputMode="email"
+              disabled={isSubscribed}
+              className="w-full h-full bg-transparent pl-4 pr-4 min-[480px]:pr-32 text-[16px] min-[480px]:text-[15px] text-[#0B0B14] placeholder-transparent focus:outline-none disabled:opacity-70"
+            />
+          </div>
 
-          {/* Subscribe Button (with Magnetic Effect & Pulsing Ring) */}
+          {/* Subscribe Button (Full width under 480px, absolute magnetic on desktop) */}
           <motion.div
             initial={{ opacity: 0, scale: prefersReduced ? 1 : 0.85 }}
             whileInView={{ opacity: 1, scale: 1 }}
@@ -178,7 +181,7 @@ export const NewsletterForm = () => {
               x: smoothButtonX,
               y: smoothButtonY,
             }}
-            className="absolute right-0 flex items-center"
+            className="w-full min-[480px]:w-auto min-[480px]:absolute min-[480px]:right-0 flex items-center"
           >
             <motion.button
               ref={buttonRef}
@@ -217,7 +220,7 @@ export const NewsletterForm = () => {
                 y: { duration: 0.2 },
                 scale: { duration: 0.15 },
               }}
-              className="relative inline-flex items-center justify-center gap-1.5 px-5 py-3.5 rounded-full text-white text-[16px] font-semibold tracking-[-0.01em] overflow-hidden select-none cursor-pointer"
+              className="relative w-full min-[480px]:w-auto min-h-[48px] inline-flex items-center justify-center gap-1.5 px-5 py-3.5 rounded-full text-white text-[16px] font-semibold tracking-[-0.01em] overflow-hidden select-none cursor-pointer"
             >
               {/* White shine sweep animation on hover */}
               {!isSubscribed && (

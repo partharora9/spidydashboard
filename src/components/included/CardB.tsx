@@ -49,7 +49,7 @@ export const CardB = () => {
           boxShadow: '0 28px 70px rgba(20, 30, 60, 0.12)',
         }}
         transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] as const }}
-        className="relative h-full min-h-[276px] rounded-[24px] bg-[#FFFFFF] border border-black/[0.04] p-8 shadow-[0_20px_60px_rgba(20,30,60,0.06)] overflow-hidden flex flex-col justify-between select-none"
+        className="relative h-full min-h-[276px] rounded-[24px] bg-[#FFFFFF] border border-black/[0.04] p-6 sm:p-8 shadow-[0_20px_60px_rgba(20,30,60,0.06)] overflow-hidden flex flex-col justify-between select-none"
       >
         {/* Soft blue static radial glow at the top center */}
         <motion.div
@@ -69,24 +69,26 @@ export const CardB = () => {
           }}
         />
 
-        {/* Top-left: Interactive Terminal Badge */}
+        {/* Top-left: Interactive Terminal Badge (40px doodle icon tile) */}
         <div className="relative z-10 pt-1">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#0B0B14] text-white shadow-md font-mono text-[11px]">
-            <Terminal className="w-4 h-4 text-[#4F8FF7]" />
-            <span>spidy --scan example.com</span>
+          <div className="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-xl bg-[#0B0B14] text-white shadow-md font-mono text-[11px] max-w-full">
+            <div className="w-10 h-10 rounded-lg bg-[#4F8FF7]/15 flex items-center justify-center shrink-0">
+              <Terminal className="w-5 h-5 text-[#4F8FF7]" />
+            </div>
+            <span className="truncate">spidy --scan example.com</span>
           </div>
         </div>
 
         {/* Content bottom */}
         <div className="relative z-10 mt-auto pt-6">
-          <h3 className="font-headline text-[24px] font-medium leading-[1.2] text-[#0B0B14] tracking-[-0.02em]">
+          <h3 className="font-headline text-[22px] sm:text-[24px] font-medium leading-[1.2] text-[#0B0B14] tracking-[-0.02em]">
             Open API and CLI included
           </h3>
-          <p className="mt-2 text-[17px] leading-[28px] text-[#111111]/90 font-normal">
+          <p className="mt-2 text-[15px] sm:text-[17px] leading-[26px] sm:leading-[28px] text-[#111111]/90 font-normal">
             Automate scans from terminal or query via REST API.{' '}
             <a
               href="mailto:parthxcore@gmail.com"
-              className="text-[#3B82F6] hover:underline transition-all font-medium inline-block"
+              className="text-[#3B82F6] hover:underline transition-all font-medium inline-block break-all"
               onClick={(e) => e.stopPropagation()}
             >
               parthxcore@gmail.com

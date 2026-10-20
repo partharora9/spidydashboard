@@ -46,26 +46,26 @@ export const CodeBlock = ({
           <button
             type="button"
             onClick={copyToClipboard}
-            className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-white/5 hover:bg-white/15 text-gray-300 hover:text-white transition-colors cursor-pointer"
+            className="flex items-center gap-1.5 px-3 py-2 min-h-[44px] rounded-lg bg-white/5 hover:bg-white/15 text-gray-300 hover:text-white transition-colors cursor-pointer"
             aria-label="Copy code to clipboard"
           >
             {copied ? (
               <>
                 <Check className="w-3.5 h-3.5 text-emerald-400" />
-                <span className="text-emerald-400 font-sans">Copied!</span>
+                <span className="text-emerald-400 font-sans text-[12px]">Copied!</span>
               </>
             ) : (
               <>
                 <Copy className="w-3.5 h-3.5" />
-                <span className="font-sans">Copy</span>
+                <span className="font-sans text-[12px]">Copy</span>
               </>
             )}
           </button>
         </div>
       </div>
 
-      {/* Code Area */}
-      <div className="p-4 overflow-x-auto text-[13px] sm:text-[14px] font-mono leading-[22px]">
+      {/* Code Area: font 13px, horizontal scroll inside */}
+      <div className="p-4 overflow-x-auto text-[13px] font-mono leading-[20px] scrollbar-thin">
         <table className="w-full">
           <tbody>
             {lines.map((line, index) => {

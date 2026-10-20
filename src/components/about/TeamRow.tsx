@@ -54,10 +54,10 @@ const TeamLinkPill = ({ label, url, ariaLabel, prefersReduced }: TeamLinkPillPro
             }
       }
       whileTap={{ scale: prefersReduced ? 1 : 0.97 }}
-      className={`relative inline-flex items-center justify-center gap-1.5 px-4 py-2 sm:px-5 sm:py-2.5 rounded-full font-sans text-[14px] sm:text-[15px] font-medium transition-all duration-300 ${
+      className={`relative inline-flex items-center justify-center gap-1.5 px-4 py-2.5 sm:px-5 sm:py-2.5 rounded-full font-sans text-[14px] sm:text-[15px] font-medium transition-all duration-300 w-full sm:w-auto min-h-[44px] ${
         isPillHovered && !prefersReduced
           ? 'bg-[#4F8FF7] text-white shadow-[0_4px_16px_rgba(79,143,247,0.35)]'
-          : 'bg-transparent text-[#4F8FF7]'
+          : 'bg-[#F5F5F7] sm:bg-transparent text-[#4F8FF7]'
       }`}
     >
       <span className="tracking-[-0.01em]">{label}</span>
@@ -147,7 +147,7 @@ export const TeamRow = ({ member, index }: TeamRowProps) => {
       </div>
 
       {/* Right Column: Profile Links (Portfolio, LinkedIn, Facebook) in the exact pill pattern */}
-      <div className="flex items-center justify-start sm:justify-end gap-2 sm:gap-3 flex-wrap w-full sm:w-auto">
+      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-start sm:justify-end gap-2.5 sm:gap-3 w-full sm:w-auto">
         {linksToRender.map((link) => (
           <TeamLinkPill
             key={link.label}

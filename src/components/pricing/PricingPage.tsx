@@ -108,27 +108,28 @@ export const PricingPage = () => {
       <AnimatePresence>
         {showMobileBuyBar && (
           <motion.div
+            id="pricing-sticky-buy-bar"
             initial={{ y: 100, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 100, opacity: 0 }}
             transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-            className="sm:hidden fixed bottom-0 inset-x-0 z-50 bg-white/95 backdrop-blur-md border-t border-black/[0.08] p-3.5 shadow-[0_-8px_24px_rgba(0,0,0,0.08)] flex items-center justify-between gap-2"
+            className="sm:hidden fixed bottom-0 inset-x-0 z-50 bg-white/95 backdrop-blur-md border-t border-black/[0.08] px-4 pt-3 pb-[max(14px,env(safe-area-inset-bottom))] shadow-[0_-8px_24px_rgba(0,0,0,0.08)] flex items-center justify-between gap-3"
           >
             <div className="flex flex-col min-w-0 shrink">
               <span className="font-sans text-[11px] text-[#555555] uppercase tracking-wider">
-                Plan
+                Selected Plan
               </span>
               <span className="font-headline font-semibold text-[15px] text-[#0B0B14] truncate">
-                {selectedPlan.name} ({selectedPlan.formattedPrice})
+                {selectedPlan.name} • {selectedPlan.formattedPrice}
               </span>
             </div>
 
             <a
               href={`mailto:parthxcore@gmail.com?subject=Inquiry to Buy SpidyDashboard ${selectedPlan.name} (${selectedPlan.formattedPrice})&body=Hi Parth,%0D%0A%0D%0AI would like to purchase SpidyDashboard ${selectedPlan.name} (${selectedPlan.formattedPrice}). Please share the payment and access details.%0D%0A%0D%0AThank you!`}
-              className="h-10 px-3 rounded-full bg-[#4F8FF7] text-white font-sans text-[12px] font-semibold flex items-center justify-center gap-1.5 shadow-[0_4px_14px_rgba(79,143,247,0.3)] active:scale-95 transition-transform cursor-pointer shrink-0"
+              className="min-h-[44px] px-4 rounded-full bg-[#4F8FF7] hover:bg-[#3E82EE] text-white font-sans text-[13px] font-semibold flex items-center justify-center gap-1.5 shadow-[0_4px_14px_rgba(79,143,247,0.3)] active:scale-95 transition-transform cursor-pointer shrink-0"
             >
-              <Mail className="w-3.5 h-3.5 shrink-0" />
-              <span>connect on parthxcore@gmail.com to buy</span>
+              <Mail className="w-4 h-4 shrink-0" />
+              <span>Buy now</span>
             </a>
           </motion.div>
         )}

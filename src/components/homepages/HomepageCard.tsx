@@ -11,6 +11,7 @@ interface HomepageCardProps {
   delayIndex?: number;
   idleDelay?: number;
   staggerDelay?: number;
+  isActive?: boolean;
 }
 
 export const HomepageCard = ({
@@ -20,6 +21,7 @@ export const HomepageCard = ({
   delayIndex = 0,
   idleDelay = 0,
   staggerDelay = 0,
+  isActive = true,
 }: HomepageCardProps) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
@@ -114,6 +116,7 @@ export const HomepageCard = ({
                   label={label}
                   staggerDelay={staggerDelay}
                   isHovered={isHovered}
+                  isActive={isActive}
                 />
               </motion.div>
             </motion.div>

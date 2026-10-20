@@ -7,6 +7,7 @@ export interface PreviewVideoProps {
   label: string;
   staggerDelay?: number;
   isHovered?: boolean;
+  isActive?: boolean;
 }
 
 export const PreviewVideo = ({
@@ -15,13 +16,17 @@ export const PreviewVideo = ({
   label,
   staggerDelay = 0,
   isHovered = false,
+  isActive = true,
 }: PreviewVideoProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const shouldReduceMotion = useReducedMotion();
 
-  // IntersectionObserver: play when threshold 0.4 in view, pause when out of view
+  // Mobile / save-data check
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 640;
+
+  // IntersectionObserver & active slide tracking: play when in view, pause when out or inactive on mobile
   useEffect(() => {
     if (shouldReduceMotion) return;
 
@@ -29,12 +34,17 @@ export const PreviewVideo = ({
     const container = containerRef.current;
     if (!video || !container) return;
 
+    if (isMobile && !isActive) {
+      video.pause();
+      return;
+    }
+
     let timer: ReturnType<typeof setTimeout> | undefined;
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting && !document.hidden) {
+          if (entry.isIntersecting && !document.hidden && (!isMobile || isActive)) {
             timer = setTimeout(() => {
               video.play().catch(() => {});
             }, staggerDelay * 1000);
@@ -49,9 +59,8 @@ export const PreviewVideo = ({
 
     observer.observe(container);
 
-    // Pause all videos when tab is hidden
     const handleVisibilityChange = () => {
-      if (document.hidden) {
+      if (document.hidden || (isMobile && !isActive)) {
         video.pause();
       } else {
         const rect = container.getBoundingClientRect();
@@ -70,7 +79,7 @@ export const PreviewVideo = ({
       observer.disconnect();
       document.removeEventListener('visibilitychange', handleVisibilityChange);
     };
-  }, [staggerDelay, shouldReduceMotion]);
+  }, [staggerDelay, shouldReduceMotion, isActive, isMobile]);
 
   // Hover: video plays at full speed, keeps playing when mouse leaves
   useEffect(() => {

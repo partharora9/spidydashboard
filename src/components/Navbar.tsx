@@ -5,7 +5,6 @@ import {
   ShoppingBag,
   Menu,
   X,
-  Sparkles,
   ArrowRight,
   Shield,
   Search,
@@ -68,35 +67,21 @@ export const dropdownData: Record<string, DropdownItem[]> = {
       href: '/docs/getting-started',
     },
     {
-      title: 'REST API & CLI',
+      title: 'REST API & CLI Reference',
       desc: 'Integrate scanning into your CI/CD pipelines',
       icon: <Terminal className="w-4 h-4 text-[#4F8FF7]" />,
       href: '/docs/rest-api-cli',
     },
   ],
-  Pricing: [
-    {
-      title: 'Standard & Complete Kit',
-      desc: 'One-time source code purchase with instant download',
-      icon: <Sparkles className="w-4 h-4 text-[#4F8FF7]" />,
-      href: '/pricing',
-    },
-    {
-      title: 'Feature Comparison',
-      desc: 'Detailed breakdown of modules, report and PPT',
-      icon: <Shield className="w-4 h-4 text-[#4F8FF7]" />,
-      href: '/pricing#comparison',
-    },
-  ],
   'About Us': [
     {
-      title: 'About SpidyDashboard',
-      desc: 'Built for modern security operations',
-      icon: <Shield className="w-4 h-4 text-[#4F8FF7]" />,
+      title: 'Built for Modern SecOps',
+      desc: 'High performance OSINT intelligence engine',
+      icon: <Globe className="w-4 h-4 text-[#4F8FF7]" />,
       href: '/about',
     },
     {
-      title: 'Meet the Developer',
+      title: 'Creator Story',
       desc: 'Parth Arora (SOC Analyst) & creator story',
       icon: <Shield className="w-4 h-4 text-[#4F8FF7]" />,
       href: '/about#developer',
@@ -131,6 +116,8 @@ export const Navbar = ({ currentPath }: NavbarProps) => {
   const [activePath, setActivePath] = useState(currentPath || '/');
   const timeoutRef = useRef<number | null>(null);
   const menuContainerRefs = useRef<Record<string, HTMLDivElement | null>>({});
+  const hamburgerBtnRef = useRef<HTMLButtonElement>(null);
+  const mobileSheetRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (currentPath) {
@@ -139,6 +126,30 @@ export const Navbar = ({ currentPath }: NavbarProps) => {
       setActivePath(window.location.pathname.toLowerCase());
     }
   }, [currentPath]);
+
+  // Lock body scroll and trap focus when mobile sheet is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [mobileMenuOpen]);
+
+  // Close mobile sheet on Escape
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && mobileMenuOpen) {
+        setMobileMenuOpen(false);
+        hamburgerBtnRef.current?.focus();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [mobileMenuOpen]);
 
   // Listen for custom open-contact-modal events & URL hash #contact or #contact-developer
   useEffect(() => {
@@ -185,7 +196,6 @@ export const Navbar = ({ currentPath }: NavbarProps) => {
     } else if (e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
       setActiveDropdown(item);
-      // Focus first item
       setTimeout(() => {
         const container = menuContainerRefs.current[item];
         const firstLink = container?.querySelector('a');
@@ -198,13 +208,13 @@ export const Navbar = ({ currentPath }: NavbarProps) => {
     if (e.key === 'Escape') {
       e.preventDefault();
       setActiveDropdown(null);
-      const triggerBtn = document.getElementById(`nav-trigger-${item.toLowerCase().replace(/\s+/g, '-')}`);
-      triggerBtn?.focus();
+      const btn = document.getElementById(`nav-trigger-${item.toLowerCase().replace(/\s+/g, '-')}`);
+      btn?.focus();
     } else if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
       e.preventDefault();
       const container = menuContainerRefs.current[item];
       if (!container) return;
-      const links = Array.from(container.querySelectorAll<HTMLAnchorElement>('a'));
+      const links = Array.from(container.querySelectorAll('a'));
       const currentIndex = links.indexOf(document.activeElement as HTMLAnchorElement);
       if (e.key === 'ArrowDown') {
         const nextIndex = (currentIndex + 1) % links.length;
@@ -216,38 +226,38 @@ export const Navbar = ({ currentPath }: NavbarProps) => {
     }
   };
 
-  // Check if current page belongs to this nav group
-  const isNavGroupActive = (item: string): boolean => {
-    const items = dropdownData[item] || [];
-    return items.some((sub) => {
-      const hrefPath = sub.href.split('#')[0].toLowerCase();
-      return hrefPath && hrefPath !== '/' && activePath.startsWith(hrefPath);
-    });
+  // Check if a dropdown group has an active item
+  const isNavGroupActive = (item: string) => {
+    if (item === 'Pricing') return activePath === '/pricing';
+    if (item === 'About Us') return activePath.startsWith('/about');
+    const items = dropdownData[item];
+    if (!items) return false;
+    return items.some(
+      (sub) => activePath === sub.href || (sub.href !== '/' && activePath.startsWith(sub.href))
+    );
   };
 
+  // Framer Motion entrance variants
   const containerVariants: Variants = {
-    hidden: { opacity: 0, y: -16 },
+    hidden: { opacity: 0, y: -20 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
         duration: 0.6,
         ease: [0.22, 1, 0.36, 1] as const,
+        staggerChildren: 0.08,
       },
     },
   };
 
   const navLinkVariants: Variants = {
-    hidden: { opacity: 0, y: -8 },
-    visible: (i: number) => ({
+    hidden: { opacity: 0, y: -10 },
+    visible: {
       opacity: 1,
       y: 0,
-      transition: {
-        delay: 0.1 + i * 0.05,
-        duration: 0.5,
-        ease: [0.22, 1, 0.36, 1] as const,
-      },
-    }),
+      transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] as const },
+    },
   };
 
   return (
@@ -259,24 +269,48 @@ export const Navbar = ({ currentPath }: NavbarProps) => {
         variants={containerVariants}
         initial="hidden"
         animate="visible"
-        className="w-full h-[88px] sticky top-0 z-40 bg-white/95 backdrop-blur-md transition-colors border-b border-black/[0.04]"
+        className="w-full h-[72px] sm:h-[88px] sticky top-0 z-40 bg-white/95 backdrop-blur-md transition-colors border-b border-black/[0.04]"
       >
-        <div className="max-w-[1280px] mx-auto h-full px-6 flex items-center justify-between">
-          {/* Left: Brand Logo */}
+        <div className="max-w-[1280px] mx-auto h-full px-4 sm:px-6 flex items-center justify-between">
+          {/* Left: Brand Logo (wordmark responsive for small screens) */}
           <a
             href="/"
-            className="flex items-center group mr-6 shrink-0 overflow-visible"
+            className="flex items-center group mr-4 sm:mr-6 shrink-0 overflow-visible"
             aria-label="SpidyDashboard Home"
           >
-            <SpidyLogo size={28} withWordmark />
+            <SpidyLogo size={28} withWordmark className="text-[17px] min-[360px]:text-[20px]" />
           </a>
 
-          {/* Center: Desktop Nav with Hover Bridge and Keyboard Support */}
-          <nav className="hidden md:flex items-center gap-8" aria-label="Main Navigation">
+          {/* Center: Desktop Nav (visible at lg >= 1024px) */}
+          <nav className="hidden lg:flex items-center gap-7 xl:gap-8" aria-label="Main Navigation">
             {navItems.map((item, index) => {
               const isOpen = activeDropdown === item;
               const isGroupActive = isNavGroupActive(item);
               const itemSlug = item.toLowerCase().replace(/\s+/g, '-');
+
+              if (item === 'Pricing') {
+                return (
+                  <motion.div
+                    key={item}
+                    custom={index}
+                    variants={navLinkVariants}
+                    initial="hidden"
+                    animate="visible"
+                    className="relative py-2"
+                  >
+                    <a
+                      href="/pricing"
+                      className={`text-[16px] font-medium transition-colors py-1 px-1 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-[#4F8FF7] ${
+                        activePath === '/pricing'
+                          ? 'text-[#4F8FF7] font-semibold'
+                          : 'text-[#111111] hover:text-[#4F8FF7]'
+                      }`}
+                    >
+                      Pricing
+                    </a>
+                  </motion.div>
+                );
+              }
 
               return (
                 <motion.div
@@ -296,7 +330,7 @@ export const Navbar = ({ currentPath }: NavbarProps) => {
                     aria-expanded={isOpen}
                     aria-haspopup="true"
                     aria-controls={`nav-menu-${itemSlug}`}
-                    className={`flex items-center gap-1.5 text-[16px] font-medium transition-colors py-1 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#4F8FF7] rounded-md px-1 ${
+                    className={`flex items-center gap-1.5 text-[16px] font-medium transition-colors py-1 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#4F8FF7] rounded-md px-1 cursor-pointer ${
                       isGroupActive
                         ? 'text-[#4F8FF7] font-semibold'
                         : 'text-[#111111] hover:text-[#4F8FF7]'
@@ -329,10 +363,9 @@ export const Navbar = ({ currentPath }: NavbarProps) => {
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: 6, scale: 0.97 }}
                         transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] as const }}
-                        // pt-3 creates the invisible bridge gap
-                        className="absolute left-1/2 -translate-x-1/2 top-full pt-2.5 w-[320px] z-50 pointer-events-auto"
+                        className="absolute left-1/2 -translate-x-1/2 top-full pt-2.5 w-[330px] z-50 pointer-events-auto"
                       >
-                        <div className="bg-white rounded-[20px] p-3 shadow-[0_20px_50px_rgba(0,0,0,0.12)] border border-black/[0.08] backdrop-blur-xl">
+                        <div className="bg-white rounded-[20px] p-3 shadow-[0_20px_50px_rgba(0,0,0,0.14)] border border-black/[0.08] backdrop-blur-xl">
                           <div className="text-[11px] font-bold tracking-wider uppercase text-gray-400 px-3 py-1 font-mono">
                             {item}
                           </div>
@@ -397,28 +430,18 @@ export const Navbar = ({ currentPath }: NavbarProps) => {
             })}
           </nav>
 
-          {/* Right: Cart, Pricing, Get code CTA */}
-          <div className="hidden md:flex items-center gap-6 shrink-0">
+          {/* Right: Cart, Pricing, Get code CTA (desktop >= 1024px) */}
+          <div className="hidden lg:flex items-center gap-6 shrink-0">
             {/* Cart Icon */}
             <a
               href="/pricing"
-              className="relative p-2 text-[#0B0B14] hover:text-[#4F8FF7] transition-colors"
+              className="relative p-2 text-[#0B0B14] hover:text-[#4F8FF7] transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center rounded-full"
               aria-label="Shopping Cart"
             >
               <ShoppingBag className="w-5 h-5 stroke-[2]" />
               {cartCount > 0 && (
-                <span className="absolute top-1 right-1 w-2 h-2 rounded-full bg-blue-600" />
+                <span className="absolute top-2 right-2 w-2 h-2 rounded-full bg-blue-600" />
               )}
-            </a>
-
-            {/* Pricing Link */}
-            <a
-              href="/pricing"
-              className={`text-[16px] font-medium transition-colors whitespace-nowrap ${
-                activePath === '/pricing' ? 'text-[#4F8FF7] font-semibold' : 'text-[#0B0B14] hover:text-[#4F8FF7]'
-              }`}
-            >
-              Pricing
             </a>
 
             {/* Start scan blue pill with soft halo ring */}
@@ -441,57 +464,65 @@ export const Navbar = ({ currentPath }: NavbarProps) => {
                 href="/pricing"
                 whileHover={{ y: -1, scale: 1.02 }}
                 whileTap={{ scale: 0.97 }}
-                className="inline-flex items-center justify-center bg-gradient-to-b from-[#5B9BFA] to-[#3B7FF0] text-white text-[15px] font-semibold px-[20px] py-[11px] rounded-full shadow-[0_4px_14px_rgba(79,143,247,0.35)] transition-all whitespace-nowrap"
+                className="inline-flex items-center justify-center bg-gradient-to-b from-[#5B9BFA] to-[#3B7FF0] text-white text-[15px] font-semibold px-[20px] py-[11px] rounded-full shadow-[0_4px_14px_rgba(79,143,247,0.35)] transition-all whitespace-nowrap min-h-[44px]"
               >
                 Get source code
               </motion.a>
             </motion.div>
           </div>
 
-          {/* Mobile Hamburger Toggle */}
-          <div className="md:hidden flex items-center gap-3">
+          {/* Mobile Actions: Cart + 44px Hamburger Toggle (visible under 1024px) */}
+          <div className="lg:hidden flex items-center gap-2">
             <a
               href="/pricing"
-              className="p-2 text-[#0B0B14]"
+              className="min-w-[44px] min-h-[44px] flex items-center justify-center text-[#0B0B14] rounded-full hover:bg-gray-100"
               aria-label="Shopping Cart"
             >
-              <ShoppingBag className="w-5 h-5" />
+              <ShoppingBag className="w-5 h-5 stroke-[2]" />
             </a>
             <button
+              id="mobile-menu-trigger"
+              ref={hamburgerBtnRef}
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 text-[#0B0B14] focus:outline-none focus:ring-2 focus:ring-[#4F8FF7] rounded-lg"
+              className="min-w-[44px] min-h-[44px] flex items-center justify-center text-[#0B0B14] hover:text-[#4F8FF7] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#4F8FF7] rounded-xl cursor-pointer"
               aria-label="Toggle navigation menu"
               aria-expanded={mobileMenuOpen}
             >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {mobileMenuOpen ? <X className="w-6 h-6 stroke-[2.2]" /> : <Menu className="w-6 h-6 stroke-[2.2]" />}
             </button>
           </div>
         </div>
 
-        {/* Mobile Menu Accordion Drawer */}
+        {/* Mobile Full-Screen Sheet Menu (<1024px) */}
         <AnimatePresence>
           {mobileMenuOpen && (
             <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] as const }}
-              className="md:hidden max-h-[calc(100vh-88px)] overflow-y-auto bg-white/98 border-b border-gray-200 shadow-2xl px-6 py-6"
+              id="mobile-menu-sheet"
+              ref={mobileSheetRef}
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] as const }}
+              className="lg:hidden fixed inset-x-0 top-[72px] sm:top-[88px] h-[calc(100dvh-72px)] sm:h-[calc(100dvh-88px)] bg-white/98 backdrop-blur-2xl z-50 overflow-y-auto px-5 sm:px-6 py-6 pb-safe flex flex-col justify-between shadow-2xl border-b border-gray-200"
+              role="dialog"
+              aria-modal="true"
+              aria-label="Site Navigation Menu"
             >
-              <div className="flex flex-col gap-3">
-                {navItems.map((item) => {
-                  const isExpanded = expandedMobileCategory === item;
-                  const isGroupActive = isNavGroupActive(item);
+              <div className="flex flex-col gap-2">
+                {['Features', 'Modules', 'Docs'].map((category) => {
+                  const isExpanded = expandedMobileCategory === category;
+                  const isGroupActive = isNavGroupActive(category);
 
                   return (
-                    <div key={item} className="border-b border-gray-100 pb-2">
+                    <div key={category} className="border-b border-gray-100/80 pb-1">
                       <button
                         onClick={() =>
-                          setExpandedMobileCategory(isExpanded ? null : item)
+                          setExpandedMobileCategory(isExpanded ? null : category)
                         }
-                        className="w-full flex items-center justify-between py-2 text-[17px] font-semibold text-[#111111] hover:text-[#4F8FF7] transition-colors"
+                        className="w-full flex items-center justify-between min-h-[56px] py-2 text-[17px] font-semibold text-[#111111] hover:text-[#4F8FF7] transition-colors cursor-pointer"
+                        aria-expanded={isExpanded}
                       >
-                        <span className={isGroupActive ? 'text-[#4F8FF7]' : ''}>{item}</span>
+                        <span className={isGroupActive ? 'text-[#4F8FF7]' : ''}>{category}</span>
                         <ChevronDown
                           className={`w-5 h-5 text-gray-400 transition-transform duration-200 ${
                             isExpanded ? 'rotate-180 text-[#4F8FF7]' : ''
@@ -499,7 +530,7 @@ export const Navbar = ({ currentPath }: NavbarProps) => {
                         />
                       </button>
 
-                      {/* Mobile Accordion Children */}
+                      {/* Mobile Accordion Items (min 56px height, font >= 14px) */}
                       <AnimatePresence>
                         {isExpanded && (
                           <motion.div
@@ -507,9 +538,9 @@ export const Navbar = ({ currentPath }: NavbarProps) => {
                             animate={{ opacity: 1, height: 'auto' }}
                             exit={{ opacity: 0, height: 0 }}
                             transition={{ duration: 0.2 }}
-                            className="overflow-hidden pl-2 pr-1 pt-1 pb-3 space-y-2"
+                            className="overflow-hidden pl-1 pr-1 pt-1 pb-3 space-y-2"
                           >
-                            {dropdownData[item]?.map((subItem) => (
+                            {dropdownData[category]?.map((subItem) => (
                               <a
                                 key={subItem.title}
                                 href={subItem.href}
@@ -526,16 +557,16 @@ export const Navbar = ({ currentPath }: NavbarProps) => {
                                   }
                                   setMobileMenuOpen(false);
                                 }}
-                                className="flex items-start gap-3 p-2.5 rounded-xl bg-gray-50/80 active:bg-blue-50 hover:bg-blue-50/60 transition-colors"
+                                className="flex items-center gap-3.5 p-3 rounded-2xl bg-gray-50/90 active:bg-blue-50 transition-colors min-h-[56px]"
                               >
-                                <div className="p-2 rounded-lg bg-blue-100/70 text-[#4F8FF7] shrink-0 mt-0.5">
+                                <div className="p-2.5 rounded-xl bg-blue-100/80 text-[#4F8FF7] shrink-0">
                                   {subItem.icon}
                                 </div>
                                 <div className="flex-1 min-w-0">
-                                  <div className="text-[14px] font-semibold text-[#0B0B14]">
+                                  <div className="text-[15px] font-semibold text-[#0B0B14]">
                                     {subItem.title}
                                   </div>
-                                  <div className="text-[12px] text-gray-500 leading-snug">
+                                  <div className="text-[14px] text-gray-600 leading-snug">
                                     {subItem.desc}
                                   </div>
                                 </div>
@@ -548,22 +579,41 @@ export const Navbar = ({ currentPath }: NavbarProps) => {
                   );
                 })}
 
-                <div className="pt-4 flex flex-col gap-3">
-                  <a
-                    href="/docs/getting-started"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="text-center py-2.5 text-[15px] font-medium text-[#0B0B14] rounded-full border border-gray-200 hover:bg-gray-50"
-                  >
-                    Documentation
-                  </a>
-                  <a
-                    href="/pricing"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="text-center py-3 text-[15px] font-semibold text-white bg-gradient-to-b from-[#5B9BFA] to-[#3B7FF0] rounded-full shadow-[0_4px_14px_rgba(79,143,247,0.35)]"
-                  >
-                    Get source code (₹499)
-                  </a>
-                </div>
+                {/* Direct Page Links: 56px tap targets */}
+                <a
+                  href="/pricing"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="w-full flex items-center min-h-[56px] text-[17px] font-semibold text-[#111111] hover:text-[#4F8FF7] border-b border-gray-100/80 transition-colors"
+                >
+                  Pricing &amp; Plans
+                </a>
+                <a
+                  href="/about"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="w-full flex items-center min-h-[56px] text-[17px] font-semibold text-[#111111] hover:text-[#4F8FF7] border-b border-gray-100/80 transition-colors"
+                >
+                  About SpidyDashboard
+                </a>
+                <button
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    setContactModalOpen(true);
+                  }}
+                  className="w-full flex items-center min-h-[56px] text-[17px] font-semibold text-[#111111] hover:text-[#4F8FF7] border-b border-gray-100/80 transition-colors text-left cursor-pointer"
+                >
+                  Contact Developer
+                </button>
+              </div>
+
+              {/* Full-width "Get source code" (Buy now) pill at bottom */}
+              <div className="pt-6 pb-2 border-t border-gray-100 flex flex-col gap-3 mt-auto">
+                <a
+                  href="/pricing"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="w-full flex items-center justify-center min-h-[52px] py-3.5 px-6 text-[16px] font-bold text-white bg-gradient-to-b from-[#5B9BFA] to-[#3B7FF0] rounded-full shadow-[0_4px_16px_rgba(79,143,247,0.35)] active:scale-[0.98] transition-all text-center"
+                >
+                  Get source code (₹499)
+                </a>
               </div>
             </motion.div>
           )}
@@ -576,4 +626,3 @@ export const Navbar = ({ currentPath }: NavbarProps) => {
     </>
   );
 };
-

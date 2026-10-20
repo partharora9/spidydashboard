@@ -196,16 +196,19 @@ export const CheckoutModal = ({ isOpen, onClose, plan }: CheckoutModalProps) => 
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto bg-black/60 backdrop-blur-md">
+    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-6 bg-black/60 backdrop-blur-md overflow-hidden">
       <motion.div
-        initial={{ opacity: 0, scale: 0.95, y: 15 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        exit={{ opacity: 0, scale: 0.95, y: 15 }}
+        initial={{ opacity: 0, y: 40 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: 40 }}
         transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-        className="relative w-full max-w-[560px] bg-white rounded-[24px] shadow-[0_25px_80px_rgba(0,0,0,0.25)] border border-black/[0.08] overflow-hidden my-8"
+        className="relative w-full max-w-[560px] bg-white rounded-t-[24px] sm:rounded-[24px] shadow-[0_25px_80px_rgba(0,0,0,0.25)] border border-black/[0.08] overflow-hidden max-h-[90dvh] flex flex-col pb-safe my-0 sm:my-8"
       >
+        {/* Mobile Drag Handle */}
+        <div className="sm:hidden w-12 h-1.5 bg-gray-300 rounded-full mx-auto my-2 shrink-0" />
+
         {/* Modal Header */}
-        <div className="flex items-center justify-between px-6 py-4 bg-[#F8F9FA] border-b border-black/[0.06]">
+        <div className="flex items-center justify-between px-6 py-3.5 bg-[#F8F9FA] border-b border-black/[0.06] shrink-0">
           <div className="flex items-center gap-2">
             <span className="p-1 rounded-md bg-[#4F8FF7]/15 text-[#4F8FF7]">
               <Lock className="w-4 h-4 stroke-[2.2]" />
@@ -217,14 +220,14 @@ export const CheckoutModal = ({ isOpen, onClose, plan }: CheckoutModalProps) => 
           <button
             onClick={onClose}
             aria-label="Close checkout"
-            className="p-1.5 rounded-full text-gray-400 hover:text-black hover:bg-black/[0.05] transition-colors cursor-pointer"
+            className="p-1.5 rounded-full text-gray-400 hover:text-black hover:bg-black/[0.05] transition-colors cursor-pointer min-h-[44px] min-w-[44px] flex items-center justify-center"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Modal Body */}
-        <div className="p-6 sm:p-7">
+        <div className="p-6 sm:p-7 overflow-y-auto flex-1">
           {error && (
             <div className="mb-5 p-3.5 rounded-xl bg-red-50 border border-red-200 text-red-700 text-[13px] flex items-start gap-2.5">
               <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
@@ -255,11 +258,14 @@ export const CheckoutModal = ({ isOpen, onClose, plan }: CheckoutModalProps) => 
                 </label>
                 <input
                   type="email"
+                  inputMode="email"
+                  autoCapitalize="none"
+                  autoComplete="email"
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="you@company.com"
-                  className="w-full px-4 py-2.5 text-[15px] rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#4F8FF7] focus:border-transparent transition-all"
+                  className="w-full px-4 py-2.5 text-[16px] rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#4F8FF7] focus:border-transparent transition-all"
                 />
                 <p className="text-[11px] text-gray-500 mt-1">
                   Your encrypted download token will be sent to this email upon payment verification.
@@ -273,10 +279,11 @@ export const CheckoutModal = ({ isOpen, onClose, plan }: CheckoutModalProps) => 
                 </label>
                 <input
                   type="text"
+                  autoComplete="name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="Parth Arora"
-                  className="w-full px-4 py-2.5 text-[15px] rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#4F8FF7] focus:border-transparent transition-all"
+                  className="w-full px-4 py-2.5 text-[16px] rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#4F8FF7] focus:border-transparent transition-all"
                 />
               </div>
 

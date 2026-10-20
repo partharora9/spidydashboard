@@ -161,14 +161,14 @@ export const FaqSection = () => {
                 }
                 className="w-full bg-white rounded-[16px] shadow-[0_10px_40px_rgba(20,30,60,0.06)] border border-black/[0.04] p-6 sm:px-7 sm:py-6 transition-all duration-200"
               >
-                {/* Accordion Toggle Header Button */}
+                {/* Accordion Toggle Header Button (56px minimum tap target) */}
                 <button
                   type="button"
                   id={`faq-btn-${faq.id}`}
                   aria-expanded={isOpen}
                   aria-controls={`faq-answer-${faq.id}`}
                   onClick={() => handleToggle(faq.id)}
-                  className="w-full flex items-center gap-6 text-left focus:outline-none cursor-pointer group"
+                  className="w-full min-h-[56px] py-2 flex items-center gap-4 sm:gap-6 text-left focus:outline-none cursor-pointer group"
                 >
                   {/* Plus/Minus Morphing Icon: 16px wide, '+' when closed, '−' when open */}
                   <div className="w-5 h-5 flex items-center justify-center shrink-0 text-[#0B0B14]">
@@ -188,8 +188,8 @@ export const FaqSection = () => {
                     </div>
                   </div>
 
-                  {/* Question Title: 18px, weight 500, #0B0B14 */}
-                  <span className="font-sans text-[18px] font-medium text-[#0B0B14] group-hover:text-[#4F8FF7] transition-colors leading-snug">
+                  {/* Question Title: 17px/18px, weight 500, #0B0B14 */}
+                  <span className="font-sans text-[16px] sm:text-[18px] font-medium text-[#0B0B14] group-hover:text-[#4F8FF7] transition-colors leading-snug">
                     {faq.question}
                   </span>
                 </button>

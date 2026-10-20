@@ -133,8 +133,8 @@ export const BlogCard = ({ post, index }: BlogCardProps) => {
         ease: [0.22, 1, 0.36, 1] as const,
       }}
     >
-      {/* Cover Image Container (280px height, overflow hidden) */}
-      <div className="relative w-full h-[280px] overflow-hidden rounded-t-[20px] bg-slate-50 select-none">
+      {/* Cover Image Container (220px mobile, 280px desktop height, overflow hidden) */}
+      <div className="relative w-full h-[220px] sm:h-[280px] overflow-hidden rounded-t-[20px] bg-slate-50 select-none">
         {/* Clip-path reveal wipe (inset(0 0 100% 0) to inset(0)) + scale 1.15 to 1.0 */}
         <motion.div
           initial={{
@@ -225,14 +225,14 @@ export const BlogCard = ({ post, index }: BlogCardProps) => {
           </motion.span>
         </motion.div>
 
-        {/* Blog Title: 2 lines, 24px, weight 500, line-height 36px, Plus Jakarta Sans */}
+        {/* Blog Title: 2 lines, clamped */}
         <motion.h3
           custom={1}
           variants={contentFadeVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.25 }}
-          className="mt-4 font-headline text-[24px] font-medium leading-[36px] tracking-[-0.015em] transition-colors duration-300"
+          className="mt-4 font-headline text-[20px] sm:text-[24px] font-medium leading-[30px] sm:leading-[36px] tracking-[-0.015em] transition-colors duration-300 line-clamp-2"
           animate={{
             color: isHovered ? '#4F8FF7' : '#0B0B14',
           }}
@@ -240,14 +240,14 @@ export const BlogCard = ({ post, index }: BlogCardProps) => {
           {post.title}
         </motion.h3>
 
-        {/* Excerpt: 16px, #4A4A55, line-height 28px, 2 lines */}
+        {/* Excerpt: clamped to 3 lines */}
         <motion.p
           custom={2}
           variants={contentFadeVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.25 }}
-          className="mt-3 text-[16px] leading-[28px] text-[#4A4A55]"
+          className="mt-3 text-[15px] sm:text-[16px] leading-[26px] sm:leading-[28px] text-[#4A4A55] line-clamp-3"
         >
           {post.excerpt}
         </motion.p>

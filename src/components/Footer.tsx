@@ -100,9 +100,14 @@ export const Footer = () => {
 
         {/* PART 3: BRAND + NEWSLETTER ROW (~64px margin-top) */}
         <div className="w-full mt-16 flex flex-col lg:flex-row lg:items-start justify-between gap-12">
-          {/* LEFT: SpidyDashboard Logo (size 58 with wordmark 54px) */}
+          {/* LEFT: SpidyDashboard Logo (size 58 with wordmark 54px on desktop, 36px on mobile) */}
           <div className="lg:pt-5 overflow-visible">
-            <SpidyLogo size={58} withWordmark wordmarkSize={54} />
+            <div className="hidden sm:block">
+              <SpidyLogo size={58} withWordmark wordmarkSize={54} />
+            </div>
+            <div className="block sm:hidden">
+              <SpidyLogo size={36} withWordmark wordmarkSize={34} />
+            </div>
           </div>
 
           {/* RIGHT: Newsletter Block */}
@@ -116,7 +121,7 @@ export const Footer = () => {
             <span className="text-[12px] font-semibold uppercase tracking-wider text-[#0B0B14] font-headline hidden md:inline-block mr-1">
               Connect:
             </span>
-            <div className="flex items-center justify-center gap-2.5 sm:gap-3">
+            <div className="flex items-center justify-center gap-2.5 sm:gap-3 flex-wrap">
               {socialLinks.map((link) => (
                 <a
                   key={link.id}
@@ -130,7 +135,7 @@ export const Footer = () => {
                   target={link.id === 'email' ? undefined : '_blank'}
                   rel="noopener noreferrer"
                   aria-label={link.ariaLabel}
-                  className="group inline-flex items-center gap-2 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full bg-[#F5F5F7] hover:bg-white text-[#0B0B14] border border-black/[0.08] hover:border-[#4F8FF7]/40 hover:text-[#4F8FF7] hover:shadow-[0_4px_16px_rgba(79,143,247,0.2)] hover:-translate-y-0.5 transition-all duration-200 ease-out focus:outline-none focus:ring-2 focus:ring-[#4F8FF7]/40"
+                  className="group inline-flex items-center justify-center gap-2 min-h-[44px] min-w-[44px] px-3.5 py-2 sm:px-4 sm:py-2 rounded-full bg-[#F5F5F7] hover:bg-white text-[#0B0B14] border border-black/[0.08] hover:border-[#4F8FF7]/40 hover:text-[#4F8FF7] hover:shadow-[0_4px_16px_rgba(79,143,247,0.2)] hover:-translate-y-0.5 transition-all duration-200 ease-out focus:outline-none focus:ring-2 focus:ring-[#4F8FF7]/40"
                 >
                   <span className="text-gray-600 group-hover:text-[#4F8FF7] transition-colors duration-200 flex items-center justify-center">
                     {link.iconType === 'email' && <Mail className="w-4 h-4 stroke-[2]" />}
@@ -181,7 +186,7 @@ export const Footer = () => {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.5, delay: 0.6 }}
-          className="pb-8 flex justify-start"
+          className="pb-8 pb-safe flex justify-start mb-20 sm:mb-0"
         >
           <motion.button
             onClick={scrollToTop}
@@ -193,7 +198,7 @@ export const Footer = () => {
               damping: 20,
             }}
             aria-label="Scroll back to top"
-            className="w-11 h-11 rounded-full bg-white text-[#0B0B14] border border-black/[0.08] shadow-md flex items-center justify-center hover:text-[#4F8FF7] hover:border-[#4F8FF7]/40 transition-colors cursor-pointer"
+            className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full bg-white text-[#0B0B14] border border-black/[0.08] shadow-md flex items-center justify-center hover:text-[#4F8FF7] hover:border-[#4F8FF7]/40 transition-colors cursor-pointer"
           >
             <ArrowUp className="w-5 h-5 stroke-[2.2]" />
           </motion.button>

@@ -128,8 +128,8 @@ X-API-Key: YOUR_BRIDGE_MASTER_TOKEN`}
           Initiate a new asynchronous reconnaissance scan against a target domain, IP, CIDR, email, or username.
         </p>
 
-        {/* Parameters Table */}
-        <div className="bg-white rounded-xl border border-black/[0.08] overflow-hidden mb-5 text-[13px]">
+        {/* Parameters Table: Desktop Table + Mobile Stacked Cards */}
+        <div className="hidden sm:block bg-white rounded-xl border border-black/[0.08] overflow-x-auto mb-5 text-[13px]">
           <table className="w-full text-left">
             <thead className="bg-[#F8F9FD] text-[11px] font-mono uppercase text-gray-500 border-b border-black/[0.06]">
               <tr>
@@ -160,6 +160,34 @@ X-API-Key: YOUR_BRIDGE_MASTER_TOKEN`}
               </tr>
             </tbody>
           </table>
+        </div>
+
+        {/* Mobile Stacked Key/Value Cards (< 640px) */}
+        <div className="sm:hidden space-y-3 mb-5">
+          <div className="p-4 rounded-xl bg-white border border-black/[0.08] shadow-2xs space-y-2 text-[14px]">
+            <div className="flex items-center justify-between">
+              <span className="font-mono font-bold text-[#4F8FF7]">target</span>
+              <span className="text-[11px] px-2 py-0.5 rounded bg-rose-100 text-rose-700 font-semibold uppercase">Required</span>
+            </div>
+            <div className="text-[12px] text-gray-500 font-mono">Type: string</div>
+            <p className="text-[13px] text-gray-700">Target identifier (e.g. <code>target.com</code>, <code>198.51.100.0/24</code>)</p>
+          </div>
+          <div className="p-4 rounded-xl bg-white border border-black/[0.08] shadow-2xs space-y-2 text-[14px]">
+            <div className="flex items-center justify-between">
+              <span className="font-mono font-bold text-[#4F8FF7]">scan_name</span>
+              <span className="text-[11px] px-2 py-0.5 rounded bg-rose-100 text-rose-700 font-semibold uppercase">Required</span>
+            </div>
+            <div className="text-[12px] text-gray-500 font-mono">Type: string</div>
+            <p className="text-[13px] text-gray-700">Friendly name for this scan instance</p>
+          </div>
+          <div className="p-4 rounded-xl bg-white border border-black/[0.08] shadow-2xs space-y-2 text-[14px]">
+            <div className="flex items-center justify-between">
+              <span className="font-mono font-bold text-[#4F8FF7]">use_case</span>
+              <span className="text-[11px] px-2 py-0.5 rounded bg-gray-100 text-gray-600 font-semibold uppercase">Optional</span>
+            </div>
+            <div className="text-[12px] text-gray-500 font-mono">Type: string (default: passive)</div>
+            <p className="text-[13px] text-gray-700">One of: <code>passive</code>, <code>footprint</code>, <code>investigate</code>, <code>all</code></p>
+          </div>
         </div>
 
         {/* Code Tabs */}
@@ -303,7 +331,8 @@ print(f"Scan initiated: {scan_id}")`}
           SpiderFoot includes a full-featured CLI script (<code>sf.py</code>) supporting headless terminal executions:
         </p>
 
-        <div className="bg-white rounded-xl border border-black/[0.08] overflow-hidden mb-5 text-[13px]">
+        {/* CLI Table: Desktop Table + Mobile Stacked Cards */}
+        <div className="hidden sm:block bg-white rounded-xl border border-black/[0.08] overflow-x-auto mb-5 text-[13px]">
           <table className="w-full text-left font-mono">
             <thead className="bg-[#F8F9FD] text-[11px] uppercase text-gray-500 border-b border-black/[0.06]">
               <tr>
@@ -340,6 +369,35 @@ print(f"Scan initiated: {scan_id}")`}
               </tr>
             </tbody>
           </table>
+        </div>
+
+        {/* Mobile Stacked CLI Flags (< 640px) */}
+        <div className="sm:hidden space-y-3 mb-5">
+          <div className="p-4 rounded-xl bg-white border border-black/[0.08] shadow-2xs space-y-1.5 text-[14px]">
+            <div className="font-mono font-bold text-[#4F8FF7] text-[15px]">-s TARGET</div>
+            <div className="text-[12px] text-gray-500 font-mono">Argument: string</div>
+            <p className="text-[13px] text-gray-700">Seed target identifier (domain, IP, username, email)</p>
+          </div>
+          <div className="p-4 rounded-xl bg-white border border-black/[0.08] shadow-2xs space-y-1.5 text-[14px]">
+            <div className="font-mono font-bold text-[#4F8FF7] text-[15px]">-u PROFILE</div>
+            <div className="text-[12px] text-gray-500 font-mono">Argument: all | footprint | investigate | passive</div>
+            <p className="text-[13px] text-gray-700">Pre-configured use case profile</p>
+          </div>
+          <div className="p-4 rounded-xl bg-white border border-black/[0.08] shadow-2xs space-y-1.5 text-[14px]">
+            <div className="font-mono font-bold text-[#4F8FF7] text-[15px]">-m MODS</div>
+            <div className="text-[12px] text-gray-500 font-mono">Argument: comma list</div>
+            <p className="text-[13px] text-gray-700">Specific modules to enable (e.g. <code>sfp_crt,sfp_whois</code>)</p>
+          </div>
+          <div className="p-4 rounded-xl bg-white border border-black/[0.08] shadow-2xs space-y-1.5 text-[14px]">
+            <div className="font-mono font-bold text-[#4F8FF7] text-[15px]">-o FORMAT</div>
+            <div className="text-[12px] text-gray-500 font-mono">Argument: json | csv | tab (default: tab)</div>
+            <p className="text-[13px] text-gray-700">Output structure format</p>
+          </div>
+          <div className="p-4 rounded-xl bg-white border border-black/[0.08] shadow-2xs space-y-1.5 text-[14px]">
+            <div className="font-mono font-bold text-[#4F8FF7] text-[15px]">-C SCAN_ID</div>
+            <div className="text-[12px] text-gray-500 font-mono">Argument: string</div>
+            <p className="text-[13px] text-gray-700">Run correlation engine rules against existing scan ID</p>
+          </div>
         </div>
 
         <CodeBlock
@@ -411,7 +469,8 @@ jobs:
         <h2 className="font-headline font-semibold text-[24px] text-[#0B0B14] mb-3">
           8. HTTP Status Codes &amp; Errors
         </h2>
-        <div className="bg-white rounded-xl border border-black/[0.08] overflow-hidden text-[13px]">
+        {/* HTTP Errors Table: Desktop Table + Mobile Stacked Cards */}
+        <div className="hidden sm:block bg-white rounded-xl border border-black/[0.08] overflow-x-auto text-[13px]">
           <table className="w-full text-left font-mono">
             <thead className="bg-[#F8F9FD] text-[11px] uppercase text-gray-500 border-b border-black/[0.06]">
               <tr>
@@ -443,6 +502,30 @@ jobs:
               </tr>
             </tbody>
           </table>
+        </div>
+
+        {/* Mobile Stacked Error Cards (< 640px) */}
+        <div className="sm:hidden space-y-3">
+          <div className="p-4 rounded-xl bg-white border border-black/[0.08] shadow-2xs space-y-1.5 text-[14px]">
+            <div className="font-mono font-bold text-emerald-600 text-[15px]">200 OK</div>
+            <div className="text-gray-800 font-medium">Request processed successfully</div>
+            <div className="text-[12px] text-gray-500">Remediation: None</div>
+          </div>
+          <div className="p-4 rounded-xl bg-white border border-black/[0.08] shadow-2xs space-y-1.5 text-[14px]">
+            <div className="font-mono font-bold text-amber-600 text-[15px]">400 Bad Request</div>
+            <div className="text-gray-800 font-medium">Invalid target identifier or unknown use case</div>
+            <div className="text-[12px] text-gray-500">Remediation: Check target string format</div>
+          </div>
+          <div className="p-4 rounded-xl bg-white border border-black/[0.08] shadow-2xs space-y-1.5 text-[14px]">
+            <div className="font-mono font-bold text-amber-600 text-[15px]">404 Not Found</div>
+            <div className="text-gray-800 font-medium">Scan ID does not exist in SQLite database</div>
+            <div className="text-[12px] text-gray-500">Remediation: Verify scan ID via <code>GET /api/v1/scans</code></div>
+          </div>
+          <div className="p-4 rounded-xl bg-white border border-black/[0.08] shadow-2xs space-y-1.5 text-[14px]">
+            <div className="font-mono font-bold text-rose-600 text-[15px]">500 Server Error</div>
+            <div className="text-gray-800 font-medium">Internal engine or database error</div>
+            <div className="text-[12px] text-gray-500">Remediation: Inspect logs at <code>/api/v1/scans/&#123;id&#125;/logs</code></div>
+          </div>
         </div>
 
         <div className="p-4 mt-6 rounded-xl bg-blue-50/70 border border-blue-200/60 text-[14px]">

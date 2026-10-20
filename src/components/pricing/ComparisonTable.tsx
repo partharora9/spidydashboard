@@ -8,6 +8,7 @@ export const ComparisonTable = () => {
   const headerRef = useRef<HTMLDivElement>(null);
   const [isStuck, setIsStuck] = useState(false);
   const [activeTooltip, setActiveTooltip] = useState<string | null>(null);
+  const [mobilePlan, setMobilePlan] = useState<'standard' | 'complete'>('complete');
   const shouldReduceMotion = useReducedMotion();
 
   // Scroll detection for sticky header shadow below 88px navbar
@@ -30,9 +31,82 @@ export const ComparisonTable = () => {
   return (
     <section
       ref={tableRef}
-      className="relative w-full max-w-[1200px] mx-auto mt-24 sm:mt-28 lg:mt-[120px] px-6 select-none overflow-visible"
+      className="relative w-full max-w-[1200px] mx-auto mt-20 sm:mt-28 lg:mt-[120px] px-4 sm:px-6 select-none overflow-visible"
     >
-      <div className="w-full overflow-x-auto sm:overflow-visible pb-8">
+      {/* MOBILE STACKED PER-PLAN ACCORDION / TOGGLE VIEW (< 640px) */}
+      <div className="sm:hidden w-full pb-8">
+        <h3 className="font-headline text-[26px] font-semibold text-[#0B0B14] mb-4 text-center">
+          Compare Features
+        </h3>
+
+        {/* Plan Switcher Segment */}
+        <div className="flex rounded-full bg-[#F2F4FD] p-1 mb-6 border border-black/[0.04]">
+          <button
+            type="button"
+            onClick={() => setMobilePlan('standard')}
+            className={`flex-1 min-h-[44px] py-2 text-center rounded-full text-[14px] font-medium transition-all cursor-pointer ${
+              mobilePlan === 'standard'
+                ? 'bg-white text-[#0B0B14] shadow-sm font-semibold'
+                : 'text-gray-500 hover:text-black'
+            }`}
+          >
+            Standard (₹499)
+          </button>
+          <button
+            type="button"
+            onClick={() => setMobilePlan('complete')}
+            className={`flex-1 min-h-[44px] py-2 text-center rounded-full text-[14px] font-medium transition-all cursor-pointer ${
+              mobilePlan === 'complete'
+                ? 'bg-[#4F8FF7] text-white shadow-sm font-semibold'
+                : 'text-gray-500 hover:text-black'
+            }`}
+          >
+            Complete kit (₹799)
+          </button>
+        </div>
+
+        {/* Feature List for Selected Plan */}
+        <div className="space-y-6">
+          {comparisonGroups.map((group) => (
+            <div key={group.title} className="bg-white rounded-2xl border border-black/[0.06] p-4 shadow-sm">
+              <h4 className="font-headline font-semibold text-[17px] text-[#0B0B14] pb-3 border-b border-black/[0.06]">
+                {group.title}
+              </h4>
+              <div className="divide-y divide-black/[0.04]">
+                {group.rows.map((row) => {
+                  const val = mobilePlan === 'standard' ? row.standard : row.complete;
+                  return (
+                    <div key={row.label} className="py-3 flex items-start justify-between gap-3 text-[14px]">
+                      <div className="flex-1">
+                        <span className="text-[#0B0B14] font-medium block">{row.label}</span>
+                        {row.tooltip && (
+                          <span className="text-[12px] text-gray-400 block mt-0.5">{row.tooltip}</span>
+                        )}
+                      </div>
+                      <div className="shrink-0 pt-0.5">
+                        {typeof val === 'boolean' ? (
+                          val ? (
+                            <div className="w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600">
+                              <Check className="w-3.5 h-3.5 stroke-[2.5]" />
+                            </div>
+                          ) : (
+                            <span className="text-gray-300 font-bold">—</span>
+                          )
+                        ) : (
+                          <span className="font-semibold text-[#4F8FF7] text-[13px]">{val}</span>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* DESKTOP & TABLET TABLE (>= 640px) */}
+      <div className="hidden sm:block w-full overflow-x-auto pb-8">
         <div className="min-w-[700px] lg:min-w-full relative">
           {/* #F5F5F5 Highlight Panel for Complete kit (right column) running full table height */}
           <motion.div

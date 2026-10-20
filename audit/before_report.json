@@ -1,0 +1,5682 @@
+[
+  {
+    "page": "home",
+    "path": "/",
+    "viewport": "320px",
+    "width": 320,
+    "winWidth": 320,
+    "scrollWidth": 320,
+    "hasOverflow": false,
+    "offending": [],
+    "touchCount": 10,
+    "touchSamples": [
+      {
+        "tag": "a",
+        "text": "SpidyDashboard",
+        "width": 183,
+        "height": 28
+      },
+      {
+        "tag": "a",
+        "text": "Shopping Cart",
+        "width": 36,
+        "height": 36
+      },
+      {
+        "tag": "button",
+        "text": "Toggle navigation menu",
+        "width": 40,
+        "height": 44
+      },
+      {
+        "tag": "button",
+        "text": "Talk to sales",
+        "width": 68,
+        "height": 42
+      },
+      {
+        "tag": "a",
+        "text": "parthxcore@gmail.com",
+        "width": 190,
+        "height": 28
+      }
+    ],
+    "smallTextCount": 94,
+    "smallTextSamples": [
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "SpidyDashboard"
+      },
+      {
+        "tag": "span",
+        "fontSize": "9px",
+        "sample": "Features"
+      },
+      {
+        "tag": "span",
+        "fontSize": "9px",
+        "sample": "Modules"
+      },
+      {
+        "tag": "span",
+        "fontSize": "9px",
+        "sample": "Docs"
+      },
+      {
+        "tag": "span",
+        "fontSize": "9px",
+        "sample": "Contact"
+      }
+    ]
+  },
+  {
+    "page": "home",
+    "path": "/",
+    "viewport": "360px",
+    "width": 360,
+    "winWidth": 360,
+    "scrollWidth": 360,
+    "hasOverflow": false,
+    "offending": [],
+    "touchCount": 14,
+    "touchSamples": [
+      {
+        "tag": "a",
+        "text": "SpidyDashboard",
+        "width": 183,
+        "height": 28
+      },
+      {
+        "tag": "a",
+        "text": "Shopping Cart",
+        "width": 36,
+        "height": 36
+      },
+      {
+        "tag": "button",
+        "text": "Toggle navigation menu",
+        "width": 40,
+        "height": 44
+      },
+      {
+        "tag": "button",
+        "text": "Talk to sales",
+        "width": 69,
+        "height": 42
+      },
+      {
+        "tag": "a",
+        "text": "parthxcore@gmail.com",
+        "width": 190,
+        "height": 28
+      }
+    ],
+    "smallTextCount": 94,
+    "smallTextSamples": [
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "SpidyDashboard"
+      },
+      {
+        "tag": "span",
+        "fontSize": "9px",
+        "sample": "Features"
+      },
+      {
+        "tag": "span",
+        "fontSize": "9px",
+        "sample": "Modules"
+      },
+      {
+        "tag": "span",
+        "fontSize": "9px",
+        "sample": "Docs"
+      },
+      {
+        "tag": "span",
+        "fontSize": "9px",
+        "sample": "Contact"
+      }
+    ]
+  },
+  {
+    "page": "home",
+    "path": "/",
+    "viewport": "390px",
+    "width": 390,
+    "winWidth": 390,
+    "scrollWidth": 390,
+    "hasOverflow": false,
+    "offending": [],
+    "touchCount": 16,
+    "touchSamples": [
+      {
+        "tag": "a",
+        "text": "SpidyDashboard",
+        "width": 183,
+        "height": 28
+      },
+      {
+        "tag": "a",
+        "text": "Shopping Cart",
+        "width": 36,
+        "height": 36
+      },
+      {
+        "tag": "button",
+        "text": "Toggle navigation menu",
+        "width": 40,
+        "height": 44
+      },
+      {
+        "tag": "button",
+        "text": "Talk to sales",
+        "width": 69,
+        "height": 41
+      },
+      {
+        "tag": "a",
+        "text": "parthxcore@gmail.com",
+        "width": 190,
+        "height": 28
+      }
+    ],
+    "smallTextCount": 94,
+    "smallTextSamples": [
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "SpidyDashboard"
+      },
+      {
+        "tag": "span",
+        "fontSize": "9px",
+        "sample": "Features"
+      },
+      {
+        "tag": "span",
+        "fontSize": "9px",
+        "sample": "Modules"
+      },
+      {
+        "tag": "span",
+        "fontSize": "9px",
+        "sample": "Docs"
+      },
+      {
+        "tag": "span",
+        "fontSize": "9px",
+        "sample": "Contact"
+      }
+    ]
+  },
+  {
+    "page": "home",
+    "path": "/",
+    "viewport": "414px",
+    "width": 414,
+    "winWidth": 414,
+    "scrollWidth": 414,
+    "hasOverflow": false,
+    "offending": [],
+    "touchCount": 18,
+    "touchSamples": [
+      {
+        "tag": "a",
+        "text": "SpidyDashboard",
+        "width": 183,
+        "height": 28
+      },
+      {
+        "tag": "a",
+        "text": "Shopping Cart",
+        "width": 36,
+        "height": 36
+      },
+      {
+        "tag": "button",
+        "text": "Toggle navigation menu",
+        "width": 40,
+        "height": 44
+      },
+      {
+        "tag": "button",
+        "text": "Read the docs",
+        "width": 75,
+        "height": 44
+      },
+      {
+        "tag": "button",
+        "text": "Talk to sales",
+        "width": 68,
+        "height": 41
+      }
+    ],
+    "smallTextCount": 94,
+    "smallTextSamples": [
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "SpidyDashboard"
+      },
+      {
+        "tag": "span",
+        "fontSize": "9px",
+        "sample": "Features"
+      },
+      {
+        "tag": "span",
+        "fontSize": "9px",
+        "sample": "Modules"
+      },
+      {
+        "tag": "span",
+        "fontSize": "9px",
+        "sample": "Docs"
+      },
+      {
+        "tag": "span",
+        "fontSize": "9px",
+        "sample": "Contact"
+      }
+    ]
+  },
+  {
+    "page": "home",
+    "path": "/",
+    "viewport": "768px",
+    "width": 768,
+    "winWidth": 768,
+    "scrollWidth": 768,
+    "hasOverflow": false,
+    "offending": [],
+    "touchCount": 35,
+    "touchSamples": [
+      {
+        "tag": "a",
+        "text": "SpidyDashboard",
+        "width": 191,
+        "height": 28
+      },
+      {
+        "tag": "button",
+        "text": "Features",
+        "width": 96,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Modules",
+        "width": 96,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Docs",
+        "width": 69,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Pricing",
+        "width": 83,
+        "height": 32
+      }
+    ],
+    "smallTextCount": 90,
+    "smallTextSamples": [
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "SpidyDashboard"
+      },
+      {
+        "tag": "span",
+        "fontSize": "9px",
+        "sample": "Features"
+      },
+      {
+        "tag": "span",
+        "fontSize": "9px",
+        "sample": "Modules"
+      },
+      {
+        "tag": "span",
+        "fontSize": "9px",
+        "sample": "Docs"
+      },
+      {
+        "tag": "span",
+        "fontSize": "9px",
+        "sample": "Contact"
+      }
+    ]
+  },
+  {
+    "page": "home",
+    "path": "/",
+    "viewport": "1024px",
+    "width": 1024,
+    "winWidth": 1024,
+    "scrollWidth": 1024,
+    "hasOverflow": false,
+    "offending": [],
+    "touchCount": 33,
+    "touchSamples": [
+      {
+        "tag": "a",
+        "text": "SpidyDashboard",
+        "width": 191,
+        "height": 28
+      },
+      {
+        "tag": "button",
+        "text": "Features",
+        "width": 96,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Modules",
+        "width": 96,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Docs",
+        "width": 69,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Pricing",
+        "width": 83,
+        "height": 32
+      }
+    ],
+    "smallTextCount": 90,
+    "smallTextSamples": [
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "SpidyDashboard"
+      },
+      {
+        "tag": "span",
+        "fontSize": "9px",
+        "sample": "Features"
+      },
+      {
+        "tag": "span",
+        "fontSize": "9px",
+        "sample": "Modules"
+      },
+      {
+        "tag": "span",
+        "fontSize": "9px",
+        "sample": "Docs"
+      },
+      {
+        "tag": "span",
+        "fontSize": "9px",
+        "sample": "Contact"
+      }
+    ]
+  },
+  {
+    "page": "home",
+    "path": "/",
+    "viewport": "1440px",
+    "width": 1440,
+    "winWidth": 1440,
+    "scrollWidth": 1440,
+    "hasOverflow": false,
+    "offending": [],
+    "touchCount": 35,
+    "touchSamples": [
+      {
+        "tag": "a",
+        "text": "SpidyDashboard",
+        "width": 191,
+        "height": 28
+      },
+      {
+        "tag": "button",
+        "text": "Features",
+        "width": 96,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Modules",
+        "width": 96,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Docs",
+        "width": 69,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Pricing",
+        "width": 83,
+        "height": 32
+      }
+    ],
+    "smallTextCount": 90,
+    "smallTextSamples": [
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "SpidyDashboard"
+      },
+      {
+        "tag": "span",
+        "fontSize": "9px",
+        "sample": "Features"
+      },
+      {
+        "tag": "span",
+        "fontSize": "9px",
+        "sample": "Modules"
+      },
+      {
+        "tag": "span",
+        "fontSize": "9px",
+        "sample": "Docs"
+      },
+      {
+        "tag": "span",
+        "fontSize": "9px",
+        "sample": "Contact"
+      }
+    ]
+  },
+  {
+    "page": "home",
+    "path": "/",
+    "viewport": "landscape-390",
+    "width": 844,
+    "winWidth": 844,
+    "scrollWidth": 844,
+    "hasOverflow": false,
+    "offending": [],
+    "touchCount": 35,
+    "touchSamples": [
+      {
+        "tag": "a",
+        "text": "SpidyDashboard",
+        "width": 191,
+        "height": 28
+      },
+      {
+        "tag": "button",
+        "text": "Features",
+        "width": 96,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Modules",
+        "width": 96,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Docs",
+        "width": 69,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Pricing",
+        "width": 83,
+        "height": 32
+      }
+    ],
+    "smallTextCount": 90,
+    "smallTextSamples": [
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "SpidyDashboard"
+      },
+      {
+        "tag": "span",
+        "fontSize": "9px",
+        "sample": "Features"
+      },
+      {
+        "tag": "span",
+        "fontSize": "9px",
+        "sample": "Modules"
+      },
+      {
+        "tag": "span",
+        "fontSize": "9px",
+        "sample": "Docs"
+      },
+      {
+        "tag": "span",
+        "fontSize": "9px",
+        "sample": "Contact"
+      }
+    ]
+  },
+  {
+    "page": "pricing",
+    "path": "/pricing",
+    "viewport": "320px",
+    "width": 320,
+    "winWidth": 320,
+    "scrollWidth": 320,
+    "hasOverflow": false,
+    "offending": [],
+    "touchCount": 10,
+    "touchSamples": [
+      {
+        "tag": "a",
+        "text": "SpidyDashboard",
+        "width": 183,
+        "height": 28
+      },
+      {
+        "tag": "a",
+        "text": "Shopping Cart",
+        "width": 36,
+        "height": 36
+      },
+      {
+        "tag": "button",
+        "text": "Toggle navigation menu",
+        "width": 40,
+        "height": 44
+      },
+      {
+        "tag": "button",
+        "text": "Don't have an email app? Send",
+        "width": 221,
+        "height": 42
+      },
+      {
+        "tag": "button",
+        "text": "Don't have an email app? Send",
+        "width": 221,
+        "height": 42
+      }
+    ],
+    "smallTextCount": 23,
+    "smallTextSamples": [
+      {
+        "tag": "a",
+        "fontSize": "12.5px",
+        "sample": "connect on parthxcore@gma"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12.5px",
+        "sample": "connect on parthxcore@gma"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12.5px",
+        "sample": "parthxcore@gmail.com"
+      },
+      {
+        "tag": "button",
+        "fontSize": "12px",
+        "sample": "Copy: parthxcore@gmail.co"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "Copy: parthxcore@gmail.co"
+      }
+    ]
+  },
+  {
+    "page": "pricing",
+    "path": "/pricing",
+    "viewport": "360px",
+    "width": 360,
+    "winWidth": 360,
+    "scrollWidth": 360,
+    "hasOverflow": false,
+    "offending": [],
+    "touchCount": 14,
+    "touchSamples": [
+      {
+        "tag": "a",
+        "text": "SpidyDashboard",
+        "width": 183,
+        "height": 28
+      },
+      {
+        "tag": "a",
+        "text": "Shopping Cart",
+        "width": 36,
+        "height": 36
+      },
+      {
+        "tag": "button",
+        "text": "Toggle navigation menu",
+        "width": 40,
+        "height": 44
+      },
+      {
+        "tag": "button",
+        "text": "Copy: parthxcore@gmail.com",
+        "width": 224,
+        "height": 42
+      },
+      {
+        "tag": "button",
+        "text": "Don't have an email app? Send",
+        "width": 258,
+        "height": 42
+      }
+    ],
+    "smallTextCount": 23,
+    "smallTextSamples": [
+      {
+        "tag": "a",
+        "fontSize": "12.5px",
+        "sample": "connect on parthxcore@gma"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12.5px",
+        "sample": "connect on parthxcore@gma"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12.5px",
+        "sample": "parthxcore@gmail.com"
+      },
+      {
+        "tag": "button",
+        "fontSize": "12px",
+        "sample": "Copy: parthxcore@gmail.co"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "Copy: parthxcore@gmail.co"
+      }
+    ]
+  },
+  {
+    "page": "pricing",
+    "path": "/pricing",
+    "viewport": "390px",
+    "width": 390,
+    "winWidth": 390,
+    "scrollWidth": 390,
+    "hasOverflow": false,
+    "offending": [],
+    "touchCount": 16,
+    "touchSamples": [
+      {
+        "tag": "a",
+        "text": "SpidyDashboard",
+        "width": 183,
+        "height": 28
+      },
+      {
+        "tag": "a",
+        "text": "Shopping Cart",
+        "width": 36,
+        "height": 36
+      },
+      {
+        "tag": "button",
+        "text": "Toggle navigation menu",
+        "width": 40,
+        "height": 44
+      },
+      {
+        "tag": "button",
+        "text": "Copy: parthxcore@gmail.com",
+        "width": 224,
+        "height": 42
+      },
+      {
+        "tag": "button",
+        "text": "Don't have an email app? Send",
+        "width": 258,
+        "height": 42
+      }
+    ],
+    "smallTextCount": 23,
+    "smallTextSamples": [
+      {
+        "tag": "a",
+        "fontSize": "12.5px",
+        "sample": "connect on parthxcore@gma"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12.5px",
+        "sample": "connect on parthxcore@gma"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12.5px",
+        "sample": "parthxcore@gmail.com"
+      },
+      {
+        "tag": "button",
+        "fontSize": "12px",
+        "sample": "Copy: parthxcore@gmail.co"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "Copy: parthxcore@gmail.co"
+      }
+    ]
+  },
+  {
+    "page": "pricing",
+    "path": "/pricing",
+    "viewport": "414px",
+    "width": 414,
+    "winWidth": 414,
+    "scrollWidth": 414,
+    "hasOverflow": false,
+    "offending": [],
+    "touchCount": 17,
+    "touchSamples": [
+      {
+        "tag": "a",
+        "text": "SpidyDashboard",
+        "width": 183,
+        "height": 28
+      },
+      {
+        "tag": "a",
+        "text": "Shopping Cart",
+        "width": 36,
+        "height": 36
+      },
+      {
+        "tag": "button",
+        "text": "Toggle navigation menu",
+        "width": 40,
+        "height": 44
+      },
+      {
+        "tag": "button",
+        "text": "Copy: parthxcore@gmail.com",
+        "width": 224,
+        "height": 42
+      },
+      {
+        "tag": "button",
+        "text": "Don't have an email app? Send",
+        "width": 258,
+        "height": 42
+      }
+    ],
+    "smallTextCount": 23,
+    "smallTextSamples": [
+      {
+        "tag": "a",
+        "fontSize": "12.5px",
+        "sample": "connect on parthxcore@gma"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12.5px",
+        "sample": "connect on parthxcore@gma"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12.5px",
+        "sample": "parthxcore@gmail.com"
+      },
+      {
+        "tag": "button",
+        "fontSize": "12px",
+        "sample": "Copy: parthxcore@gmail.co"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "Copy: parthxcore@gmail.co"
+      }
+    ]
+  },
+  {
+    "page": "pricing",
+    "path": "/pricing",
+    "viewport": "768px",
+    "width": 768,
+    "winWidth": 768,
+    "scrollWidth": 768,
+    "hasOverflow": false,
+    "offending": [],
+    "touchCount": 40,
+    "touchSamples": [
+      {
+        "tag": "a",
+        "text": "SpidyDashboard",
+        "width": 191,
+        "height": 28
+      },
+      {
+        "tag": "button",
+        "text": "Features",
+        "width": 96,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Modules",
+        "width": 96,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Docs",
+        "width": 69,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Pricing",
+        "width": 84,
+        "height": 32
+      }
+    ],
+    "smallTextCount": 19,
+    "smallTextSamples": [
+      {
+        "tag": "a",
+        "fontSize": "13px",
+        "sample": "connect on parthxcore@gma"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "connect on parthxcore@gma"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "parthxcore@gmail.com"
+      },
+      {
+        "tag": "button",
+        "fontSize": "12px",
+        "sample": "Copy: parthxcore@gmail.co"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "Copy: parthxcore@gmail.co"
+      }
+    ]
+  },
+  {
+    "page": "pricing",
+    "path": "/pricing",
+    "viewport": "1024px",
+    "width": 1024,
+    "winWidth": 1024,
+    "scrollWidth": 1024,
+    "hasOverflow": false,
+    "offending": [],
+    "touchCount": 38,
+    "touchSamples": [
+      {
+        "tag": "a",
+        "text": "SpidyDashboard",
+        "width": 191,
+        "height": 28
+      },
+      {
+        "tag": "button",
+        "text": "Features",
+        "width": 96,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Modules",
+        "width": 96,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Docs",
+        "width": 69,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Pricing",
+        "width": 84,
+        "height": 32
+      }
+    ],
+    "smallTextCount": 19,
+    "smallTextSamples": [
+      {
+        "tag": "a",
+        "fontSize": "13px",
+        "sample": "connect on parthxcore@gma"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "connect on parthxcore@gma"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "parthxcore@gmail.com"
+      },
+      {
+        "tag": "button",
+        "fontSize": "12px",
+        "sample": "Copy: parthxcore@gmail.co"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "Copy: parthxcore@gmail.co"
+      }
+    ]
+  },
+  {
+    "page": "pricing",
+    "path": "/pricing",
+    "viewport": "1440px",
+    "width": 1440,
+    "winWidth": 1440,
+    "scrollWidth": 1440,
+    "hasOverflow": false,
+    "offending": [],
+    "touchCount": 41,
+    "touchSamples": [
+      {
+        "tag": "a",
+        "text": "SpidyDashboard",
+        "width": 191,
+        "height": 28
+      },
+      {
+        "tag": "button",
+        "text": "Features",
+        "width": 96,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Modules",
+        "width": 96,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Docs",
+        "width": 69,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Pricing",
+        "width": 84,
+        "height": 32
+      }
+    ],
+    "smallTextCount": 19,
+    "smallTextSamples": [
+      {
+        "tag": "a",
+        "fontSize": "13px",
+        "sample": "connect on parthxcore@gma"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "connect on parthxcore@gma"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "parthxcore@gmail.com"
+      },
+      {
+        "tag": "button",
+        "fontSize": "12px",
+        "sample": "Copy: parthxcore@gmail.co"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "Copy: parthxcore@gmail.co"
+      }
+    ]
+  },
+  {
+    "page": "pricing",
+    "path": "/pricing",
+    "viewport": "landscape-390",
+    "width": 844,
+    "winWidth": 844,
+    "scrollWidth": 844,
+    "hasOverflow": false,
+    "offending": [],
+    "touchCount": 40,
+    "touchSamples": [
+      {
+        "tag": "a",
+        "text": "SpidyDashboard",
+        "width": 191,
+        "height": 28
+      },
+      {
+        "tag": "button",
+        "text": "Features",
+        "width": 96,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Modules",
+        "width": 96,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Docs",
+        "width": 69,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Pricing",
+        "width": 84,
+        "height": 32
+      }
+    ],
+    "smallTextCount": 19,
+    "smallTextSamples": [
+      {
+        "tag": "a",
+        "fontSize": "13px",
+        "sample": "connect on parthxcore@gma"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "connect on parthxcore@gma"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "parthxcore@gmail.com"
+      },
+      {
+        "tag": "button",
+        "fontSize": "12px",
+        "sample": "Copy: parthxcore@gmail.co"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "Copy: parthxcore@gmail.co"
+      }
+    ]
+  },
+  {
+    "page": "about",
+    "path": "/about",
+    "viewport": "320px",
+    "width": 320,
+    "winWidth": 320,
+    "scrollWidth": 320,
+    "hasOverflow": false,
+    "offending": [],
+    "touchCount": 9,
+    "touchSamples": [
+      {
+        "tag": "a",
+        "text": "SpidyDashboard",
+        "width": 183,
+        "height": 28
+      },
+      {
+        "tag": "a",
+        "text": "Shopping Cart",
+        "width": 36,
+        "height": 36
+      },
+      {
+        "tag": "button",
+        "text": "Toggle navigation menu",
+        "width": 40,
+        "height": 44
+      },
+      {
+        "tag": "a",
+        "text": "Connect on parthxcore@gmail.co",
+        "width": 174,
+        "height": 42
+      },
+      {
+        "tag": "a",
+        "text": "Start free scan",
+        "width": 226,
+        "height": 42
+      }
+    ],
+    "smallTextCount": 25,
+    "smallTextSamples": [
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "CREATOR & METHODOLOGY"
+      },
+      {
+        "tag": "span",
+        "fontSize": "11px",
+        "sample": "CYBERSECURITY PRACTITIONE"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "DIRECT PROFILES:"
+      },
+      {
+        "tag": "a",
+        "fontSize": "13px",
+        "sample": "parthxcore@gmail.com"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "parthxcore@gmail.com"
+      }
+    ]
+  },
+  {
+    "page": "about",
+    "path": "/about",
+    "viewport": "360px",
+    "width": 360,
+    "winWidth": 360,
+    "scrollWidth": 360,
+    "hasOverflow": false,
+    "offending": [],
+    "touchCount": 13,
+    "touchSamples": [
+      {
+        "tag": "a",
+        "text": "SpidyDashboard",
+        "width": 183,
+        "height": 28
+      },
+      {
+        "tag": "a",
+        "text": "Shopping Cart",
+        "width": 36,
+        "height": 36
+      },
+      {
+        "tag": "button",
+        "text": "Toggle navigation menu",
+        "width": 40,
+        "height": 44
+      },
+      {
+        "tag": "a",
+        "text": "Connect on parthxcore@gmail.co",
+        "width": 265,
+        "height": 19
+      },
+      {
+        "tag": "a",
+        "text": "Start free scan",
+        "width": 226,
+        "height": 42
+      }
+    ],
+    "smallTextCount": 25,
+    "smallTextSamples": [
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "CREATOR & METHODOLOGY"
+      },
+      {
+        "tag": "span",
+        "fontSize": "11px",
+        "sample": "CYBERSECURITY PRACTITIONE"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "DIRECT PROFILES:"
+      },
+      {
+        "tag": "a",
+        "fontSize": "13px",
+        "sample": "parthxcore@gmail.com"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "parthxcore@gmail.com"
+      }
+    ]
+  },
+  {
+    "page": "about",
+    "path": "/about",
+    "viewport": "390px",
+    "width": 390,
+    "winWidth": 390,
+    "scrollWidth": 390,
+    "hasOverflow": false,
+    "offending": [],
+    "touchCount": 15,
+    "touchSamples": [
+      {
+        "tag": "a",
+        "text": "SpidyDashboard",
+        "width": 183,
+        "height": 28
+      },
+      {
+        "tag": "a",
+        "text": "Shopping Cart",
+        "width": 36,
+        "height": 36
+      },
+      {
+        "tag": "button",
+        "text": "Toggle navigation menu",
+        "width": 40,
+        "height": 44
+      },
+      {
+        "tag": "a",
+        "text": "Connect on parthxcore@gmail.co",
+        "width": 265,
+        "height": 19
+      },
+      {
+        "tag": "a",
+        "text": "Start free scan",
+        "width": 240,
+        "height": 42
+      }
+    ],
+    "smallTextCount": 25,
+    "smallTextSamples": [
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "CREATOR & METHODOLOGY"
+      },
+      {
+        "tag": "span",
+        "fontSize": "11px",
+        "sample": "CYBERSECURITY PRACTITIONE"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "DIRECT PROFILES:"
+      },
+      {
+        "tag": "a",
+        "fontSize": "13px",
+        "sample": "parthxcore@gmail.com"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "parthxcore@gmail.com"
+      }
+    ]
+  },
+  {
+    "page": "about",
+    "path": "/about",
+    "viewport": "414px",
+    "width": 414,
+    "winWidth": 414,
+    "scrollWidth": 414,
+    "hasOverflow": false,
+    "offending": [],
+    "touchCount": 16,
+    "touchSamples": [
+      {
+        "tag": "a",
+        "text": "SpidyDashboard",
+        "width": 183,
+        "height": 28
+      },
+      {
+        "tag": "a",
+        "text": "Shopping Cart",
+        "width": 36,
+        "height": 36
+      },
+      {
+        "tag": "button",
+        "text": "Toggle navigation menu",
+        "width": 40,
+        "height": 44
+      },
+      {
+        "tag": "a",
+        "text": "Connect on parthxcore@gmail.co",
+        "width": 279,
+        "height": 42
+      },
+      {
+        "tag": "a",
+        "text": "Start free scan",
+        "width": 259,
+        "height": 42
+      }
+    ],
+    "smallTextCount": 25,
+    "smallTextSamples": [
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "CREATOR & METHODOLOGY"
+      },
+      {
+        "tag": "span",
+        "fontSize": "11px",
+        "sample": "CYBERSECURITY PRACTITIONE"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "DIRECT PROFILES:"
+      },
+      {
+        "tag": "a",
+        "fontSize": "13px",
+        "sample": "parthxcore@gmail.com"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "parthxcore@gmail.com"
+      }
+    ]
+  },
+  {
+    "page": "about",
+    "path": "/about",
+    "viewport": "768px",
+    "width": 768,
+    "winWidth": 768,
+    "scrollWidth": 768,
+    "hasOverflow": false,
+    "offending": [],
+    "touchCount": 39,
+    "touchSamples": [
+      {
+        "tag": "a",
+        "text": "SpidyDashboard",
+        "width": 191,
+        "height": 28
+      },
+      {
+        "tag": "button",
+        "text": "Features",
+        "width": 96,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Modules",
+        "width": 96,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Docs",
+        "width": 69,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Pricing",
+        "width": 83,
+        "height": 32
+      }
+    ],
+    "smallTextCount": 20,
+    "smallTextSamples": [
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "CREATOR & METHODOLOGY"
+      },
+      {
+        "tag": "span",
+        "fontSize": "11px",
+        "sample": "CYBERSECURITY PRACTITIONE"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "DIRECT PROFILES:"
+      },
+      {
+        "tag": "a",
+        "fontSize": "13px",
+        "sample": "parthxcore@gmail.com"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "parthxcore@gmail.com"
+      }
+    ]
+  },
+  {
+    "page": "about",
+    "path": "/about",
+    "viewport": "1024px",
+    "width": 1024,
+    "winWidth": 1024,
+    "scrollWidth": 1024,
+    "hasOverflow": false,
+    "offending": [],
+    "touchCount": 38,
+    "touchSamples": [
+      {
+        "tag": "a",
+        "text": "SpidyDashboard",
+        "width": 191,
+        "height": 28
+      },
+      {
+        "tag": "button",
+        "text": "Features",
+        "width": 96,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Modules",
+        "width": 96,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Docs",
+        "width": 69,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Pricing",
+        "width": 83,
+        "height": 32
+      }
+    ],
+    "smallTextCount": 20,
+    "smallTextSamples": [
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "CREATOR & METHODOLOGY"
+      },
+      {
+        "tag": "span",
+        "fontSize": "11px",
+        "sample": "CYBERSECURITY PRACTITIONE"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "DIRECT PROFILES:"
+      },
+      {
+        "tag": "a",
+        "fontSize": "13px",
+        "sample": "parthxcore@gmail.com"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "parthxcore@gmail.com"
+      }
+    ]
+  },
+  {
+    "page": "about",
+    "path": "/about",
+    "viewport": "1440px",
+    "width": 1440,
+    "winWidth": 1440,
+    "scrollWidth": 1440,
+    "hasOverflow": false,
+    "offending": [],
+    "touchCount": 40,
+    "touchSamples": [
+      {
+        "tag": "a",
+        "text": "SpidyDashboard",
+        "width": 191,
+        "height": 28
+      },
+      {
+        "tag": "button",
+        "text": "Features",
+        "width": 96,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Modules",
+        "width": 96,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Docs",
+        "width": 69,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Pricing",
+        "width": 83,
+        "height": 32
+      }
+    ],
+    "smallTextCount": 20,
+    "smallTextSamples": [
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "CREATOR & METHODOLOGY"
+      },
+      {
+        "tag": "span",
+        "fontSize": "11px",
+        "sample": "CYBERSECURITY PRACTITIONE"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "DIRECT PROFILES:"
+      },
+      {
+        "tag": "a",
+        "fontSize": "13px",
+        "sample": "parthxcore@gmail.com"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "parthxcore@gmail.com"
+      }
+    ]
+  },
+  {
+    "page": "about",
+    "path": "/about",
+    "viewport": "landscape-390",
+    "width": 844,
+    "winWidth": 844,
+    "scrollWidth": 844,
+    "hasOverflow": false,
+    "offending": [],
+    "touchCount": 39,
+    "touchSamples": [
+      {
+        "tag": "a",
+        "text": "SpidyDashboard",
+        "width": 191,
+        "height": 28
+      },
+      {
+        "tag": "button",
+        "text": "Features",
+        "width": 96,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Modules",
+        "width": 96,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Docs",
+        "width": 69,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Pricing",
+        "width": 83,
+        "height": 32
+      }
+    ],
+    "smallTextCount": 20,
+    "smallTextSamples": [
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "CREATOR & METHODOLOGY"
+      },
+      {
+        "tag": "span",
+        "fontSize": "11px",
+        "sample": "CYBERSECURITY PRACTITIONE"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "DIRECT PROFILES:"
+      },
+      {
+        "tag": "a",
+        "fontSize": "13px",
+        "sample": "parthxcore@gmail.com"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "parthxcore@gmail.com"
+      }
+    ]
+  },
+  {
+    "page": "attack-surface",
+    "path": "/features/attack-surface-mapping",
+    "viewport": "320px",
+    "width": 320,
+    "winWidth": 320,
+    "scrollWidth": 320,
+    "hasOverflow": false,
+    "offending": [],
+    "touchCount": 12,
+    "touchSamples": [
+      {
+        "tag": "a",
+        "text": "SpidyDashboard",
+        "width": 183,
+        "height": 28
+      },
+      {
+        "tag": "a",
+        "text": "Shopping Cart",
+        "width": 36,
+        "height": 36
+      },
+      {
+        "tag": "button",
+        "text": "Toggle navigation menu",
+        "width": 40,
+        "height": 44
+      },
+      {
+        "tag": "a",
+        "text": "Home",
+        "width": 37,
+        "height": 20
+      },
+      {
+        "tag": "button",
+        "text": "Pause video",
+        "width": 28,
+        "height": 44
+      }
+    ],
+    "smallTextCount": 107,
+    "smallTextSamples": [
+      {
+        "tag": "a",
+        "fontSize": "13px",
+        "sample": "Home"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "Features"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "Attack Surface Mapping"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "ATTACK SURFACE MAPPING"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "For authorized defensive"
+      }
+    ]
+  },
+  {
+    "page": "attack-surface",
+    "path": "/features/attack-surface-mapping",
+    "viewport": "360px",
+    "width": 360,
+    "winWidth": 360,
+    "scrollWidth": 360,
+    "hasOverflow": false,
+    "offending": [],
+    "touchCount": 16,
+    "touchSamples": [
+      {
+        "tag": "a",
+        "text": "SpidyDashboard",
+        "width": 183,
+        "height": 28
+      },
+      {
+        "tag": "a",
+        "text": "Shopping Cart",
+        "width": 36,
+        "height": 36
+      },
+      {
+        "tag": "button",
+        "text": "Toggle navigation menu",
+        "width": 40,
+        "height": 44
+      },
+      {
+        "tag": "a",
+        "text": "Home",
+        "width": 37,
+        "height": 20
+      },
+      {
+        "tag": "button",
+        "text": "Pause video",
+        "width": 28,
+        "height": 44
+      }
+    ],
+    "smallTextCount": 107,
+    "smallTextSamples": [
+      {
+        "tag": "a",
+        "fontSize": "13px",
+        "sample": "Home"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "Features"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "Attack Surface Mapping"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "ATTACK SURFACE MAPPING"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "For authorized defensive"
+      }
+    ]
+  },
+  {
+    "page": "attack-surface",
+    "path": "/features/attack-surface-mapping",
+    "viewport": "390px",
+    "width": 390,
+    "winWidth": 390,
+    "scrollWidth": 390,
+    "hasOverflow": false,
+    "offending": [],
+    "touchCount": 18,
+    "touchSamples": [
+      {
+        "tag": "a",
+        "text": "SpidyDashboard",
+        "width": 183,
+        "height": 28
+      },
+      {
+        "tag": "a",
+        "text": "Shopping Cart",
+        "width": 36,
+        "height": 36
+      },
+      {
+        "tag": "button",
+        "text": "Toggle navigation menu",
+        "width": 40,
+        "height": 44
+      },
+      {
+        "tag": "a",
+        "text": "Home",
+        "width": 37,
+        "height": 20
+      },
+      {
+        "tag": "button",
+        "text": "Pause video",
+        "width": 28,
+        "height": 44
+      }
+    ],
+    "smallTextCount": 107,
+    "smallTextSamples": [
+      {
+        "tag": "a",
+        "fontSize": "13px",
+        "sample": "Home"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "Features"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "Attack Surface Mapping"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "ATTACK SURFACE MAPPING"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "For authorized defensive"
+      }
+    ]
+  },
+  {
+    "page": "attack-surface",
+    "path": "/features/attack-surface-mapping",
+    "viewport": "414px",
+    "width": 414,
+    "winWidth": 414,
+    "scrollWidth": 414,
+    "hasOverflow": false,
+    "offending": [],
+    "touchCount": 19,
+    "touchSamples": [
+      {
+        "tag": "a",
+        "text": "SpidyDashboard",
+        "width": 183,
+        "height": 28
+      },
+      {
+        "tag": "a",
+        "text": "Shopping Cart",
+        "width": 36,
+        "height": 36
+      },
+      {
+        "tag": "button",
+        "text": "Toggle navigation menu",
+        "width": 40,
+        "height": 44
+      },
+      {
+        "tag": "a",
+        "text": "Home",
+        "width": 37,
+        "height": 20
+      },
+      {
+        "tag": "button",
+        "text": "Pause video",
+        "width": 28,
+        "height": 44
+      }
+    ],
+    "smallTextCount": 107,
+    "smallTextSamples": [
+      {
+        "tag": "a",
+        "fontSize": "13px",
+        "sample": "Home"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "Features"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "Attack Surface Mapping"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "ATTACK SURFACE MAPPING"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "For authorized defensive"
+      }
+    ]
+  },
+  {
+    "page": "attack-surface",
+    "path": "/features/attack-surface-mapping",
+    "viewport": "768px",
+    "width": 768,
+    "winWidth": 768,
+    "scrollWidth": 768,
+    "hasOverflow": false,
+    "offending": [],
+    "touchCount": 35,
+    "touchSamples": [
+      {
+        "tag": "a",
+        "text": "SpidyDashboard",
+        "width": 191,
+        "height": 28
+      },
+      {
+        "tag": "button",
+        "text": "Features",
+        "width": 97,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Modules",
+        "width": 96,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Docs",
+        "width": 69,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Pricing",
+        "width": 83,
+        "height": 32
+      }
+    ],
+    "smallTextCount": 99,
+    "smallTextSamples": [
+      {
+        "tag": "a",
+        "fontSize": "13px",
+        "sample": "Home"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "Features"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "Attack Surface Mapping"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "ATTACK SURFACE MAPPING"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "For authorized defensive"
+      }
+    ]
+  },
+  {
+    "page": "attack-surface",
+    "path": "/features/attack-surface-mapping",
+    "viewport": "1024px",
+    "width": 1024,
+    "winWidth": 1024,
+    "scrollWidth": 1024,
+    "hasOverflow": false,
+    "offending": [],
+    "touchCount": 34,
+    "touchSamples": [
+      {
+        "tag": "a",
+        "text": "SpidyDashboard",
+        "width": 191,
+        "height": 28
+      },
+      {
+        "tag": "button",
+        "text": "Features",
+        "width": 97,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Modules",
+        "width": 96,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Docs",
+        "width": 69,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Pricing",
+        "width": 83,
+        "height": 32
+      }
+    ],
+    "smallTextCount": 99,
+    "smallTextSamples": [
+      {
+        "tag": "a",
+        "fontSize": "13px",
+        "sample": "Home"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "Features"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "Attack Surface Mapping"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "ATTACK SURFACE MAPPING"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "For authorized defensive"
+      }
+    ]
+  },
+  {
+    "page": "attack-surface",
+    "path": "/features/attack-surface-mapping",
+    "viewport": "1440px",
+    "width": 1440,
+    "winWidth": 1440,
+    "scrollWidth": 1440,
+    "hasOverflow": false,
+    "offending": [],
+    "touchCount": 36,
+    "touchSamples": [
+      {
+        "tag": "a",
+        "text": "SpidyDashboard",
+        "width": 191,
+        "height": 28
+      },
+      {
+        "tag": "button",
+        "text": "Features",
+        "width": 97,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Modules",
+        "width": 96,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Docs",
+        "width": 69,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Pricing",
+        "width": 83,
+        "height": 32
+      }
+    ],
+    "smallTextCount": 99,
+    "smallTextSamples": [
+      {
+        "tag": "a",
+        "fontSize": "13px",
+        "sample": "Home"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "Features"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "Attack Surface Mapping"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "ATTACK SURFACE MAPPING"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "For authorized defensive"
+      }
+    ]
+  },
+  {
+    "page": "attack-surface",
+    "path": "/features/attack-surface-mapping",
+    "viewport": "landscape-390",
+    "width": 844,
+    "winWidth": 844,
+    "scrollWidth": 844,
+    "hasOverflow": false,
+    "offending": [],
+    "touchCount": 35,
+    "touchSamples": [
+      {
+        "tag": "a",
+        "text": "SpidyDashboard",
+        "width": 191,
+        "height": 28
+      },
+      {
+        "tag": "button",
+        "text": "Features",
+        "width": 97,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Modules",
+        "width": 96,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Docs",
+        "width": 69,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Pricing",
+        "width": 83,
+        "height": 32
+      }
+    ],
+    "smallTextCount": 99,
+    "smallTextSamples": [
+      {
+        "tag": "a",
+        "fontSize": "13px",
+        "sample": "Home"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "Features"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "Attack Surface Mapping"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "ATTACK SURFACE MAPPING"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "For authorized defensive"
+      }
+    ]
+  },
+  {
+    "page": "threat-intel",
+    "path": "/features/threat-intelligence",
+    "viewport": "320px",
+    "width": 320,
+    "winWidth": 320,
+    "scrollWidth": 320,
+    "hasOverflow": false,
+    "offending": [],
+    "touchCount": 12,
+    "touchSamples": [
+      {
+        "tag": "a",
+        "text": "SpidyDashboard",
+        "width": 183,
+        "height": 28
+      },
+      {
+        "tag": "a",
+        "text": "Shopping Cart",
+        "width": 36,
+        "height": 36
+      },
+      {
+        "tag": "button",
+        "text": "Toggle navigation menu",
+        "width": 40,
+        "height": 44
+      },
+      {
+        "tag": "a",
+        "text": "Home",
+        "width": 37,
+        "height": 20
+      },
+      {
+        "tag": "button",
+        "text": "Pause video",
+        "width": 28,
+        "height": 44
+      }
+    ],
+    "smallTextCount": 121,
+    "smallTextSamples": [
+      {
+        "tag": "a",
+        "fontSize": "13px",
+        "sample": "Home"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "Features"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "Threat Intelligence"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "THREAT INTELLIGENCE CORRE"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "For authorized defensive"
+      }
+    ]
+  },
+  {
+    "page": "threat-intel",
+    "path": "/features/threat-intelligence",
+    "viewport": "360px",
+    "width": 360,
+    "winWidth": 360,
+    "scrollWidth": 360,
+    "hasOverflow": false,
+    "offending": [],
+    "touchCount": 16,
+    "touchSamples": [
+      {
+        "tag": "a",
+        "text": "SpidyDashboard",
+        "width": 183,
+        "height": 28
+      },
+      {
+        "tag": "a",
+        "text": "Shopping Cart",
+        "width": 36,
+        "height": 36
+      },
+      {
+        "tag": "button",
+        "text": "Toggle navigation menu",
+        "width": 40,
+        "height": 44
+      },
+      {
+        "tag": "a",
+        "text": "Home",
+        "width": 37,
+        "height": 20
+      },
+      {
+        "tag": "button",
+        "text": "Pause video",
+        "width": 28,
+        "height": 44
+      }
+    ],
+    "smallTextCount": 121,
+    "smallTextSamples": [
+      {
+        "tag": "a",
+        "fontSize": "13px",
+        "sample": "Home"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "Features"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "Threat Intelligence"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "THREAT INTELLIGENCE CORRE"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "For authorized defensive"
+      }
+    ]
+  },
+  {
+    "page": "threat-intel",
+    "path": "/features/threat-intelligence",
+    "viewport": "390px",
+    "width": 390,
+    "winWidth": 390,
+    "scrollWidth": 390,
+    "hasOverflow": false,
+    "offending": [],
+    "touchCount": 18,
+    "touchSamples": [
+      {
+        "tag": "a",
+        "text": "SpidyDashboard",
+        "width": 183,
+        "height": 28
+      },
+      {
+        "tag": "a",
+        "text": "Shopping Cart",
+        "width": 36,
+        "height": 36
+      },
+      {
+        "tag": "button",
+        "text": "Toggle navigation menu",
+        "width": 40,
+        "height": 44
+      },
+      {
+        "tag": "a",
+        "text": "Home",
+        "width": 37,
+        "height": 20
+      },
+      {
+        "tag": "button",
+        "text": "Pause video",
+        "width": 28,
+        "height": 44
+      }
+    ],
+    "smallTextCount": 121,
+    "smallTextSamples": [
+      {
+        "tag": "a",
+        "fontSize": "13px",
+        "sample": "Home"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "Features"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "Threat Intelligence"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "THREAT INTELLIGENCE CORRE"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "For authorized defensive"
+      }
+    ]
+  },
+  {
+    "page": "threat-intel",
+    "path": "/features/threat-intelligence",
+    "viewport": "414px",
+    "width": 414,
+    "winWidth": 414,
+    "scrollWidth": 414,
+    "hasOverflow": false,
+    "offending": [],
+    "touchCount": 19,
+    "touchSamples": [
+      {
+        "tag": "a",
+        "text": "SpidyDashboard",
+        "width": 183,
+        "height": 28
+      },
+      {
+        "tag": "a",
+        "text": "Shopping Cart",
+        "width": 36,
+        "height": 36
+      },
+      {
+        "tag": "button",
+        "text": "Toggle navigation menu",
+        "width": 40,
+        "height": 44
+      },
+      {
+        "tag": "a",
+        "text": "Home",
+        "width": 37,
+        "height": 20
+      },
+      {
+        "tag": "button",
+        "text": "Pause video",
+        "width": 28,
+        "height": 44
+      }
+    ],
+    "smallTextCount": 121,
+    "smallTextSamples": [
+      {
+        "tag": "a",
+        "fontSize": "13px",
+        "sample": "Home"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "Features"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "Threat Intelligence"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "THREAT INTELLIGENCE CORRE"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "For authorized defensive"
+      }
+    ]
+  },
+  {
+    "page": "threat-intel",
+    "path": "/features/threat-intelligence",
+    "viewport": "768px",
+    "width": 768,
+    "winWidth": 768,
+    "scrollWidth": 768,
+    "hasOverflow": false,
+    "offending": [],
+    "touchCount": 39,
+    "touchSamples": [
+      {
+        "tag": "a",
+        "text": "SpidyDashboard",
+        "width": 191,
+        "height": 28
+      },
+      {
+        "tag": "button",
+        "text": "Features",
+        "width": 97,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Modules",
+        "width": 96,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Docs",
+        "width": 69,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Pricing",
+        "width": 83,
+        "height": 32
+      }
+    ],
+    "smallTextCount": 113,
+    "smallTextSamples": [
+      {
+        "tag": "a",
+        "fontSize": "13px",
+        "sample": "Home"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "Features"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "Threat Intelligence"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "THREAT INTELLIGENCE CORRE"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "For authorized defensive"
+      }
+    ]
+  },
+  {
+    "page": "threat-intel",
+    "path": "/features/threat-intelligence",
+    "viewport": "1024px",
+    "width": 1024,
+    "winWidth": 1024,
+    "scrollWidth": 1024,
+    "hasOverflow": false,
+    "offending": [],
+    "touchCount": 38,
+    "touchSamples": [
+      {
+        "tag": "a",
+        "text": "SpidyDashboard",
+        "width": 191,
+        "height": 28
+      },
+      {
+        "tag": "button",
+        "text": "Features",
+        "width": 97,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Modules",
+        "width": 96,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Docs",
+        "width": 69,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Pricing",
+        "width": 83,
+        "height": 32
+      }
+    ],
+    "smallTextCount": 113,
+    "smallTextSamples": [
+      {
+        "tag": "a",
+        "fontSize": "13px",
+        "sample": "Home"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "Features"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "Threat Intelligence"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "THREAT INTELLIGENCE CORRE"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "For authorized defensive"
+      }
+    ]
+  },
+  {
+    "page": "threat-intel",
+    "path": "/features/threat-intelligence",
+    "viewport": "1440px",
+    "width": 1440,
+    "winWidth": 1440,
+    "scrollWidth": 1440,
+    "hasOverflow": false,
+    "offending": [],
+    "touchCount": 40,
+    "touchSamples": [
+      {
+        "tag": "a",
+        "text": "SpidyDashboard",
+        "width": 191,
+        "height": 28
+      },
+      {
+        "tag": "button",
+        "text": "Features",
+        "width": 97,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Modules",
+        "width": 96,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Docs",
+        "width": 69,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Pricing",
+        "width": 83,
+        "height": 32
+      }
+    ],
+    "smallTextCount": 113,
+    "smallTextSamples": [
+      {
+        "tag": "a",
+        "fontSize": "13px",
+        "sample": "Home"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "Features"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "Threat Intelligence"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "THREAT INTELLIGENCE CORRE"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "For authorized defensive"
+      }
+    ]
+  },
+  {
+    "page": "threat-intel",
+    "path": "/features/threat-intelligence",
+    "viewport": "landscape-390",
+    "width": 844,
+    "winWidth": 844,
+    "scrollWidth": 844,
+    "hasOverflow": false,
+    "offending": [],
+    "touchCount": 39,
+    "touchSamples": [
+      {
+        "tag": "a",
+        "text": "SpidyDashboard",
+        "width": 191,
+        "height": 28
+      },
+      {
+        "tag": "button",
+        "text": "Features",
+        "width": 97,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Modules",
+        "width": 96,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Docs",
+        "width": 69,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Pricing",
+        "width": 83,
+        "height": 32
+      }
+    ],
+    "smallTextCount": 113,
+    "smallTextSamples": [
+      {
+        "tag": "a",
+        "fontSize": "13px",
+        "sample": "Home"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "Features"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "Threat Intelligence"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "THREAT INTELLIGENCE CORRE"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "For authorized defensive"
+      }
+    ]
+  },
+  {
+    "page": "footprinting",
+    "path": "/features/automated-footprinting",
+    "viewport": "320px",
+    "width": 320,
+    "winWidth": 320,
+    "scrollWidth": 320,
+    "hasOverflow": false,
+    "offending": [],
+    "touchCount": 13,
+    "touchSamples": [
+      {
+        "tag": "a",
+        "text": "SpidyDashboard",
+        "width": 183,
+        "height": 28
+      },
+      {
+        "tag": "a",
+        "text": "Shopping Cart",
+        "width": 36,
+        "height": 36
+      },
+      {
+        "tag": "button",
+        "text": "Toggle navigation menu",
+        "width": 40,
+        "height": 44
+      },
+      {
+        "tag": "a",
+        "text": "Home",
+        "width": 37,
+        "height": 20
+      },
+      {
+        "tag": "button",
+        "text": "Pause video",
+        "width": 28,
+        "height": 44
+      }
+    ],
+    "smallTextCount": 117,
+    "smallTextSamples": [
+      {
+        "tag": "a",
+        "fontSize": "13px",
+        "sample": "Home"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "Features"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "Automated Footprinting"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "AUTOMATED FOOTPRINTING"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "For authorized defensive"
+      }
+    ]
+  },
+  {
+    "page": "footprinting",
+    "path": "/features/automated-footprinting",
+    "viewport": "360px",
+    "width": 360,
+    "winWidth": 360,
+    "scrollWidth": 360,
+    "hasOverflow": false,
+    "offending": [],
+    "touchCount": 17,
+    "touchSamples": [
+      {
+        "tag": "a",
+        "text": "SpidyDashboard",
+        "width": 183,
+        "height": 28
+      },
+      {
+        "tag": "a",
+        "text": "Shopping Cart",
+        "width": 36,
+        "height": 36
+      },
+      {
+        "tag": "button",
+        "text": "Toggle navigation menu",
+        "width": 40,
+        "height": 44
+      },
+      {
+        "tag": "a",
+        "text": "Home",
+        "width": 37,
+        "height": 20
+      },
+      {
+        "tag": "button",
+        "text": "Pause video",
+        "width": 28,
+        "height": 44
+      }
+    ],
+    "smallTextCount": 117,
+    "smallTextSamples": [
+      {
+        "tag": "a",
+        "fontSize": "13px",
+        "sample": "Home"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "Features"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "Automated Footprinting"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "AUTOMATED FOOTPRINTING"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "For authorized defensive"
+      }
+    ]
+  },
+  {
+    "page": "footprinting",
+    "path": "/features/automated-footprinting",
+    "viewport": "390px",
+    "width": 390,
+    "winWidth": 390,
+    "scrollWidth": 390,
+    "hasOverflow": false,
+    "offending": [],
+    "touchCount": 19,
+    "touchSamples": [
+      {
+        "tag": "a",
+        "text": "SpidyDashboard",
+        "width": 183,
+        "height": 28
+      },
+      {
+        "tag": "a",
+        "text": "Shopping Cart",
+        "width": 36,
+        "height": 36
+      },
+      {
+        "tag": "button",
+        "text": "Toggle navigation menu",
+        "width": 40,
+        "height": 44
+      },
+      {
+        "tag": "a",
+        "text": "Home",
+        "width": 37,
+        "height": 20
+      },
+      {
+        "tag": "button",
+        "text": "Pause video",
+        "width": 28,
+        "height": 44
+      }
+    ],
+    "smallTextCount": 117,
+    "smallTextSamples": [
+      {
+        "tag": "a",
+        "fontSize": "13px",
+        "sample": "Home"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "Features"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "Automated Footprinting"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "AUTOMATED FOOTPRINTING"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "For authorized defensive"
+      }
+    ]
+  },
+  {
+    "page": "footprinting",
+    "path": "/features/automated-footprinting",
+    "viewport": "414px",
+    "width": 414,
+    "winWidth": 414,
+    "scrollWidth": 414,
+    "hasOverflow": false,
+    "offending": [],
+    "touchCount": 20,
+    "touchSamples": [
+      {
+        "tag": "a",
+        "text": "SpidyDashboard",
+        "width": 183,
+        "height": 28
+      },
+      {
+        "tag": "a",
+        "text": "Shopping Cart",
+        "width": 36,
+        "height": 36
+      },
+      {
+        "tag": "button",
+        "text": "Toggle navigation menu",
+        "width": 40,
+        "height": 44
+      },
+      {
+        "tag": "a",
+        "text": "Home",
+        "width": 37,
+        "height": 20
+      },
+      {
+        "tag": "button",
+        "text": "Pause video",
+        "width": 28,
+        "height": 44
+      }
+    ],
+    "smallTextCount": 117,
+    "smallTextSamples": [
+      {
+        "tag": "a",
+        "fontSize": "13px",
+        "sample": "Home"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "Features"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "Automated Footprinting"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "AUTOMATED FOOTPRINTING"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "For authorized defensive"
+      }
+    ]
+  },
+  {
+    "page": "footprinting",
+    "path": "/features/automated-footprinting",
+    "viewport": "768px",
+    "width": 768,
+    "winWidth": 768,
+    "scrollWidth": 768,
+    "hasOverflow": false,
+    "offending": [],
+    "touchCount": 42,
+    "touchSamples": [
+      {
+        "tag": "a",
+        "text": "SpidyDashboard",
+        "width": 191,
+        "height": 28
+      },
+      {
+        "tag": "button",
+        "text": "Features",
+        "width": 97,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Modules",
+        "width": 96,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Docs",
+        "width": 69,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Pricing",
+        "width": 83,
+        "height": 32
+      }
+    ],
+    "smallTextCount": 95,
+    "smallTextSamples": [
+      {
+        "tag": "a",
+        "fontSize": "13px",
+        "sample": "Home"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "Features"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "Automated Footprinting"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "AUTOMATED FOOTPRINTING"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "For authorized defensive"
+      }
+    ]
+  },
+  {
+    "page": "footprinting",
+    "path": "/features/automated-footprinting",
+    "viewport": "1024px",
+    "width": 1024,
+    "winWidth": 1024,
+    "scrollWidth": 1024,
+    "hasOverflow": false,
+    "offending": [],
+    "touchCount": 41,
+    "touchSamples": [
+      {
+        "tag": "a",
+        "text": "SpidyDashboard",
+        "width": 191,
+        "height": 28
+      },
+      {
+        "tag": "button",
+        "text": "Features",
+        "width": 97,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Modules",
+        "width": 96,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Docs",
+        "width": 69,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Pricing",
+        "width": 83,
+        "height": 32
+      }
+    ],
+    "smallTextCount": 95,
+    "smallTextSamples": [
+      {
+        "tag": "a",
+        "fontSize": "13px",
+        "sample": "Home"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "Features"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "Automated Footprinting"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "AUTOMATED FOOTPRINTING"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "For authorized defensive"
+      }
+    ]
+  },
+  {
+    "page": "footprinting",
+    "path": "/features/automated-footprinting",
+    "viewport": "1440px",
+    "width": 1440,
+    "winWidth": 1440,
+    "scrollWidth": 1440,
+    "hasOverflow": false,
+    "offending": [],
+    "touchCount": 43,
+    "touchSamples": [
+      {
+        "tag": "a",
+        "text": "SpidyDashboard",
+        "width": 191,
+        "height": 28
+      },
+      {
+        "tag": "button",
+        "text": "Features",
+        "width": 97,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Modules",
+        "width": 96,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Docs",
+        "width": 69,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Pricing",
+        "width": 83,
+        "height": 32
+      }
+    ],
+    "smallTextCount": 95,
+    "smallTextSamples": [
+      {
+        "tag": "a",
+        "fontSize": "13px",
+        "sample": "Home"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "Features"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "Automated Footprinting"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "AUTOMATED FOOTPRINTING"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "For authorized defensive"
+      }
+    ]
+  },
+  {
+    "page": "footprinting",
+    "path": "/features/automated-footprinting",
+    "viewport": "landscape-390",
+    "width": 844,
+    "winWidth": 844,
+    "scrollWidth": 844,
+    "hasOverflow": false,
+    "offending": [],
+    "touchCount": 42,
+    "touchSamples": [
+      {
+        "tag": "a",
+        "text": "SpidyDashboard",
+        "width": 191,
+        "height": 28
+      },
+      {
+        "tag": "button",
+        "text": "Features",
+        "width": 97,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Modules",
+        "width": 96,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Docs",
+        "width": 69,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Pricing",
+        "width": 83,
+        "height": 32
+      }
+    ],
+    "smallTextCount": 95,
+    "smallTextSamples": [
+      {
+        "tag": "a",
+        "fontSize": "13px",
+        "sample": "Home"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "Features"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "Automated Footprinting"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "AUTOMATED FOOTPRINTING"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "For authorized defensive"
+      }
+    ]
+  },
+  {
+    "page": "modules",
+    "path": "/modules",
+    "viewport": "320px",
+    "width": 320,
+    "winWidth": 320,
+    "scrollWidth": 320,
+    "hasOverflow": false,
+    "offending": [],
+    "touchCount": 24,
+    "touchSamples": [
+      {
+        "tag": "a",
+        "text": "SpidyDashboard",
+        "width": 183,
+        "height": 28
+      },
+      {
+        "tag": "a",
+        "text": "Shopping Cart",
+        "width": 36,
+        "height": 36
+      },
+      {
+        "tag": "button",
+        "text": "Toggle navigation menu",
+        "width": 40,
+        "height": 44
+      },
+      {
+        "tag": "a",
+        "text": "Home",
+        "width": 37,
+        "height": 20
+      },
+      {
+        "tag": "button",
+        "text": "Pause video",
+        "width": 28,
+        "height": 44
+      }
+    ],
+    "smallTextCount": 169,
+    "smallTextSamples": [
+      {
+        "tag": "a",
+        "fontSize": "13px",
+        "sample": "Home"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "Modules"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "All 233 Modules"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "RECONNAISSANCE MODULE REG"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "For authorized defensive"
+      }
+    ]
+  },
+  {
+    "page": "modules",
+    "path": "/modules",
+    "viewport": "360px",
+    "width": 360,
+    "winWidth": 360,
+    "scrollWidth": 360,
+    "hasOverflow": false,
+    "offending": [],
+    "touchCount": 28,
+    "touchSamples": [
+      {
+        "tag": "a",
+        "text": "SpidyDashboard",
+        "width": 183,
+        "height": 28
+      },
+      {
+        "tag": "a",
+        "text": "Shopping Cart",
+        "width": 36,
+        "height": 36
+      },
+      {
+        "tag": "button",
+        "text": "Toggle navigation menu",
+        "width": 40,
+        "height": 44
+      },
+      {
+        "tag": "a",
+        "text": "Home",
+        "width": 37,
+        "height": 20
+      },
+      {
+        "tag": "button",
+        "text": "Pause video",
+        "width": 28,
+        "height": 44
+      }
+    ],
+    "smallTextCount": 169,
+    "smallTextSamples": [
+      {
+        "tag": "a",
+        "fontSize": "13px",
+        "sample": "Home"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "Modules"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "All 233 Modules"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "RECONNAISSANCE MODULE REG"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "For authorized defensive"
+      }
+    ]
+  },
+  {
+    "page": "modules",
+    "path": "/modules",
+    "viewport": "390px",
+    "width": 390,
+    "winWidth": 390,
+    "scrollWidth": 390,
+    "hasOverflow": false,
+    "offending": [],
+    "touchCount": 30,
+    "touchSamples": [
+      {
+        "tag": "a",
+        "text": "SpidyDashboard",
+        "width": 183,
+        "height": 28
+      },
+      {
+        "tag": "a",
+        "text": "Shopping Cart",
+        "width": 36,
+        "height": 36
+      },
+      {
+        "tag": "button",
+        "text": "Toggle navigation menu",
+        "width": 40,
+        "height": 44
+      },
+      {
+        "tag": "a",
+        "text": "Home",
+        "width": 37,
+        "height": 20
+      },
+      {
+        "tag": "button",
+        "text": "Pause video",
+        "width": 28,
+        "height": 44
+      }
+    ],
+    "smallTextCount": 169,
+    "smallTextSamples": [
+      {
+        "tag": "a",
+        "fontSize": "13px",
+        "sample": "Home"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "Modules"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "All 233 Modules"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "RECONNAISSANCE MODULE REG"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "For authorized defensive"
+      }
+    ]
+  },
+  {
+    "page": "modules",
+    "path": "/modules",
+    "viewport": "414px",
+    "width": 414,
+    "winWidth": 414,
+    "scrollWidth": 414,
+    "hasOverflow": false,
+    "offending": [],
+    "touchCount": 31,
+    "touchSamples": [
+      {
+        "tag": "a",
+        "text": "SpidyDashboard",
+        "width": 183,
+        "height": 28
+      },
+      {
+        "tag": "a",
+        "text": "Shopping Cart",
+        "width": 36,
+        "height": 36
+      },
+      {
+        "tag": "button",
+        "text": "Toggle navigation menu",
+        "width": 40,
+        "height": 44
+      },
+      {
+        "tag": "a",
+        "text": "Home",
+        "width": 37,
+        "height": 20
+      },
+      {
+        "tag": "button",
+        "text": "Pause video",
+        "width": 28,
+        "height": 44
+      }
+    ],
+    "smallTextCount": 169,
+    "smallTextSamples": [
+      {
+        "tag": "a",
+        "fontSize": "13px",
+        "sample": "Home"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "Modules"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "All 233 Modules"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "RECONNAISSANCE MODULE REG"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "For authorized defensive"
+      }
+    ]
+  },
+  {
+    "page": "modules",
+    "path": "/modules",
+    "viewport": "768px",
+    "width": 768,
+    "winWidth": 768,
+    "scrollWidth": 768,
+    "hasOverflow": false,
+    "offending": [],
+    "touchCount": 62,
+    "touchSamples": [
+      {
+        "tag": "a",
+        "text": "SpidyDashboard",
+        "width": 191,
+        "height": 28
+      },
+      {
+        "tag": "button",
+        "text": "Features",
+        "width": 96,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Modules",
+        "width": 97,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Docs",
+        "width": 69,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Pricing",
+        "width": 83,
+        "height": 32
+      }
+    ],
+    "smallTextCount": 163,
+    "smallTextSamples": [
+      {
+        "tag": "a",
+        "fontSize": "13px",
+        "sample": "Home"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "Modules"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "All 233 Modules"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "RECONNAISSANCE MODULE REG"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "For authorized defensive"
+      }
+    ]
+  },
+  {
+    "page": "modules",
+    "path": "/modules",
+    "viewport": "1024px",
+    "width": 1024,
+    "winWidth": 1024,
+    "scrollWidth": 1024,
+    "hasOverflow": false,
+    "offending": [],
+    "touchCount": 61,
+    "touchSamples": [
+      {
+        "tag": "a",
+        "text": "SpidyDashboard",
+        "width": 191,
+        "height": 28
+      },
+      {
+        "tag": "button",
+        "text": "Features",
+        "width": 96,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Modules",
+        "width": 97,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Docs",
+        "width": 69,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Pricing",
+        "width": 83,
+        "height": 32
+      }
+    ],
+    "smallTextCount": 163,
+    "smallTextSamples": [
+      {
+        "tag": "a",
+        "fontSize": "13px",
+        "sample": "Home"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "Modules"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "All 233 Modules"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "RECONNAISSANCE MODULE REG"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "For authorized defensive"
+      }
+    ]
+  },
+  {
+    "page": "modules",
+    "path": "/modules",
+    "viewport": "1440px",
+    "width": 1440,
+    "winWidth": 1440,
+    "scrollWidth": 1440,
+    "hasOverflow": false,
+    "offending": [],
+    "touchCount": 63,
+    "touchSamples": [
+      {
+        "tag": "a",
+        "text": "SpidyDashboard",
+        "width": 191,
+        "height": 28
+      },
+      {
+        "tag": "button",
+        "text": "Features",
+        "width": 96,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Modules",
+        "width": 97,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Docs",
+        "width": 69,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Pricing",
+        "width": 83,
+        "height": 32
+      }
+    ],
+    "smallTextCount": 163,
+    "smallTextSamples": [
+      {
+        "tag": "a",
+        "fontSize": "13px",
+        "sample": "Home"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "Modules"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "All 233 Modules"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "RECONNAISSANCE MODULE REG"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "For authorized defensive"
+      }
+    ]
+  },
+  {
+    "page": "modules",
+    "path": "/modules",
+    "viewport": "landscape-390",
+    "width": 844,
+    "winWidth": 844,
+    "scrollWidth": 844,
+    "hasOverflow": false,
+    "offending": [],
+    "touchCount": 62,
+    "touchSamples": [
+      {
+        "tag": "a",
+        "text": "SpidyDashboard",
+        "width": 191,
+        "height": 28
+      },
+      {
+        "tag": "button",
+        "text": "Features",
+        "width": 96,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Modules",
+        "width": 97,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Docs",
+        "width": 69,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Pricing",
+        "width": 83,
+        "height": 32
+      }
+    ],
+    "smallTextCount": 163,
+    "smallTextSamples": [
+      {
+        "tag": "a",
+        "fontSize": "13px",
+        "sample": "Home"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "Modules"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "All 233 Modules"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "RECONNAISSANCE MODULE REG"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "For authorized defensive"
+      }
+    ]
+  },
+  {
+    "page": "custom-sdk",
+    "path": "/modules/custom-sdk",
+    "viewport": "320px",
+    "width": 320,
+    "winWidth": 320,
+    "scrollWidth": 320,
+    "hasOverflow": false,
+    "offending": [],
+    "touchCount": 12,
+    "touchSamples": [
+      {
+        "tag": "a",
+        "text": "SpidyDashboard",
+        "width": 183,
+        "height": 28
+      },
+      {
+        "tag": "a",
+        "text": "Shopping Cart",
+        "width": 36,
+        "height": 36
+      },
+      {
+        "tag": "button",
+        "text": "Toggle navigation menu",
+        "width": 40,
+        "height": 44
+      },
+      {
+        "tag": "a",
+        "text": "Home",
+        "width": 37,
+        "height": 20
+      },
+      {
+        "tag": "button",
+        "text": "Pause video",
+        "width": 28,
+        "height": 44
+      }
+    ],
+    "smallTextCount": 193,
+    "smallTextSamples": [
+      {
+        "tag": "a",
+        "fontSize": "13px",
+        "sample": "Home"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "Modules"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "Custom Modules & SDK"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "DEVELOPER SDK & EXTENSIBI"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "For authorized defensive"
+      }
+    ]
+  },
+  {
+    "page": "custom-sdk",
+    "path": "/modules/custom-sdk",
+    "viewport": "360px",
+    "width": 360,
+    "winWidth": 360,
+    "scrollWidth": 360,
+    "hasOverflow": false,
+    "offending": [],
+    "touchCount": 16,
+    "touchSamples": [
+      {
+        "tag": "a",
+        "text": "SpidyDashboard",
+        "width": 183,
+        "height": 28
+      },
+      {
+        "tag": "a",
+        "text": "Shopping Cart",
+        "width": 36,
+        "height": 36
+      },
+      {
+        "tag": "button",
+        "text": "Toggle navigation menu",
+        "width": 40,
+        "height": 44
+      },
+      {
+        "tag": "a",
+        "text": "Home",
+        "width": 37,
+        "height": 20
+      },
+      {
+        "tag": "button",
+        "text": "Pause video",
+        "width": 28,
+        "height": 44
+      }
+    ],
+    "smallTextCount": 193,
+    "smallTextSamples": [
+      {
+        "tag": "a",
+        "fontSize": "13px",
+        "sample": "Home"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "Modules"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "Custom Modules & SDK"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "DEVELOPER SDK & EXTENSIBI"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "For authorized defensive"
+      }
+    ]
+  },
+  {
+    "page": "custom-sdk",
+    "path": "/modules/custom-sdk",
+    "viewport": "390px",
+    "width": 390,
+    "winWidth": 390,
+    "scrollWidth": 390,
+    "hasOverflow": false,
+    "offending": [],
+    "touchCount": 18,
+    "touchSamples": [
+      {
+        "tag": "a",
+        "text": "SpidyDashboard",
+        "width": 183,
+        "height": 28
+      },
+      {
+        "tag": "a",
+        "text": "Shopping Cart",
+        "width": 36,
+        "height": 36
+      },
+      {
+        "tag": "button",
+        "text": "Toggle navigation menu",
+        "width": 40,
+        "height": 44
+      },
+      {
+        "tag": "a",
+        "text": "Home",
+        "width": 37,
+        "height": 20
+      },
+      {
+        "tag": "button",
+        "text": "Pause video",
+        "width": 28,
+        "height": 44
+      }
+    ],
+    "smallTextCount": 193,
+    "smallTextSamples": [
+      {
+        "tag": "a",
+        "fontSize": "13px",
+        "sample": "Home"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "Modules"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "Custom Modules & SDK"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "DEVELOPER SDK & EXTENSIBI"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "For authorized defensive"
+      }
+    ]
+  },
+  {
+    "page": "custom-sdk",
+    "path": "/modules/custom-sdk",
+    "viewport": "414px",
+    "width": 414,
+    "winWidth": 414,
+    "scrollWidth": 414,
+    "hasOverflow": false,
+    "offending": [],
+    "touchCount": 19,
+    "touchSamples": [
+      {
+        "tag": "a",
+        "text": "SpidyDashboard",
+        "width": 183,
+        "height": 28
+      },
+      {
+        "tag": "a",
+        "text": "Shopping Cart",
+        "width": 36,
+        "height": 36
+      },
+      {
+        "tag": "button",
+        "text": "Toggle navigation menu",
+        "width": 40,
+        "height": 44
+      },
+      {
+        "tag": "a",
+        "text": "Home",
+        "width": 37,
+        "height": 20
+      },
+      {
+        "tag": "button",
+        "text": "Pause video",
+        "width": 28,
+        "height": 44
+      }
+    ],
+    "smallTextCount": 193,
+    "smallTextSamples": [
+      {
+        "tag": "a",
+        "fontSize": "13px",
+        "sample": "Home"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "Modules"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "Custom Modules & SDK"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "DEVELOPER SDK & EXTENSIBI"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "For authorized defensive"
+      }
+    ]
+  },
+  {
+    "page": "custom-sdk",
+    "path": "/modules/custom-sdk",
+    "viewport": "768px",
+    "width": 768,
+    "winWidth": 768,
+    "scrollWidth": 768,
+    "hasOverflow": false,
+    "offending": [],
+    "touchCount": 37,
+    "touchSamples": [
+      {
+        "tag": "a",
+        "text": "SpidyDashboard",
+        "width": 191,
+        "height": 28
+      },
+      {
+        "tag": "button",
+        "text": "Features",
+        "width": 96,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Modules",
+        "width": 97,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Docs",
+        "width": 69,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Pricing",
+        "width": 83,
+        "height": 32
+      }
+    ],
+    "smallTextCount": 141,
+    "smallTextSamples": [
+      {
+        "tag": "a",
+        "fontSize": "13px",
+        "sample": "Home"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "Modules"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "Custom Modules & SDK"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "DEVELOPER SDK & EXTENSIBI"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "For authorized defensive"
+      }
+    ]
+  },
+  {
+    "page": "custom-sdk",
+    "path": "/modules/custom-sdk",
+    "viewport": "1024px",
+    "width": 1024,
+    "winWidth": 1024,
+    "scrollWidth": 1024,
+    "hasOverflow": false,
+    "offending": [],
+    "touchCount": 36,
+    "touchSamples": [
+      {
+        "tag": "a",
+        "text": "SpidyDashboard",
+        "width": 191,
+        "height": 28
+      },
+      {
+        "tag": "button",
+        "text": "Features",
+        "width": 96,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Modules",
+        "width": 97,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Docs",
+        "width": 69,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Pricing",
+        "width": 83,
+        "height": 32
+      }
+    ],
+    "smallTextCount": 141,
+    "smallTextSamples": [
+      {
+        "tag": "a",
+        "fontSize": "13px",
+        "sample": "Home"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "Modules"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "Custom Modules & SDK"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "DEVELOPER SDK & EXTENSIBI"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "For authorized defensive"
+      }
+    ]
+  },
+  {
+    "page": "custom-sdk",
+    "path": "/modules/custom-sdk",
+    "viewport": "1440px",
+    "width": 1440,
+    "winWidth": 1440,
+    "scrollWidth": 1440,
+    "hasOverflow": false,
+    "offending": [],
+    "touchCount": 38,
+    "touchSamples": [
+      {
+        "tag": "a",
+        "text": "SpidyDashboard",
+        "width": 191,
+        "height": 28
+      },
+      {
+        "tag": "button",
+        "text": "Features",
+        "width": 96,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Modules",
+        "width": 97,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Docs",
+        "width": 69,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Pricing",
+        "width": 83,
+        "height": 32
+      }
+    ],
+    "smallTextCount": 141,
+    "smallTextSamples": [
+      {
+        "tag": "a",
+        "fontSize": "13px",
+        "sample": "Home"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "Modules"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "Custom Modules & SDK"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "DEVELOPER SDK & EXTENSIBI"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "For authorized defensive"
+      }
+    ]
+  },
+  {
+    "page": "custom-sdk",
+    "path": "/modules/custom-sdk",
+    "viewport": "landscape-390",
+    "width": 844,
+    "winWidth": 844,
+    "scrollWidth": 844,
+    "hasOverflow": false,
+    "offending": [],
+    "touchCount": 37,
+    "touchSamples": [
+      {
+        "tag": "a",
+        "text": "SpidyDashboard",
+        "width": 191,
+        "height": 28
+      },
+      {
+        "tag": "button",
+        "text": "Features",
+        "width": 96,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Modules",
+        "width": 97,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Docs",
+        "width": 69,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Pricing",
+        "width": 83,
+        "height": 32
+      }
+    ],
+    "smallTextCount": 141,
+    "smallTextSamples": [
+      {
+        "tag": "a",
+        "fontSize": "13px",
+        "sample": "Home"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "Modules"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "Custom Modules & SDK"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "DEVELOPER SDK & EXTENSIBI"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "For authorized defensive"
+      }
+    ]
+  },
+  {
+    "page": "getting-started",
+    "path": "/docs/getting-started",
+    "viewport": "320px",
+    "width": 320,
+    "winWidth": 320,
+    "scrollWidth": 320,
+    "hasOverflow": false,
+    "offending": [],
+    "touchCount": 10,
+    "touchSamples": [
+      {
+        "tag": "a",
+        "text": "SpidyDashboard",
+        "width": 183,
+        "height": 28
+      },
+      {
+        "tag": "a",
+        "text": "Shopping Cart",
+        "width": 36,
+        "height": 36
+      },
+      {
+        "tag": "button",
+        "text": "Toggle navigation menu",
+        "width": 40,
+        "height": 44
+      },
+      {
+        "tag": "a",
+        "text": "Home",
+        "width": 36,
+        "height": 20
+      },
+      {
+        "tag": "a",
+        "text": "Documentation",
+        "width": 93,
+        "height": 20
+      }
+    ],
+    "smallTextCount": 124,
+    "smallTextSamples": [
+      {
+        "tag": "a",
+        "fontSize": "13px",
+        "sample": "Home"
+      },
+      {
+        "tag": "a",
+        "fontSize": "13px",
+        "sample": "Documentation"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "Getting Started Guide"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "5 min read"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "5 min read"
+      }
+    ]
+  },
+  {
+    "page": "getting-started",
+    "path": "/docs/getting-started",
+    "viewport": "360px",
+    "width": 360,
+    "winWidth": 360,
+    "scrollWidth": 360,
+    "hasOverflow": false,
+    "offending": [],
+    "touchCount": 14,
+    "touchSamples": [
+      {
+        "tag": "a",
+        "text": "SpidyDashboard",
+        "width": 183,
+        "height": 28
+      },
+      {
+        "tag": "a",
+        "text": "Shopping Cart",
+        "width": 36,
+        "height": 36
+      },
+      {
+        "tag": "button",
+        "text": "Toggle navigation menu",
+        "width": 40,
+        "height": 44
+      },
+      {
+        "tag": "a",
+        "text": "Home",
+        "width": 36,
+        "height": 20
+      },
+      {
+        "tag": "a",
+        "text": "Documentation",
+        "width": 93,
+        "height": 20
+      }
+    ],
+    "smallTextCount": 124,
+    "smallTextSamples": [
+      {
+        "tag": "a",
+        "fontSize": "13px",
+        "sample": "Home"
+      },
+      {
+        "tag": "a",
+        "fontSize": "13px",
+        "sample": "Documentation"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "Getting Started Guide"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "5 min read"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "5 min read"
+      }
+    ]
+  },
+  {
+    "page": "getting-started",
+    "path": "/docs/getting-started",
+    "viewport": "390px",
+    "width": 390,
+    "winWidth": 390,
+    "scrollWidth": 390,
+    "hasOverflow": false,
+    "offending": [],
+    "touchCount": 16,
+    "touchSamples": [
+      {
+        "tag": "a",
+        "text": "SpidyDashboard",
+        "width": 183,
+        "height": 28
+      },
+      {
+        "tag": "a",
+        "text": "Shopping Cart",
+        "width": 36,
+        "height": 36
+      },
+      {
+        "tag": "button",
+        "text": "Toggle navigation menu",
+        "width": 40,
+        "height": 44
+      },
+      {
+        "tag": "a",
+        "text": "Home",
+        "width": 36,
+        "height": 20
+      },
+      {
+        "tag": "a",
+        "text": "Documentation",
+        "width": 93,
+        "height": 20
+      }
+    ],
+    "smallTextCount": 124,
+    "smallTextSamples": [
+      {
+        "tag": "a",
+        "fontSize": "13px",
+        "sample": "Home"
+      },
+      {
+        "tag": "a",
+        "fontSize": "13px",
+        "sample": "Documentation"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "Getting Started Guide"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "5 min read"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "5 min read"
+      }
+    ]
+  },
+  {
+    "page": "getting-started",
+    "path": "/docs/getting-started",
+    "viewport": "414px",
+    "width": 414,
+    "winWidth": 414,
+    "scrollWidth": 414,
+    "hasOverflow": false,
+    "offending": [],
+    "touchCount": 17,
+    "touchSamples": [
+      {
+        "tag": "a",
+        "text": "SpidyDashboard",
+        "width": 183,
+        "height": 28
+      },
+      {
+        "tag": "a",
+        "text": "Shopping Cart",
+        "width": 36,
+        "height": 36
+      },
+      {
+        "tag": "button",
+        "text": "Toggle navigation menu",
+        "width": 40,
+        "height": 44
+      },
+      {
+        "tag": "a",
+        "text": "Home",
+        "width": 36,
+        "height": 20
+      },
+      {
+        "tag": "a",
+        "text": "Documentation",
+        "width": 93,
+        "height": 20
+      }
+    ],
+    "smallTextCount": 124,
+    "smallTextSamples": [
+      {
+        "tag": "a",
+        "fontSize": "13px",
+        "sample": "Home"
+      },
+      {
+        "tag": "a",
+        "fontSize": "13px",
+        "sample": "Documentation"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "Getting Started Guide"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "5 min read"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "5 min read"
+      }
+    ]
+  },
+  {
+    "page": "getting-started",
+    "path": "/docs/getting-started",
+    "viewport": "768px",
+    "width": 768,
+    "winWidth": 768,
+    "scrollWidth": 768,
+    "hasOverflow": false,
+    "offending": [],
+    "touchCount": 48,
+    "touchSamples": [
+      {
+        "tag": "a",
+        "text": "SpidyDashboard",
+        "width": 191,
+        "height": 28
+      },
+      {
+        "tag": "button",
+        "text": "Features",
+        "width": 96,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Modules",
+        "width": 96,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Docs",
+        "width": 69,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Pricing",
+        "width": 83,
+        "height": 32
+      }
+    ],
+    "smallTextCount": 106,
+    "smallTextSamples": [
+      {
+        "tag": "a",
+        "fontSize": "13px",
+        "sample": "Home"
+      },
+      {
+        "tag": "a",
+        "fontSize": "13px",
+        "sample": "Documentation"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "Getting Started Guide"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "5 min read"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "5 min read"
+      }
+    ]
+  },
+  {
+    "page": "getting-started",
+    "path": "/docs/getting-started",
+    "viewport": "1024px",
+    "width": 1024,
+    "winWidth": 1024,
+    "scrollWidth": 1024,
+    "hasOverflow": false,
+    "offending": [],
+    "touchCount": 47,
+    "touchSamples": [
+      {
+        "tag": "a",
+        "text": "SpidyDashboard",
+        "width": 191,
+        "height": 28
+      },
+      {
+        "tag": "button",
+        "text": "Features",
+        "width": 96,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Modules",
+        "width": 96,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Docs",
+        "width": 69,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Pricing",
+        "width": 83,
+        "height": 32
+      }
+    ],
+    "smallTextCount": 106,
+    "smallTextSamples": [
+      {
+        "tag": "a",
+        "fontSize": "13px",
+        "sample": "Home"
+      },
+      {
+        "tag": "a",
+        "fontSize": "13px",
+        "sample": "Documentation"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "Getting Started Guide"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "5 min read"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "5 min read"
+      }
+    ]
+  },
+  {
+    "page": "getting-started",
+    "path": "/docs/getting-started",
+    "viewport": "1440px",
+    "width": 1440,
+    "winWidth": 1440,
+    "scrollWidth": 1440,
+    "hasOverflow": false,
+    "offending": [],
+    "touchCount": 58,
+    "touchSamples": [
+      {
+        "tag": "a",
+        "text": "SpidyDashboard",
+        "width": 191,
+        "height": 28
+      },
+      {
+        "tag": "button",
+        "text": "Features",
+        "width": 96,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Modules",
+        "width": 96,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Docs",
+        "width": 69,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Pricing",
+        "width": 83,
+        "height": 32
+      }
+    ],
+    "smallTextCount": 106,
+    "smallTextSamples": [
+      {
+        "tag": "a",
+        "fontSize": "13px",
+        "sample": "Home"
+      },
+      {
+        "tag": "a",
+        "fontSize": "13px",
+        "sample": "Documentation"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "Getting Started Guide"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "5 min read"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "5 min read"
+      }
+    ]
+  },
+  {
+    "page": "getting-started",
+    "path": "/docs/getting-started",
+    "viewport": "landscape-390",
+    "width": 844,
+    "winWidth": 844,
+    "scrollWidth": 844,
+    "hasOverflow": false,
+    "offending": [],
+    "touchCount": 48,
+    "touchSamples": [
+      {
+        "tag": "a",
+        "text": "SpidyDashboard",
+        "width": 191,
+        "height": 28
+      },
+      {
+        "tag": "button",
+        "text": "Features",
+        "width": 96,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Modules",
+        "width": 96,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Docs",
+        "width": 69,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Pricing",
+        "width": 83,
+        "height": 32
+      }
+    ],
+    "smallTextCount": 106,
+    "smallTextSamples": [
+      {
+        "tag": "a",
+        "fontSize": "13px",
+        "sample": "Home"
+      },
+      {
+        "tag": "a",
+        "fontSize": "13px",
+        "sample": "Documentation"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "Getting Started Guide"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "5 min read"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "5 min read"
+      }
+    ]
+  },
+  {
+    "page": "rest-api-cli",
+    "path": "/docs/rest-api-cli",
+    "viewport": "320px",
+    "width": 320,
+    "winWidth": 320,
+    "scrollWidth": 320,
+    "hasOverflow": false,
+    "offending": [],
+    "touchCount": 10,
+    "touchSamples": [
+      {
+        "tag": "a",
+        "text": "SpidyDashboard",
+        "width": 183,
+        "height": 28
+      },
+      {
+        "tag": "a",
+        "text": "Shopping Cart",
+        "width": 36,
+        "height": 36
+      },
+      {
+        "tag": "button",
+        "text": "Toggle navigation menu",
+        "width": 40,
+        "height": 44
+      },
+      {
+        "tag": "a",
+        "text": "Home",
+        "width": 36,
+        "height": 20
+      },
+      {
+        "tag": "a",
+        "text": "Documentation",
+        "width": 93,
+        "height": 20
+      }
+    ],
+    "smallTextCount": 315,
+    "smallTextSamples": [
+      {
+        "tag": "a",
+        "fontSize": "13px",
+        "sample": "Home"
+      },
+      {
+        "tag": "a",
+        "fontSize": "13px",
+        "sample": "Documentation"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "REST API & CLI"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "8 min read"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "8 min read"
+      }
+    ]
+  },
+  {
+    "page": "rest-api-cli",
+    "path": "/docs/rest-api-cli",
+    "viewport": "360px",
+    "width": 360,
+    "winWidth": 360,
+    "scrollWidth": 360,
+    "hasOverflow": false,
+    "offending": [],
+    "touchCount": 14,
+    "touchSamples": [
+      {
+        "tag": "a",
+        "text": "SpidyDashboard",
+        "width": 183,
+        "height": 28
+      },
+      {
+        "tag": "a",
+        "text": "Shopping Cart",
+        "width": 36,
+        "height": 36
+      },
+      {
+        "tag": "button",
+        "text": "Toggle navigation menu",
+        "width": 40,
+        "height": 44
+      },
+      {
+        "tag": "a",
+        "text": "Home",
+        "width": 36,
+        "height": 20
+      },
+      {
+        "tag": "a",
+        "text": "Documentation",
+        "width": 93,
+        "height": 20
+      }
+    ],
+    "smallTextCount": 315,
+    "smallTextSamples": [
+      {
+        "tag": "a",
+        "fontSize": "13px",
+        "sample": "Home"
+      },
+      {
+        "tag": "a",
+        "fontSize": "13px",
+        "sample": "Documentation"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "REST API & CLI"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "8 min read"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "8 min read"
+      }
+    ]
+  },
+  {
+    "page": "rest-api-cli",
+    "path": "/docs/rest-api-cli",
+    "viewport": "390px",
+    "width": 390,
+    "winWidth": 390,
+    "scrollWidth": 390,
+    "hasOverflow": false,
+    "offending": [],
+    "touchCount": 16,
+    "touchSamples": [
+      {
+        "tag": "a",
+        "text": "SpidyDashboard",
+        "width": 183,
+        "height": 28
+      },
+      {
+        "tag": "a",
+        "text": "Shopping Cart",
+        "width": 36,
+        "height": 36
+      },
+      {
+        "tag": "button",
+        "text": "Toggle navigation menu",
+        "width": 40,
+        "height": 44
+      },
+      {
+        "tag": "a",
+        "text": "Home",
+        "width": 36,
+        "height": 20
+      },
+      {
+        "tag": "a",
+        "text": "Documentation",
+        "width": 93,
+        "height": 20
+      }
+    ],
+    "smallTextCount": 315,
+    "smallTextSamples": [
+      {
+        "tag": "a",
+        "fontSize": "13px",
+        "sample": "Home"
+      },
+      {
+        "tag": "a",
+        "fontSize": "13px",
+        "sample": "Documentation"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "REST API & CLI"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "8 min read"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "8 min read"
+      }
+    ]
+  },
+  {
+    "page": "rest-api-cli",
+    "path": "/docs/rest-api-cli",
+    "viewport": "414px",
+    "width": 414,
+    "winWidth": 414,
+    "scrollWidth": 414,
+    "hasOverflow": false,
+    "offending": [],
+    "touchCount": 17,
+    "touchSamples": [
+      {
+        "tag": "a",
+        "text": "SpidyDashboard",
+        "width": 183,
+        "height": 28
+      },
+      {
+        "tag": "a",
+        "text": "Shopping Cart",
+        "width": 36,
+        "height": 36
+      },
+      {
+        "tag": "button",
+        "text": "Toggle navigation menu",
+        "width": 40,
+        "height": 44
+      },
+      {
+        "tag": "a",
+        "text": "Home",
+        "width": 36,
+        "height": 20
+      },
+      {
+        "tag": "a",
+        "text": "Documentation",
+        "width": 93,
+        "height": 20
+      }
+    ],
+    "smallTextCount": 315,
+    "smallTextSamples": [
+      {
+        "tag": "a",
+        "fontSize": "13px",
+        "sample": "Home"
+      },
+      {
+        "tag": "a",
+        "fontSize": "13px",
+        "sample": "Documentation"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "REST API & CLI"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "8 min read"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "8 min read"
+      }
+    ]
+  },
+  {
+    "page": "rest-api-cli",
+    "path": "/docs/rest-api-cli",
+    "viewport": "768px",
+    "width": 768,
+    "winWidth": 768,
+    "scrollWidth": 768,
+    "hasOverflow": false,
+    "offending": [],
+    "touchCount": 54,
+    "touchSamples": [
+      {
+        "tag": "a",
+        "text": "SpidyDashboard",
+        "width": 191,
+        "height": 28
+      },
+      {
+        "tag": "button",
+        "text": "Features",
+        "width": 96,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Modules",
+        "width": 96,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Docs",
+        "width": 69,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Pricing",
+        "width": 83,
+        "height": 32
+      }
+    ],
+    "smallTextCount": 235,
+    "smallTextSamples": [
+      {
+        "tag": "a",
+        "fontSize": "13px",
+        "sample": "Home"
+      },
+      {
+        "tag": "a",
+        "fontSize": "13px",
+        "sample": "Documentation"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "REST API & CLI"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "8 min read"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "8 min read"
+      }
+    ]
+  },
+  {
+    "page": "rest-api-cli",
+    "path": "/docs/rest-api-cli",
+    "viewport": "1024px",
+    "width": 1024,
+    "winWidth": 1024,
+    "scrollWidth": 1024,
+    "hasOverflow": false,
+    "offending": [],
+    "touchCount": 51,
+    "touchSamples": [
+      {
+        "tag": "a",
+        "text": "SpidyDashboard",
+        "width": 191,
+        "height": 28
+      },
+      {
+        "tag": "button",
+        "text": "Features",
+        "width": 96,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Modules",
+        "width": 96,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Docs",
+        "width": 69,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Pricing",
+        "width": 83,
+        "height": 32
+      }
+    ],
+    "smallTextCount": 235,
+    "smallTextSamples": [
+      {
+        "tag": "a",
+        "fontSize": "13px",
+        "sample": "Home"
+      },
+      {
+        "tag": "a",
+        "fontSize": "13px",
+        "sample": "Documentation"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "REST API & CLI"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "8 min read"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "8 min read"
+      }
+    ]
+  },
+  {
+    "page": "rest-api-cli",
+    "path": "/docs/rest-api-cli",
+    "viewport": "1440px",
+    "width": 1440,
+    "winWidth": 1440,
+    "scrollWidth": 1440,
+    "hasOverflow": false,
+    "offending": [],
+    "touchCount": 61,
+    "touchSamples": [
+      {
+        "tag": "a",
+        "text": "SpidyDashboard",
+        "width": 191,
+        "height": 28
+      },
+      {
+        "tag": "button",
+        "text": "Features",
+        "width": 96,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Modules",
+        "width": 96,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Docs",
+        "width": 69,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Pricing",
+        "width": 83,
+        "height": 32
+      }
+    ],
+    "smallTextCount": 235,
+    "smallTextSamples": [
+      {
+        "tag": "a",
+        "fontSize": "13px",
+        "sample": "Home"
+      },
+      {
+        "tag": "a",
+        "fontSize": "13px",
+        "sample": "Documentation"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "REST API & CLI"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "8 min read"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "8 min read"
+      }
+    ]
+  },
+  {
+    "page": "rest-api-cli",
+    "path": "/docs/rest-api-cli",
+    "viewport": "landscape-390",
+    "width": 844,
+    "winWidth": 844,
+    "scrollWidth": 844,
+    "hasOverflow": false,
+    "offending": [],
+    "touchCount": 54,
+    "touchSamples": [
+      {
+        "tag": "a",
+        "text": "SpidyDashboard",
+        "width": 191,
+        "height": 28
+      },
+      {
+        "tag": "button",
+        "text": "Features",
+        "width": 96,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Modules",
+        "width": 96,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Docs",
+        "width": 69,
+        "height": 32
+      },
+      {
+        "tag": "button",
+        "text": "Pricing",
+        "width": 83,
+        "height": 32
+      }
+    ],
+    "smallTextCount": 235,
+    "smallTextSamples": [
+      {
+        "tag": "a",
+        "fontSize": "13px",
+        "sample": "Home"
+      },
+      {
+        "tag": "a",
+        "fontSize": "13px",
+        "sample": "Documentation"
+      },
+      {
+        "tag": "span",
+        "fontSize": "13px",
+        "sample": "REST API & CLI"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "8 min read"
+      },
+      {
+        "tag": "span",
+        "fontSize": "12px",
+        "sample": "8 min read"
+      }
+    ]
+  }
+]

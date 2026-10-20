@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, lazy, Suspense } from 'react';
 import { Navbar } from './components/Navbar';
 import { HeroContent } from './components/HeroContent';
 import { MockupSection } from './components/MockupSection';
@@ -6,27 +6,37 @@ import { IncludedSection } from './components/IncludedSection';
 import { HomepagesSection } from './components/HomepagesSection';
 import { CtaBanner } from './components/CtaBanner';
 import { Footer } from './components/Footer';
-import { PricingPage } from './components/pricing/PricingPage';
-import { AboutPage } from './components/about/AboutPage';
+
+// Lazy-loaded routes for performance & code-splitting
+const PricingPage = lazy(() => import('./components/pricing/PricingPage').then((m) => ({ default: m.PricingPage })));
+const AboutPage = lazy(() => import('./components/about/AboutPage').then((m) => ({ default: m.AboutPage })));
 
 // 7 Product Pages
-import { AttackSurfaceMappingPage } from './components/pages/AttackSurfaceMappingPage';
-import { ThreatIntelligencePage } from './components/pages/ThreatIntelligencePage';
-import { AutomatedFootprintingPage } from './components/pages/AutomatedFootprintingPage';
-import { ModulesPage } from './components/pages/ModulesPage';
-import { CustomModulesSdkPage } from './components/pages/CustomModulesSdkPage';
-import { GettingStartedPage } from './components/pages/GettingStartedPage';
-import { RestApiCliPage } from './components/pages/RestApiCliPage';
+const AttackSurfaceMappingPage = lazy(() => import('./components/pages/AttackSurfaceMappingPage').then((m) => ({ default: m.AttackSurfaceMappingPage })));
+const ThreatIntelligencePage = lazy(() => import('./components/pages/ThreatIntelligencePage').then((m) => ({ default: m.ThreatIntelligencePage })));
+const AutomatedFootprintingPage = lazy(() => import('./components/pages/AutomatedFootprintingPage').then((m) => ({ default: m.AutomatedFootprintingPage })));
+const ModulesPage = lazy(() => import('./components/pages/ModulesPage').then((m) => ({ default: m.ModulesPage })));
+const CustomModulesSdkPage = lazy(() => import('./components/pages/CustomModulesSdkPage').then((m) => ({ default: m.CustomModulesSdkPage })));
+const GettingStartedPage = lazy(() => import('./components/pages/GettingStartedPage').then((m) => ({ default: m.GettingStartedPage })));
+const RestApiCliPage = lazy(() => import('./components/pages/RestApiCliPage').then((m) => ({ default: m.RestApiCliPage })));
 
 // Checkout, Admin & Legal Pages
-import { AdminPanel } from './components/admin/AdminPanel';
-import { RecoveryPage } from './components/checkout/RecoveryPage';
-import { OrderStatusPage } from './components/checkout/OrderStatusPage';
-import { InvoiceView } from './components/checkout/InvoiceView';
-import { TermsPage } from './components/legal/TermsPage';
-import { PrivacyPage } from './components/legal/PrivacyPage';
-import { RefundPage } from './components/legal/RefundPage';
-import { LicensePage } from './components/legal/LicensePage';
+const AdminPanel = lazy(() => import('./components/admin/AdminPanel').then((m) => ({ default: m.AdminPanel })));
+const RecoveryPage = lazy(() => import('./components/checkout/RecoveryPage').then((m) => ({ default: m.RecoveryPage })));
+const OrderStatusPage = lazy(() => import('./components/checkout/OrderStatusPage').then((m) => ({ default: m.OrderStatusPage })));
+const InvoiceView = lazy(() => import('./components/checkout/InvoiceView').then((m) => ({ default: m.InvoiceView })));
+const TermsPage = lazy(() => import('./components/legal/TermsPage').then((m) => ({ default: m.TermsPage })));
+const PrivacyPage = lazy(() => import('./components/legal/PrivacyPage').then((m) => ({ default: m.PrivacyPage })));
+const RefundPage = lazy(() => import('./components/legal/RefundPage').then((m) => ({ default: m.RefundPage })));
+const LicensePage = lazy(() => import('./components/legal/LicensePage').then((m) => ({ default: m.LicensePage })));
+
+function RouteLoader() {
+  return (
+    <div className="min-h-screen bg-white flex items-center justify-center" aria-label="Loading page">
+      <div className="w-8 h-8 rounded-full border-2 border-[#4F8FF7] border-t-transparent animate-spin" />
+    </div>
+  );
+}
 
 function normalizePath(rawPath: string): string {
   const clean = rawPath.toLowerCase().replace(/\/+$/, '') || '/';
@@ -206,26 +216,50 @@ export function App() {
 
   // Admin Panel
   if (currentPath === '/admin') {
-    return <AdminPanel />;
+    return (
+      <Suspense fallback={<RouteLoader />}>
+        <AdminPanel />
+      </Suspense>
+    );
   }
 
   // Recovery Portal ("Get My Files")
   if (currentPath === '/recover' || currentPath === '/download') {
-    return <RecoveryPage />;
+    return (
+      <Suspense fallback={<RouteLoader />}>
+        <RecoveryPage />
+      </Suspense>
+    );
   }
 
   // Legal Pages
   if (currentPath === '/terms') {
-    return <TermsPage />;
+    return (
+      <Suspense fallback={<RouteLoader />}>
+        <TermsPage />
+      </Suspense>
+    );
   }
   if (currentPath === '/privacy') {
-    return <PrivacyPage />;
+    return (
+      <Suspense fallback={<RouteLoader />}>
+        <PrivacyPage />
+      </Suspense>
+    );
   }
   if (currentPath === '/refund') {
-    return <RefundPage />;
+    return (
+      <Suspense fallback={<RouteLoader />}>
+        <RefundPage />
+      </Suspense>
+    );
   }
   if (currentPath === '/license') {
-    return <LicensePage />;
+    return (
+      <Suspense fallback={<RouteLoader />}>
+        <LicensePage />
+      </Suspense>
+    );
   }
 
   // Order Details & Invoice Routes
@@ -234,54 +268,98 @@ export function App() {
     // e.g. /orders/SPIDY-7K3Q9 or /orders/SPIDY-7K3Q9/invoice
     const reference = parts[2]?.toUpperCase();
     if (parts[3] === 'invoice') {
-      return <InvoiceView reference={reference} />;
+      return (
+        <Suspense fallback={<RouteLoader />}>
+          <InvoiceView reference={reference} />
+        </Suspense>
+      );
     }
-    return <OrderStatusPage reference={reference} />;
+    return (
+      <Suspense fallback={<RouteLoader />}>
+        <OrderStatusPage reference={reference} />
+      </Suspense>
+    );
   }
 
   // Route 1: Attack Surface Mapping
   if (currentPath === '/features/attack-surface-mapping') {
-    return <AttackSurfaceMappingPage />;
+    return (
+      <Suspense fallback={<RouteLoader />}>
+        <AttackSurfaceMappingPage />
+      </Suspense>
+    );
   }
 
   // Route 2: Threat Intelligence
   if (currentPath === '/features/threat-intelligence') {
-    return <ThreatIntelligencePage />;
+    return (
+      <Suspense fallback={<RouteLoader />}>
+        <ThreatIntelligencePage />
+      </Suspense>
+    );
   }
 
   // Route 3: Automated Footprinting
   if (currentPath === '/features/automated-footprinting') {
-    return <AutomatedFootprintingPage />;
+    return (
+      <Suspense fallback={<RouteLoader />}>
+        <AutomatedFootprintingPage />
+      </Suspense>
+    );
   }
 
   // Route 4: All 233 Modules
   if (currentPath === '/modules') {
-    return <ModulesPage />;
+    return (
+      <Suspense fallback={<RouteLoader />}>
+        <ModulesPage />
+      </Suspense>
+    );
   }
 
   // Route 5: Custom Modules & SDK
   if (currentPath === '/modules/custom-sdk') {
-    return <CustomModulesSdkPage />;
+    return (
+      <Suspense fallback={<RouteLoader />}>
+        <CustomModulesSdkPage />
+      </Suspense>
+    );
   }
 
   // Route 6: Getting Started Guide
   if (currentPath === '/docs/getting-started') {
-    return <GettingStartedPage />;
+    return (
+      <Suspense fallback={<RouteLoader />}>
+        <GettingStartedPage />
+      </Suspense>
+    );
   }
 
   // Route 7: REST API & CLI
   if (currentPath === '/docs/rest-api-cli') {
-    return <RestApiCliPage />;
+    return (
+      <Suspense fallback={<RouteLoader />}>
+        <RestApiCliPage />
+      </Suspense>
+    );
   }
 
   // Pricing Page
   if (currentPath === '/pricing') {
-    return <PricingPage />;
+    return (
+      <Suspense fallback={<RouteLoader />}>
+        <PricingPage />
+      </Suspense>
+    );
   }
 
   // About Page
   if (currentPath === '/about') {
-    return <AboutPage />;
+    return (
+      <Suspense fallback={<RouteLoader />}>
+        <AboutPage />
+      </Suspense>
+    );
   }
 
   // Default Home Page

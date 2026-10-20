@@ -163,7 +163,7 @@ export const PlanCard = ({ plan, index, isSelected, onSelect }: PlanCardProps) =
               }
         }
         transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] as const }}
-        className={`relative w-full min-h-[580px] bg-white rounded-[24px] border transition-all duration-300 p-8 flex flex-col justify-between overflow-hidden cursor-pointer select-none ${
+        className={`relative w-full min-h-[540px] sm:min-h-[580px] bg-white rounded-[24px] border transition-all duration-300 p-6 sm:p-8 flex flex-col justify-between overflow-hidden cursor-pointer select-none ${
           isSelected
             ? 'border-[#4F8FF7] ring-2 ring-[#4F8FF7] shadow-[0_24px_70px_rgba(79,143,247,0.18)]'
             : 'border-black/[0.04] shadow-[0_20px_60px_rgba(20,30,60,0.08)]'

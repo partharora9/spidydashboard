@@ -204,87 +204,151 @@ export const ModuleTable = () => {
             </button>
           </div>
         ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse">
-              <thead>
-                <tr className="bg-[#F8F9FD] border-b border-black/[0.06] text-[12px] font-mono uppercase tracking-wider text-gray-500">
-                  <th className="py-4 px-6">Module Name</th>
-                  <th className="py-4 px-6">Category</th>
-                  <th className="py-4 px-6">Data Source / URL</th>
-                  <th className="py-4 px-6 text-center">API Key Required</th>
-                  <th className="py-4 px-6 text-right">Module File</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-black/[0.04] text-[14px] font-sans">
-                {pagedItems.map((m) => (
-                  <tr key={m.id} className="hover:bg-[#F8F9FD]/60 transition-colors">
-                    {/* Module Name + Description */}
-                    <td className="py-4 px-6 max-w-[320px]">
-                      <div className="flex items-center gap-2">
-                        <span className="font-headline font-semibold text-[15px] text-[#0B0B14]">
+          <>
+            {/* MOBILE CARDS VIEW (< 768px) */}
+            <div className="md:hidden divide-y divide-black/[0.06]">
+              {pagedItems.map((m) => (
+                <div key={m.id} className="p-4 space-y-3 bg-white hover:bg-gray-50/70 transition-colors">
+                  <div className="flex items-start justify-between gap-2">
+                    <div>
+                      <div className="flex items-center gap-1.5 flex-wrap">
+                        <span className="font-headline font-semibold text-[16px] text-[#0B0B14]">
                           <Highlight text={m.name} query={searchQuery} />
                         </span>
                         {m.isPopular && (
-                          <span className="px-1.5 py-0.5 rounded bg-amber-100 text-amber-800 font-mono text-[10px] font-semibold">
+                          <span className="px-1.5 py-0.5 rounded bg-amber-100 text-amber-800 font-mono text-[9px] font-bold">
                             POPULAR
                           </span>
                         )}
                       </div>
-                      <p className="mt-1 text-[13px] text-gray-500 line-clamp-2 leading-relaxed">
-                        <Highlight text={m.description} query={searchQuery} />
-                      </p>
-                    </td>
-
-                    {/* Category */}
-                    <td className="py-4 px-6 whitespace-nowrap">
-                      <span className="px-2.5 py-1 rounded-full bg-[#F5F5F7] text-[#0B0B14] text-[12px] font-medium">
+                      <span className="inline-block mt-1 px-2.5 py-0.5 rounded-full bg-[#F5F5F7] text-[#0B0B14] text-[11px] font-medium">
                         {m.category}
                       </span>
-                    </td>
+                    </div>
 
-                    {/* Base URL */}
-                    <td className="py-4 px-6 whitespace-nowrap">
-                      {m.baseUrl ? (
-                        <a
-                          href={m.baseUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 text-[#4F8FF7] hover:underline font-mono text-[13px]"
-                        >
-                          <span>{m.baseUrl.replace(/^https?:\/\//, '').replace(/\/.*$/, '')}</span>
-                          <ExternalLink className="w-3 h-3" />
-                        </a>
-                      ) : (
-                        <span className="text-gray-400 font-mono text-[12px]">Internal / Engine</span>
-                      )}
-                    </td>
+                    {m.needsKey ? (
+                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-amber-50 border border-amber-200 text-amber-800 text-[10px] font-mono font-medium shrink-0">
+                        <Key className="w-3 h-3 text-amber-600" />
+                        <span>Key Required</span>
+                      </span>
+                    ) : (
+                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-[10px] font-mono font-medium shrink-0">
+                        <Shield className="w-3 h-3 text-emerald-600" />
+                        <span>Free</span>
+                      </span>
+                    )}
+                  </div>
 
-                    {/* Key Requirement */}
-                    <td className="py-4 px-6 text-center whitespace-nowrap">
-                      {m.needsKey ? (
-                        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-50 border border-amber-200 text-amber-800 text-[11px] font-mono font-medium">
-                          <Key className="w-3 h-3 text-amber-600" />
-                          <span>Key Required</span>
-                        </span>
-                      ) : (
-                        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-[11px] font-mono font-medium">
-                          <Shield className="w-3 h-3 text-emerald-600" />
-                          <span>Free / Public</span>
-                        </span>
-                      )}
-                    </td>
+                  <p className="text-[13px] text-gray-600 leading-relaxed line-clamp-3">
+                    <Highlight text={m.description} query={searchQuery} />
+                  </p>
 
-                    {/* Module File */}
-                    <td className="py-4 px-6 text-right whitespace-nowrap">
-                      <code className="px-2 py-1 rounded bg-[#0B0F19] text-[#38BDF8] font-mono text-[12px]">
-                        {m.id}.py
-                      </code>
-                    </td>
+                  <div className="flex items-center justify-between pt-1 text-[12px] font-mono">
+                    {m.baseUrl ? (
+                      <a
+                        href={m.baseUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 text-[#4F8FF7] hover:underline truncate max-w-[180px]"
+                      >
+                        <span className="truncate">{m.baseUrl.replace(/^https?:\/\//, '').replace(/\/.*$/, '')}</span>
+                        <ExternalLink className="w-3 h-3 shrink-0" />
+                      </a>
+                    ) : (
+                      <span className="text-gray-400">Internal Engine</span>
+                    )}
+
+                    <code className="px-2 py-0.5 rounded bg-[#0B0F19] text-[#38BDF8] text-[11px]">
+                      {m.id}.py
+                    </code>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* DESKTOP TABLE VIEW (>= 768px) */}
+            <div className="hidden md:block overflow-x-auto">
+              <table className="w-full text-left border-collapse">
+                <thead>
+                  <tr className="bg-[#F8F9FD] border-b border-black/[0.06] text-[12px] font-mono uppercase tracking-wider text-gray-500">
+                    <th className="py-4 px-6">Module Name</th>
+                    <th className="py-4 px-6">Category</th>
+                    <th className="py-4 px-6">Data Source / URL</th>
+                    <th className="py-4 px-6 text-center">API Key Required</th>
+                    <th className="py-4 px-6 text-right">Module File</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+                </thead>
+                <tbody className="divide-y divide-black/[0.04] text-[14px] font-sans">
+                  {pagedItems.map((m) => (
+                    <tr key={m.id} className="hover:bg-[#F8F9FD]/60 transition-colors">
+                      {/* Module Name + Description */}
+                      <td className="py-4 px-6 max-w-[320px]">
+                        <div className="flex items-center gap-2">
+                          <span className="font-headline font-semibold text-[15px] text-[#0B0B14]">
+                            <Highlight text={m.name} query={searchQuery} />
+                          </span>
+                          {m.isPopular && (
+                            <span className="px-1.5 py-0.5 rounded bg-amber-100 text-amber-800 font-mono text-[10px] font-semibold">
+                              POPULAR
+                            </span>
+                          )}
+                        </div>
+                        <p className="mt-1 text-[13px] text-gray-500 line-clamp-2 leading-relaxed">
+                          <Highlight text={m.description} query={searchQuery} />
+                        </p>
+                      </td>
+
+                      {/* Category */}
+                      <td className="py-4 px-6 whitespace-nowrap">
+                        <span className="px-2.5 py-1 rounded-full bg-[#F5F5F7] text-[#0B0B14] text-[12px] font-medium">
+                          {m.category}
+                        </span>
+                      </td>
+
+                      {/* Base URL */}
+                      <td className="py-4 px-6 whitespace-nowrap">
+                        {m.baseUrl ? (
+                          <a
+                            href={m.baseUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1 text-[#4F8FF7] hover:underline font-mono text-[13px]"
+                          >
+                            <span>{m.baseUrl.replace(/^https?:\/\//, '').replace(/\/.*$/, '')}</span>
+                            <ExternalLink className="w-3 h-3" />
+                          </a>
+                        ) : (
+                          <span className="text-gray-400 font-mono text-[12px]">Internal / Engine</span>
+                        )}
+                      </td>
+
+                      {/* Key Requirement */}
+                      <td className="py-4 px-6 text-center whitespace-nowrap">
+                        {m.needsKey ? (
+                          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-50 border border-amber-200 text-amber-800 text-[11px] font-mono font-medium">
+                            <Key className="w-3 h-3 text-amber-600" />
+                            <span>Key Required</span>
+                          </span>
+                        ) : (
+                          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-[11px] font-mono font-medium">
+                            <Shield className="w-3 h-3 text-emerald-600" />
+                            <span>Free / Public</span>
+                          </span>
+                        )}
+                      </td>
+
+                      {/* Module File */}
+                      <td className="py-4 px-6 text-right whitespace-nowrap">
+                        <code className="px-2 py-1 rounded bg-[#0B0F19] text-[#38BDF8] font-mono text-[12px]">
+                          {m.id}.py
+                        </code>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </>
         )}
 
         {/* Pagination Footer */}

@@ -47,5 +47,9 @@ Thumbs.db
 *.ntvs*
 *.njsproj
 *.sln
-*.sw?
 *.bak
+
+# Testing
+test-results/
+playwright-report/
+blob-report/

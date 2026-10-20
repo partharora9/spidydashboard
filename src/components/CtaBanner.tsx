@@ -141,7 +141,7 @@ export const CtaBanner = () => {
   };
 
   return (
-    <section className="w-full bg-white relative py-[120px] px-6 overflow-hidden">
+    <section className="w-full bg-white relative py-12 sm:py-[120px] px-4 sm:px-6 overflow-hidden">
       <motion.div
         ref={bannerRef}
         variants={containerVariants}
@@ -151,7 +151,7 @@ export const CtaBanner = () => {
         onMouseMove={handleBannerMouseMove}
         onMouseEnter={handleBannerMouseEnter}
         onMouseLeave={handleBannerMouseLeave}
-        className="relative max-w-[1200px] w-full min-h-[420px] md:h-[480px] mx-auto rounded-[24px] overflow-hidden flex flex-col items-center justify-center text-center px-6 py-12 md:px-12 select-none"
+        className="relative max-w-[1200px] w-full h-auto py-[56px] px-6 sm:py-12 sm:px-12 md:h-[480px] mx-auto rounded-[20px] md:rounded-[24px] overflow-hidden flex flex-col items-center justify-center text-center select-none"
         style={{
           background:
             'linear-gradient(180deg, #D8F6FF 0%, #CDE7FF 42%, #5B9BFA 100%)',
@@ -288,8 +288,8 @@ export const CtaBanner = () => {
 
         {/* Content Wrapper (Centered, z-10, overflow-visible) */}
         <div className="relative z-10 max-w-[760px] flex flex-col items-center justify-center overflow-visible">
-          {/* H2: 2 lines, line-height 1.18, 0.1em bottom padding, no clipping on "SpidyDashboard" (y), "power" (p), "scanning" (g) */}
-          <h2 className="font-headline font-semibold text-[36px] sm:text-[48px] lg:text-[64px] leading-[1.18] pb-[0.1em] tracking-[-0.04em] text-[#0B0B14] overflow-visible">
+          {/* H2: clamp(30px, 8vw, 60px) */}
+          <h2 className="font-headline font-semibold text-[30px] sm:text-[48px] lg:text-[60px] leading-[1.15] pb-[0.1em] tracking-[-0.04em] text-[#0B0B14] overflow-visible text-center">
             {/* Line 1 */}
             <span
               className={`block pt-[0.12em] px-[0.08em] pb-[0.32em] -mt-[0.12em] -mx-[0.08em] -mb-[0.32em] ${
@@ -341,7 +341,7 @@ export const CtaBanner = () => {
             </span>
           </h2>
 
-          {/* Paragraph: 18px, line-height 1.5, pb 0.2em, max-width ~520px, margin-top 24px */}
+          {/* Paragraph: 16px, line-height 1.6 */}
           <motion.p
             initial={{ opacity: 0, y: prefersReduced ? 0 : 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -351,7 +351,7 @@ export const CtaBanner = () => {
               delay: 0.4,
               ease: [0.22, 1, 0.36, 1] as const,
             }}
-            className="mt-6 text-[16px] sm:text-[18px] leading-[1.5] text-[#111111]/90 max-w-[520px] pb-[0.2em] overflow-visible"
+            className="mt-5 text-[16px] leading-[26px] text-[#111111]/90 max-w-[520px] pb-[0.2em] overflow-visible text-center"
           >
             Automate reconnaissance, uncover exposed assets and stay ahead of threats.
           </motion.p>
