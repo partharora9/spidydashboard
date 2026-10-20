@@ -11,31 +11,7 @@
   ],
   "rewrites": [
     {
-      "source": "/api/request",
-      "destination": "/api/request"
-    },
-    {
-      "source": "/api/inquiry",
-      "destination": "/api/inquiry"
-    },
-    {
-      "source": "/api/webhooks/resend",
-      "destination": "/api/webhooks/resend"
-    },
-    {
-      "source": "/api/cron/retry-emails",
-      "destination": "/api/cron/retry-emails"
-    },
-    {
-      "source": "/api/admin/emails",
-      "destination": "/api/admin/emails"
-    },
-    {
-      "source": "/api/health",
-      "destination": "/api/health"
-    },
-    {
-      "source": "/(.*)",
+      "source": "/((?!api/).*)",
       "destination": "/index.html"
     }
   ]
