@@ -45,7 +45,7 @@ function normalizePath(rawPath: string): string {
 
 const PAGE_TITLES: Record<string, string> = {
   '/': 'SpidyDashboard | OSINT & Attack Surface Reconnaissance Dashboard',
-  '/pricing': 'Pricing & Source Code | SpidyDashboard Standard & Complete Kit',
+  '/pricing': 'Pricing | SpidyDashboard, Student Edition (₹999)',
   '/about': 'About SpidyDashboard | Built for Modern Security Operations',
   '/features/attack-surface-mapping': 'Attack Surface Mapping | Discover Exposed Assets & Subdomains',
   '/features/threat-intelligence': 'Threat Intelligence | Correlate Findings from 200+ Sources',

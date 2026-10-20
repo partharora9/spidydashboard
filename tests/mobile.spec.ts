@@ -168,8 +168,8 @@ test.describe('Mobile Responsiveness & Layout Quality Suite', () => {
       }
     }
 
-    // Verify parthxcore@gmail.com is rendered in its own dedicated contact section
-    const emailLink = footer.locator('a[href^="mailto:parthxcore@gmail.com"]').first();
+    // Verify dedicated domain email contact link is rendered
+    const emailLink = footer.locator('a[href^="mailto:hello@spidydashboard.com"]').first();
     await expect(emailLink).toBeVisible();
   });
 

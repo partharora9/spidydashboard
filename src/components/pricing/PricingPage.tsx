@@ -3,27 +3,27 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Navbar } from '../Navbar';
 import { PricingHero } from './PricingHero';
 import { PlanCards } from './PlanCards';
-import { ComparisonTable } from './ComparisonTable';
 import { FaqSection } from './FaqSection';
 import { CtaBanner } from '../CtaBanner';
 import { Footer } from '../Footer';
-import { Mail } from 'lucide-react';
+import { ShoppingCart } from 'lucide-react';
 import { plansData, type Plan } from '../../data/plans';
-import { paymentLinks } from '../../config/paymentLinks';
+import { CheckoutModal } from '../checkout/CheckoutModal';
+import { PRICE, PLAN_NAME, FORMATTED_PRICE } from '../../config/pricing';
 
 export const PricingPage = () => {
-  const [selectedPlan, setSelectedPlan] = useState<Plan>(plansData[0]);
+  const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
+  const selectedPlan: Plan = plansData[0];
   const [showMobileBuyBar, setShowMobileBuyBar] = useState(false);
   const cardsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    document.title = 'Pricing — SpidyDashboard | One-Time Source Code Purchase';
+    document.title = 'Pricing — SpidyDashboard, Student Edition (₹999)';
 
     // Track scroll position to show sticky mobile buy bar when cards scroll past
     const handleScroll = () => {
       if (!cardsRef.current) return;
       const rect = cardsRef.current.getBoundingClientRect();
-      // On mobile screens, when cards section is scrolled past viewport top
       if (window.innerWidth < 640 && rect.bottom < 100) {
         setShowMobileBuyBar(true);
       } else {
@@ -42,9 +42,9 @@ export const PricingPage = () => {
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Product',
-    name: 'SpidyDashboard OSINT Source Code',
+    name: PLAN_NAME,
     description:
-      'SpidyDashboard automates open source intelligence gathering across 200+ modules and attack surfaces. One-time purchase with instant source code download.',
+      'SpidyDashboard Student Edition. Standalone Windows installer, setup guide, walkthrough video, and academic project pack with report, PPT, and viva Q&A.',
     brand: {
       '@type': 'Brand',
       name: 'SpidyDashboard',
@@ -52,19 +52,10 @@ export const PricingPage = () => {
     offers: [
       {
         '@type': 'Offer',
-        name: 'Standard Plan',
-        price: '499',
+        name: PLAN_NAME,
+        price: String(PRICE),
         priceCurrency: 'INR',
         availability: 'https://schema.org/InStock',
-        url: paymentLinks.standard,
-      },
-      {
-        '@type': 'Offer',
-        name: 'Complete Kit Plan',
-        price: '799',
-        priceCurrency: 'INR',
-        availability: 'https://schema.org/InStock',
-        url: paymentLinks.complete,
       },
     ],
   };
@@ -77,30 +68,27 @@ export const PricingPage = () => {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      {/* Reused SpidyDashboard Navigation Bar */}
+      {/* Navigation Bar */}
       <Navbar />
 
-      {/* Main Content Container without clipping */}
+      {/* Main Content Container */}
       <main className="relative flex flex-col items-center justify-start overflow-visible w-full">
-        {/* SECTION 1: Pricing Hero + Centered Plan Cards */}
+        {/* SECTION 1: Pricing Hero + Centered Single Student Edition Card */}
         <PricingHero />
 
         <div ref={cardsRef} className="w-full overflow-visible">
           <PlanCards
-            onPlanChange={(plan) => setSelectedPlan(plan)}
+            onCheckout={() => setIsCheckoutOpen(true)}
           />
         </div>
 
-        {/* SECTION 2: Feature Comparison Table with #F5F5F5 highlight column */}
-        <ComparisonTable />
-
-        {/* SECTION 3: FAQ Accordion with 2-column layout and speech bubbles */}
+        {/* SECTION 2: FAQ Accordion with clean answers */}
         <FaqSection />
 
-        {/* Reused SpidyDashboard CTA Banner */}
+        {/* CTA Banner */}
         <CtaBanner />
 
-        {/* Reused SpidyDashboard Footer */}
+        {/* Footer */}
         <Footer />
       </main>
 
@@ -117,23 +105,33 @@ export const PricingPage = () => {
           >
             <div className="flex flex-col min-w-0 shrink">
               <span className="font-sans text-[11px] text-[#555555] uppercase tracking-wider">
-                Selected Plan
+                Student Edition
               </span>
               <span className="font-headline font-semibold text-[15px] text-[#0B0B14] truncate">
-                {selectedPlan.name} • {selectedPlan.formattedPrice}
+                {FORMATTED_PRICE} &bull; One-time
               </span>
             </div>
 
-            <a
-              href={`mailto:parthxcore@gmail.com?subject=Inquiry to Buy SpidyDashboard ${selectedPlan.name} (${selectedPlan.formattedPrice})&body=Hi Parth,%0D%0A%0D%0AI would like to purchase SpidyDashboard ${selectedPlan.name} (${selectedPlan.formattedPrice}). Please share the payment and access details.%0D%0A%0D%0AThank you!`}
-              className="min-h-[44px] px-4 rounded-full bg-[#4F8FF7] hover:bg-[#3E82EE] text-white font-sans text-[13px] font-semibold flex items-center justify-center gap-1.5 shadow-[0_4px_14px_rgba(79,143,247,0.3)] active:scale-95 transition-transform cursor-pointer shrink-0"
+            <button
+              type="button"
+              onClick={() => setIsCheckoutOpen(true)}
+              className="min-h-[44px] px-5 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-sans text-[14px] font-semibold flex items-center justify-center gap-1.5 shadow-[0_4px_14px_rgba(37,99,235,0.3)] active:scale-95 transition-transform cursor-pointer shrink-0"
             >
-              <Mail className="w-4 h-4 shrink-0" />
-              <span>Buy now</span>
-            </a>
+              <ShoppingCart className="w-4 h-4 shrink-0" />
+              <span>Buy Now</span>
+            </button>
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Checkout Modal */}
+      {isCheckoutOpen && (
+        <CheckoutModal
+          isOpen={isCheckoutOpen}
+          onClose={() => setIsCheckoutOpen(false)}
+          plan={selectedPlan}
+        />
+      )}
     </div>
   );
 };

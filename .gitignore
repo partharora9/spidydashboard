@@ -20,6 +20,7 @@ out
 .env.production.local
 *.env
 !.env.example
+.spidy_requests_cache.json
 
 # Logs
 logs

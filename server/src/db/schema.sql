@@ -9,13 +9,15 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 CREATE TABLE IF NOT EXISTS orders (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     reference VARCHAR(16) UNIQUE NOT NULL,                 -- e.g. 'SPIDY-7K3Q9'
-    plan VARCHAR(32) NOT NULL,                             -- 'standard' | 'complete'
-    base_amount_cents INTEGER NOT NULL,                    -- 49900 or 79900 (paise)
-    paise_offset INTEGER NOT NULL DEFAULT 0,               -- 0 to 99 paise for unique matching
-    total_amount_cents INTEGER NOT NULL,                   -- base_amount_cents + paise_offset
+    plan VARCHAR(32) NOT NULL DEFAULT 'student_edition',   -- 'student_edition'
+    base_amount_cents INTEGER NOT NULL DEFAULT 99900,      -- 99900 (paise = Rs 999)
+    paise_offset INTEGER NOT NULL DEFAULT 0,               -- paise offset for exact matching
+    total_amount_cents INTEGER NOT NULL DEFAULT 99900,     -- base_amount_cents + paise_offset
     currency VARCHAR(8) NOT NULL DEFAULT 'INR',
     buyer_email VARCHAR(255) NOT NULL,
     buyer_name VARCHAR(255),
+    buyer_phone VARCHAR(32),
+    buyer_college VARCHAR(255),
     consent_given BOOLEAN NOT NULL DEFAULT true,
     consent_timestamp TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     privacy_policy_version VARCHAR(16) NOT NULL DEFAULT 'v1.0',
@@ -36,15 +38,16 @@ CREATE INDEX IF NOT EXISTS idx_orders_buyer_email ON orders(buyer_email);
 CREATE INDEX IF NOT EXISTS idx_orders_amount_status ON orders(total_amount_cents, status);
 
 -- 2. PAYMENTS TABLE
--- Stores UTR submissions, receipt references, and verification timestamps.
+-- Stores UTR submissions, receipt references, screenshot data, and verification timestamps.
 CREATE TABLE IF NOT EXISTS payments (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     order_id UUID NOT NULL REFERENCES orders(id) ON DELETE CASCADE,
     provider VARCHAR(32) NOT NULL DEFAULT 'manual_upi',
-    utr VARCHAR(32),                                       -- 12-digit bank reference
+    utr VARCHAR(32),                                       -- 12-digit bank reference (unique)
     utr_submitted_at TIMESTAMPTZ,
     receipt_key TEXT,                                      -- Private bucket key for uploaded screenshot
     receipt_mime_type VARCHAR(64),
+    screenshot_data TEXT,                                  -- Base64 encoded screenshot data
     is_verified BOOLEAN NOT NULL DEFAULT false,
     verified_at TIMESTAMPTZ,
     verified_by VARCHAR(128)

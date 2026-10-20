@@ -13,6 +13,7 @@ import {
   Video,
   Sparkles,
 } from 'lucide-react';
+import { PLAN_NAME, FORMATTED_PRICE } from '../../config/pricing';
 
 interface OrderStatusPageProps {
   reference: string;
@@ -59,7 +60,7 @@ export const OrderStatusPage = ({ reference }: OrderStatusPageProps) => {
       <main className="max-w-[720px] mx-auto px-6 pt-[calc(var(--header-h)+env(safe-area-inset-top,0px)+24px)] lg:pt-[calc(var(--header-h)+64px)] pb-16 sm:pb-24 w-full">
         {loading ? (
           <div className="text-center py-20">
-            <div className="w-10 h-10 border-2 border-[#4F8FF7] border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+            <div className="w-10 h-10 border-2 border-[#2563EB] border-t-transparent rounded-full animate-spin mx-auto mb-4" />
             <p className="text-gray-500 font-mono text-[14px]">Loading order status for {reference}...</p>
           </div>
         ) : error ? (
@@ -69,7 +70,7 @@ export const OrderStatusPage = ({ reference }: OrderStatusPageProps) => {
             <p className="text-gray-600 text-[14px]">{error}</p>
             <a
               href="/pricing"
-              className="inline-block py-2.5 px-6 rounded-full bg-[#4F8FF7] text-white text-[14px] font-semibold"
+              className="inline-block py-2.5 px-6 rounded-full bg-[#2563EB] text-white text-[14px] font-semibold"
             >
               Return to Pricing
             </a>
@@ -98,25 +99,30 @@ export const OrderStatusPage = ({ reference }: OrderStatusPageProps) => {
                       setCopiedRef(true);
                       setTimeout(() => setCopiedRef(false), 2000);
                     }}
-                    className="text-white/80 hover:text-white"
+                    className="p-1 rounded hover:bg-white/10 text-white/80 hover:text-white cursor-pointer"
+                    title="Copy Reference"
                   >
                     {copiedRef ? <Check className="w-4 h-4 text-emerald-300" /> : <Copy className="w-4 h-4" />}
                   </button>
                 </div>
               </div>
 
-              <h1 className="text-[26px] sm:text-[32px] font-bold leading-tight">
-                {order.status === 'approved' && 'Payment Verified & Approved'}
-                {order.status === 'pending_verification' && 'Awaiting Bank Statement Verification'}
-                {order.status === 'created' && 'Order Created — Awaiting Payment'}
-                {order.status === 'rejected' && 'Order Verification Rejected'}
-                {order.status === 'expired' && 'Order Session Expired'}
-              </h1>
+              <h2 className="text-[24px] sm:text-[28px] font-bold font-headline mb-2 capitalize">
+                {order.status === 'approved'
+                  ? 'Payment Verified & Approved'
+                  : order.status === 'pending_verification'
+                  ? 'Pending Manual Verification'
+                  : order.status === 'rejected'
+                  ? 'Order Verification Rejected'
+                  : order.status.replace('_', ' ')}
+              </h2>
 
-              <p className="mt-2 text-white/80 text-[14px]">
-                {order.status === 'approved' && 'Your software release and personal license are ready for download.'}
-                {order.status === 'pending_verification' &&
-                  'Your 12-digit UTR is being matched with bank statements. Typically completed within a few hours.'}
+              <p className="text-white/80 text-[14px] max-w-[500px]">
+                {order.status === 'approved'
+                  ? 'Your payment has been verified. You can now download your standalone Windows installer and study pack below.'
+                  : order.status === 'pending_verification'
+                  ? 'Your payment proof has been received and is undergoing bank statement verification.'
+                  : 'Order status update.'}
               </p>
             </div>
 
@@ -125,13 +131,13 @@ export const OrderStatusPage = ({ reference }: OrderStatusPageProps) => {
               <div className="grid grid-cols-2 gap-4 pb-6 border-b border-gray-100 text-[14px]">
                 <div>
                   <span className="text-gray-400 text-[12px] uppercase tracking-wider block font-medium">Plan</span>
-                  <span className="font-semibold text-gray-900 mt-1 block">{order.planName}</span>
+                  <span className="font-semibold text-gray-900 mt-1 block">{PLAN_NAME}</span>
                 </div>
                 <div>
                   <span className="text-gray-400 text-[12px] uppercase tracking-wider block font-medium">
                     Exact Amount Paid
                   </span>
-                  <span className="font-mono font-bold text-gray-900 mt-1 block">{order.amountFormatted}</span>
+                  <span className="font-mono font-bold text-gray-900 mt-1 block">{order.amountFormatted || FORMATTED_PRICE}</span>
                 </div>
                 <div>
                   <span className="text-gray-400 text-[12px] uppercase tracking-wider block font-medium">Created</span>
@@ -149,31 +155,17 @@ export const OrderStatusPage = ({ reference }: OrderStatusPageProps) => {
 
               {/* Status Specific Actions */}
               {order.status === 'approved' && (() => {
-                const isComplete = order.plan === 'complete';
                 const linksToDisplay: any[] = order.accessLinks || (order.accessUrl ? [{
-                  id: 'direct-mega',
-                  label: isComplete ? 'Complete Package Download' : 'MEGA Dashboard Repository Download',
+                  id: 'direct-installer',
+                  label: 'Windows Standalone Installer (Setup.exe)',
                   url: order.accessUrl,
-                  description: isComplete
-                    ? 'Complete kit archive download.'
-                    : 'Complete step-by-step setup guide, architecture documentation, and walkthrough video tour archive.',
-                  badge: 'Direct Download',
-                  iconType: 'mega',
+                  description: 'Standalone Windows Setup.exe desktop installer — runs with nothing extra to install.',
+                  badge: 'Installer',
+                  iconType: 'installer',
                 }] : []);
 
                 const copyAll = () => {
-                  const allText = isComplete
-                    ? `SpidyDashboard Complete Kit (₹799) Delivery Package:
-1. Google Drive Complete Kit (Source Code, IEEE Report, PPTX, Viva):
-${linksToDisplay[0]?.url || ''}
-
-2. Video Walkthrough & Architecture Tour:
-${linksToDisplay[1]?.url || ''}
-
-3. MEGA Repository Mirror:
-${linksToDisplay[2]?.url || ''}`
-                    : linksToDisplay[0]?.url || '';
-
+                  const allText = linksToDisplay.map((l: any, i: number) => `${i + 1}. ${l.label}:\n${l.url}`).join('\n\n');
                   navigator.clipboard.writeText(allText);
                   setCopiedAllLinks(true);
                   setTimeout(() => setCopiedAllLinks(false), 2000);
@@ -191,39 +183,32 @@ ${linksToDisplay[2]?.url || ''}`
                       </div>
                       <h3 className="font-bold text-[22px] text-emerald-950">Payment Verified & Approved!</h3>
                       <p className="text-[14px] text-emerald-800 max-w-[540px] mx-auto mt-1">
-                        {isComplete
-                          ? 'Your payment for SpidyDashboard Complete Kit (₹799) has been confirmed. You have unlocked immediate access to all source code, academic reports, viva defense questions, and video walkthroughs below.'
-                          : 'Your payment for SpidyDashboard Standard (₹499) has been confirmed. You have unlocked immediate dashboard repository access below.'}
+                        Your payment for {PLAN_NAME} has been confirmed. You have unlocked immediate access to your installer, video walkthrough, and academic defense pack below.
                       </p>
                     </div>
 
                     {/* Unlocked Delivery Cards */}
                     <div className="space-y-3.5 pt-1 text-left max-w-[580px] mx-auto">
-                      {linksToDisplay.map((linkItem, idx) => (
+                      {linksToDisplay.map((linkItem: any, idx: number) => (
                         <div
-                          key={linkItem.id}
+                          key={linkItem.label || idx}
                           className="p-4 rounded-xl bg-white border border-emerald-200/90 shadow-xs hover:border-emerald-300 transition-all space-y-3"
                         >
                           <div className="flex items-start justify-between gap-3">
                             <div className="flex items-center gap-2.5 min-w-0">
                               <div className="w-9 h-9 rounded-lg bg-emerald-50 text-emerald-700 flex items-center justify-center shrink-0">
-                                {linkItem.iconType === 'drive_folder' ? (
-                                  <Folder className="w-4 h-4 stroke-[2.2]" />
-                                ) : linkItem.iconType === 'video' ? (
+                                {linkItem.type === 'installer' ? (
+                                  <Download className="w-4 h-4 stroke-[2.2]" />
+                                ) : linkItem.type === 'video' ? (
                                   <Video className="w-4 h-4 stroke-[2.2]" />
                                 ) : (
-                                  <Download className="w-4 h-4 stroke-[2.2]" />
+                                  <Folder className="w-4 h-4 stroke-[2.2]" />
                                 )}
                               </div>
                               <div className="min-w-0">
-                                <div className="flex items-center gap-2">
-                                  <h4 className="font-bold text-[14px] text-gray-900 truncate">
-                                    {linkItem.label}
-                                  </h4>
-                                </div>
-                                <span className="inline-block text-[10.5px] font-bold tracking-wider uppercase text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full mt-0.5">
-                                  {linkItem.badge}
-                                </span>
+                                <h4 className="font-bold text-[14px] text-gray-900 truncate">
+                                  {linkItem.label}
+                                </h4>
                               </div>
                             </div>
                           </div>
@@ -273,7 +258,7 @@ ${linksToDisplay[2]?.url || ''}`
                         </div>
                       ))}
 
-                      {/* Copy All Button (for Complete kit multi-links) */}
+                      {/* Copy All Button */}
                       {linksToDisplay.length > 1 && (
                         <div className="pt-2 flex justify-center">
                           <button
@@ -284,12 +269,12 @@ ${linksToDisplay[2]?.url || ''}`
                             {copiedAllLinks ? (
                               <>
                                 <Check className="w-4 h-4 text-emerald-600" />
-                                <span>All 3 Delivery Links Copied!</span>
+                                <span>All Delivery Links Copied!</span>
                               </>
                             ) : (
                               <>
                                 <Copy className="w-4 h-4 text-emerald-700" />
-                                <span>Copy All Complete Kit Delivery Links</span>
+                                <span>Copy All Delivery Links</span>
                               </>
                             )}
                           </button>
@@ -301,19 +286,9 @@ ${linksToDisplay[2]?.url || ''}`
                     <div className="p-4 rounded-xl bg-white/80 border border-emerald-100 text-[12px] text-emerald-950 max-w-[580px] mx-auto text-left space-y-1.5">
                       <p className="font-bold text-emerald-950">📦 Package Contents & Quick Start:</p>
                       <ul className="text-emerald-800 list-disc list-inside space-y-0.5">
-                        {isComplete ? (
-                          <>
-                            <li>Access the Google Drive folder above to download the full source code, reports (PDF & DOCX), PPT, and viva defense Q&A.</li>
-                            <li>Watch the included video walkthrough for setup guidance and live reconnaissance demonstration.</li>
-                            <li>MEGA repository mirror is also available above for high-speed direct archive download.</li>
-                          </>
-                        ) : (
-                          <>
-                            <li>Click the open access button above to open the secure MEGA repository.</li>
-                            <li>Download and extract the archive to your machine.</li>
-                            <li>Refer to the included setup guide and video tour to get started.</li>
-                          </>
-                        )}
+                        <li>Download and run the standalone Windows Setup.exe installer (nothing extra to install).</li>
+                        <li>Review the included setup & usage guide PDF for step-by-step orientation.</li>
+                        <li>Explore the project report, presentation PPT, and viva Q&A pack for your academic submission.</li>
                       </ul>
                     </div>
                   </div>
@@ -327,12 +302,12 @@ ${linksToDisplay[2]?.url || ''}`
                     <span>Payment Recorded — Under Manual Verification</span>
                   </div>
                   <p className="leading-relaxed">
-                    Your 12-digit UTR has been submitted. Parth Arora (SOC Analyst) will manually verify this transaction against bank records.
+                    Your 12-digit UTR has been submitted. Parth Arora will manually verify this transaction against bank records.
                   </p>
 
                   <div className="pt-2 border-t border-blue-200/80 text-[12px] text-blue-800">
                     <p>
-                      🔒 To ensure licensing and protect package integrity, links are not provided before payment verification. Once your payment is verified, Parth Arora will provide your delivery links manually to your registered email.
+                      🔒 Links are not provided before payment verification. Once your payment is verified, delivery links will be sent directly to your registered email address.
                     </p>
                   </div>
                 </div>
@@ -344,7 +319,7 @@ ${linksToDisplay[2]?.url || ''}`
                   href={`/orders/${order.reference}/invoice`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 text-[13px] font-medium text-[#4F8FF7] hover:underline"
+                  className="inline-flex items-center gap-1.5 text-[13px] font-medium text-[#2563EB] hover:underline"
                 >
                   <FileText className="w-4 h-4" />
                   <span>View & Print Official Invoice</span>
@@ -366,3 +341,5 @@ ${linksToDisplay[2]?.url || ''}`
     </div>
   );
 };
+
+export default OrderStatusPage;

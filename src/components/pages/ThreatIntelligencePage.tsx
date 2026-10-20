@@ -149,7 +149,7 @@ export const ThreatIntelligencePage = () => {
             { label: 'Features' },
             { label: 'Threat Intelligence' },
           ]}
-          primaryCtaText="Get the source code"
+          primaryCtaText="Get Student Edition"
           primaryCtaHref="/pricing"
           secondaryCtaText="Watch correlation demo"
           onWatchWalkthrough={() => {

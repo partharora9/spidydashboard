@@ -92,14 +92,14 @@ export const Footer = () => {
             Direct Developer Contact:
           </span>
           <a
-            href="mailto:parthxcore@gmail.com"
+            href="mailto:hello@spidydashboard.com"
             onClick={(e) => {
               e.preventDefault();
               window.dispatchEvent(new CustomEvent('open-contact-modal'));
             }}
             className="text-[16px] font-medium text-[#0B0B14] hover:text-[#4F8FF7] transition-colors py-1.5 min-h-[44px] flex items-center break-words [overflow-wrap:anywhere]"
           >
-            parthxcore@gmail.com
+            hello@spidydashboard.com
           </a>
         </div>
 

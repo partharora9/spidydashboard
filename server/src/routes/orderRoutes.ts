@@ -1,7 +1,7 @@
 /**
  * Public Order Routes
- * POST /api/orders                 - Create order (server calculates price & paise offset)
- * POST /api/orders/:ref/utr        - Submit 12-digit UTR payment proof
+ * POST /api/orders                 - Create order (authoritative Rs 999 Student Edition price)
+ * POST /api/orders/:ref/utr        - Submit 12-digit UTR payment proof + optional screenshot
  * GET  /api/orders/:ref/status     - Poll order status
  * GET  /api/orders/:ref/invoice    - Render clean printable invoice
  */
@@ -10,7 +10,7 @@ import { Router, type Request, type Response } from 'express';
 import { z } from 'zod';
 import crypto from 'crypto';
 import { db } from '../db';
-import { SERVER_PLANS, getPlanOrThrow } from '../config/plans';
+import { SERVER_PLANS, PLAN_ID, BASE_PRICE_PAISE, getPlanOrThrow } from '../config/plans';
 import { PaiseAllocator } from '../services/paiseAllocator';
 import { manualUpiProvider } from '../services/payment/ManualUpiProvider';
 import { emailService, EmailTemplates } from '../services/email/EmailProvider';
@@ -22,11 +22,19 @@ const router = Router();
 
 // Zod schema for order creation
 const createOrderSchema = z.object({
-  plan: z.enum(['standard', 'complete']),
+  plan: z.string().optional().default(PLAN_ID),
   email: z.string().email('Please provide a valid email address for delivery.'),
-  name: z.string().max(100).optional(),
+  name: z.string().trim().min(2, 'Full name is required.').max(100),
+  phone: z
+    .string()
+    .trim()
+    .min(10, 'Phone number must be at least 10 digits.')
+    .max(15, 'Phone number cannot exceed 15 digits.'),
+  college: z.string().trim().min(2, 'College / University name is required.').max(150),
   consent: z.literal(true, {
-    errorMap: () => ({ message: 'You must accept the terms of service and acknowledge the strict no-refund policy to proceed.' }),
+    errorMap: () => ({
+      message: 'You must accept the terms of service and acknowledge the strict no-refund policy to proceed.',
+    }),
   }),
   marketingOptIn: z.boolean().optional().default(false),
   turnstileToken: z.string().optional(),
@@ -39,12 +47,13 @@ const submitUtrSchema = z.object({
     .trim()
     .regex(/^[0-9]{12}$/, 'UTR / Transaction ID must be exactly 12 numeric digits.'),
   email: z.string().email(),
+  screenshot: z.string().max(8000000, 'Screenshot image is too large (max 6MB).').optional(),
   turnstileToken: z.string().optional(),
 });
 
 /**
  * POST /api/orders
- * Initiates an order. The server is the SOLE authority for plan prices.
+ * Initiates an order. The server is the SOLE authority for plan prices (strictly Rs 999).
  */
 router.post('/orders', orderCreationLimiter, async (req: Request, res: Response) => {
   try {
@@ -56,7 +65,7 @@ router.post('/orders', orderCreationLimiter, async (req: Request, res: Response)
       });
     }
 
-    const { plan, email, name, consent, marketingOptIn, turnstileToken } = parseResult.data;
+    const { email, name, phone, college, consent, marketingOptIn, turnstileToken } = parseResult.data;
 
     // Verify Turnstile
     const clientIp =
@@ -66,13 +75,11 @@ router.post('/orders', orderCreationLimiter, async (req: Request, res: Response)
       return res.status(400).json({ error: 'Security verification (CAPTCHA) failed. Please try again.' });
     }
 
-    // Look up authoritative server plan price (in paise)
-    const planConfig = getPlanOrThrow(plan);
-    const basePriceCents = planConfig.basePriceCents;
-
-    // Allocate unique paise offset (e.g. 37 paise -> Rs 499.37)
-    const paiseOffset = PaiseAllocator.allocatePaiseOffset(plan, basePriceCents);
-    const totalAmountCents = basePriceCents + paiseOffset;
+    // Authoritative plan configuration: SpidyDashboard, Student Edition (Rs 999)
+    const planConfig = getPlanOrThrow(PLAN_ID);
+    const basePriceCents = BASE_PRICE_PAISE;
+    const paiseOffset = 0; // Exact amount Rs 999
+    const totalAmountCents = basePriceCents;
 
     // Generate short human-readable reference: SPIDY-7K3Q9
     const randomSuffix = crypto.randomBytes(3).toString('hex').toUpperCase();
@@ -80,16 +87,18 @@ router.post('/orders', orderCreationLimiter, async (req: Request, res: Response)
 
     const expiresAt = new Date(Date.now() + env.ORDER_EXPIRY_MINUTES * 60 * 1000).toISOString();
 
-    // Create order record
+    // Create order record with phone and college
     const order = db.createOrder({
       reference,
-      plan,
+      plan: PLAN_ID,
       base_amount_cents: basePriceCents,
       paise_offset: paiseOffset,
       total_amount_cents: totalAmountCents,
       currency: 'INR',
       buyer_email: email.toLowerCase().trim(),
-      buyer_name: name?.trim() || null,
+      buyer_name: name.trim(),
+      buyer_phone: phone.trim(),
+      buyer_college: college.trim(),
       consent_given: consent,
       consent_timestamp: new Date().toISOString(),
       privacy_policy_version: 'v1.0',
@@ -100,7 +109,7 @@ router.post('/orders', orderCreationLimiter, async (req: Request, res: Response)
       user_agent: req.headers['user-agent'] || null,
     });
 
-    // Generate UPI payment intent and QR code
+    // Generate UPI payment intent and QR code with exact amount Rs 999
     const paymentRequest = await manualUpiProvider.createPaymentRequest(order);
 
     return res.status(201).json({
@@ -108,8 +117,8 @@ router.post('/orders', orderCreationLimiter, async (req: Request, res: Response)
       reference: order.reference,
       plan: order.plan,
       planName: planConfig.name,
-      baseAmountFormatted: PaiseAllocator.formatAmountINR(basePriceCents),
-      exactAmountFormatted: paymentRequest.exactAmountFormatted,
+      baseAmountFormatted: '₹999',
+      exactAmountFormatted: '₹999',
       totalAmountCents: order.total_amount_cents,
       currency: order.currency,
       expiresAt: order.expires_at,
@@ -126,7 +135,7 @@ router.post('/orders', orderCreationLimiter, async (req: Request, res: Response)
 
 /**
  * POST /api/orders/:reference/utr
- * Buyer submits 12-digit UTR after paying in their UPI app.
+ * Buyer submits 12-digit UTR and optional screenshot after paying via UPI.
  */
 router.post('/orders/:reference/utr', utrSubmissionLimiter, async (req: Request, res: Response) => {
   try {
@@ -140,7 +149,7 @@ router.post('/orders/:reference/utr', utrSubmissionLimiter, async (req: Request,
       });
     }
 
-    const { utr, email, turnstileToken } = parseResult.data;
+    const { utr, email, screenshot, turnstileToken } = parseResult.data;
 
     // Verify CAPTCHA
     const clientIp =
@@ -168,26 +177,44 @@ router.post('/orders/:reference/utr', utrSubmissionLimiter, async (req: Request,
       });
     }
 
-    // Process submission via provider
-    await manualUpiProvider.submitProof(order, { utr });
+    // Strict duplicate UTR rejection
+    const cleanUtr = utr.trim();
+    const existing = db.getPaymentByUtr(cleanUtr);
+    if (existing && existing.order_id !== order.id) {
+      const existingOrder = db.getOrderById(existing.order_id);
+      if (existingOrder && existingOrder.status !== 'rejected') {
+        return res.status(400).json({
+          error: 'This UPI Transaction ID (UTR) has already been submitted for an order. Duplicate transaction IDs are not allowed.',
+        });
+      }
+    }
 
-    const planConfig = SERVER_PLANS[order.plan];
-    const amountFormatted = PaiseAllocator.formatAmountINR(order.total_amount_cents);
+    // Process submission via provider including optional screenshot data
+    await manualUpiProvider.submitProof(order, {
+      utr: cleanUtr,
+      screenshotData: screenshot,
+      screenshotMimeType: screenshot?.startsWith('data:image/')
+        ? screenshot.split(';')[0].replace('data:', '')
+        : 'image/jpeg',
+    });
 
-    // Send pending confirmation to buyer (access sent directly after manual verification)
+    const planConfig = SERVER_PLANS[PLAN_ID];
+    const amountFormatted = '₹999';
+
+    // Send pending confirmation to buyer
     const buyerEmail = EmailTemplates.orderPendingBuyer(order.reference, planConfig.name, amountFormatted);
     await emailService.sendEmail({
       to: order.buyer_email,
       ...buyerEmail,
     });
 
-    // Send alert to admin
+    // Send alert to admin with student details & UTR
     if (env.ADMIN_ALERT_EMAIL) {
       const adminAlert = EmailTemplates.adminNewOrderAlert(
         order.reference,
         planConfig.name,
         amountFormatted,
-        utr,
+        cleanUtr,
         order.buyer_email
       );
       await emailService.sendEmail({
@@ -200,7 +227,7 @@ router.post('/orders/:reference/utr', utrSubmissionLimiter, async (req: Request,
       success: true,
       reference: order.reference,
       status: 'pending_verification',
-      message: 'Payment proof submitted. Parth Arora will verify against bank records and directly dispatch your access link.',
+      message: 'Payment proof submitted. Parth Arora will verify against bank records and directly dispatch your delivery links.',
     });
   } catch (err: any) {
     console.error('[Orders] UTR submission error:', err);
@@ -227,25 +254,25 @@ router.get('/orders/:reference/status', statusPollingLimiter, async (req: Reques
   }
 
   const payment = db.getPaymentByOrderId(order.id);
-  const planConfig = SERVER_PLANS[order.plan];
+  const planConfig = SERVER_PLANS[PLAN_ID];
 
   return res.json({
     reference: order.reference,
     plan: order.plan,
     planName: planConfig.name,
-    amountFormatted: PaiseAllocator.formatAmountINR(order.total_amount_cents),
+    amountFormatted: '₹999',
     status: order.status,
     createdAt: order.created_at,
     expiresAt: order.expires_at,
+    buyerName: order.buyer_name,
+    buyerEmail: order.buyer_email,
+    buyerPhone: order.buyer_phone,
+    buyerCollege: order.buyer_college,
     utrSubmitted: !!payment?.utr,
     utrMasked: payment?.utr ? `${payment.utr.slice(0, 3)}******${payment.utr.slice(9)}` : undefined,
     rejectionReason: order.rejection_reason || undefined,
-    accessUrl: order.status === 'approved'
-      ? (planConfig.directAccessUrl || undefined)
-      : undefined,
-    accessLinks: order.status === 'approved'
-      ? (planConfig.directAccessUrls || undefined)
-      : undefined,
+    accessUrl: order.status === 'approved' ? planConfig.directAccessUrl || undefined : undefined,
+    accessLinks: order.status === 'approved' ? planConfig.directAccessUrls || undefined : undefined,
   });
 });
 
@@ -262,16 +289,18 @@ router.get('/orders/:reference/invoice', async (req: Request, res: Response) => 
   }
 
   const purchase = db.getPurchaseByOrderId(order.id);
-  const planConfig = SERVER_PLANS[order.plan];
+  const planConfig = SERVER_PLANS[PLAN_ID];
 
   return res.json({
     invoiceNumber: `INV-${order.reference}`,
     orderReference: order.reference,
     date: order.approved_at || order.created_at,
-    buyerName: order.buyer_name || 'Valued Customer',
+    buyerName: order.buyer_name || 'Valued Student',
     buyerEmail: order.buyer_email,
+    buyerPhone: order.buyer_phone,
+    buyerCollege: order.buyer_college,
     planName: planConfig.name,
-    amountFormatted: PaiseAllocator.formatAmountINR(order.total_amount_cents),
+    amountFormatted: '₹999',
     totalAmountCents: order.total_amount_cents,
     currency: order.currency,
     status: order.status,
@@ -279,7 +308,7 @@ router.get('/orders/:reference/invoice', async (req: Request, res: Response) => 
     merchant: {
       name: env.MERCHANT_NAME,
       brand: 'SpidyDashboard',
-      note: 'Source code software distribution (One-time delivery). Check with tax accountant for GST applicability.',
+      note: 'SpidyDashboard Student Edition software distribution (One-time delivery). Check with tax accountant for GST applicability.',
     },
   });
 });

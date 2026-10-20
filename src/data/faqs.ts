@@ -7,32 +7,32 @@ export interface FaqItem {
 export const faqsData: FaqItem[] = [
   {
     id: 'subscription',
-    question: 'Is this a subscription?',
-    answer: 'No. You pay once and download the files. There are no monthly or yearly fees.',
+    question: 'Is this a subscription or recurring fee?',
+    answer: 'No. SpidyDashboard Student Edition is a one-time payment of ₹999. There are no monthly or recurring subscription fees, and you receive lifetime use of the installed software.',
   },
   {
-    id: 'delivery',
-    question: 'How do I buy and receive the files?',
-    answer: 'Simply connect on parthxcore@gmail.com. Parth Arora will provide direct payment details and share immediate access to your package and walkthrough video.',
+    id: 'what-included',
+    question: 'What do I get after purchasing?',
+    answer: 'You receive the standalone Windows Setup.exe installer (which runs without installing anything extra), a comprehensive setup & usage guide PDF, a walkthrough video link, and the complete academic defense pack including project report, presentation PPT, and viva Q&A.',
   },
   {
-    id: 'hosting',
-    question: 'Do I need to host it myself?',
-    answer: 'Yes. The setup guide and walkthrough video show you how to run SpidyDashboard on your own computer.',
+    id: 'dependencies',
+    question: 'Do I need to install Python, Git, or complex dependencies?',
+    answer: 'No. The Student Edition comes packaged as a standalone Windows Setup.exe installer that includes everything needed to launch and run locally.',
   },
   {
-    id: 'difference',
-    question: 'What is the difference between Standard and Complete kit?',
-    answer: 'Standard includes the step-by-step setup guide, walkthrough video, and documentation. Complete kit includes the full dashboard source code, project report, PPT presentation, and viva questions and answers.',
+    id: 'checkout-flow',
+    question: 'How does the checkout and delivery work?',
+    answer: 'Click "Buy Now", enter your name, email, phone, and college, and complete the ₹999 payment using the provided UPI ID or QR code. Submit your 12-digit UPI Transaction ID (and optional screenshot). Once verified, you will receive secure, tokenized download links directly to your email.',
   },
   {
     id: 'scanning-policy',
     question: 'Can I scan any website or IP address?',
-    answer: 'No. Scan only systems you own or have written permission to test. The code is for learning and authorized security testing.',
+    answer: 'No. Reconnaissance scans must be executed only against targets, domains, or infrastructure you own or have explicit written permission to test. Use is strictly limited to personal research and academic education.',
   },
   {
     id: 'refunds',
     question: 'Can I get a refund?',
-    answer: 'No. All sales are strictly final and non-refundable due to the digital nature of software source code and immediate delivery. Please review the plan features and documentation before purchasing.',
+    answer: 'No. All sales are strictly final and non-refundable due to the digital nature of instant software delivery and downloadable academic materials. Please review the plan features before purchasing.',
   },
 ];

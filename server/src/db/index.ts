@@ -5,13 +5,15 @@ const uuidv4 = () => crypto.randomUUID();
 export interface OrderRow {
   id: string;
   reference: string;
-  plan: 'standard' | 'complete';
+  plan: 'student_edition' | string;
   base_amount_cents: number;
   paise_offset: number;
   total_amount_cents: number;
   currency: string;
   buyer_email: string;
   buyer_name?: string | null;
+  buyer_phone?: string | null;
+  buyer_college?: string | null;
   consent_given: boolean;
   consent_timestamp: string;
   privacy_policy_version: string;
@@ -34,6 +36,7 @@ export interface PaymentRow {
   utr_submitted_at?: string | null;
   receipt_key?: string | null;
   receipt_mime_type?: string | null;
+  screenshot_data?: string | null;
   is_verified: boolean;
   verified_at?: string | null;
   verified_by?: string | null;
@@ -183,7 +186,7 @@ class InMemoryDatabase {
     return null;
   }
 
-  updatePaymentUtr(orderId: string, utr: string, receiptKey?: string, mimeType?: string): PaymentRow {
+  updatePaymentUtr(orderId: string, utr: string, receiptKey?: string, mimeType?: string, screenshotData?: string): PaymentRow {
     let payment = this.getPaymentByOrderId(orderId);
     if (!payment) {
       payment = this.createPayment({
@@ -193,6 +196,7 @@ class InMemoryDatabase {
         utr_submitted_at: new Date().toISOString(),
         receipt_key: receiptKey,
         receipt_mime_type: mimeType,
+        screenshot_data: screenshotData || null,
         is_verified: false,
       });
     } else {
@@ -200,6 +204,7 @@ class InMemoryDatabase {
       payment.utr_submitted_at = new Date().toISOString();
       if (receiptKey) payment.receipt_key = receiptKey;
       if (mimeType) payment.receipt_mime_type = mimeType;
+      if (screenshotData) payment.screenshot_data = screenshotData;
       this.payments.set(payment.id, payment);
     }
     return payment;

@@ -93,7 +93,7 @@ export const dropdownData: Record<string, DropdownItem[]> = {
     },
     {
       title: 'Contact Developer',
-      desc: 'Direct email: parthxcore@gmail.com',
+      desc: 'Direct email: hello@spidydashboard.com',
       icon: <Mail className="w-4 h-4 text-[#4F8FF7]" />,
       href: '#contact-developer',
     },
@@ -501,7 +501,7 @@ export const Navbar = ({ currentPath }: NavbarProps) => {
                 whileTap={{ scale: 0.97 }}
                 className="inline-flex items-center justify-center bg-gradient-to-b from-[#5B9BFA] to-[#3B7FF0] text-white text-[15px] font-semibold px-[20px] py-[11px] rounded-full shadow-[0_4px_14px_rgba(79,143,247,0.35)] transition-all whitespace-nowrap min-h-[44px]"
               >
-                Get source code
+                Get Student Edition
               </motion.a>
             </motion.div>
           </div>

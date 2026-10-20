@@ -4,24 +4,24 @@ export const RefundPage = () => {
   return (
     <LegalPageLayout
       title="No Refund Policy"
-      subtitle="Strict policy regarding digital source code and electronic software delivery."
+      subtitle="Strict policy regarding digital software installers and electronic study pack delivery."
       lastUpdated="October 20, 2026"
     >
       <section className="space-y-3">
         <h2 className="text-[20px] font-bold text-gray-900">1. Strict No Refund Policy</h2>
         <p>
-          Due to the digital, proprietary, and irrevocable nature of software source code, setup files, and instant access delivery,
-          <strong> all purchases of SpidyDashboard (Standard Plan and Complete Kit) are strictly final and non-refundable under any circumstances.</strong>
+          Due to the digital and irrevocable nature of software installers, study guides, and instant access delivery,
+          <strong> all purchases of SpidyDashboard, Student Edition are strictly final and non-refundable under any circumstances.</strong>
         </p>
         <p>
-          Once payment is made and repository access or download files are dispatched, the source code cannot be returned, revoked, or retrieved. There are <strong>no refunds, returns, chargebacks, or exchanges</strong>.
+          Once payment is verified and download links are dispatched, the digital files cannot be returned or revoked. There are <strong>no refunds, returns, chargebacks, or exchanges</strong>.
         </p>
       </section>
 
       <section className="space-y-3">
         <h2 className="text-[20px] font-bold text-gray-900">2. Review Before Purchasing</h2>
         <p>
-          We encourage all prospective buyers to carefully review the complete module catalog (233+ modules), system requirements, architecture documentation, and feature comparison tables prior to initiating a purchase.
+          We encourage all prospective buyers to carefully review the complete module catalog (233+ modules), system requirements, and feature list prior to initiating a purchase.
         </p>
         <p>
           If you have any questions regarding software compatibility, dependencies, or system features, please contact Parth Arora prior to sending payment.
@@ -35,7 +35,7 @@ export const RefundPage = () => {
           <br />
           <strong>Parth Arora (SOC Analyst)</strong>
           <br />
-          Email: <a href="mailto:parthxcore@gmail.com" className="text-[#4F8FF7] hover:underline font-semibold">parthxcore@gmail.com</a>
+          Email: <a href="mailto:hello@spidydashboard.com" className="text-[#4F8FF7] hover:underline font-semibold">hello@spidydashboard.com</a>
         </p>
       </section>
     </LegalPageLayout>

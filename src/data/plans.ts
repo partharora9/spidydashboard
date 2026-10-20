@@ -1,63 +1,44 @@
+import {
+  PRICE,
+  PLAN_ID,
+  PLAN_NAME,
+  PLAN_DESCRIPTOR,
+  STUDENT_PRICE_BADGE,
+  PRICE_SUFFIX,
+  formatINR,
+  STUDENT_DELIVERABLES,
+} from '../config/pricing';
+
 export interface Plan {
-  id: 'standard' | 'complete';
+  id: typeof PLAN_ID;
   name: string;
   price: number;
   formattedPrice: string;
   priceSuffix: string;
   descriptor: string;
+  badge: string;
   features: string[];
   ctaText: string;
-  paymentKey: 'standard' | 'complete';
+  paymentKey: typeof PLAN_ID;
   isPopular?: boolean;
   hasGradientGlow?: boolean;
 }
 
-export const formatINR = (value: number): string => {
-  return new Intl.NumberFormat('en-IN', {
-    style: 'currency',
-    currency: 'INR',
-    maximumFractionDigits: 0,
-  }).format(value);
+export { formatINR };
+
+export const studentPlan: Plan = {
+  id: PLAN_ID,
+  name: PLAN_NAME,
+  price: PRICE,
+  formattedPrice: formatINR(PRICE),
+  priceSuffix: PRICE_SUFFIX,
+  descriptor: PLAN_DESCRIPTOR,
+  badge: STUDENT_PRICE_BADGE,
+  features: STUDENT_DELIVERABLES,
+  ctaText: 'Buy Now',
+  paymentKey: PLAN_ID,
+  isPopular: true,
+  hasGradientGlow: true,
 };
 
-export const plansData: Plan[] = [
-  {
-    id: 'standard',
-    name: 'Standard',
-    price: 499,
-    formattedPrice: formatINR(499),
-    priceSuffix: 'one-time',
-    descriptor: 'Setup guide, walkthrough video & documentation',
-    features: [
-      'Step-by-step setup guide',
-      'Full walkthrough video',
-      'Module catalog & docs',
-      'Instant download',
-    ],
-    ctaText: 'connect on parthxcore@gmail.com to buy',
-    paymentKey: 'standard',
-    isPopular: false,
-    hasGradientGlow: false,
-  },
-  {
-    id: 'complete',
-    name: 'Complete kit',
-    price: 799,
-    formattedPrice: formatINR(799),
-    priceSuffix: 'one-time',
-    descriptor: 'Full source code, report, PPT and viva kit',
-    features: [
-      'Full dashboard source code',
-      'Step-by-step setup guide',
-      'Full walkthrough video',
-      'Project report (PDF & DOCX)',
-      'PPT presentation',
-      'Viva questions and answers',
-      'Instant download',
-    ],
-    ctaText: 'connect on parthxcore@gmail.com to buy',
-    paymentKey: 'complete',
-    isPopular: true,
-    hasGradientGlow: true,
-  },
-];
+export const plansData: Plan[] = [studentPlan];

@@ -7,7 +7,7 @@
 
 import crypto from 'crypto';
 import { db, type OrderRow, type PurchaseRow, type DownloadTokenRow } from '../db';
-import { SERVER_PLANS } from '../config/plans';
+import { SERVER_PLANS, PLAN_ID } from '../config/plans';
 import { storage } from './storage/StorageProvider';
 import { emailService, EmailTemplates } from './email/EmailProvider';
 import { env } from '../config/env';
@@ -46,27 +46,28 @@ export class DeliveryService {
    * Generates formatted text for LICENSE-BUYER.txt embedded for this order.
    */
   static generateBuyerLicenseText(order: OrderRow, licenseKey: string): string {
-    const planConfig = SERVER_PLANS[order.plan];
+    const planConfig = SERVER_PLANS[order.plan as keyof typeof SERVER_PLANS] || SERVER_PLANS[PLAN_ID];
     return `================================================================================
-SPIDYDASHBOARD END USER SOFTWARE LICENSE (PERSONAL & EDUCATIONAL USE)
+SPIDYDASHBOARD END USER SOFTWARE LICENSE (STUDENT & EDUCATIONAL USE)
 ================================================================================
 
 ORDER REFERENCE:   ${order.reference}
 LICENSE KEY:       ${licenseKey}
 LICENSEE EMAIL:    ${order.buyer_email}
-NAME:              ${order.buyer_name || 'Authorized Buyer'}
+NAME:              ${order.buyer_name || 'Authorized Student'}
+COLLEGE:           ${order.buyer_college || 'Student'}
 PRODUCT:           ${planConfig.name}
 PURCHASE DATE:     ${new Date().toUTCString()}
 CREATOR & AUTHOR:  Parth Arora (SOC Analyst)
 
 1. GRANT OF LICENSE:
 Subject to the terms of this Agreement, the author grants you a non-exclusive,
-non-transferable license to inspect, execute, modify, and run the SpidyDashboard
-source code solely for personal, research, and educational purposes.
+non-transferable license to install, execute, and run the SpidyDashboard
+desktop application software solely for personal, research, and educational purposes.
 
 2. RESTRICTIONS:
 - NO REDISTRIBUTION: You may not sell, rent, lease, sub-license, host publicly,
-  or redistribute the source code or derivatives thereof in whole or in part.
+  or redistribute the application software or derivatives thereof in whole or in part.
 - AUTHORIZED SCANNING ONLY: You agree to execute reconnaissance and intelligence
   scans only against domains, systems, and assets you own or have explicit,
   written authorization to test.
@@ -96,7 +97,7 @@ Verification Hash: ${crypto.createHash('sha256').update(order.reference + licens
       throw new Error(`Order not found: ${orderId}`);
     }
 
-    const planConfig = SERVER_PLANS[order.plan];
+    const planConfig = SERVER_PLANS[order.plan as keyof typeof SERVER_PLANS] || SERVER_PLANS[PLAN_ID];
     const releaseFileName = planConfig.releaseFileName;
 
     // Check idempotency: if already approved, return existing purchase and issue a fresh download token

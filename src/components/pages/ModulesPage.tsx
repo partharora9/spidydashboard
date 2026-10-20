@@ -63,7 +63,7 @@ export const ModulesPage = () => {
             { label: 'Modules' },
             { label: `All ${TOTAL_MODULES_COUNT} Modules` },
           ]}
-          primaryCtaText="Get the source code"
+          primaryCtaText="Get Student Edition"
           primaryCtaHref="/pricing"
           secondaryCtaText="Explore modules table"
           onWatchWalkthrough={() => {

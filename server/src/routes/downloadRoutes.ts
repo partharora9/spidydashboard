@@ -7,7 +7,7 @@
 import { Router, type Request, type Response } from 'express';
 import crypto from 'crypto';
 import { db } from '../db';
-import { SERVER_PLANS } from '../config/plans';
+import { SERVER_PLANS, PLAN_ID } from '../config/plans';
 import { storage } from '../services/storage/StorageProvider';
 import { downloadLimiter } from '../middleware/rateLimiter';
 
@@ -50,7 +50,7 @@ router.get('/download/info/:token', downloadLimiter, async (req: Request, res: R
     return res.status(404).json({ error: 'Associated order not found.' });
   }
 
-  const planConfig = SERVER_PLANS[order.plan];
+  const planConfig = SERVER_PLANS[order.plan as keyof typeof SERVER_PLANS] || SERVER_PLANS[PLAN_ID];
   const checksum = await storage.getFileChecksum(planConfig.releaseFileName);
 
   return res.json({
@@ -101,7 +101,7 @@ router.get('/download/:token', downloadLimiter, async (req: Request, res: Respon
       return res.status(404).json({ error: 'Order not found' });
     }
 
-    const planConfig = SERVER_PLANS[order.plan];
+    const planConfig = SERVER_PLANS[order.plan as keyof typeof SERVER_PLANS] || SERVER_PLANS[PLAN_ID];
     const clientIp =
       (req.headers['x-forwarded-for'] as string)?.split(',')[0]?.trim() || req.socket.remoteAddress || 'unknown';
 

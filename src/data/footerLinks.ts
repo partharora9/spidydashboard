@@ -16,7 +16,7 @@ export const footerColumnsData: FooterColumnData[] = [
       { label: 'Threat Intelligence', href: '/features/threat-intelligence' },
       { label: 'Automated Footprinting', href: '/features/automated-footprinting' },
       { label: 'All 233 Modules', href: '/modules' },
-      { label: 'Pricing & Source Code', href: '/pricing' },
+      { label: 'Pricing & Student Edition', href: '/pricing' },
     ],
   },
   {

@@ -26,7 +26,7 @@ export const PageHero = ({
   title,
   subtitle,
   breadcrumbs,
-  primaryCtaText = 'Get the source code',
+  primaryCtaText = 'Get Student Edition',
   primaryCtaHref = '/pricing',
   secondaryCtaText = 'Watch walkthrough',
   onWatchWalkthrough,
@@ -138,7 +138,7 @@ export const PageHero = ({
           transition={{ delay: 0.5, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           className="mt-9 flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto"
         >
-          {/* Primary CTA: Get the source code */}
+          {/* Primary CTA: Get Student Edition */}
           <motion.div
             className="relative rounded-full w-full sm:w-auto"
             animate={

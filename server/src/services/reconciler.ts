@@ -3,7 +3,7 @@
  * 
  * Auto-suggests candidate matches from pasted bank statement text or CSV rows by:
  * 1. Exact 12-digit UTR match
- * 2. Exact paise-level unique amount match (e.g. Rs 499.37)
+ * 2. Exact paise-level unique amount match (e.g. Rs 999.37)
  * 3. Order reference match in transaction remarks (e.g. 'SPIDY-7K3Q9')
  * 
  * IMPORTANT SECURITY INVARIANT:
@@ -50,7 +50,7 @@ export class BankStatementReconciler {
       // 2. Extract potential Spidy order reference (e.g. SPIDY-7K3Q9)
       const refMatch = line.match(/\b(SPIDY-[A-Z0-9]{4,8})\b/i);
 
-      // 3. Extract amounts (e.g. 499.37, 799.12, 499, 799)
+      // 3. Extract amounts (e.g. 999.37, 999.00, 999)
       // Searches for numbers with optional decimal places
       const amountMatches = line.match(/\b([1-9][0-9]{2,4}(?:\.[0-9]{2})?)\b/g);
       let extractedAmountCents: number | undefined;
@@ -58,8 +58,8 @@ export class BankStatementReconciler {
       if (amountMatches) {
         for (const amtStr of amountMatches) {
           const val = parseFloat(amtStr);
-          // Look for amounts within our known plan range (Rs 400 to Rs 900)
-          if (val >= 400 && val <= 900) {
+          // Look for amounts within our known plan range (Rs 900 to Rs 1200)
+          if (val >= 900 && val <= 1200) {
             extractedAmountCents = Math.round(val * 100);
             break;
           }

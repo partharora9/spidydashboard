@@ -149,7 +149,7 @@ export const AutomatedFootprintingPage = () => {
             { label: 'Features' },
             { label: 'Automated Footprinting' },
           ]}
-          primaryCtaText="Get the source code"
+          primaryCtaText="Get Student Edition"
           primaryCtaHref="/pricing"
           secondaryCtaText="Watch recon demo"
           onWatchWalkthrough={() => {

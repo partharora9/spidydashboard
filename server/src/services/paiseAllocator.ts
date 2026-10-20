@@ -1,7 +1,7 @@
 /**
  * Unique Amount (Paise) Allocator
  * Guarantees that every concurrently open order of a given plan has a unique amount
- * (e.g. Rs 499.14 vs Rs 499.37) for unambiguous bank statement reconciliation.
+ * (e.g. Rs 999.14 vs Rs 999.37) for unambiguous bank statement reconciliation.
  */
 
 import { db, type OrderRow } from '../db';
@@ -12,7 +12,7 @@ export class PaiseAllocator {
    * Allocates a unique paise offset (1 to 99) for the given plan.
    * Ensures no two active/unexpired orders of this plan share the same exact total amount.
    */
-  static allocatePaiseOffset(plan: 'standard' | 'complete', _basePriceCents: number): number {
+  static allocatePaiseOffset(plan: string, _basePriceCents: number): number {
     if (!env.UNIQUE_AMOUNT_MATCHING) {
       return 0; // Feature flag disabled: exact integer rupees
     }
@@ -50,7 +50,7 @@ export class PaiseAllocator {
 
   /**
    * Formats paise (cents) into Indian Rupee format with exact decimals.
-   * Example: 49937 paise -> "₹499.37"
+   * Example: 99937 paise -> "₹999.37"
    */
   static formatAmountINR(totalCents: number): string {
     const rupees = (totalCents / 100).toFixed(2);

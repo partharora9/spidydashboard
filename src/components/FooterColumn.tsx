@@ -51,7 +51,7 @@ const SingleFooterLink = ({
           if (
             link.href === '#contact-developer' ||
             link.href.startsWith('mailto:') ||
-            link.label.includes('parthxcore@gmail.com')
+            link.label.includes('@')
           ) {
             e.preventDefault();
             window.dispatchEvent(new CustomEvent('open-contact-modal'));

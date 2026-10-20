@@ -124,7 +124,7 @@ export const GettingStartedPage = () => {
           2. Installation &amp; Virtual Environment
         </h2>
         <p className="font-sans text-[15px] text-[#444444] leading-relaxed mb-4">
-          Extract your SpidyDashboard source code directory and initialize a clean Python virtual environment to avoid dependency conflicts:
+          Extract your SpidyDashboard package directory and initialize a clean Python virtual environment to avoid dependency conflicts:
         </p>
 
         {/* OS Tabs */}
@@ -337,11 +337,11 @@ python sf.py -s targetcorp.com -u footprint -o json > results.json`}
             </p>
           </div>
           <div className="p-4 rounded-xl bg-blue-50/70 border border-blue-200/60">
-            <h4 className="font-semibold text-blue-950">Need Deployment Help or Source Code Support?</h4>
+            <h4 className="font-semibold text-blue-950">Need Deployment Help or Technical Support?</h4>
             <p className="mt-1 text-blue-800">
               Reach out directly to creator Parth Arora (SOC Analyst) at{' '}
-              <a href="mailto:parthxcore@gmail.com" className="font-semibold underline hover:text-blue-900">
-                parthxcore@gmail.com
+              <a href="mailto:hello@spidydashboard.com" className="font-semibold underline hover:text-blue-900">
+                hello@spidydashboard.com
               </a>{' '}
               for instant troubleshooting, module integration, or custom setup guidance.
             </p>

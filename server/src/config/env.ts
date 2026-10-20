@@ -39,20 +39,20 @@ const envSchema = z.object({
   S3_REGION: z.string().default('auto'),
 
   // Transactional Email (Gmail, Resend, SES, or console logger)
-  EMAIL_PROVIDER: z.enum(['console', 'resend', 'ses', 'gmail']).default('gmail'),
-  GMAIL_USER: z.string().default('parthxcore@gmail.com'),
-  GMAIL_APP_PASSWORD: z.string().default('jdhlpwtmetsgeuao'),
+  EMAIL_PROVIDER: z.enum(['console', 'resend', 'ses', 'gmail']).default('resend'),
+  GMAIL_USER: z.string().optional(),
+  GMAIL_APP_PASSWORD: z.string().optional(),
   GMAIL_AUTO_RESPONDER: z
     .string()
     .transform((val) => val === 'true' || val === '1')
-    .default('true'),
+    .default('false'),
   RESEND_API_KEY: z.string().optional(),
-  EMAIL_FROM: z.string().default('Parth Arora <parthxcore@gmail.com>'),
+  EMAIL_FROM: z.string().default('SpidyDashboard <hello@spidydashboard.com>'),
   ADMIN_ALERT_EMAIL: z.string().email().optional(),
 
   // Order settings
   ORDER_EXPIRY_MINUTES: z.coerce.number().default(30),
-  DOWNLOAD_TOKEN_EXPIRY_MINUTES: z.coerce.number().default(15),
+  DOWNLOAD_TOKEN_EXPIRY_MINUTES: z.coerce.number().default(2880), // 48 hours
   MAX_DOWNLOADS_PER_TOKEN: z.coerce.number().default(3),
   OTP_EXPIRY_MINUTES: z.coerce.number().default(10),
 });

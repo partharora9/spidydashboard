@@ -37,19 +37,17 @@ async function runTestSuite() {
 
   // TEST 1: Price Tampering Prevention
   console.log('Test 1: Price Tampering Prevention');
-  const planStandard = SERVER_PLANS['standard'];
-  assert(planStandard.basePriceCents === 49900, 'Server standard plan base price is immutable (49900 paise)');
-  const planComplete = SERVER_PLANS['complete'];
-  assert(planComplete.basePriceCents === 79900, 'Server complete plan base price is immutable (79900 paise)');
+  const planStudent = SERVER_PLANS['student_edition'];
+  assert(planStudent.basePriceCents === 99900, 'Server student edition base price is immutable (99900 paise)');
 
   // TEST 2: Unique Amount (Paise) Allocator
   console.log('\nTest 2: Unique Paise Allocator');
   const orderA = db.createOrder({
     reference: 'SPIDY-TESTA',
-    plan: 'standard',
-    base_amount_cents: 49900,
-    paise_offset: PaiseAllocator.allocatePaiseOffset('standard', 49900),
-    total_amount_cents: 49900 + 15,
+    plan: 'student_edition',
+    base_amount_cents: 99900,
+    paise_offset: PaiseAllocator.allocatePaiseOffset('student_edition', 99900),
+    total_amount_cents: 99900 + 15,
     currency: 'INR',
     buyer_email: 'buyer-a@example.com',
     consent_given: true,
@@ -60,7 +58,7 @@ async function runTestSuite() {
     expires_at: new Date(Date.now() + 30 * 60 * 1000).toISOString(),
   });
 
-  const nextOffset = PaiseAllocator.allocatePaiseOffset('standard', 49900);
+  const nextOffset = PaiseAllocator.allocatePaiseOffset('student_edition', 99900);
   assert(nextOffset > 0, `Allocated valid paise offset: ${nextOffset} paise`);
   assert(nextOffset !== orderA.paise_offset, 'Consecutive open orders guaranteed different paise offsets');
 
@@ -68,10 +66,10 @@ async function runTestSuite() {
   console.log('\nTest 3: Expired Orders Rejection');
   const expiredOrder = db.createOrder({
     reference: 'SPIDY-EXPD1',
-    plan: 'standard',
-    base_amount_cents: 49900,
+    plan: 'student_edition',
+    base_amount_cents: 99900,
     paise_offset: 10,
-    total_amount_cents: 49910,
+    total_amount_cents: 99910,
     currency: 'INR',
     buyer_email: 'expired@example.com',
     consent_given: true,
@@ -88,10 +86,10 @@ async function runTestSuite() {
   console.log('\nTest 4: UTR 12-Digit Validation & Reused UTR Rejection');
   const activeOrder1 = db.createOrder({
     reference: 'SPIDY-ORD01',
-    plan: 'standard',
-    base_amount_cents: 49900,
+    plan: 'student_edition',
+    base_amount_cents: 99900,
     paise_offset: 25,
-    total_amount_cents: 49925,
+    total_amount_cents: 99925,
     currency: 'INR',
     buyer_email: 'buyer1@example.com',
     consent_given: true,
@@ -104,10 +102,10 @@ async function runTestSuite() {
 
   const activeOrder2 = db.createOrder({
     reference: 'SPIDY-ORD02',
-    plan: 'standard',
-    base_amount_cents: 49900,
+    plan: 'student_edition',
+    base_amount_cents: 99900,
     paise_offset: 35,
-    total_amount_cents: 49935,
+    total_amount_cents: 99935,
     currency: 'INR',
     buyer_email: 'buyer2@example.com',
     consent_given: true,
@@ -172,10 +170,10 @@ async function runTestSuite() {
   console.log('\nTest 8: Bank Statement Reconciler');
   const pendingReconOrder = db.createOrder({
     reference: 'SPIDY-RECON1',
-    plan: 'standard',
-    base_amount_cents: 49900,
+    plan: 'student_edition',
+    base_amount_cents: 99900,
     paise_offset: 25,
-    total_amount_cents: 49925,
+    total_amount_cents: 99925,
     currency: 'INR',
     buyer_email: 'recon@example.com',
     consent_given: true,
@@ -188,8 +186,8 @@ async function runTestSuite() {
   db.updatePaymentUtr(pendingReconOrder.id, '428819204918');
 
   const sampleBankStatement = `
-18/10/2026,UPI/CR/428819204918/PARTH ARORA/HDFC/SPIDY-RECON1,499.25,CR
-19/10/2026,UPI/CR/999111222333/JOHN DOE/SBI/PAYMENT,799.00,CR
+18/10/2026,UPI/CR/428819204918/PARTH ARORA/HDFC/SPIDY-RECON1,999.25,CR
+19/10/2026,UPI/CR/999111222333/JOHN DOE/SBI/PAYMENT,999.00,CR
 `;
   const matches = BankStatementReconciler.reconcile(sampleBankStatement);
   assert(matches.length >= 1, 'Reconciler found candidate match from statement');

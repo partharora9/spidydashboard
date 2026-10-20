@@ -1,6 +1,6 @@
 /**
  * Gmail Auto-Responder Daemon
- * Automatically monitors the Gmail inbox (parthxcore@gmail.com) via IMAP,
+ * Automatically monitors the configured inbox via IMAP,
  * detects incoming inquiries or purchase requests, and auto-replies
  * with SpidyDashboard access links, plan information, and UPI payment details.
  * 
@@ -115,7 +115,7 @@ export class GmailAutoResponder {
           senderEmail.includes('facebookmail.com') ||
           senderEmail.includes('notifications@') ||
           senderEmail.includes('support@') ||
-          subject.includes('SpidyDashboard Access & Source Code Details') ||
+          subject.includes('SpidyDashboard Access') ||
           subject.includes('Verify your Email')
         ) {
           // Mark seen and skip
@@ -132,7 +132,7 @@ export class GmailAutoResponder {
 
         // Generate response
         const cleanSubject = subject.replace(/^Re:\s*/i, '');
-        const replySubject = `Re: ${cleanSubject} — SpidyDashboard Access & Source Code Details`;
+        const replySubject = `Re: ${cleanSubject} — SpidyDashboard Access & Student Edition Details`;
 
         const replyText = `Hello,
 
@@ -141,42 +141,32 @@ Thank you for reaching out regarding SpidyDashboard (OSINT & Attack Surface Dash
 Here is the package and purchase information:
 
 ============================================================
-1. SPIDYDASHBOARD STANDARD (₹499)
+SPIDYDASHBOARD, STUDENT EDITION (₹999)
 ============================================================
 Includes:
-- Complete step-by-step installation and local setup guide
-- Comprehensive architecture and walkthrough video tour
-- Full module catalog & documentation
-- Personal & educational license
-
-============================================================
-2. SPIDYDASHBOARD COMPLETE KIT (₹799)
-============================================================
-Includes everything in Standard plus:
-- Full SpiderFoot-based reconnaissance engine & dashboard source code
-- Academic / Technical Project Report (PDF & DOCX)
-- Professional PowerPoint presentation (PPTX)
-- Viva defense questions & detailed answers
+- Windows Setup.exe installer of the dashboard (standalone, nothing extra to install)
+- Comprehensive setup & usage guide (PDF)
+- Walkthrough video link
+- Project report, PPT and viva Q&A pack
+- Lifetime use of the installed version
 
 ============================================================
 PAYMENT & DIRECT ACCESS INSTRUCTIONS:
 ============================================================
 - UPI ID: 8700383626@axl
 - Payee Name: Parth Arora
-- Amount: ₹499 (Standard) or ₹799 (Complete Kit)
+- Amount: ₹999 (one-time payment)
 
 🔒 DIRECT ACCESS DELIVERY:
 Access download links are delivered directly after payment confirmation.
-Once paid, simply reply to this email with your 12-digit UPI Reference / UTR number or payment screenshot. Parth Arora will personally verify and directly dispatch your private package access links:
-- For Complete Kit (₹799): Google Drive folder (source code, project report, PPT, viva defense Q&A), video walkthrough guide (MP4), and MEGA mirror archive.
-- For Standard (₹499): MEGA repository download access link.
+Once paid, simply reply to this email with your 12-digit UPI Reference / UTR number or payment screenshot. Parth Arora will personally verify and directly dispatch your private package download links!
 
 If you have any questions or need custom deployment assistance, feel free to reply directly.
 
 Best regards,
 Parth Arora (SOC Analyst)
 Creator of SpidyDashboard
-parthxcore@gmail.com
+hello@spidydashboard.com
 UPI: 8700383626@axl
 `;
 
@@ -184,37 +174,24 @@ UPI: 8700383626@axl
 <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 620px; margin: 0 auto; padding: 24px; color: #0B0B14; line-height: 1.6;">
   <div style="border-bottom: 2px solid #4F8FF7; padding-bottom: 12px; margin-bottom: 20px;">
     <h2 style="color: #4F8FF7; margin: 0; font-size: 22px;">SpidyDashboard</h2>
-    <span style="font-size: 13px; color: #6B7280;">Automated OSINT & Attack Surface Reconnaissance Engine</span>
+    <span style="font-size: 13px; color: #6B7280;">Automated OSINT & Attack Surface Reconnaissance &bull; Student Edition</span>
   </div>
 
   <p>Hello,</p>
   <p>Thank you for reaching out regarding <strong>SpidyDashboard</strong>. Here is your package and purchase information:</p>
 
-  <!-- Standard Plan Card -->
+  <!-- Student Edition Plan Card -->
   <div style="background: #F4F8FF; border: 1px solid #CFE2FF; border-radius: 14px; padding: 18px; margin: 18px 0;">
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-      <h3 style="margin: 0; color: #1E3A8A; font-size: 17px;">📦 SpidyDashboard Standard</h3>
-      <span style="background: #4F8FF7; color: #ffffff; padding: 3px 10px; border-radius: 20px; font-weight: bold; font-size: 13px;">₹499 one-time</span>
+      <h3 style="margin: 0; color: #1E3A8A; font-size: 17px;">📦 SpidyDashboard, Student Edition</h3>
+      <span style="background: #2563EB; color: #ffffff; padding: 3px 12px; border-radius: 20px; font-weight: bold; font-size: 13px;">₹999 one-time</span>
     </div>
     <ul style="margin: 8px 0; padding-left: 20px; font-size: 13px; color: #374151;">
-      <li>Step-by-step installation and local setup guide</li>
-      <li>Architecture & walkthrough video tour</li>
-      <li>Module catalog & docs</li>
-      <li>Personal & educational license</li>
-    </ul>
-  </div>
-
-  <!-- Complete Kit Card -->
-  <div style="background: #FAFAFA; border: 1px solid #E5E7EB; border-radius: 14px; padding: 18px; margin: 18px 0;">
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-      <h3 style="margin: 0; color: #111827; font-size: 17px;">🚀 Complete Kit (Full Source Code & Viva)</h3>
-      <span style="background: #111827; color: #ffffff; padding: 3px 10px; border-radius: 20px; font-weight: bold; font-size: 13px;">₹799 one-time</span>
-    </div>
-    <ul style="margin: 8px 0; padding-left: 20px; font-size: 13px; color: #374151;">
-      <li>Full SpiderFoot-based engine & dashboard source code</li>
-      <li>Academic & Technical Project Report (PDF & DOCX)</li>
-      <li>Presentation Slides (PPTX)</li>
-      <li>Viva defense questions & detailed answers</li>
+      <li>Windows Setup.exe installer of the dashboard (standalone, nothing extra to install)</li>
+      <li>Setup and usage guide (PDF)</li>
+      <li>Walkthrough video link</li>
+      <li>Project report, PPT and viva Q&A pack</li>
+      <li>Lifetime use of the installed version</li>
     </ul>
   </div>
 
@@ -222,7 +199,7 @@ UPI: 8700383626@axl
   <div style="background: #EFF6FF; border: 1px solid #BFDBFE; border-radius: 12px; padding: 16px; margin: 18px 0;">
     <h4 style="margin: 0 0 6px 0; color: #1E40AF; font-size: 15px;">🔒 Direct Access Delivery:</h4>
     <p style="margin: 0; font-size: 13px; color: #1E3A8A;">
-      To prevent unauthorized access, repository access links are sent directly by Parth Arora after payment verification. Complete Kit purchasers receive direct Google Drive & MEGA download package access.
+      To prevent unauthorized access, download links are sent directly by Parth Arora after payment verification.
     </p>
   </div>
 
@@ -231,16 +208,16 @@ UPI: 8700383626@axl
     <h4 style="margin: 0 0 8px 0; color: #92400E; font-size: 15px;">💳 UPI Payment Details:</h4>
     <p style="margin: 3px 0; font-size: 15px; font-family: monospace;"><strong>UPI ID:</strong> 8700383626@axl</p>
     <p style="margin: 3px 0; font-size: 14px;"><strong>Payee Name:</strong> Parth Arora</p>
-    <p style="margin: 3px 0; font-size: 14px;"><strong>Amount:</strong> ₹499 (Standard) or ₹799 (Complete Kit)</p>
+    <p style="margin: 3px 0; font-size: 14px;"><strong>Amount:</strong> ₹999 (one-time payment)</p>
     <p style="margin: 10px 0 0 0; font-size: 12px; color: #78350F; background: #FDE68A; padding: 8px 12px; border-radius: 8px;">
-      👉 Once paid, reply to this email with your 12-digit UTR number or screenshot to receive your private Google Drive & MEGA repository access links directly!
+      👉 Once paid, reply to this email with your 12-digit UTR number or screenshot to receive your download links directly!
     </p>
   </div>
 
   <hr style="border: none; border-top: 1px solid #E5E7EB; margin: 24px 0;" />
   <p style="margin: 0; font-size: 13px; font-weight: bold;">Parth Arora (SOC Analyst)</p>
   <p style="margin: 2px 0; font-size: 12px; color: #6B7280;">Creator & Author, SpidyDashboard</p>
-  <p style="margin: 2px 0; font-size: 12px; color: #6B7280;">Email: parthxcore@gmail.com &bull; UPI: 8700383626@axl</p>
+  <p style="margin: 2px 0; font-size: 12px; color: #6B7280;">Email: hello@spidydashboard.com &bull; UPI: 8700383626@axl</p>
 </div>
 `;
 

@@ -137,7 +137,7 @@ export const CustomModulesSdkPage = () => {
             { label: 'Modules' },
             { label: 'Custom Modules & SDK' },
           ]}
-          primaryCtaText="Get the source code"
+          primaryCtaText="Get Student Edition"
           primaryCtaHref="/pricing"
           secondaryCtaText="Inspect SDK code"
           onWatchWalkthrough={() => {

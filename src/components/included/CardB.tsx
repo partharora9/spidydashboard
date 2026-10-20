@@ -87,11 +87,11 @@ export const CardB = () => {
           <p className="mt-2 text-[15px] sm:text-[17px] leading-[26px] sm:leading-[28px] text-[#111111]/90 font-normal">
             Automate scans from terminal or query via REST API.{' '}
             <a
-              href="mailto:parthxcore@gmail.com"
+              href="mailto:hello@spidydashboard.com"
               className="text-[#3B82F6] hover:underline transition-all font-medium inline-block break-all"
               onClick={(e) => e.stopPropagation()}
             >
-              parthxcore@gmail.com
+              hello@spidydashboard.com
             </a>
           </p>
         </div>

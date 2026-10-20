@@ -15,8 +15,11 @@ import {
   Folder,
   Video,
   Sparkles,
+  Upload,
+  Image as ImageIcon,
 } from 'lucide-react';
 import type { Plan } from '../../data/plans';
+import { PRICE, FORMATTED_PRICE, UPI_ID, UPI_PAYEE_NAME, PLAN_NAME } from '../../config/pricing';
 
 interface CheckoutModalProps {
   isOpen: boolean;
@@ -40,12 +43,16 @@ interface OrderData {
   accessLinks?: any[];
 }
 
-export const CheckoutModal = ({ isOpen, onClose, plan }: CheckoutModalProps) => {
+export const CheckoutModal = ({ isOpen, onClose }: CheckoutModalProps) => {
   const [step, setStep] = useState<CheckoutStep>('DETAILS');
-  const [email, setEmail] = useState('');
   const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [college, setCollege] = useState('');
   const [consent, setConsent] = useState(false);
   const [utr, setUtr] = useState('');
+  const [screenshotData, setScreenshotData] = useState<string | null>(null);
+  const [screenshotName, setScreenshotName] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [copiedRef, setCopiedRef] = useState(false);
@@ -103,10 +110,47 @@ export const CheckoutModal = ({ isOpen, onClose, plan }: CheckoutModalProps) => 
 
   if (!isOpen) return null;
 
-  // Step 1: Submit email & consent -> Server creates order with authoritative price
+  const handleScreenshotChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (file.size > 5 * 1024 * 1024) {
+      setError('Screenshot file is too large (maximum 5MB).');
+      return;
+    }
+
+    setScreenshotName(file.name);
+    const reader = new FileReader();
+    reader.onload = () => {
+      if (typeof reader.result === 'string') {
+        setScreenshotData(reader.result);
+      }
+    };
+    reader.readAsDataURL(file);
+  };
+
+  // Step 1: Submit name, email, phone, college & consent -> Server creates order
   const handleInitiateOrder = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
+
+    if (!name.trim()) {
+      setError('Please enter your full name.');
+      return;
+    }
+    if (!email.trim() || !email.includes('@')) {
+      setError('Please provide a valid email address.');
+      return;
+    }
+    const cleanPhone = phone.trim().replace(/\D/g, '');
+    if (cleanPhone.length < 10) {
+      setError('Please provide a valid 10-digit mobile number.');
+      return;
+    }
+    if (!college.trim()) {
+      setError('Please enter your college or university name.');
+      return;
+    }
     if (!consent) {
       setError('You must accept the Terms of Service and acknowledge the strict No Refund Policy to proceed.');
       return;
@@ -118,9 +162,11 @@ export const CheckoutModal = ({ isOpen, onClose, plan }: CheckoutModalProps) => 
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          plan: plan.id,
-          email,
-          name: name || undefined,
+          plan: 'student_edition',
+          name: name.trim(),
+          email: email.trim().toLowerCase(),
+          phone: phone.trim(),
+          college: college.trim(),
           consent: true,
         }),
       });
@@ -145,7 +191,7 @@ export const CheckoutModal = ({ isOpen, onClose, plan }: CheckoutModalProps) => 
     }
   };
 
-  // Step 2: Submit 12-digit UTR
+  // Step 2: Submit 12-digit UTR + optional screenshot
   const handleSubmitUtr = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!order) return;
@@ -164,7 +210,8 @@ export const CheckoutModal = ({ isOpen, onClose, plan }: CheckoutModalProps) => 
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           utr: cleanUtr,
-          email,
+          email: email.trim().toLowerCase(),
+          screenshot: screenshotData || undefined,
         }),
       });
 
@@ -207,7 +254,7 @@ export const CheckoutModal = ({ isOpen, onClose, plan }: CheckoutModalProps) => 
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: 40 }}
         transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-        className="relative w-full max-w-[560px] bg-white rounded-t-[24px] sm:rounded-[24px] shadow-[0_25px_80px_rgba(0,0,0,0.25)] border border-black/[0.08] overflow-hidden max-h-[90dvh] flex flex-col pb-safe my-0 sm:my-8"
+        className="relative w-full max-w-[560px] bg-white rounded-t-[24px] sm:rounded-[24px] shadow-[0_25px_80px_rgba(0,0,0,0.25)] border border-black/[0.08] overflow-hidden max-h-[92dvh] flex flex-col pb-safe my-0 sm:my-8"
       >
         {/* Mobile Drag Handle */}
         <div className="sm:hidden w-12 h-1.5 bg-gray-300 rounded-full mx-auto my-2 shrink-0" />
@@ -215,11 +262,11 @@ export const CheckoutModal = ({ isOpen, onClose, plan }: CheckoutModalProps) => 
         {/* Modal Header */}
         <div className="flex items-center justify-between px-6 py-3.5 bg-[#F8F9FA] border-b border-black/[0.06] shrink-0">
           <div className="flex items-center gap-2">
-            <span className="p-1 rounded-md bg-[#4F8FF7]/15 text-[#4F8FF7]">
+            <span className="p-1 rounded-md bg-[#2563EB]/15 text-[#2563EB]">
               <Lock className="w-4 h-4 stroke-[2.2]" />
             </span>
             <span className="font-headline font-semibold text-[15px] text-[#0B0B14]">
-              Secure Source Code Checkout
+              SpidyDashboard Student Checkout
             </span>
           </div>
           <button
@@ -240,25 +287,45 @@ export const CheckoutModal = ({ isOpen, onClose, plan }: CheckoutModalProps) => 
             </div>
           )}
 
-          {/* STEP 1: BUYER DETAILS & CONSENT */}
+          {/* STEP 1: BUYER DETAILS (Name, Email, Phone, College) & CONSENT */}
           {step === 'DETAILS' && (
-            <form onSubmit={handleInitiateOrder} className="space-y-5">
+            <form onSubmit={handleInitiateOrder} className="space-y-4">
               {/* Plan Summary Card */}
-              <div className="p-4 rounded-2xl bg-[#F2F4FD] border border-[#4F8FF7]/30 flex items-center justify-between">
+              <div className="p-4 rounded-2xl bg-[#EFF6FF] border border-[#3B82F6]/30 flex items-center justify-between">
                 <div>
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-[#4F8FF7]">Selected Plan</span>
-                  <h4 className="text-[17px] font-semibold text-[#0B0B14]">{plan.name}</h4>
-                  <p className="text-[12px] text-gray-500 mt-0.5">{plan.descriptor}</p>
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-[#2563EB]">
+                    Selected Plan
+                  </span>
+                  <h4 className="text-[16px] font-bold text-[#0B0B14]">{PLAN_NAME}</h4>
+                  <p className="text-[12px] text-gray-600 mt-0.5">
+                    Windows Setup.exe, setup guide, walkthrough video & academic pack
+                  </p>
                 </div>
                 <div className="text-right">
-                  <div className="text-[22px] font-bold text-[#0B0B14]">{plan.formattedPrice}</div>
-                  <span className="text-[11px] text-gray-500">one-time payment</span>
+                  <div className="text-[22px] font-bold text-[#0B0B14]">{FORMATTED_PRICE}</div>
+                  <span className="text-[11px] text-gray-500 font-medium">one-time payment</span>
                 </div>
               </div>
 
-              {/* Email Input */}
+              {/* Full Name */}
               <div>
-                <label className="block text-[13px] font-semibold text-[#0B0B14] mb-1.5">
+                <label className="block text-[13px] font-semibold text-[#0B0B14] mb-1">
+                  Full Name <span className="text-red-500">*</span>
+                </label>
+                <input
+                  type="text"
+                  autoComplete="name"
+                  required
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="e.g. Rahul Sharma"
+                  className="w-full px-3.5 py-2 text-[15px] rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#2563EB] focus:border-transparent transition-all"
+                />
+              </div>
+
+              {/* Email Address */}
+              <div>
+                <label className="block text-[13px] font-semibold text-[#0B0B14] mb-1">
                   Delivery Email Address <span className="text-red-500">*</span>
                 </label>
                 <input
@@ -269,53 +336,69 @@ export const CheckoutModal = ({ isOpen, onClose, plan }: CheckoutModalProps) => 
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="you@company.com"
-                  className="w-full px-4 py-2.5 text-[16px] rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#4F8FF7] focus:border-transparent transition-all"
+                  placeholder="e.g. rahul@university.edu or rahul@gmail.com"
+                  className="w-full px-3.5 py-2 text-[15px] rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#2563EB] focus:border-transparent transition-all"
                 />
-                <p className="text-[11px] text-gray-500 mt-1">
-                  Your encrypted download token will be sent to this email upon payment verification.
+                <p className="text-[11px] text-gray-500 mt-0.5">
+                  Your secure, tokenized download links will be delivered directly to this address.
                 </p>
               </div>
 
-              {/* Optional Name */}
-              <div>
-                <label className="block text-[13px] font-semibold text-[#0B0B14] mb-1.5">
-                  Full Name <span className="text-gray-400 font-normal">(Optional, for license)</span>
-                </label>
-                <input
-                  type="text"
-                  autoComplete="name"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  placeholder="Parth Arora"
-                  className="w-full px-4 py-2.5 text-[16px] rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#4F8FF7] focus:border-transparent transition-all"
-                />
+              {/* Phone & College Row */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                <div>
+                  <label className="block text-[13px] font-semibold text-[#0B0B14] mb-1">
+                    Mobile Number <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="tel"
+                    inputMode="tel"
+                    required
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    placeholder="e.g. 9876543210"
+                    className="w-full px-3.5 py-2 text-[15px] rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#2563EB] focus:border-transparent transition-all"
+                  />
+                </div>
+                <div>
+                  <label className="block text-[13px] font-semibold text-[#0B0B14] mb-1">
+                    College / University <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={college}
+                    onChange={(e) => setCollege(e.target.value)}
+                    placeholder="e.g. IIT Delhi / DTU / VIT"
+                    className="w-full px-3.5 py-2 text-[15px] rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#2563EB] focus:border-transparent transition-all"
+                  />
+                </div>
               </div>
 
               {/* Legal & Privacy Consent Checkbox */}
               <div className="pt-1">
-                <label className="flex items-start gap-3 cursor-pointer select-none">
+                <label className="flex items-start gap-2.5 cursor-pointer select-none">
                   <input
                     type="checkbox"
                     required
                     checked={consent}
                     onChange={(e) => setConsent(e.target.checked)}
-                    className="mt-1 w-4 h-4 rounded text-[#4F8FF7] focus:ring-[#4F8FF7] border-gray-300"
+                    className="mt-1 w-4 h-4 rounded text-[#2563EB] focus:ring-[#2563EB] border-gray-300"
                   />
                   <span className="text-[12px] text-gray-600 leading-relaxed">
                     I agree to the{' '}
-                    <a href="/terms" target="_blank" className="text-[#4F8FF7] underline">
+                    <a href="/terms" target="_blank" className="text-[#2563EB] underline font-medium">
                       Terms of Service
                     </a>
                     ,{' '}
-                    <a href="/privacy" target="_blank" className="text-[#4F8FF7] underline">
+                    <a href="/privacy" target="_blank" className="text-[#2563EB] underline font-medium">
                       Privacy Policy
                     </a>
                     , and acknowledge the strict{' '}
-                    <a href="/refund" target="_blank" className="text-[#4F8FF7] underline">
+                    <a href="/refund" target="_blank" className="text-[#2563EB] underline font-medium">
                       No Refund Policy
                     </a>{' '}
-                    (all digital source code sales are strictly final and non-refundable).
+                    (all digital software sales are strictly final and non-refundable).
                   </span>
                 </label>
               </div>
@@ -324,7 +407,7 @@ export const CheckoutModal = ({ isOpen, onClose, plan }: CheckoutModalProps) => 
               <div className="p-3 rounded-xl bg-gray-50 border border-gray-200 text-[12px] text-gray-600 flex items-center gap-2">
                 <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
                 <span>
-                  We never see or store your UPI PIN or bank credentials. Payment is verified via bank statement.
+                  No payment gateway fees. Directly pay via official UPI ({UPI_ID}) and verify with UTR.
                 </span>
               </div>
 
@@ -332,13 +415,13 @@ export const CheckoutModal = ({ isOpen, onClose, plan }: CheckoutModalProps) => 
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full py-3.5 px-6 rounded-full bg-gradient-to-b from-[#5B9BFA] to-[#3B7FF0] hover:from-[#4E91F5] hover:to-[#3174E6] text-white font-semibold text-[15px] shadow-[0_4px_14px_rgba(79,143,247,0.35)] transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+                className="w-full py-3.5 px-6 rounded-full bg-gradient-to-r from-[#3B82F6] to-[#1D4ED8] hover:from-[#2563EB] hover:to-[#1E40AF] text-white font-semibold text-[15px] shadow-[0_4px_14px_rgba(37,99,235,0.35)] transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
               >
                 {loading ? (
-                  <span>Generating Payment Reference...</span>
+                  <span>Generating UPI Payment Code...</span>
                 ) : (
                   <>
-                    <span>Continue to Payment</span>
+                    <span>Proceed to UPI Payment ({FORMATTED_PRICE})</span>
                     <ArrowRight className="w-4 h-4" />
                   </>
                 )}
@@ -346,108 +429,106 @@ export const CheckoutModal = ({ isOpen, onClose, plan }: CheckoutModalProps) => 
             </form>
           )}
 
-          {/* STEP 2: PAYMENT INSTRUCTIONS (QR & UTR) */}
+          {/* STEP 2: PAYMENT INSTRUCTIONS (QR & UTR + Screenshot Upload) */}
           {step === 'PAYMENT' && order && (
-            <div className="space-y-5">
+            <div className="space-y-4">
               {/* Top Countdown & Ref Header */}
-              <div className="flex items-center justify-between pb-3 border-b border-gray-100">
+              <div className="flex items-center justify-between pb-2.5 border-b border-gray-100">
                 <div className="flex items-center gap-2">
-                  <span className="text-[12px] font-bold uppercase tracking-wider text-gray-400">Order:</span>
+                  <span className="text-[12px] font-bold uppercase tracking-wider text-gray-400">Order Ref:</span>
                   <span className="font-mono text-[14px] font-bold text-[#0B0B14]">{order.reference}</span>
                   <button
                     type="button"
                     onClick={() => copyToClipboard(order.reference, setCopiedRef)}
-                    className="p-1 text-gray-400 hover:text-black"
+                    className="p-1 text-gray-400 hover:text-black cursor-pointer"
                     title="Copy reference"
                   >
                     {copiedRef ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
                   </button>
                 </div>
-                <div className="flex items-center gap-1.5 text-amber-600 font-mono text-[13px] font-medium bg-amber-50 px-2.5 py-1 rounded-full border border-amber-200">
+                <div className="flex items-center gap-1.5 text-amber-600 font-mono text-[12.5px] font-medium bg-amber-50 px-2.5 py-0.5 rounded-full border border-amber-200">
                   <Clock className="w-3.5 h-3.5" />
                   <span>{timeLeft}</span>
                 </div>
               </div>
 
-              {/* Exact Amount Banner with Unique Paise Highlight */}
-              <div className="p-4 rounded-2xl bg-[#0B0F19] text-white text-center">
-                <span className="text-[12px] uppercase tracking-wider text-gray-400">Exact Amount to Transfer:</span>
-                <div className="text-[32px] font-mono font-bold text-[#4F8FF7] mt-0.5 tracking-tight flex items-center justify-center gap-2">
-                  <span>{order.exactAmountFormatted}</span>
+              {/* Exact Amount Banner (Rs 999) */}
+              <div className="p-3.5 rounded-2xl bg-[#0B0F19] text-white text-center">
+                <span className="text-[11.5px] uppercase tracking-wider text-gray-400">Exact Amount to Pay:</span>
+                <div className="text-[32px] font-mono font-bold text-[#60A5FA] mt-0.5 tracking-tight flex items-center justify-center gap-2">
+                  <span>{FORMATTED_PRICE}</span>
                   <button
                     type="button"
-                    onClick={() => copyToClipboard(order.exactAmountFormatted.replace('₹', ''), setCopiedAmount)}
-                    className="text-gray-400 hover:text-white transition-colors"
+                    onClick={() => copyToClipboard(String(PRICE), setCopiedAmount)}
+                    className="text-gray-400 hover:text-white transition-colors cursor-pointer"
                     title="Copy exact amount"
                   >
                     {copiedAmount ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
                   </button>
                 </div>
-                <p className="text-[12px] text-amber-300/90 mt-1">
-                  ⚠️ Please transfer the <strong>exact amount including paise</strong> so your payment is automatically
-                  matched with your order in our bank records!
+                <p className="text-[11.5px] text-gray-300 mt-0.5">
+                  One-time payment for <strong>{PLAN_NAME}</strong>
                 </p>
               </div>
 
-              {/* QR Code and UPI App Button */}
-              <div className="flex flex-col sm:flex-row items-center gap-5 justify-center py-2">
+              {/* QR Code and Payee UPI ID */}
+              <div className="flex flex-col sm:flex-row items-center gap-4 justify-center py-1">
                 {order.qrCodeDataUrl ? (
-                  <div className="p-3 bg-white rounded-2xl border-2 border-gray-200 shadow-md text-center shrink-0">
+                  <div className="p-2.5 bg-white rounded-2xl border-2 border-gray-200 shadow-md text-center shrink-0">
                     <img
                       src={order.qrCodeDataUrl}
                       alt="UPI QR Code"
-                      className="w-[190px] h-[190px] object-contain mx-auto"
+                      className="w-[175px] h-[175px] object-contain mx-auto"
                     />
-                    <span className="text-[11px] font-medium text-gray-600 font-mono mt-1.5 block">
-                      Scan with GPay / PhonePe / Paytm / BHIM
+                    <span className="text-[10.5px] font-medium text-gray-600 font-mono mt-1 block">
+                      Scan with GPay / PhonePe / Paytm
                     </span>
                   </div>
                 ) : null}
 
-                <div className="flex-1 space-y-3 w-full">
+                <div className="flex-1 space-y-2.5 w-full">
                   {/* Direct Payee UPI ID with 1-Click Copy */}
                   <div className="p-3 rounded-xl bg-blue-50/70 border border-blue-200">
-                    <div className="text-[11px] uppercase tracking-wider font-semibold text-blue-900 mb-1">
-                      Direct Payee UPI ID
+                    <div className="text-[11px] uppercase tracking-wider font-semibold text-blue-900 mb-0.5">
+                      Payee UPI ID
                     </div>
                     <div className="flex items-center justify-between gap-2">
                       <span className="font-mono text-[14px] font-bold text-[#0B0B14] select-all">
-                        {order.vpa || '8700383626@axl'}
+                        {UPI_ID}
                       </span>
                       <button
                         type="button"
-                        onClick={() => copyToClipboard(order.vpa || '8700383626@axl', setCopiedVpa)}
-                        className="py-1 px-2.5 rounded-lg bg-white border border-blue-300 hover:bg-blue-50 text-blue-700 text-[12px] font-semibold flex items-center gap-1 shadow-xs transition-all cursor-pointer"
+                        onClick={() => copyToClipboard(UPI_ID, setCopiedVpa)}
+                        className="py-1 px-2.5 rounded-lg bg-white border border-blue-300 hover:bg-blue-50 text-blue-700 text-[11.5px] font-semibold flex items-center gap-1 shadow-xs transition-all cursor-pointer"
                       >
                         {copiedVpa ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
                         <span>{copiedVpa ? 'Copied' : 'Copy UPI'}</span>
                       </button>
                     </div>
+                    <span className="text-[11px] text-gray-500 block mt-0.5">Payee Name: {UPI_PAYEE_NAME}</span>
                   </div>
 
                   <a
-                    href={order.upiUri}
-                    className="w-full py-3 px-4 rounded-xl bg-[#4F8FF7] hover:bg-[#3D82EE] text-white font-semibold text-[14px] flex items-center justify-center gap-2 shadow-sm transition-all"
+                    href={order.upiUri || `upi://pay?pa=${UPI_ID}&pn=${encodeURIComponent(UPI_PAYEE_NAME)}&am=${PRICE}&cu=INR&tn=${order.reference}`}
+                    className="w-full py-2.5 px-3 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-semibold text-[13.5px] flex items-center justify-center gap-2 shadow-xs transition-all"
                   >
                     <Smartphone className="w-4 h-4" />
                     <span>Pay with UPI App (Mobile)</span>
                   </a>
 
-                  <div className="p-3 rounded-xl bg-gray-50 border border-gray-200 text-[12px] text-gray-600 space-y-1">
-                    <div className="font-semibold text-gray-800">Transfer Instructions:</div>
+                  <div className="p-2.5 rounded-xl bg-gray-50 border border-gray-200 text-[11.5px] text-gray-600 space-y-0.5">
                     <div>1. Open Google Pay, PhonePe, Paytm, or BHIM.</div>
-                    <div>2. Scan QR or transfer to: <strong className="font-mono text-gray-900">{order.vpa || '8700383626@axl'}</strong></div>
-                    <div>3. Pay exact amount: <strong>{order.exactAmountFormatted}</strong></div>
-                    <div>4. Add remark/note: <strong>{order.reference}</strong></div>
+                    <div>2. Transfer <strong>{FORMATTED_PRICE}</strong> to: <strong className="font-mono text-gray-900">{UPI_ID}</strong></div>
+                    <div>3. Enter Remark / Note: <strong>{order.reference}</strong></div>
                   </div>
                 </div>
               </div>
 
-              {/* Step 3: Enter 12-Digit UTR Form */}
+              {/* Step 3 Form: Enter 12-Digit UTR + Optional Screenshot */}
               <form onSubmit={handleSubmitUtr} className="pt-2 border-t border-gray-100 space-y-3">
                 <div>
                   <label className="block text-[13px] font-semibold text-[#0B0B14] mb-1">
-                    Enter 12-Digit UTR / UPI Transaction ID <span className="text-red-500">*</span>
+                    Enter 12-Digit UTR / Transaction ID <span className="text-red-500">*</span>
                   </label>
                   <input
                     type="text"
@@ -456,11 +537,36 @@ export const CheckoutModal = ({ isOpen, onClose, plan }: CheckoutModalProps) => 
                     value={utr}
                     onChange={(e) => setUtr(e.target.value.replace(/\D/g, ''))}
                     placeholder="e.g. 428819204918 (12 digits)"
-                    className="w-full px-4 py-2.5 font-mono text-[16px] tracking-wider rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#4F8FF7]"
+                    className="w-full px-3.5 py-2 font-mono text-[16px] tracking-wider rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#2563EB]"
                   />
                   <p className="text-[11px] text-gray-500 mt-1">
-                    Found in your bank app payment receipt as "UPI Ref No" or "UTR".
+                    Shown in your bank/UPI app payment receipt as "UPI Ref No" or "UTR".
                   </p>
+                </div>
+
+                {/* Optional Screenshot Upload */}
+                <div>
+                  <label className="block text-[13px] font-semibold text-[#0B0B14] mb-1">
+                    Payment Screenshot <span className="text-gray-400 font-normal">(Optional, helps faster verification)</span>
+                  </label>
+                  <div className="flex items-center gap-3">
+                    <label className="cursor-pointer inline-flex items-center gap-2 px-3.5 py-2 rounded-xl border border-gray-300 hover:bg-gray-50 text-[12.5px] font-medium text-gray-700 transition-colors">
+                      <Upload className="w-4 h-4 text-gray-500" />
+                      <span>{screenshotName ? 'Change Screenshot' : 'Upload Screenshot'}</span>
+                      <input
+                        type="file"
+                        accept="image/png,image/jpeg,image/webp"
+                        className="hidden"
+                        onChange={handleScreenshotChange}
+                      />
+                    </label>
+                    {screenshotName && (
+                      <span className="text-[12px] text-emerald-600 font-medium inline-flex items-center gap-1 truncate max-w-[200px]">
+                        <ImageIcon className="w-3.5 h-3.5 shrink-0" />
+                        <span className="truncate">{screenshotName}</span>
+                      </span>
+                    )}
+                  </div>
                 </div>
 
                 <button
@@ -473,7 +579,7 @@ export const CheckoutModal = ({ isOpen, onClose, plan }: CheckoutModalProps) => 
                   ) : (
                     <>
                       <Check className="w-4 h-4" />
-                      <span>I Have Paid — Submit UTR for Verification</span>
+                      <span>I Have Paid — Submit for Verification</span>
                     </>
                   )}
                 </button>
@@ -484,10 +590,10 @@ export const CheckoutModal = ({ isOpen, onClose, plan }: CheckoutModalProps) => 
           {/* STEP 3: PENDING VERIFICATION */}
           {step === 'PENDING' && order && (
             <div className="text-center py-4 space-y-4">
-              <div className="w-16 h-16 rounded-full bg-blue-50 text-[#4F8FF7] mx-auto flex items-center justify-center">
+              <div className="w-16 h-16 rounded-full bg-blue-50 text-[#2563EB] mx-auto flex items-center justify-center">
                 <Clock className="w-8 h-8 animate-pulse" />
               </div>
-              <h3 className="text-[20px] font-bold text-[#0B0B14]">Payment Under Verification</h3>
+              <h3 className="text-[20px] font-bold text-[#0B0B14]">Payment Pending Verification</h3>
               <div className="p-4 rounded-2xl bg-gray-50 border border-gray-200 text-left space-y-2 text-[13px]">
                 <div className="flex justify-between">
                   <span className="text-gray-500">Order Reference:</span>
@@ -495,11 +601,19 @@ export const CheckoutModal = ({ isOpen, onClose, plan }: CheckoutModalProps) => 
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-500">Plan:</span>
-                  <span className="font-semibold text-gray-900">{order.planName}</span>
+                  <span className="font-semibold text-gray-900">{PLAN_NAME}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-500">Amount Paid:</span>
-                  <span className="font-mono font-bold text-emerald-600">{order.exactAmountFormatted}</span>
+                  <span className="font-mono font-bold text-emerald-600">{FORMATTED_PRICE}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-500">Student Name:</span>
+                  <span className="font-medium text-gray-900">{name}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-500">College:</span>
+                  <span className="font-medium text-gray-900">{college}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-500">Delivery Email:</span>
@@ -507,11 +621,11 @@ export const CheckoutModal = ({ isOpen, onClose, plan }: CheckoutModalProps) => 
                 </div>
               </div>
 
-              <p className="text-[14px] text-gray-600 leading-relaxed max-w-[420px] mx-auto">
-                Fulfillment links are strictly not provided before payment verification. Parth Arora will manually verify your 12-digit UTR against bank records and provide your delivery links to <strong>{email}</strong>.
+              <p className="text-[13.5px] text-gray-600 leading-relaxed max-w-[420px] mx-auto">
+                Your payment reference has been recorded as <strong>Pending verification</strong>. Parth Arora will manually verify your 12-digit UTR against bank records and approve your order. Your secure download links will be emailed directly to <strong>{email}</strong>.
               </p>
 
-              <div className="pt-4 flex flex-col sm:flex-row gap-3 justify-center">
+              <div className="pt-3 flex flex-col sm:flex-row gap-3 justify-center">
                 <a
                   href={`/orders/${order.reference}`}
                   className="py-2.5 px-5 rounded-full border border-gray-300 text-[13px] font-medium text-gray-700 hover:bg-gray-50"
@@ -530,130 +644,105 @@ export const CheckoutModal = ({ isOpen, onClose, plan }: CheckoutModalProps) => 
           )}
 
           {/* STEP 4: APPROVED & DELIVERY ACCESS */}
-          {step === 'APPROVED' && order && (() => {
-            const isComplete = (order.planName || plan.name).toLowerCase().includes('complete') || plan.id === 'complete';
-            const links: any[] = order.accessLinks || (order.accessUrl ? [{
-              id: 'direct-access',
-              label: isComplete ? 'Complete Package Download' : 'MEGA Dashboard Repository Download',
-              url: order.accessUrl,
-              description: 'Direct repository archive download.',
-              badge: 'Direct Download',
-              iconType: 'mega',
-            }] : []);
+          {step === 'APPROVED' && order && (
+            <div className="text-center py-4 space-y-4">
+              <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 mx-auto flex items-center justify-center shadow-inner">
+                <Check className="w-8 h-8 stroke-[2.5]" />
+              </div>
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-[11.5px] font-bold">
+                <Sparkles className="w-3.5 h-3.5" />
+                <span>Payment Approved & Verified</span>
+              </div>
+              <h3 className="text-[20px] font-bold text-[#0B0B14]">Download Unlocked!</h3>
+              <p className="text-[13.5px] text-gray-600 max-w-[460px] mx-auto">
+                Thank you! Your payment for <strong>{PLAN_NAME}</strong> has been approved. You have unlocked immediate access to your installer and study materials below:
+              </p>
 
-            return (
-              <div className="text-center py-4 space-y-4">
-                <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 mx-auto flex items-center justify-center shadow-inner">
-                  <Check className="w-8 h-8 stroke-[2.5]" />
-                </div>
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-[11.5px] font-bold">
-                  <Sparkles className="w-3.5 h-3.5" />
-                  <span>Fulfillment Unlocked</span>
-                </div>
-                <h3 className="text-[20px] font-bold text-[#0B0B14]">Payment Verified & Approved!</h3>
-                <p className="text-[14px] text-gray-600 max-w-[460px] mx-auto">
-                  Thank you! Your payment for <strong>{order.planName || plan.name}</strong> has been successfully verified. You have unlocked immediate package access below:
-                </p>
-
-                {/* Delivery Links List */}
-                <div className="space-y-3 pt-1 text-left max-w-[500px] mx-auto">
-                  {links.map((linkItem, idx) => (
-                    <div
-                      key={linkItem.id}
-                      className="p-3.5 bg-gray-50/90 rounded-xl border border-gray-200 text-left space-y-2.5 shadow-xs"
-                    >
-                      <div className="flex items-center justify-between gap-2">
-                        <div className="flex items-center gap-2 min-w-0">
-                          <div className="w-7 h-7 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0">
-                            {linkItem.iconType === 'drive_folder' ? (
-                              <Folder className="w-3.5 h-3.5" />
-                            ) : linkItem.iconType === 'video' ? (
-                              <Video className="w-3.5 h-3.5" />
-                            ) : (
-                              <Download className="w-3.5 h-3.5" />
-                            )}
-                          </div>
-                          <div className="min-w-0">
-                            <span className="block font-bold text-[13px] text-gray-900 truncate">
-                              {linkItem.label}
-                            </span>
-                            <span className="block text-[10px] font-bold text-emerald-700 uppercase tracking-wider">
-                              {linkItem.badge}
-                            </span>
-                          </div>
+              {/* Delivery Links List */}
+              <div className="space-y-3 pt-1 text-left max-w-[500px] mx-auto">
+                {(order.accessLinks || []).map((linkItem: any, idx: number) => (
+                  <div
+                    key={linkItem.label || idx}
+                    className="p-3.5 bg-gray-50/90 rounded-xl border border-gray-200 text-left space-y-2 shadow-xs"
+                  >
+                    <div className="flex items-center justify-between gap-2">
+                      <div className="flex items-center gap-2 min-w-0">
+                        <div className="w-7 h-7 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0">
+                          {linkItem.type === 'installer' ? (
+                            <Download className="w-3.5 h-3.5" />
+                          ) : linkItem.type === 'video' ? (
+                            <Video className="w-3.5 h-3.5" />
+                          ) : (
+                            <Folder className="w-3.5 h-3.5" />
+                          )}
+                        </div>
+                        <div className="min-w-0">
+                          <span className="block font-bold text-[13px] text-gray-900 truncate">
+                            {linkItem.label}
+                          </span>
                         </div>
                       </div>
-
-                      <p className="text-[11.5px] text-gray-600">
-                        {linkItem.description}
-                      </p>
-
-                      <div className="flex items-center gap-2 pt-1 border-t border-gray-100">
-                        <button
-                          type="button"
-                          onClick={() => {
-                            navigator.clipboard.writeText(linkItem.url);
-                            setCopiedLinkIndex(idx);
-                            setTimeout(() => setCopiedLinkIndex(null), 2000);
-                          }}
-                          className="px-3 py-1.5 rounded-lg border border-gray-200 hover:bg-white text-[12px] font-medium text-gray-700 flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
-                        >
-                          {copiedLinkIndex === idx ? (
-                            <>
-                              <Check className="w-3.5 h-3.5 text-emerald-600" />
-                              <span className="text-emerald-700 font-semibold">Copied</span>
-                            </>
-                          ) : (
-                            <>
-                              <Copy className="w-3.5 h-3.5" />
-                              <span>Copy Link</span>
-                            </>
-                          )}
-                        </button>
-                        <a
-                          href={linkItem.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex-1 py-1.5 px-3 rounded-lg bg-emerald-600 hover:bg-emerald-700 active:scale-[0.98] text-white font-semibold text-[12px] inline-flex items-center justify-center gap-1.5 transition-all cursor-pointer"
-                        >
-                          <span>Open Access</span>
-                          <ExternalLink className="w-3.5 h-3.5 opacity-80" />
-                        </a>
-                      </div>
                     </div>
-                  ))}
 
-                  <div className="p-3 rounded-xl bg-emerald-50/70 border border-emerald-100 text-[12px] text-emerald-900 text-left space-y-1">
-                    <p className="font-semibold text-emerald-950">📦 Package Instructions:</p>
-                    <p className="text-emerald-800">
-                      {isComplete
-                        ? 'Access the Google Drive folder for the source code, reports, presentation slides, and viva Q&A. Video walkthrough and MEGA repository mirror are also available above. A copy has been dispatched to '
-                        : 'Download the archive from MEGA, extract the files, and open the included setup guide. A copy has been dispatched to '}
-                      <strong>{email}</strong>.
+                    <p className="text-[11.5px] text-gray-600">
+                      {linkItem.description}
                     </p>
+
+                    <div className="flex items-center gap-2 pt-1 border-t border-gray-100">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          navigator.clipboard.writeText(linkItem.url);
+                          setCopiedLinkIndex(idx);
+                          setTimeout(() => setCopiedLinkIndex(null), 2000);
+                        }}
+                        className="px-3 py-1.5 rounded-lg border border-gray-200 hover:bg-white text-[12px] font-medium text-gray-700 flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+                      >
+                        {copiedLinkIndex === idx ? (
+                          <>
+                            <Check className="w-3.5 h-3.5 text-emerald-600" />
+                            <span className="text-emerald-700 font-semibold">Copied</span>
+                          </>
+                        ) : (
+                          <>
+                            <Copy className="w-3.5 h-3.5" />
+                            <span>Copy Link</span>
+                          </>
+                        )}
+                      </button>
+                      <a
+                        href={linkItem.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex-1 py-1.5 px-3 rounded-lg bg-emerald-600 hover:bg-emerald-700 active:scale-[0.98] text-white font-semibold text-[12px] inline-flex items-center justify-center gap-1.5 transition-all cursor-pointer"
+                      >
+                        <span>Download / Access</span>
+                        <ExternalLink className="w-3.5 h-3.5 opacity-80" />
+                      </a>
+                    </div>
                   </div>
-                </div>
-
-                <div className="pt-3 flex flex-col sm:flex-row gap-3 justify-center">
-                  <a
-                    href={`/orders/${order.reference}`}
-                    className="py-2.5 px-5 rounded-full border border-gray-300 text-[13px] font-medium text-gray-700 hover:bg-gray-50 flex items-center justify-center gap-1.5"
-                  >
-                    <span>View Order Status & Receipt</span>
-                  </a>
-                  <button
-                    type="button"
-                    onClick={onClose}
-                    className="py-2.5 px-6 rounded-full bg-[#0B0B14] text-white text-[13px] font-medium hover:bg-black transition-colors cursor-pointer"
-                  >
-                    Done
-                  </button>
-                </div>
+                ))}
               </div>
-            );
-          })()}
 
-          {/* STEP 4: EXPIRED SESSION */}
+              <div className="pt-3 flex flex-col sm:flex-row gap-3 justify-center">
+                <a
+                  href={`/orders/${order.reference}`}
+                  className="py-2.5 px-5 rounded-full border border-gray-300 text-[13px] font-medium text-gray-700 hover:bg-gray-50 flex items-center justify-center gap-1.5"
+                >
+                  <span>View Order Status & Receipt</span>
+                </a>
+                <button
+                  type="button"
+                  onClick={onClose}
+                  className="py-2.5 px-6 rounded-full bg-[#0B0B14] text-white text-[13px] font-medium hover:bg-black transition-colors cursor-pointer"
+                >
+                  Done
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* STEP 5: EXPIRED SESSION */}
           {step === 'EXPIRED' && (
             <div className="text-center py-6 space-y-4">
               <div className="w-14 h-14 rounded-full bg-amber-50 text-amber-600 mx-auto flex items-center justify-center">
@@ -661,13 +750,13 @@ export const CheckoutModal = ({ isOpen, onClose, plan }: CheckoutModalProps) => 
               </div>
               <h3 className="text-[19px] font-bold text-[#0B0B14]">Order Session Expired</h3>
               <p className="text-[14px] text-gray-600 max-w-[400px] mx-auto">
-                This 30-minute checkout window has elapsed. If you have already transferred funds, do not worry — contact
-                Parth Arora with your UTR and we will manually approve and deliver your files.
+                This 30-minute checkout window has elapsed. If you have already transferred ₹999, do not worry — contact
+                Parth Arora with your UTR and we will manually verify and deliver your package.
               </p>
               <button
                 type="button"
                 onClick={() => setStep('DETAILS')}
-                className="py-2.5 px-6 rounded-full bg-[#4F8FF7] text-white text-[14px] font-semibold"
+                className="py-2.5 px-6 rounded-full bg-[#2563EB] text-white text-[14px] font-semibold"
               >
                 Start New Order
               </button>

@@ -9,7 +9,7 @@ import { requireAdminAuth, safeCompare } from '../middleware/auth';
 import { DeliveryService } from '../services/deliveryService';
 import { BankStatementReconciler } from '../services/reconciler';
 import { emailService, EmailTemplates } from '../services/email/EmailProvider';
-import { SERVER_PLANS } from '../config/plans';
+import { SERVER_PLANS, PLAN_ID } from '../config/plans';
 import { storage } from '../services/storage/StorageProvider';
 import { PaiseAllocator } from '../services/paiseAllocator';
 import { env } from '../config/env';
@@ -96,17 +96,11 @@ router.get('/admin/orders', (req: Request, res: Response) => {
       rejected: db.getAllOrders().filter((o) => o.status === 'rejected').length,
     },
     planDeliveryLinks: {
-      standard: {
-        planId: 'standard',
-        name: SERVER_PLANS.standard?.name || 'Standard Plan',
-        primaryUrl: SERVER_PLANS.standard?.directAccessUrl || '',
-        links: SERVER_PLANS.standard?.directAccessUrls || [],
-      },
-      complete: {
-        planId: 'complete',
-        name: SERVER_PLANS.complete?.name || 'Complete Kit',
-        primaryUrl: SERVER_PLANS.complete?.directAccessUrl || '',
-        links: SERVER_PLANS.complete?.directAccessUrls || [],
+      student_edition: {
+        planId: PLAN_ID,
+        name: SERVER_PLANS[PLAN_ID]?.name || 'SpidyDashboard, Student Edition',
+        primaryUrl: SERVER_PLANS[PLAN_ID]?.directAccessUrl || '',
+        links: SERVER_PLANS[PLAN_ID]?.directAccessUrls || [],
       },
     },
   });

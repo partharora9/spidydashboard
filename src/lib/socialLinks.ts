@@ -13,11 +13,11 @@ export const socialLinks: SocialLink[] = [
   {
     id: 'email',
     name: 'Email',
-    url: 'mailto:parthxcore@gmail.com',
-    label: 'parthxcore@gmail.com',
-    ariaLabel: 'Email Parth Arora directly at parthxcore@gmail.com',
+    url: 'mailto:hello@spidydashboard.com',
+    label: 'hello@spidydashboard.com',
+    ariaLabel: 'Email SpidyDashboard directly at hello@spidydashboard.com',
     descriptor: 'Direct inquiries, purchase verification, and technical support.',
-    actionText: 'Email Parth',
+    actionText: 'Email SpidyDashboard',
     iconType: 'email',
   },
   {

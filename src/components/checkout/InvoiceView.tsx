@@ -74,7 +74,7 @@ export const InvoiceView = ({ reference }: InvoiceViewProps) => {
               <div className="text-[12px] text-gray-600 mt-3 space-y-0.5">
                 <div>Developer: {invoice.merchant.name}</div>
                 <div>Role: SOC Analyst & Cybersecurity Practitioner</div>
-                <div>Contact: parthxcore@gmail.com</div>
+                <div>Contact: hello@spidydashboard.com</div>
               </div>
             </div>
 
@@ -128,7 +128,7 @@ export const InvoiceView = ({ reference }: InvoiceViewProps) => {
                   <td className="py-4">
                     <div className="font-semibold text-gray-900">{invoice.planName}</div>
                     <div className="text-[12px] text-gray-500 mt-0.5">
-                      Digital source code release (One-time download), setup guide & documentation.
+                      Standalone Windows desktop application (One-time download), setup guide & academic study pack.
                     </div>
                   </td>
                   <td className="py-4 text-center">1</td>
@@ -160,9 +160,8 @@ export const InvoiceView = ({ reference }: InvoiceViewProps) => {
           {/* Legal Tax Footnote */}
           <div className="pt-6 border-t border-gray-100 text-[11px] text-gray-400 space-y-1">
             <p>
-              * Note: Software sold directly as independent digital source code. Goods & Services Tax (GST) registration
-              threshold under Indian law is ₹20 Lakhs per annum. Check with your corporate accountant regarding reverse
-              charge mechanism (RCM) or business expense filing.
+              * Note: Software sold directly as independent electronic software release. Goods & Services Tax (GST) registration
+              threshold under Indian law is ₹20 Lakhs per annum. Check with your accountant regarding tax filing.
             </p>
             <p>Built on SpiderFoot, MIT License. Created by Parth Arora (SOC Analyst).</p>
           </div>

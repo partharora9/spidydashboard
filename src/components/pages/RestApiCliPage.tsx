@@ -531,9 +531,9 @@ jobs:
         <div className="p-4 mt-6 rounded-xl bg-blue-50/70 border border-blue-200/60 text-[14px]">
           <h4 className="font-semibold text-blue-950">API Integration Support &amp; CI/CD Pipelines</h4>
           <p className="mt-1 text-blue-800">
-            Need custom webhooks, automated SIEM pipelines, or source code assistance? Contact Parth Arora directly at{' '}
-            <a href="mailto:parthxcore@gmail.com" className="font-semibold underline hover:text-blue-900">
-              parthxcore@gmail.com
+            Need custom webhooks, automated SIEM pipelines, or software integration assistance? Contact Parth Arora directly at{' '}
+            <a href="mailto:hello@spidydashboard.com" className="font-semibold underline hover:text-blue-900">
+              hello@spidydashboard.com
             </a>.
           </p>
         </div>

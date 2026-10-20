@@ -4,13 +4,13 @@ export const TermsPage = () => {
   return (
     <LegalPageLayout
       title="Terms of Service"
-      subtitle="Terms governing the one-time purchase, license grant, and authorized use of SpidyDashboard source code."
+      subtitle="Terms governing the one-time purchase, license grant, and authorized use of SpidyDashboard, Student Edition."
       lastUpdated="October 19, 2026"
     >
       <section className="space-y-3">
         <h2 className="text-[20px] font-bold text-gray-900">1. Acceptance of Terms</h2>
         <p>
-          By purchasing, downloading, accessing, or executing the SpidyDashboard source code, you agree to be bound by
+          By purchasing, downloading, accessing, or executing SpidyDashboard, you agree to be bound by
           these Terms of Service. If you do not agree to these terms, do not complete the purchase or download the release
           files.
         </p>
@@ -23,9 +23,10 @@ export const TermsPage = () => {
           Parth Arora (SOC Analyst), incorporating modules derived from SpiderFoot (MIT License).
         </p>
         <p>
-          The product is sold strictly as a <strong>one-time source code release archive (ZIP download)</strong>. No SaaS
-          subscription, hosted cloud server, or ongoing warranty is included in the Standard (₹499) or Complete Kit (₹799)
-          plans. Delivery is completed digitally via a tokenized download link after bank verification.
+          The product is provided as <strong>SpidyDashboard, Student Edition (₹999 one-time payment)</strong>. It includes a
+          standalone Windows Setup.exe installer, PDF setup &amp; usage guide, walkthrough video link, and project report / PPT / viva Q&amp;A
+          study pack. No SaaS subscription, hosted cloud server, or recurring fees apply. Delivery is completed digitally via a
+          secure download link after manual bank verification.
         </p>
       </section>
 
@@ -33,12 +34,12 @@ export const TermsPage = () => {
         <h2 className="text-[20px] font-bold text-gray-900">3. License Grant & Restrictions</h2>
         <p>
           Upon verified payment approval, you receive a non-exclusive, non-transferable, revocable license for{' '}
-          <strong>personal, research, and educational use</strong>:
+          <strong>personal, academic, and educational use</strong> of the installed software:
         </p>
         <ul className="list-disc pl-5 space-y-1">
-          <li><strong>No Resale or Redistribution:</strong> You may not re-license, sell, rent, lease, or distribute the source code or its documentation to third parties.</li>
-          <li><strong>No Public Repository Hosting:</strong> You may not upload the full source code archive to public GitHub, GitLab, or cloud repos without prior written consent.</li>
-          <li><strong>Attribution:</strong> You must retain the embedded SpiderFoot MIT License notices and author attribution.</li>
+          <li><strong>No Resale or Redistribution:</strong> You may not re-license, sell, rent, lease, or redistribute the installer package, study materials, or documentation to third parties.</li>
+          <li><strong>Personal Educational Use:</strong> The software and materials are provided for individual academic and defensive research.</li>
+          <li><strong>Attribution:</strong> You must retain embedded notices and author attribution.</li>
         </ul>
       </section>
 
@@ -67,7 +68,7 @@ export const TermsPage = () => {
       <section className="space-y-3">
         <h2 className="text-[20px] font-bold text-gray-900">6. Strict No Refund Policy</h2>
         <p>
-          Due to the digital, downloadable, and proprietary nature of software source code, all sales and payments are strictly final and non-refundable. There are no returns, refunds, or exchanges under any circumstances once payment is completed or access is dispatched.
+          Due to the digital and irrevocable nature of software installers and academic packs, all sales and payments are strictly final and non-refundable. There are no returns, refunds, or exchanges under any circumstances once payment is completed or access is dispatched.
         </p>
       </section>
 
@@ -78,7 +79,7 @@ export const TermsPage = () => {
           <br />
           <strong>Parth Arora</strong>
           <br />
-          Email: <a href="mailto:parthxcore@gmail.com" className="text-[#4F8FF7]">parthxcore@gmail.com</a>
+          Email: <a href="mailto:hello@spidydashboard.com" className="text-[#4F8FF7]">hello@spidydashboard.com</a>
           <br />
           Portfolio: <a href="https://partharora-soc.vercel.app/" target="_blank" className="text-[#4F8FF7]">partharora-soc.vercel.app</a>
         </p>

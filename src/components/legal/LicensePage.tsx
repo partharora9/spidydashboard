@@ -14,7 +14,7 @@ export const LicensePage = () => {
           dashboard built on top of the SpiderFoot open source intelligence engine.
         </p>
         <p>
-          Purchase of the Standard (₹499) or Complete Kit (₹799) grants the designated buyer a non-exclusive license for{' '}
+          Purchase of SpidyDashboard, Student Edition (₹999) grants the designated buyer a non-exclusive license for{' '}
           <strong>personal, research, academic, and non-commercial educational use</strong>.
         </p>
       </section>
@@ -36,8 +36,8 @@ export const LicensePage = () => {
       <section className="space-y-3">
         <h2 className="text-[20px] font-bold text-gray-900">3. Commercial Restrictions</h2>
         <p>
-          The buyer may NOT resell, repackage, white-label, or sell commercial access (e.g. multi-tenant SaaS) to this
-          codebase without entering into a separate commercial enterprise licensing agreement with Parth Arora.
+          The buyer may NOT resell, repackage, white-label, or commercially redistribute this software package or study
+          materials without entering into a separate commercial enterprise licensing agreement with Parth Arora.
         </p>
       </section>
 

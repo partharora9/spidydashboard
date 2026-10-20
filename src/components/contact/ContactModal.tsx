@@ -28,7 +28,7 @@ export const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
   const [error, setError] = useState<string | null>(null);
 
   const handleCopyEmail = () => {
-    navigator.clipboard.writeText('parthxcore@gmail.com');
+    navigator.clipboard.writeText('hello@spidydashboard.com');
     setCopied(true);
     setTimeout(() => setCopied(false), 2500);
   };
@@ -48,14 +48,14 @@ export const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
     setError(null);
 
     try {
-      const res = await fetch('/api/inquiry', {
+      const res = await fetch('/api/request', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           email: email.trim(),
           name: name.trim() || undefined,
           message: message.trim(),
-          plan: 'standard',
+          plan: 'student_edition',
         }),
       });
 
@@ -68,18 +68,18 @@ export const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
       if (res.ok) {
         setSubmitted(true);
       } else {
-        setError(data.error || 'Failed to dispatch message. You can email parthxcore@gmail.com directly.');
+        setError(data.error || 'Failed to dispatch message. You can email hello@spidydashboard.com directly.');
       }
     } catch {
-      setError('Network connection error. Please email parthxcore@gmail.com directly.');
+      setError('Network connection error. Please email hello@spidydashboard.com directly.');
     } finally {
       setSubmitting(false);
     }
   };
 
   const handleOpenGmail = () => {
-    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=parthxcore@gmail.com&su=${encodeURIComponent(
-      'Inquiry: SpidyDashboard OSINT & Source Code'
+    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=hello@spidydashboard.com&su=${encodeURIComponent(
+      'Inquiry: SpidyDashboard Student Edition'
     )}`;
     window.open(gmailUrl, '_blank', 'noopener,noreferrer');
   };
@@ -130,7 +130,7 @@ export const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
               </div>
             </div>
             <p className="text-blue-100 text-[13px] leading-relaxed max-w-[430px]">
-              SOC Analyst &amp; Creator of SpidyDashboard. Direct email for purchasing, source code inquiries, and technical support.
+              SOC Analyst &amp; Creator of SpidyDashboard. Direct email for purchasing, Student Edition inquiries, and technical support.
             </p>
           </div>
 
@@ -142,7 +142,7 @@ export const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
               </span>
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <div className="font-mono text-[16px] sm:text-[17px] font-bold text-[#0B0B14] select-all break-all">
-                  parthxcore@gmail.com
+                  hello@spidydashboard.com
                 </div>
 
                 <div className="flex items-center gap-2">
@@ -183,7 +183,7 @@ export const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
                 </button>
 
                 <a
-                  href="mailto:parthxcore@gmail.com?subject=Inquiry: SpidyDashboard OSINT"
+                  href="mailto:hello@spidydashboard.com?subject=Inquiry: SpidyDashboard OSINT"
                   className="px-4 py-2 rounded-xl bg-white hover:bg-gray-100 text-gray-700 border border-gray-200 text-[13px] font-medium inline-flex items-center gap-1.5 transition-colors"
                 >
                   <Mail className="w-3.5 h-3.5 text-gray-500" />
@@ -208,7 +208,7 @@ export const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
                   </div>
                   <h5 className="font-bold text-emerald-950 text-[16px]">Message Sent!</h5>
                   <p className="text-[13px] text-emerald-800 leading-relaxed max-w-[380px] mx-auto">
-                    Your inquiry has been dispatched to <strong>parthxcore@gmail.com</strong>. Parth Arora will review and reply to your email shortly.
+                    Your inquiry has been dispatched! Confirmation sent from <strong>hello@mail.spidydashboard.com</strong>. Parth Arora will review and reply to your email shortly.
                   </p>
                   <button
                     type="button"

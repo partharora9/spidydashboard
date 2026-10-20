@@ -22,6 +22,7 @@ export interface PaymentSubmissionData {
   utr?: string;
   screenshotBuffer?: Buffer;
   screenshotMimeType?: string;
+  screenshotData?: string;
 }
 
 export interface PaymentVerificationResult {

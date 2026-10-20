@@ -85,7 +85,7 @@ export class ManualUpiProvider implements PaymentProvider {
     }
 
     // Record payment submission
-    db.updatePaymentUtr(order.id, utr);
+    db.updatePaymentUtr(order.id, utr, undefined, data.screenshotMimeType, data.screenshotData);
 
     // Transition order state to pending_verification
     db.updateOrderStatus(order.id, 'pending_verification');

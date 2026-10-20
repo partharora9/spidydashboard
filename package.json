@@ -16,6 +16,7 @@
     "preview": "vite preview",
     "server": "tsx server/src/server.ts",
     "test:backend": "tsx server/scripts/testSuite.ts",
+    "test:deliverability": "tsx server/scripts/testDeliverability.ts",
     "stage:releases": "tsx server/scripts/uploadRelease.ts"
   },
   "dependencies": {
@@ -32,6 +33,7 @@
     "qrcode": "^1.5.4",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
+    "resend": "^6.34.1",
     "zod": "^4.6.7"
   },
   "devDependencies": {

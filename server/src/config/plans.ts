@@ -1,94 +1,78 @@
 /**
  * SERVER-SIDE AUTHORITATIVE PLANS CONFIGURATION
+ * Single source of truth for pricing on the server.
  * Never trust prices sent from the client or browser!
  */
+
+export const PRICE = 999;
+export const BASE_PRICE_PAISE = 99900; // Rs 999.00 in paise
+export const PLAN_ID = 'student_edition' as const;
+export const PLAN_NAME = 'SpidyDashboard, Student Edition';
 
 export interface DeliveryLink {
   label: string;
   url: string;
   description: string;
-  type: 'mega' | 'gdrive_folder' | 'gdrive_video';
+  type: 'installer' | 'guide_pdf' | 'video' | 'academic_pack';
 }
 
 export interface PlanConfig {
-  id: 'standard' | 'complete';
+  id: typeof PLAN_ID;
   name: string;
   basePriceCents: number; // Stored in paise (INR 1 = 100 paise)
   currency: 'INR';
   description: string;
   features: string[];
   releaseFileName: string;
+  secondaryReleaseFileName?: string;
   directAccessUrl?: string;
   directAccessUrls?: DeliveryLink[];
 }
 
-export const SERVER_PLANS: Record<'standard' | 'complete', PlanConfig> = {
-  standard: {
-    id: 'standard',
-    name: 'SpidyDashboard Standard',
-    basePriceCents: 49900, // Rs 499.00
+export const SERVER_PLANS: Record<typeof PLAN_ID, PlanConfig> = {
+  [PLAN_ID]: {
+    id: PLAN_ID,
+    name: PLAN_NAME,
+    basePriceCents: BASE_PRICE_PAISE,
     currency: 'INR',
-    description: 'Step-by-step setup guide, walkthrough video, architecture docs',
+    description: 'Windows Setup.exe standalone installer, setup & usage guide, video tour, and academic report/PPT/viva pack.',
     features: [
-      'Step-by-step installation and setup guide',
-      'Architecture and walkthrough video tour link',
-      'Module catalog and documentation',
-      'Personal & educational license',
+      'Windows Setup.exe installer of the dashboard (standalone, nothing extra to install)',
+      'Setup and usage guide (PDF)',
+      'Walkthrough video link',
+      'Project report, PPT and viva Q&A pack',
+      'Lifetime use of the installed version',
     ],
-    releaseFileName: 'spidydashboard-standard-v1.0.0.zip',
-    directAccessUrl: 'https://mega.nz/file/mC5HVarR#ZAwdE8l-icMVq7rrXy5UdKFVvilEFYbRM1QEQRqe25Q',
-    directAccessUrls: [
-      {
-        label: 'MEGA Dashboard Repository Download',
-        url: 'https://mega.nz/file/mC5HVarR#ZAwdE8l-icMVq7rrXy5UdKFVvilEFYbRM1QEQRqe25Q',
-        description: 'Complete step-by-step setup guide, architecture documentation, and video tour archive',
-        type: 'mega',
-      },
-    ],
-  },
-  complete: {
-    id: 'complete',
-    name: 'SpidyDashboard Complete Kit',
-    basePriceCents: 79900, // Rs 799.00
-    currency: 'INR',
-    description: 'Full dashboard source code, project report, PPT presentation, viva Q&A',
-    features: [
-      'Full SpiderFoot-based reconnaissance engine & dashboard source code',
-      'Full academic / technical project report (PDF & DOCX)',
-      'Professional PowerPoint presentation (PPTX)',
-      'Viva defense questions & detailed answers',
-      'Step-by-step installation and setup guide',
-      'Architecture and walkthrough video tour link',
-      'Personal & educational license',
-    ],
-    releaseFileName: 'spidydashboard-complete-v1.0.0.zip',
+    releaseFileName: 'SpidyDashboard-Setup.exe',
+    secondaryReleaseFileName: 'SpidyDashboard-Student-Pack.zip',
     directAccessUrl: 'https://drive.google.com/drive/folders/11yYiGjmPlh5phJyrMYwq-OAimypkZbj_?usp=sharing',
     directAccessUrls: [
       {
-        label: 'Google Drive Complete Package (Source Code, Reports, PPTX, Viva)',
-        url: 'https://drive.google.com/drive/folders/11yYiGjmPlh5phJyrMYwq-OAimypkZbj_?usp=sharing',
-        description: 'Full SpiderFoot engine source code, academic IEEE report (PDF & DOCX), PPT presentation, and viva defense Q&A',
-        type: 'gdrive_folder',
-      },
-      {
-        label: 'Video Walkthrough & Architecture Tour (MP4)',
-        url: 'https://drive.google.com/file/d/1OU27pCr2AnxcfoLeazLZbWOiysxakZok/view?usp=sharing',
-        description: 'Comprehensive engine walkthrough and component architecture video tour',
-        type: 'gdrive_video',
-      },
-      {
-        label: 'MEGA Dashboard Repository Archive',
+        label: 'Windows Standalone Installer (Setup.exe)',
         url: 'https://mega.nz/file/mC5HVarR#ZAwdE8l-icMVq7rrXy5UdKFVvilEFYbRM1QEQRqe25Q',
-        description: 'High-speed mirror of the complete dashboard repository archive and standalone release',
-        type: 'mega',
+        description: 'Standalone Windows Setup.exe desktop installer — runs with nothing extra to install.',
+        type: 'installer',
+      },
+      {
+        label: 'Setup & Usage Guide (PDF) & Academic Defense Pack',
+        url: 'https://drive.google.com/drive/folders/11yYiGjmPlh5phJyrMYwq-OAimypkZbj_?usp=sharing',
+        description: 'Comprehensive setup guide PDF, project report (PDF & DOCX), PPT presentation, and viva Q&A pack.',
+        type: 'academic_pack',
+      },
+      {
+        label: 'Dashboard Walkthrough & Feature Tour Video (MP4)',
+        url: 'https://drive.google.com/file/d/1OU27pCr2AnxcfoLeazLZbWOiysxakZok/view?usp=sharing',
+        description: 'Video walkthrough demonstrating installation, footprinting, graph analysis, and scanning modules.',
+        type: 'video',
       },
     ],
   },
 };
 
 export function getPlanOrThrow(planId: string): PlanConfig {
-  if (planId === 'standard' || planId === 'complete') {
-    return SERVER_PLANS[planId];
+  if (planId === PLAN_ID || planId === 'student' || planId === 'student_edition' || planId === 'standard' || planId === 'complete') {
+    // Normalizes any incoming legacy or alias to the student edition plan
+    return SERVER_PLANS[PLAN_ID];
   }
-  throw new Error(`Invalid plan identifier: ${planId}. Allowed plans are 'standard' or 'complete'.`);
+  throw new Error(`Invalid plan identifier: ${planId}. Allowed plan is '${PLAN_ID}'.`);
 }

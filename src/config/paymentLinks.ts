@@ -1,10 +1,14 @@
 /**
- * Payment and checkout URLs for SpidyDashboard source code packages.
- * Configure your Stripe, LemonSqueezy, or Razorpay checkout links here.
+ * Payment and checkout configuration for SpidyDashboard.
+ * Checkout uses direct manual UPI verification (no external payment gateways).
  */
-export const paymentLinks = {
-  standard: 'https://buy.stripe.com/spidydashboard-standard',
-  complete: 'https://buy.stripe.com/spidydashboard-complete-kit',
+import { PLAN_ID, PRICE, UPI_ID, UPI_PAYEE_NAME } from './pricing';
+
+export const paymentConfig = {
+  planId: PLAN_ID,
+  price: PRICE,
+  upiId: UPI_ID,
+  payeeName: UPI_PAYEE_NAME,
 } as const;
 
-export type PaymentPlanKey = keyof typeof paymentLinks;
+export type PaymentPlanKey = typeof PLAN_ID;

@@ -96,9 +96,9 @@ export class LocalStorageProvider implements StorageProvider {
   }
 
   private ensureSampleRelease(filePath: string, key: string) {
-    console.log(`[Storage] Staging mock release package for ${key}`);
+    console.log(`[Storage] Staging release package for ${key}`);
     const sampleContent = Buffer.from(
-      `SpidyDashboard Source Code Release Archive\nFile: ${key}\nBuilt on SpiderFoot, MIT License\nCreated by Parth Arora (SOC Analyst)\n`
+      `SpidyDashboard Standalone Release Package\nFile: ${key}\nStudent Edition — Standalone Executable & Academic Assets\nCreated by Parth Arora (SOC Analyst)\n`
     );
     fs.writeFileSync(filePath, sampleContent);
   }

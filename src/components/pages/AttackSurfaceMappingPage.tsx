@@ -149,7 +149,7 @@ export const AttackSurfaceMappingPage = () => {
             { label: 'Features' },
             { label: 'Attack Surface Mapping' },
           ]}
-          primaryCtaText="Get the source code"
+          primaryCtaText="Get Student Edition"
           primaryCtaHref="/pricing"
           secondaryCtaText="Watch the walkthrough"
           onWatchWalkthrough={() => {

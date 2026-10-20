@@ -147,7 +147,7 @@ export const EmailTemplates = {
     expiryMins: number,
     deliveryLinks?: { label: string; url: string; description?: string }[]
   ) {
-    const subject = `[SpidyDashboard] Your Package & Source Code Access (${orderRef})`;
+    const subject = `[SpidyDashboard] Your Desktop Application & Study Material Access (${orderRef})`;
 
     let linksText = '';
     let linksHtml = '';
@@ -171,7 +171,7 @@ export const EmailTemplates = {
       `;
     }
 
-    const text = `Hello,\n\nYour payment for ${planName} has been verified and approved!\n\nOrder Reference: ${orderRef}${linksText}\nDirect Platform Download Link:\n${downloadLink}\n\nIMPORTANT SECURITY NOTICES:\n- File SHA-256 Checksum: ${checksum}\n- Verify your download: Get-FileHash -Algorithm SHA256 <filename>\n- A personalized LICENSE-BUYER.txt is embedded with your order reference.\n\nNeed to re-download later? Visit our recovery portal anytime: ${env.CLIENT_ORIGIN}/recover\n\nThank you for purchasing SpidyDashboard.\n\nParth Arora (SOC Analyst)\nSpidyDashboard Reconnaissance`;
+    const text = `Hello,\n\nYour payment for ${planName} has been verified and approved!\n\nOrder Reference: ${orderRef}${linksText}\nDirect Platform Download Link:\n${downloadLink}\n\nIMPORTANT SECURITY NOTICES:\n- File SHA-256 Checksum: ${checksum}\n- Token Link Expiry: 48 hours (max 3 downloads)\n- A personalized LICENSE-BUYER.txt is embedded with your order reference.\n\nNeed to re-download later? Visit our recovery portal anytime: ${env.CLIENT_ORIGIN}/recover\n\nThank you for purchasing SpidyDashboard.\n\nParth Arora (SOC Analyst)\nSpidyDashboard Reconnaissance`;
 
     const html = `
       <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 24px; color: #0B0B14; line-height: 1.6;">
@@ -184,7 +184,7 @@ export const EmailTemplates = {
 
         <div style="background: #F8FAFC; border: 1px solid #E2E8F0; padding: 16px; border-radius: 14px; margin: 20px 0; text-align: center;">
           <a href="${downloadLink}" style="display: inline-block; background: #2563EB; color: #FFFFFF; font-weight: 600; text-decoration: none; padding: 12px 24px; border-radius: 30px; font-size: 15px;">Direct Platform Token Download</a>
-          <p style="margin: 8px 0 0 0; font-size: 12px; color: #64748B;">Valid for ${expiryMins} minutes &bull; Maximum 3 downloads</p>
+          <p style="margin: 8px 0 0 0; font-size: 12px; color: #64748B;">Valid for 48 hours &bull; Maximum 3 downloads</p>
         </div>
 
         <div style="background: #F5F5F7; padding: 14px; border-radius: 12px; margin: 20px 0; font-size: 12px;">
