@@ -49,7 +49,7 @@ export const CardA = () => {
           boxShadow: '0 28px 70px rgba(20, 30, 60, 0.12)',
         }}
         transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] as const }}
-        className="relative h-full min-h-[276px] rounded-[24px] bg-[#FFFFFF] border border-black/[0.04] p-6 sm:p-8 shadow-[0_20px_60px_rgba(20,30,60,0.06)] overflow-hidden flex flex-col justify-between select-none"
+        className="relative h-full min-h-[220px] md:min-h-[276px] rounded-[24px] bg-[#FFFFFF] border border-black/[0.04] p-6 sm:p-8 shadow-[0_20px_60px_rgba(20,30,60,0.06)] overflow-hidden flex flex-col justify-between gap-6 select-none"
       >
         {/* Soft blue static radial glow at the top center */}
         <motion.div

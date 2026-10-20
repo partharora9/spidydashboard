@@ -105,7 +105,7 @@ export const IncludedSection = () => {
         {/* Bento Grid: 1 col under 640px (order A, B, C, D), 2 cols at 640-1023px, 3 cols at 1024px+ */}
         <motion.div
           style={{ y: scrollParallaxY }}
-          className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 auto-rows-fr lg:auto-rows-auto"
+          className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 auto-rows-auto md:auto-rows-fr lg:auto-rows-auto"
         >
           {/* Card A: Domain Scanning (Order 1 on all viewports) */}
           <motion.div
