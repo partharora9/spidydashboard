@@ -29,7 +29,7 @@ export const HeroContent = () => {
   };
 
   return (
-    <section className="pt-10 sm:pt-16 lg:pt-20 pb-2 sm:pb-4 px-4 sm:px-6 text-center max-w-[1280px] mx-auto flex flex-col items-center overflow-visible">
+    <section className="pt-[calc(var(--header-h)+env(safe-area-inset-top,0px)+24px)] lg:pt-[calc(var(--header-h)+80px)] pb-2 sm:pb-4 px-4 sm:px-6 text-center max-w-[1280px] mx-auto flex flex-col items-center overflow-visible">
       {/* H1 Heading - Fluid clamp: clamp(34px, 9vw, 72px) with descender protection */}
       <h1 className="font-headline font-semibold text-[#0B0B14] text-[34px] sm:text-[54px] lg:text-[72px] tracking-[-0.04em] leading-[1.15] pb-[0.1em] max-w-[960px] mx-auto overflow-visible">
         {/* Line 1 */}

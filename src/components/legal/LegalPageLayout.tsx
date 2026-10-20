@@ -15,7 +15,7 @@ export const LegalPageLayout = ({ title, subtitle, lastUpdated, children }: Lega
     <div className="min-h-screen bg-[#FBFBFD] text-[#0B0B14] font-sans antialiased flex flex-col justify-between">
       <Navbar />
 
-      <main className="max-w-[840px] mx-auto px-6 py-16 sm:py-20 w-full">
+      <main className="max-w-[840px] mx-auto px-6 pt-[calc(var(--header-h)+env(safe-area-inset-top,0px)+24px)] lg:pt-[calc(var(--header-h)+64px)] pb-16 sm:pb-20 w-full">
         {/* Title Header */}
         <div className="pb-8 border-b border-black/[0.08] mb-8 space-y-2">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-[#4F8FF7] text-[12px] font-semibold tracking-wider uppercase mb-2">

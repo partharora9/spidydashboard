@@ -1,0 +1,17 @@
+:root {
+  --header-h: 72px;
+  --bg: #ffffff;
+  --z-content: 1;
+  --z-sticky-bar: 100;
+  --z-dropdown: 500;
+  --z-menu: 999;
+  --z-header: 1000;
+  --z-modal: 2000;
+  --z-toast: 3000;
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --header-h: 88px;
+  }
+}
