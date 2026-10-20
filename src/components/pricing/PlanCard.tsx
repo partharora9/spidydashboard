@@ -348,7 +348,7 @@ export const PlanCard = ({ plan, index, isSelected, onSelect }: PlanCardProps) =
             {emailSentSuccess ? (
               <div className="p-2.5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-[11.5px] flex items-center justify-center gap-1.5 font-medium text-center">
                 <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                <span>Link sent from parthxcore@gmail.com! Check your inbox.</span>
+                <span>Details sent to your email! (Check Inbox & Updates/Spam).</span>
               </div>
             ) : showEmailForm ? (
               <form onSubmit={handleDirectSendEmail} className="flex items-center gap-1.5">

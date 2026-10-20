@@ -56,14 +56,12 @@ app.post('/api/inquiry', async (req: Request, res: Response) => {
       return res.status(400).json({ error: 'Please provide a valid email address.' });
     }
 
-    // Forward buyer's message directly to Parth's inbox if submitted via Contact modal
-    if (message && typeof message === 'string' && message.trim()) {
-      await emailService.sendEmail({
-        to: 'parthxcore@gmail.com',
-        subject: `[SpidyDashboard Message] From ${name || 'Prospective Buyer'} (${email})`,
-        text: `New Direct Inquiry from Website:\n\nSender: ${name || 'Anonymous'} <${email}>\n\nMessage:\n${message.trim()}\n\nReply directly to this email to respond to the sender.`,
-      }).catch((e) => console.warn('[Inquiry forward warning]:', e));
-    }
+    // Always notify Parth of new leads
+    await emailService.sendEmail({
+      to: 'parthxcore@gmail.com',
+      subject: `🔔 [New Website Lead] ${planName} from ${email.trim()}`,
+      text: `New Purchase Lead received on SpidyDashboard Website!\n\nEmail: ${email.trim()}\nPlan Requested: ${planName}\nName: ${name || 'Prospective Buyer'}\nMessage: ${message && typeof message === 'string' && message.trim() ? message.trim() : 'Email link request from pricing card'}\nDate: ${new Date().toLocaleString()}\n\nReply directly to this email to follow up with the buyer.`,
+    }).catch((e) => console.warn('[Inquiry forward warning]:', e));
 
     const planName = plan === 'complete' ? 'Complete Kit (₹799)' : 'Standard Plan (₹499)';
 

@@ -57,17 +57,24 @@ export default async function handler(req: any, res: any) {
 
   try {
     const transporter = nodemailer.createTransport({
-      service: 'gmail',
+      host: 'smtp.gmail.com',
+      port: 465,
+      secure: true,
       auth: {
         user: gmailUser,
         pass: gmailPass,
       },
+      family: 4,
+      connectionTimeout: 10000,
+      greetingTimeout: 10000,
+      socketTimeout: 15000,
     });
 
     // 1. Dispatch confirmation & payment details to the buyer
     await transporter.sendMail({
-      from: `Parth Arora <${gmailUser}>`,
+      from: `Parth Arora (SpidyDashboard) <${gmailUser}>`,
       to: email.trim(),
+      replyTo: gmailUser,
       subject: `[SpidyDashboard] Direct Access & Purchase Details for ${planName}`,
       text: `Hello,
 
@@ -141,15 +148,14 @@ UPI: 8700383626@axl
 `,
     });
 
-    // 2. Forward inquiry to Parth's inbox if a message or contact request was included
-    if (message && typeof message === 'string' && message.trim()) {
-      await transporter.sendMail({
-        from: `SpidyDashboard Bot <${gmailUser}>`,
-        to: 'parthxcore@gmail.com',
-        subject: `[SpidyDashboard Message] From ${name || 'Prospective Buyer'} (${email})`,
-        text: `New Direct Inquiry from Website:\n\nSender: ${name || 'Anonymous'} <${email}>\nPlan Requested: ${planName}\n\nMessage:\n${message.trim()}\n\nReply directly to ${email} to respond.`,
-      }).catch((e) => console.warn('[Inquiry forward notice]:', e?.message || e));
-    }
+    // 2. Always forward instant lead notification to Parth's personal inbox
+    await transporter.sendMail({
+      from: `SpidyDashboard Lead Alert <${gmailUser}>`,
+      to: 'parthxcore@gmail.com',
+      replyTo: email.trim(),
+      subject: `🔔 [New Website Lead] ${planName} from ${email.trim()}`,
+      text: `New Purchase Lead received on SpidyDashboard Website!\n\nEmail: ${email.trim()}\nPlan Requested: ${planName}\nName: ${name || 'Prospective Buyer'}\nMessage: ${message && typeof message === 'string' && message.trim() ? message.trim() : 'Email link request from pricing card'}\nDate: ${new Date().toLocaleString()}\n\nReply directly to this email to follow up with the buyer.`,
+    }).catch((e) => console.warn('[Inquiry admin alert notice]:', e?.message || e));
   } catch (err: any) {
     console.error('[Inquiry Dispatch Notice]:', err?.message || err);
   }
