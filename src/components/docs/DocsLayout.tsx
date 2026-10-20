@@ -66,7 +66,7 @@ export const DocsLayout = ({
 
       <Navbar />
 
-      <main className="relative w-full max-w-[1360px] mx-auto px-6 py-10 sm:py-14 overflow-visible">
+      <main className="relative w-full max-w-[1360px] mx-auto px-6 pt-[calc(var(--header-h)+env(safe-area-inset-top,0px)+24px)] lg:pt-[calc(var(--header-h)+56px)] pb-10 sm:pb-14 overflow-visible">
         <TechnicalGridPattern />
 
         {/* Top Breadcrumb & Metadata */}

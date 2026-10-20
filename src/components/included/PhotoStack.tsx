@@ -63,34 +63,34 @@ export const PhotoStack = ({ photos, isCardHovered = false }: PhotoStackProps) =
     {
       zIndex: 3,
       baseLeft: 'left-0',
-      baseTop: 'top-8 sm:top-8', // 32px below card top
+      baseTop: 'top-6 sm:top-8', // below card top
       scale: 1,
       hoverOffset: { y: -6, x: 0 },
-      entranceDelay: 0.4, // back box first, front box last
+      entranceDelay: 0.4,
       idleDelay: 0,
-      className: 'w-[280px] sm:w-[320px] aspect-[16/10]',
+      className: 'w-[220px] sm:w-[320px] aspect-[16/10]',
       hideOnMobile: false,
     },
     {
       zIndex: 2,
-      baseLeft: 'left-[80px] sm:left-[100px]',
-      baseTop: 'top-5 sm:top-5', // 12px higher than front
+      baseLeft: 'left-[44px] sm:left-[100px]',
+      baseTop: 'top-3 sm:top-5', // higher than front
       scale: 0.94,
       hoverOffset: { y: 0, x: 10 },
       entranceDelay: 0.25,
       idleDelay: 2,
-      className: 'w-[280px] sm:w-[320px] aspect-[16/10]',
+      className: 'w-[220px] sm:w-[320px] aspect-[16/10]',
       hideOnMobile: false,
     },
     {
       zIndex: 1,
-      baseLeft: 'left-[160px] sm:left-[200px]',
-      baseTop: 'top-2 sm:top-2', // 24px higher than front
+      baseLeft: 'left-[88px] sm:left-[200px]',
+      baseTop: 'top-0 sm:top-2',
       scale: 0.88,
-      hoverOffset: { y: 0, x: 16 }, // fans out 16px further right on hover
+      hoverOffset: { y: 0, x: 16 },
       entranceDelay: 0.1,
       idleDelay: 4,
-      className: 'w-[280px] sm:w-[320px] aspect-[16/10] hidden sm:block', // hidden on mobile (<640px)
+      className: 'w-[220px] sm:w-[320px] aspect-[16/10] hidden sm:block',
       hideOnMobile: true,
     },
   ];
@@ -98,7 +98,7 @@ export const PhotoStack = ({ photos, isCardHovered = false }: PhotoStackProps) =
   return (
     <>
       {/* Photo Stack Container */}
-      <div className="relative w-full h-full scale-[0.82] sm:scale-[0.88] lg:scale-100 origin-top-left overflow-visible select-none">
+      <div className="relative w-full h-full scale-[0.88] sm:scale-[0.88] lg:scale-100 origin-top-left overflow-visible select-none">
         {photos.map((photo, index) => {
           const config = stackConfigs[index] ?? stackConfigs[0];
           const isLoaded = loadedImages[photo.id];
@@ -175,11 +175,16 @@ export const PhotoStack = ({ photos, isCardHovered = false }: PhotoStackProps) =
                     />
                   </picture>
 
-                  {/* Subtle hover zoom cue icon */}
-                  <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center pointer-events-none">
+                  {/* Subtle hover zoom cue icon - only on hover-capable devices */}
+                  <div className="absolute inset-0 bg-black/10 opacity-0 hidden [@media(hover:hover)_and_(pointer:fine)]:flex [@media(hover:hover)_and_(pointer:fine)]:group-hover:opacity-100 transition-opacity duration-200 items-center justify-center pointer-events-none">
                     <span className="bg-white/90 text-gray-800 p-2 rounded-full shadow-md backdrop-blur-xs">
                       <ZoomIn className="w-4 h-4" />
                     </span>
+                  </div>
+
+                  {/* Touch device corner zoom badge (36px) */}
+                  <div className="[@media(hover:hover)_and_(pointer:fine)]:hidden absolute bottom-2 right-2 w-9 h-9 rounded-full bg-white/95 text-gray-800 shadow-md flex items-center justify-center pointer-events-none backdrop-blur-xs border border-black/5">
+                    <ZoomIn className="w-4 h-4 text-gray-700" />
                   </div>
                 </div>
               </motion.div>
@@ -197,7 +202,7 @@ export const PhotoStack = ({ photos, isCardHovered = false }: PhotoStackProps) =
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
             onClick={() => setSelectedIndex(null)}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-8 bg-black/85 backdrop-blur-md select-none"
+            className="fixed inset-0 z-[2000] flex items-center justify-center p-4 sm:p-8 bg-black/85 backdrop-blur-md select-none"
           >
             {/* Top Bar with counter & close button */}
             <div
@@ -217,7 +222,7 @@ export const PhotoStack = ({ photos, isCardHovered = false }: PhotoStackProps) =
                 type="button"
                 onClick={() => setSelectedIndex(null)}
                 aria-label="Close lightbox"
-                className="p-2.5 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors cursor-pointer border border-white/10"
+                className="min-w-[44px] min-h-[44px] p-2.5 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors cursor-pointer border border-white/10 flex items-center justify-center"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -231,7 +236,7 @@ export const PhotoStack = ({ photos, isCardHovered = false }: PhotoStackProps) =
                 setSelectedIndex((prev) => (prev !== null ? (prev - 1 + photos.length) % photos.length : null));
               }}
               aria-label="Previous image"
-              className="absolute left-4 sm:left-8 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white/10 hover:bg-white/25 text-white transition-all cursor-pointer border border-white/10 z-10"
+              className="min-w-[44px] min-h-[44px] absolute left-4 sm:left-8 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white/10 hover:bg-white/25 text-white transition-all cursor-pointer border border-white/10 z-10 flex items-center justify-center"
             >
               <ChevronLeft className="w-6 h-6" />
             </button>
@@ -244,7 +249,7 @@ export const PhotoStack = ({ photos, isCardHovered = false }: PhotoStackProps) =
                 setSelectedIndex((prev) => (prev !== null ? (prev + 1) % photos.length : null));
               }}
               aria-label="Next image"
-              className="absolute right-4 sm:right-8 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white/10 hover:bg-white/25 text-white transition-all cursor-pointer border border-white/10 z-10"
+              className="min-w-[44px] min-h-[44px] absolute right-4 sm:right-8 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white/10 hover:bg-white/25 text-white transition-all cursor-pointer border border-white/10 z-10 flex items-center justify-center"
             >
               <ChevronRight className="w-6 h-6" />
             </button>

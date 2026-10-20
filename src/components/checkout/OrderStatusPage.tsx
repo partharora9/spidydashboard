@@ -58,7 +58,7 @@ export const OrderStatusPage = ({ reference }: OrderStatusPageProps) => {
     <div className="min-h-screen bg-[#FBFBFD] text-[#0B0B14] font-sans antialiased flex flex-col justify-between">
       <Navbar />
 
-      <main className="max-w-[720px] mx-auto px-6 py-16 sm:py-24 w-full">
+      <main className="max-w-[720px] mx-auto px-6 pt-[calc(var(--header-h)+env(safe-area-inset-top,0px)+24px)] lg:pt-[calc(var(--header-h)+64px)] pb-16 sm:pb-24 w-full">
         {loading ? (
           <div className="text-center py-20">
             <div className="w-10 h-10 border-2 border-[#4F8FF7] border-t-transparent rounded-full animate-spin mx-auto mb-4" />

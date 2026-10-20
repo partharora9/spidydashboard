@@ -111,7 +111,7 @@ export const AboutHero = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full flex flex-col items-center justify-start overflow-visible pt-4 px-4 sm:px-6"
+      className="relative w-full flex flex-col items-center justify-start overflow-visible pt-[calc(var(--header-h)+env(safe-area-inset-top,0px)+16px)] lg:pt-[calc(var(--header-h)+16px)] px-4 sm:px-6"
     >
       {/* SECTION 1 HERO BACKGROUND PANEL: Wider than container (~1546px), top rounded */}
       <motion.div

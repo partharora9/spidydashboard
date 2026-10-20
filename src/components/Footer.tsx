@@ -76,7 +76,7 @@ export const Footer = () => {
       {/* Main Container: Max-width 1200px centered */}
       <div className="relative z-10 max-w-[1200px] mx-auto px-6">
         {/* PART 1: 4 LINK COLUMNS (PRODUCT, DOCS, COMPANY, LEGAL) */}
-        <div className="w-full grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10">
+        <div className="w-full grid grid-cols-1 min-[360px]:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-8 lg:gap-10">
           {footerColumnsData.map((column, index) => (
             <FooterColumn
               key={column.title}
@@ -86,8 +86,25 @@ export const Footer = () => {
           ))}
         </div>
 
+        {/* PART 1B: Dedicated Full-width Email Contact Row */}
+        <div className="w-full mt-8 pt-6 border-t border-black/[0.06] flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          <span className="text-[13px] font-semibold uppercase tracking-wider text-gray-500 font-sans">
+            Direct Developer Contact:
+          </span>
+          <a
+            href="mailto:parthxcore@gmail.com"
+            onClick={(e) => {
+              e.preventDefault();
+              window.dispatchEvent(new CustomEvent('open-contact-modal'));
+            }}
+            className="text-[16px] font-medium text-[#0B0B14] hover:text-[#4F8FF7] transition-colors py-1.5 min-h-[44px] flex items-center break-words [overflow-wrap:anywhere]"
+          >
+            parthxcore@gmail.com
+          </a>
+        </div>
+
         {/* PART 2: DIVIDER LINE */}
-        <div className="w-full mt-20">
+        <div className="w-full mt-14 sm:mt-16">
           <motion.div
             variants={dividerVariants}
             initial="hidden"
@@ -186,7 +203,8 @@ export const Footer = () => {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.5, delay: 0.6 }}
-          className="pb-8 pb-safe flex justify-start mb-20 sm:mb-0"
+          style={{ paddingBottom: 'max(32px, env(safe-area-inset-bottom, 0px))' }}
+          className="flex justify-start mb-20 sm:mb-0"
         >
           <motion.button
             onClick={scrollToTop}

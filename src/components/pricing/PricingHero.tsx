@@ -42,7 +42,7 @@ export const PricingHero = () => {
   };
 
   return (
-    <section className="w-full flex flex-col items-center text-center pt-8 sm:pt-12 lg:pt-14 pb-4 px-6 overflow-visible select-none">
+    <section className="w-full flex flex-col items-center text-center pt-[calc(var(--header-h)+env(safe-area-inset-top,0px)+24px)] lg:pt-[calc(var(--header-h)+56px)] pb-4 px-6 overflow-visible select-none">
       <div className="max-w-[1200px] mx-auto flex flex-col items-center">
         {/* H1 Heading: 72px (clamp 44px to 72px), weight 600, letter-spacing -0.04em, line-height 1.15, color #0B0B14 */}
         <h1 className="font-headline font-semibold text-[#0B0B14] text-[44px] sm:text-[56px] lg:text-[72px] tracking-[-0.04em] leading-[1.15] text-center max-w-[900px] overflow-visible">

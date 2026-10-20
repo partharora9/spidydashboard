@@ -18,17 +18,23 @@ export default defineConfig({
   },
   projects: [
     {
-      name: 'Mobile Chrome 360',
+      name: 'Pixel 7',
       use: {
-        ...devices['Galaxy S8'],
-        viewport: { width: 360, height: 740 },
+        ...devices['Pixel 7'],
       },
     },
     {
-      name: 'Mobile Safari 390',
+      name: 'iPhone 13',
       use: {
-        ...devices['iPhone 12'],
-        viewport: { width: 390, height: 844 },
+        ...devices['iPhone 13'],
+      },
+    },
+    {
+      name: 'Mobile 320',
+      use: {
+        viewport: { width: 320, height: 640 },
+        isMobile: true,
+        hasTouch: true,
       },
     },
     {

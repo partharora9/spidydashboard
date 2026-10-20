@@ -95,7 +95,7 @@ export const RecoveryPage = () => {
     <div className="min-h-screen bg-[#FBFBFD] text-[#0B0B14] font-sans antialiased flex flex-col justify-between">
       <Navbar />
 
-      <main className="max-w-[560px] mx-auto px-6 py-16 sm:py-24 w-full">
+      <main className="max-w-[560px] mx-auto px-6 pt-[calc(var(--header-h)+env(safe-area-inset-top,0px)+24px)] lg:pt-[calc(var(--header-h)+64px)] pb-16 sm:pb-24 w-full">
         <div className="bg-white rounded-[24px] border border-black/[0.08] shadow-[0_20px_60px_rgba(0,0,0,0.06)] p-7 sm:p-9 space-y-6">
           <div className="text-center space-y-2">
             <div className="w-14 h-14 rounded-2xl bg-[#F2F4FD] text-[#4F8FF7] mx-auto flex items-center justify-center">

@@ -55,7 +55,7 @@ export const PageHero = ({
   };
 
   return (
-    <section className="relative w-full pt-10 sm:pt-14 lg:pt-16 pb-8 px-6 overflow-visible select-none">
+    <section className="relative w-full pt-[calc(var(--header-h)+env(safe-area-inset-top,0px)+24px)] lg:pt-[calc(var(--header-h)+64px)] pb-8 px-6 overflow-visible select-none">
       <div className="max-w-[1200px] mx-auto flex flex-col items-center text-center">
         {/* Breadcrumb Navigation */}
         <nav
