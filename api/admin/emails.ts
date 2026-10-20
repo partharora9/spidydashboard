@@ -35,7 +35,7 @@ export default async function handler(req: any, res: any) {
 
   if (config.adminSecret && providedSecret !== config.adminSecret) {
     const unauthorized = { error: 'Unauthorized: Invalid admin secret key' };
-    if (res.status && res.json) return res.status(401).json(unauthPayload);
+    if (res.status && res.json) return res.status(401).json(unauthorized);
     res.statusCode = 401;
     res.setHeader('Content-Type', 'application/json');
     return res.end(JSON.stringify(unauthorized));

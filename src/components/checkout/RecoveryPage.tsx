@@ -25,7 +25,7 @@ export const RecoveryPage = () => {
     downloadToken: string;
     downloadUrl: string;
     expiresAt: string;
-    plan?: 'standard' | 'complete';
+    plan?: string;
     planName?: string;
     directAccessUrl?: string;
     accessUrls?: any[];
@@ -197,12 +197,11 @@ export const RecoveryPage = () => {
           )}
 
           {step === 'SUCCESS' && downloadData && (() => {
-            const isComplete = downloadData.plan === 'complete' || reference.toUpperCase().includes('COMPLETE');
             const links: any[] = downloadData.accessUrls || (downloadData.directAccessUrl ? [{
               id: 'direct-access',
-              label: isComplete ? 'Complete Package Download' : 'MEGA Dashboard Repository Download',
+              label: 'SpidyDashboard Student Edition Package Download',
               url: downloadData.directAccessUrl,
-              description: 'Direct repository archive download.',
+              description: 'Direct repository archive and study pack download.',
               badge: 'Direct Download',
               iconType: 'mega',
             }] : (downloadData.downloadUrl ? [{
@@ -226,7 +225,7 @@ export const RecoveryPage = () => {
                   </div>
                   <h2 className="text-[20px] font-bold text-gray-900">Your Package Links are Ready!</h2>
                   <p className="text-[13px] text-gray-500 max-w-[480px] mx-auto mt-1">
-                    Verified for {email}. Access the complete package assets below or use your secure platform link.
+                    Verified for {email}. Access the Student Edition package assets below or use your secure platform link.
                   </p>
                 </div>
 

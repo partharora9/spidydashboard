@@ -112,7 +112,7 @@ export default async function handler(req: any, res: any) {
 
   const {
     email: rawEmail,
-    plan: rawPlan,
+    plan: _rawPlan,
     name: rawName,
     message: rawMessage,
     // Honeypot field (bots fill this, legitimate users never see it)

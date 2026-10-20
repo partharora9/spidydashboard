@@ -51,7 +51,7 @@ app.use('/api', adminRoutes);
 // Instant Inquiry / Access Request Endpoint (Uses deliverability-optimized sender)
 app.post('/api/inquiry', async (req: Request, res: Response) => {
   try {
-    const { email, plan, name, message } = req.body;
+    const { email, name, message } = req.body;
     if (!email || typeof email !== 'string' || !email.includes('@')) {
       return res.status(400).json({ error: 'Please provide a valid email address.' });
     }

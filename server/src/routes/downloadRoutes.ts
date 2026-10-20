@@ -18,7 +18,8 @@ const router = Router();
  * Pre-download verification to show filename, size, and SHA-256 checksum in UI.
  */
 router.get('/download/info/:token', downloadLimiter, async (req: Request, res: Response) => {
-  const { token } = req.params;
+  const rawToken = req.params.token;
+  const token = Array.isArray(rawToken) ? rawToken[0] : rawToken;
 
   if (!token || token.length < 32) {
     return res.status(400).json({ error: 'Invalid download token format.' });
@@ -71,7 +72,8 @@ router.get('/download/info/:token', downloadLimiter, async (req: Request, res: R
  */
 router.get('/download/:token', downloadLimiter, async (req: Request, res: Response) => {
   try {
-    const { token } = req.params;
+    const rawToken = req.params.token;
+    const token = Array.isArray(rawToken) ? rawToken[0] : rawToken;
 
     if (!token || token.length < 32) {
       return res.status(400).json({ error: 'Invalid token' });

@@ -31,10 +31,8 @@ const createOrderSchema = z.object({
     .min(10, 'Phone number must be at least 10 digits.')
     .max(15, 'Phone number cannot exceed 15 digits.'),
   college: z.string().trim().min(2, 'College / University name is required.').max(150),
-  consent: z.literal(true, {
-    errorMap: () => ({
-      message: 'You must accept the terms of service and acknowledge the strict no-refund policy to proceed.',
-    }),
+  consent: z.boolean().refine((val) => val === true, {
+    message: 'You must accept the terms of service and acknowledge the strict no-refund policy to proceed.',
   }),
   marketingOptIn: z.boolean().optional().default(false),
   turnstileToken: z.string().optional(),
@@ -139,7 +137,12 @@ router.post('/orders', orderCreationLimiter, async (req: Request, res: Response)
  */
 router.post('/orders/:reference/utr', utrSubmissionLimiter, async (req: Request, res: Response) => {
   try {
-    const { reference } = req.params;
+    const rawReference = req.params.reference;
+    const reference = Array.isArray(rawReference) ? rawReference[0] : rawReference;
+    if (!reference) {
+      return res.status(400).json({ error: 'Order reference is required.' });
+    }
+
     const parseResult = submitUtrSchema.safeParse(req.body);
 
     if (!parseResult.success) {
@@ -240,7 +243,11 @@ router.post('/orders/:reference/utr', utrSubmissionLimiter, async (req: Request,
  * Polls status of an order.
  */
 router.get('/orders/:reference/status', statusPollingLimiter, async (req: Request, res: Response) => {
-  const { reference } = req.params;
+  const rawReference = req.params.reference;
+  const reference = Array.isArray(rawReference) ? rawReference[0] : rawReference;
+  if (!reference) {
+    return res.status(400).json({ error: 'Order reference is required.' });
+  }
   const order = db.getOrderByReference(reference);
 
   if (!order) {
@@ -281,7 +288,11 @@ router.get('/orders/:reference/status', statusPollingLimiter, async (req: Reques
  * Generates invoice data for the order.
  */
 router.get('/orders/:reference/invoice', async (req: Request, res: Response) => {
-  const { reference } = req.params;
+  const rawReference = req.params.reference;
+  const reference = Array.isArray(rawReference) ? rawReference[0] : rawReference;
+  if (!reference) {
+    return res.status(400).json({ error: 'Order reference is required.' });
+  }
   const order = db.getOrderByReference(reference);
 
   if (!order) {

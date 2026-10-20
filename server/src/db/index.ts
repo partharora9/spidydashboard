@@ -269,10 +269,11 @@ class InMemoryDatabase {
   }
 
   // OTP Codes
-  createOtp(data: Omit<OtpCodeRow, 'id' | 'created_at' | 'attempts' | 'consumed'>): OtpCodeRow {
+  createOtp(data: Omit<OtpCodeRow, 'id' | 'created_at' | 'attempts' | 'consumed' | 'max_attempts'> & { max_attempts?: number }): OtpCodeRow {
     const id = uuidv4();
     const created_at = new Date().toISOString();
     const row: OtpCodeRow = {
+      max_attempts: data.max_attempts ?? 5,
       ...data,
       id,
       attempts: 0,

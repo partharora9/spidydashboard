@@ -2,7 +2,6 @@
  * Security Middleware: Helmet, CSP, CORS, and Sanitization
  */
 
-import { type Request, type Response, type NextFunction } from 'express';
 import helmet from 'helmet';
 import cors from 'cors';
 import { env } from '../config/env';

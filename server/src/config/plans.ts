@@ -70,8 +70,8 @@ export const SERVER_PLANS: Record<typeof PLAN_ID, PlanConfig> = {
 };
 
 export function getPlanOrThrow(planId: string): PlanConfig {
-  if (planId === PLAN_ID || planId === 'student' || planId === 'student_edition' || planId === 'standard' || planId === 'complete') {
-    // Normalizes any incoming legacy or alias to the student edition plan
+  if (planId === PLAN_ID || planId === 'student' || planId === 'student_edition') {
+    // Normalizes student edition plan
     return SERVER_PLANS[PLAN_ID];
   }
   throw new Error(`Invalid plan identifier: ${planId}. Allowed plan is '${PLAN_ID}'.`);

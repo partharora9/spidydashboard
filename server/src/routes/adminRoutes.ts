@@ -112,7 +112,10 @@ router.get('/admin/orders', (req: Request, res: Response) => {
  */
 router.post('/admin/orders/:id/approve', async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
+    const rawId = req.params.id;
+    const id = Array.isArray(rawId) ? rawId[0] : rawId;
+    if (!id) return res.status(400).json({ error: 'Order ID is required.' });
+
     const actor = (req as any).adminUser?.role || 'admin';
     const result = await DeliveryService.approveOrder(id, actor);
     return res.json(result);
@@ -127,7 +130,10 @@ router.post('/admin/orders/:id/approve', async (req: Request, res: Response) => 
  */
 router.post('/admin/orders/:id/reject', async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
+    const rawId = req.params.id;
+    const id = Array.isArray(rawId) ? rawId[0] : rawId;
+    if (!id) return res.status(400).json({ error: 'Order ID is required.' });
+
     const { reason } = req.body;
     const actor = (req as any).adminUser?.role || 'admin';
 
@@ -148,7 +154,10 @@ router.post('/admin/orders/:id/reject', async (req: Request, res: Response) => {
  * Revokes active download links for an order.
  */
 router.post('/admin/orders/:id/revoke', (req: Request, res: Response) => {
-  const { id } = req.params;
+  const rawId = req.params.id;
+  const id = Array.isArray(rawId) ? rawId[0] : rawId;
+  if (!id) return res.status(400).json({ error: 'Order ID is required.' });
+
   const { reason = 'Revoked by administrator' } = req.body;
 
   db.revokeDownloadTokensForOrder(id, reason);
@@ -166,7 +175,10 @@ router.post('/admin/orders/:id/revoke', (req: Request, res: Response) => {
  */
 router.post('/admin/orders/:id/resend-email', async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
+    const rawId = req.params.id;
+    const id = Array.isArray(rawId) ? rawId[0] : rawId;
+    if (!id) return res.status(400).json({ error: 'Order ID is required.' });
+
     const order = db.getOrderById(id);
 
     if (!order || order.status !== 'approved') {

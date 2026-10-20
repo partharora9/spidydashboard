@@ -188,7 +188,7 @@ export const PageHero = ({
           <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
           <span>{authorizedUseNote}</span>
           <span className="text-gray-300">•</span>
-          <span>Instant source download</span>
+          <span>Windows installer & study pack</span>
         </motion.div>
       </div>
     </section>

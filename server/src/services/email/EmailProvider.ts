@@ -10,7 +10,7 @@ export interface EmailMessage {
   to: string;
   subject: string;
   text: string;
-  html: string;
+  html?: string;
 }
 
 export interface EmailProvider {
@@ -50,7 +50,7 @@ export class ResendEmailProvider implements EmailProvider {
           to: message.to,
           subject: message.subject,
           text: message.text,
-          html: message.html,
+          html: message.html || `<div style="font-family: sans-serif; white-space: pre-wrap;">${message.text}</div>`,
         }),
       });
 
@@ -69,10 +69,10 @@ export class ResendEmailProvider implements EmailProvider {
   }
 }
 
-import nodemailer from 'nodemailer';
+import nodemailer, { type Transporter } from 'nodemailer';
 
 export class GmailEmailProvider implements EmailProvider {
-  private transporter: nodemailer.Transporter;
+  private transporter: Transporter;
 
   constructor(user: string, pass: string) {
     this.transporter = nodemailer.createTransport({
@@ -83,7 +83,6 @@ export class GmailEmailProvider implements EmailProvider {
         user,
         pass,
       },
-      family: 4,
       connectionTimeout: 10000,
       greetingTimeout: 10000,
       socketTimeout: 15000,
