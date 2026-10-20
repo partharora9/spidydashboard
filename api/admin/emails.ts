@@ -7,9 +7,9 @@
  * - POST action 'unsuppress': removes an email from the bounce/complaint suppression list
  */
 
-import { getEmailConfig } from '../lib/config';
-import { dbStore } from '../lib/db';
-import { sendEmailWithRetry } from '../lib/resendClient';
+import { getEmailConfig } from '../_lib/config';
+import { dbStore } from '../_lib/db';
+import { sendEmailWithRetry } from '../_lib/resendClient';
 
 export default async function handler(req: any, res: any) {
   // CORS configuration

@@ -11,19 +11,19 @@
  * 7. Returns only { ok: true, reference } to the client
  */
 
-import { getEmailConfig } from './lib/config';
-import { dbStore, type RequestRecord } from './lib/db';
+import { getEmailConfig } from './_lib/config';
+import { dbStore, type RequestRecord } from './_lib/db';
 import {
   validateAndNormalizeEmail,
   stripHeaderInjection,
   maskEmail,
-} from './lib/sanitizer';
+} from './_lib/sanitizer';
 import {
   buildOwnerNotificationEmail,
   buildBuyerConfirmationEmail,
-} from './lib/emailTemplates';
-import { sendEmailWithRetry } from './lib/resendClient';
-import { sendOwnerPushNotification } from './lib/pushNotifier';
+} from './_lib/emailTemplates';
+import { sendEmailWithRetry } from './_lib/resendClient';
+import { sendOwnerPushNotification } from './_lib/pushNotifier';
 
 // In-memory rate limiter per IP: max 5 requests per 10 minutes
 const ipRateLimitMap = new Map<string, { count: number; resetAt: number }>();

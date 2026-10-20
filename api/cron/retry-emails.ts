@@ -6,13 +6,13 @@
  * re-attempts delivery with idempotency keys, and updates delivery tracking.
  */
 
-import { getEmailConfig } from '../lib/config';
-import { dbStore } from '../lib/db';
+import { getEmailConfig } from '../_lib/config';
+import { dbStore } from '../_lib/db';
 import {
   buildOwnerNotificationEmail,
   buildBuyerConfirmationEmail,
-} from '../lib/emailTemplates';
-import { sendEmailWithRetry } from '../lib/resendClient';
+} from '../_lib/emailTemplates';
+import { sendEmailWithRetry } from '../_lib/resendClient';
 
 const MAX_CRON_RETRIES = 5;
 

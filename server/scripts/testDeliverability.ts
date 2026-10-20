@@ -24,14 +24,14 @@ import {
   stripHeaderInjection,
   defangUrls,
   DISPOSABLE_DOMAINS,
-} from '../../api/lib/sanitizer';
+} from '../../api/_lib/sanitizer';
 import {
   buildOwnerNotificationEmail,
   buildBuyerConfirmationEmail,
-} from '../../api/lib/emailTemplates';
-import { dbStore } from '../../api/lib/db';
-import { verifyResendWebhook } from '../../api/lib/webhookValidator';
-import { sendEmailWithRetry } from '../../api/lib/resendClient';
+} from '../../api/_lib/emailTemplates';
+import { dbStore } from '../../api/_lib/db';
+import { verifyResendWebhook } from '../../api/_lib/webhookValidator';
+import { sendEmailWithRetry } from '../../api/_lib/resendClient';
 
 // ANSI Colors for beautiful test reporting
 const GREEN = '\x1b[32m';

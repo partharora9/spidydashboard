@@ -10,11 +10,11 @@
  * Implements Svix HMAC-SHA256 signature verification with 5-minute replay window.
  */
 
-import { getEmailConfig } from '../lib/config';
-import { dbStore } from '../lib/db';
-import { verifyResendWebhook } from '../lib/webhookValidator';
-import { sendOwnerEmergencyAlert } from '../lib/pushNotifier';
-import { maskEmail } from '../lib/sanitizer';
+import { getEmailConfig } from '../_lib/config';
+import { dbStore } from '../_lib/db';
+import { verifyResendWebhook } from '../_lib/webhookValidator';
+import { sendOwnerEmergencyAlert } from '../_lib/pushNotifier';
+import { maskEmail } from '../_lib/sanitizer';
 
 // Read raw body helper for Vercel functions
 async function getRawBody(req: any): Promise<string> {
