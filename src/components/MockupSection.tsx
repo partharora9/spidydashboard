@@ -18,7 +18,6 @@ export const MockupSection = () => {
 
   // Responsive device tier & width detection
   const [deviceTier, setDeviceTier] = useState<'desktop' | 'tablet' | 'mobile'>('desktop');
-  const [windowWidth, setWindowWidth] = useState(1200);
   const [isTouchDevice, setIsTouchDevice] = useState(false);
   const [leftHovered, setLeftHovered] = useState(false);
   const [rightHovered, setRightHovered] = useState(false);
@@ -37,7 +36,6 @@ export const MockupSection = () => {
 
     const handleResize = () => {
       const width = window.innerWidth;
-      setWindowWidth(width);
       if (width < 640) {
         setDeviceTier('mobile');
       } else if (width < 1024) {
@@ -193,9 +191,6 @@ export const MockupSection = () => {
   // Playback rules: Only center video plays on mobile/tablet; all 3 on desktop
   const centerAllowPlay = true;
   const sidesAllowPlay = deviceTier === 'desktop';
-
-  // Hide side cards under 400px so center card has 100% focus and zero side clutter
-  const hideSideCardsOnMobile = windowWidth < 400;
 
   return (
     <div
