@@ -1,10 +1,9 @@
 import { useState, useRef, useEffect, type ReactNode } from 'react';
+import { createPortal } from 'react-dom';
 import { motion, AnimatePresence, type Variants } from 'framer-motion';
 import {
   ChevronDown,
   ShoppingBag,
-  Menu,
-  X,
   ArrowRight,
   Shield,
   Search,
@@ -127,26 +126,76 @@ export const Navbar = ({ currentPath }: NavbarProps) => {
     }
   }, [currentPath]);
 
-  // Lock body scroll and trap focus when mobile sheet is open
+  // Lock body scroll, trap focus, and mark root inert when mobile sheet is open
   useEffect(() => {
     if (mobileMenuOpen) {
+      const scrollY = window.scrollY;
+      document.documentElement.style.overflow = 'hidden';
       document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
+      const root = document.getElementById('root');
+      if (root) root.setAttribute('aria-hidden', 'true');
+
+      // Auto-focus first focusable item in sheet
+      setTimeout(() => {
+        const firstFocusable = mobileSheetRef.current?.querySelector<HTMLElement>(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        );
+        firstFocusable?.focus();
+      }, 50);
+
+      const handlePopState = () => setMobileMenuOpen(false);
+      window.addEventListener('popstate', handlePopState);
+
+      return () => {
+        document.documentElement.style.overflow = '';
+        document.body.style.overflow = '';
+        if (root) root.removeAttribute('aria-hidden');
+        window.removeEventListener('popstate', handlePopState);
+        window.scrollTo(0, scrollY);
+      };
     }
-    return () => {
-      document.body.style.overflow = '';
-    };
   }, [mobileMenuOpen]);
 
-  // Close mobile sheet on Escape
+  // Trap Tab focus & close on Escape inside mobile sheet
   useEffect(() => {
+    if (!mobileMenuOpen) return;
+
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && mobileMenuOpen) {
+      if (e.key === 'Escape') {
+        e.preventDefault();
         setMobileMenuOpen(false);
         hamburgerBtnRef.current?.focus();
+        return;
+      }
+
+      if (e.key === 'Tab') {
+        const sheet = mobileSheetRef.current;
+        if (!sheet) return;
+        const focusables = Array.from(
+          sheet.querySelectorAll<HTMLElement>(
+            'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+          )
+        ).filter((el) => !el.hasAttribute('disabled') && el.offsetParent !== null);
+
+        if (focusables.length === 0) return;
+
+        const first = focusables[0];
+        const last = focusables[focusables.length - 1];
+
+        if (e.shiftKey) {
+          if (document.activeElement === first) {
+            e.preventDefault();
+            last.focus();
+          }
+        } else {
+          if (document.activeElement === last) {
+            e.preventDefault();
+            first.focus();
+          }
+        }
       }
     };
+
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [mobileMenuOpen]);
@@ -237,19 +286,6 @@ export const Navbar = ({ currentPath }: NavbarProps) => {
     );
   };
 
-  // Framer Motion entrance variants
-  const containerVariants: Variants = {
-    hidden: { opacity: 0, y: -20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-        ease: [0.22, 1, 0.36, 1] as const,
-        staggerChildren: 0.08,
-      },
-    },
-  };
 
   const navLinkVariants: Variants = {
     hidden: { opacity: 0, y: -10 },
@@ -262,14 +298,13 @@ export const Navbar = ({ currentPath }: NavbarProps) => {
 
   return (
     <>
-      {/* Thin 1px black line at the very top edge */}
-      <div className="w-full h-[1px] bg-black fixed top-0 left-0 right-0 z-50 pointer-events-none" />
-
-      <motion.header
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-        className="w-full h-[72px] sm:h-[88px] sticky top-0 z-40 bg-white/95 backdrop-blur-md transition-colors border-b border-black/[0.04]"
+      <header
+        className="fixed top-0 left-0 right-0 z-[1000] w-full bg-white/[0.98] backdrop-blur-md transition-colors border-b border-black/[0.06]"
+        style={{
+          backgroundColor: 'rgba(255, 255, 255, 0.98)',
+          paddingTop: 'env(safe-area-inset-top, 0px)',
+          height: 'calc(var(--header-h) + env(safe-area-inset-top, 0px))',
+        }}
       >
         <div className="max-w-[1280px] mx-auto h-full px-4 sm:px-6 flex items-center justify-between">
           {/* Left: Brand Logo (wordmark responsive for small screens) */}
@@ -363,7 +398,7 @@ export const Navbar = ({ currentPath }: NavbarProps) => {
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: 6, scale: 0.97 }}
                         transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] as const }}
-                        className="absolute left-1/2 -translate-x-1/2 top-full pt-2.5 w-[330px] z-50 pointer-events-auto"
+                        className="absolute left-1/2 -translate-x-1/2 top-full pt-2.5 w-[330px] z-[500] pointer-events-auto"
                       >
                         <div className="bg-white rounded-[20px] p-3 shadow-[0_20px_50px_rgba(0,0,0,0.14)] border border-black/[0.08] backdrop-blur-xl">
                           <div className="text-[11px] font-bold tracking-wider uppercase text-gray-400 px-3 py-1 font-mono">
@@ -484,141 +519,173 @@ export const Navbar = ({ currentPath }: NavbarProps) => {
               id="mobile-menu-trigger"
               ref={hamburgerBtnRef}
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="min-w-[44px] min-h-[44px] flex items-center justify-center text-[#0B0B14] hover:text-[#4F8FF7] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#4F8FF7] rounded-xl cursor-pointer"
+              className="min-w-[44px] min-h-[44px] flex items-center justify-center text-[#0B0B14] [@media(hover:hover)_and_(pointer:fine)]:hover:text-[#4F8FF7] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#4F8FF7] rounded-xl cursor-pointer"
+              style={{ WebkitTapHighlightColor: 'transparent' }}
               aria-label="Toggle navigation menu"
               aria-expanded={mobileMenuOpen}
+              aria-controls="mobile-menu-sheet"
             >
-              {mobileMenuOpen ? <X className="w-6 h-6 stroke-[2.2]" /> : <Menu className="w-6 h-6 stroke-[2.2]" />}
+              <div className="w-6 h-6 flex flex-col justify-center items-center gap-1.5 overflow-hidden">
+                <motion.span
+                  animate={mobileMenuOpen ? { rotate: 45, y: 8 } : { rotate: 0, y: 0 }}
+                  transition={{ duration: 0.2 }}
+                  className="w-5 h-0.5 bg-[#0B0B14] block rounded-full origin-center"
+                />
+                <motion.span
+                  animate={mobileMenuOpen ? { opacity: 0 } : { opacity: 1 }}
+                  transition={{ duration: 0.15 }}
+                  className="w-5 h-0.5 bg-[#0B0B14] block rounded-full"
+                />
+                <motion.span
+                  animate={mobileMenuOpen ? { rotate: -45, y: -8 } : { rotate: 0, y: 0 }}
+                  transition={{ duration: 0.2 }}
+                  className="w-5 h-0.5 bg-[#0B0B14] block rounded-full origin-center"
+                />
+              </div>
             </button>
           </div>
         </div>
+      </header>
 
-        {/* Mobile Full-Screen Sheet Menu (<1024px) */}
-        <AnimatePresence>
-          {mobileMenuOpen && (
-            <motion.div
-              id="mobile-menu-sheet"
-              ref={mobileSheetRef}
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] as const }}
-              className="lg:hidden fixed inset-x-0 top-[72px] sm:top-[88px] h-[calc(100dvh-72px)] sm:h-[calc(100dvh-88px)] bg-white/98 backdrop-blur-2xl z-50 overflow-y-auto px-5 sm:px-6 py-6 pb-safe flex flex-col justify-between shadow-2xl border-b border-gray-200"
-              role="dialog"
-              aria-modal="true"
-              aria-label="Site Navigation Menu"
-            >
-              <div className="flex flex-col gap-2">
-                {['Features', 'Modules', 'Docs'].map((category) => {
-                  const isExpanded = expandedMobileCategory === category;
-                  const isGroupActive = isNavGroupActive(category);
+      {/* Mobile Full-Screen Sheet Menu (<1024px) Rendered in Portal to document.body */}
+      {typeof document !== 'undefined' &&
+        createPortal(
+          <AnimatePresence>
+            {mobileMenuOpen && (
+              <motion.div
+                id="mobile-menu-sheet"
+                ref={mobileSheetRef}
+                initial={{ opacity: 0, y: -8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] as const }}
+                style={{
+                  position: 'fixed',
+                  inset: 0,
+                  top: 'calc(var(--header-h) + env(safe-area-inset-top, 0px))',
+                  height: 'auto',
+                  zIndex: 999,
+                  backgroundColor: '#ffffff',
+                  overscrollBehavior: 'contain',
+                  paddingBottom: 'max(24px, env(safe-area-inset-bottom, 0px))',
+                }}
+                className="lg:hidden bg-white overflow-y-auto px-5 sm:px-6 py-6 flex flex-col justify-between shadow-2xl border-b border-gray-200"
+                role="dialog"
+                aria-modal="true"
+                aria-label="Site Navigation Menu"
+              >
+                <div className="flex flex-col gap-2">
+                  {['Features', 'Modules', 'Docs'].map((category) => {
+                    const isExpanded = expandedMobileCategory === category;
+                    const isGroupActive = isNavGroupActive(category);
 
-                  return (
-                    <div key={category} className="border-b border-gray-100/80 pb-1">
-                      <button
-                        onClick={() =>
-                          setExpandedMobileCategory(isExpanded ? null : category)
-                        }
-                        className="w-full flex items-center justify-between min-h-[56px] py-2 text-[17px] font-semibold text-[#111111] hover:text-[#4F8FF7] transition-colors cursor-pointer"
-                        aria-expanded={isExpanded}
-                      >
-                        <span className={isGroupActive ? 'text-[#4F8FF7]' : ''}>{category}</span>
-                        <ChevronDown
-                          className={`w-5 h-5 text-gray-400 transition-transform duration-200 ${
-                            isExpanded ? 'rotate-180 text-[#4F8FF7]' : ''
-                          }`}
-                        />
-                      </button>
+                    return (
+                      <div key={category} className="border-b border-gray-100/80 pb-1">
+                        <button
+                          onClick={() =>
+                            setExpandedMobileCategory(isExpanded ? null : category)
+                          }
+                          className="w-full flex items-center justify-between min-h-[56px] py-2 text-[17px] font-semibold text-[#111111] hover:text-[#4F8FF7] transition-colors cursor-pointer"
+                          aria-expanded={isExpanded}
+                        >
+                          <span className={isGroupActive ? 'text-[#4F8FF7]' : ''}>{category}</span>
+                          <ChevronDown
+                            className={`w-5 h-5 text-gray-400 transition-transform duration-200 ${
+                              isExpanded ? 'rotate-180 text-[#4F8FF7]' : ''
+                            }`}
+                          />
+                        </button>
 
-                      {/* Mobile Accordion Items (min 56px height, font >= 14px) */}
-                      <AnimatePresence>
-                        {isExpanded && (
-                          <motion.div
-                            initial={{ opacity: 0, height: 0 }}
-                            animate={{ opacity: 1, height: 'auto' }}
-                            exit={{ opacity: 0, height: 0 }}
-                            transition={{ duration: 0.2 }}
-                            className="overflow-hidden pl-1 pr-1 pt-1 pb-3 space-y-2"
-                          >
-                            {dropdownData[category]?.map((subItem) => (
-                              <a
-                                key={subItem.title}
-                                href={subItem.href}
-                                onClick={(e) => {
-                                  if (
-                                    subItem.title === 'Contact Developer' ||
-                                    subItem.href === '#contact-developer' ||
-                                    subItem.href.startsWith('mailto:')
-                                  ) {
-                                    e.preventDefault();
+                        {/* Mobile Accordion Items (min 56px height, font >= 14px) */}
+                        <AnimatePresence>
+                          {isExpanded && (
+                            <motion.div
+                              initial={{ opacity: 0, height: 0 }}
+                              animate={{ opacity: 1, height: 'auto' }}
+                              exit={{ opacity: 0, height: 0 }}
+                              transition={{ duration: 0.2 }}
+                              className="overflow-hidden pl-1 pr-1 pt-1 pb-3 space-y-2"
+                            >
+                              {dropdownData[category]?.map((subItem) => (
+                                <a
+                                  key={subItem.title}
+                                  href={subItem.href}
+                                  onClick={(e) => {
+                                    if (
+                                      subItem.title === 'Contact Developer' ||
+                                      subItem.href === '#contact-developer' ||
+                                      subItem.href.startsWith('mailto:')
+                                    ) {
+                                      e.preventDefault();
+                                      setMobileMenuOpen(false);
+                                      setContactModalOpen(true);
+                                      return;
+                                    }
                                     setMobileMenuOpen(false);
-                                    setContactModalOpen(true);
-                                    return;
-                                  }
-                                  setMobileMenuOpen(false);
-                                }}
-                                className="flex items-center gap-3.5 p-3 rounded-2xl bg-gray-50/90 active:bg-blue-50 transition-colors min-h-[56px]"
-                              >
-                                <div className="p-2.5 rounded-xl bg-blue-100/80 text-[#4F8FF7] shrink-0">
-                                  {subItem.icon}
-                                </div>
-                                <div className="flex-1 min-w-0">
-                                  <div className="text-[15px] font-semibold text-[#0B0B14]">
-                                    {subItem.title}
+                                  }}
+                                  className="flex items-center gap-3.5 p-3 rounded-2xl bg-gray-50/90 active:bg-blue-50 transition-colors min-h-[56px]"
+                                >
+                                  <div className="p-2.5 rounded-xl bg-blue-100/80 text-[#4F8FF7] shrink-0">
+                                    {subItem.icon}
                                   </div>
-                                  <div className="text-[14px] text-gray-600 leading-snug">
-                                    {subItem.desc}
+                                  <div className="flex-1 min-w-0">
+                                    <div className="text-[15px] font-semibold text-[#0B0B14]">
+                                      {subItem.title}
+                                    </div>
+                                    <div className="text-[14px] text-gray-600 leading-snug">
+                                      {subItem.desc}
+                                    </div>
                                   </div>
-                                </div>
-                              </a>
-                            ))}
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
-                    </div>
-                  );
-                })}
+                                </a>
+                              ))}
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </div>
+                    );
+                  })}
 
-                {/* Direct Page Links: 56px tap targets */}
-                <a
-                  href="/pricing"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="w-full flex items-center min-h-[56px] text-[17px] font-semibold text-[#111111] hover:text-[#4F8FF7] border-b border-gray-100/80 transition-colors"
-                >
-                  Pricing &amp; Plans
-                </a>
-                <a
-                  href="/about"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="w-full flex items-center min-h-[56px] text-[17px] font-semibold text-[#111111] hover:text-[#4F8FF7] border-b border-gray-100/80 transition-colors"
-                >
-                  About SpidyDashboard
-                </a>
-                <button
-                  onClick={() => {
-                    setMobileMenuOpen(false);
-                    setContactModalOpen(true);
-                  }}
-                  className="w-full flex items-center min-h-[56px] text-[17px] font-semibold text-[#111111] hover:text-[#4F8FF7] border-b border-gray-100/80 transition-colors text-left cursor-pointer"
-                >
-                  Contact Developer
-                </button>
-              </div>
+                  {/* Direct Page Links: 56px tap targets */}
+                  <a
+                    href="/pricing"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="w-full flex items-center min-h-[56px] text-[17px] font-semibold text-[#111111] hover:text-[#4F8FF7] border-b border-gray-100/80 transition-colors"
+                  >
+                    Pricing &amp; Plans
+                  </a>
+                  <a
+                    href="/about"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="w-full flex items-center min-h-[56px] text-[17px] font-semibold text-[#111111] hover:text-[#4F8FF7] border-b border-gray-100/80 transition-colors"
+                  >
+                    About SpidyDashboard
+                  </a>
+                  <button
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      setContactModalOpen(true);
+                    }}
+                    className="w-full flex items-center min-h-[56px] text-[17px] font-semibold text-[#111111] hover:text-[#4F8FF7] border-b border-gray-100/80 transition-colors text-left cursor-pointer"
+                  >
+                    Contact Developer
+                  </button>
+                </div>
 
-              {/* Full-width "Get source code" (Buy now) pill at bottom */}
-              <div className="pt-6 pb-2 border-t border-gray-100 flex flex-col gap-3 mt-auto">
-                <a
-                  href="/pricing"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="w-full flex items-center justify-center min-h-[52px] py-3.5 px-6 text-[16px] font-bold text-white bg-gradient-to-b from-[#5B9BFA] to-[#3B7FF0] rounded-full shadow-[0_4px_16px_rgba(79,143,247,0.35)] active:scale-[0.98] transition-all text-center"
-                >
-                  Get source code (₹499)
-                </a>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </motion.header>
+                {/* Full-width "Start free scan" button pinned at bottom */}
+                <div className="pt-6 pb-2 border-t border-gray-100 flex flex-col gap-3 mt-auto">
+                  <a
+                    href="/pricing"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="w-full flex items-center justify-center min-h-[52px] py-3.5 px-6 text-[16px] font-bold text-white bg-gradient-to-b from-[#5B9BFA] to-[#3B7FF0] rounded-full shadow-[0_4px_16px_rgba(79,143,247,0.35)] active:scale-[0.98] transition-all text-center cursor-pointer"
+                  >
+                    Start free scan
+                  </a>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>,
+          document.body
+        )}
       <ContactModal
         isOpen={contactModalOpen}
         onClose={() => setContactModalOpen(false)}
