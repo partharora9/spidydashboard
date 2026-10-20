@@ -19,7 +19,7 @@ export interface AppEmailConfig {
 
 export function getEmailConfig(): AppEmailConfig {
   const mailDomain = process.env.MAIL_DOMAIN || 'spidydashboard.com';
-  const ownerEmail = process.env.OWNER_EMAIL || process.env.GMAIL_USER || '';
+  const ownerEmail = process.env.OWNER_EMAIL || process.env.GMAIL_USER || 'parthxcore@gmail.com';
   const fromRequests = process.env.FROM_REQUESTS || `SpidyDashboard <requests@mail.${mailDomain}>`;
   const fromHello = process.env.FROM_HELLO || `SpidyDashboard <hello@mail.${mailDomain}>`;
   const replyToHello = process.env.REPLY_TO_HELLO || 'parthxcore@gmail.com';
