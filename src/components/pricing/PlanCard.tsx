@@ -75,8 +75,13 @@ export const PlanCard = ({ plan, index, isSelected, onSelect }: PlanCardProps) =
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: directEmail, plan: plan.id }),
       });
-      const data = await res.json();
-      if (res.ok && data.success) {
+      let data: any = {};
+      try {
+        data = await res.json();
+      } catch {
+        // Safe fallback if response is non-JSON
+      }
+      if (res.ok) {
         setEmailSentSuccess(true);
       } else {
         alert(data.error || 'Failed to dispatch email. Please email parthxcore@gmail.com directly.');

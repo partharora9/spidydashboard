@@ -5,6 +5,18 @@
   "outputDirectory": "dist",
   "rewrites": [
     {
+      "source": "/api/inquiry",
+      "destination": "/api/inquiry"
+    },
+    {
+      "source": "/api/health",
+      "destination": "/api/health"
+    },
+    {
+      "source": "/api/(.*)",
+      "destination": "/api/inquiry"
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
     }

@@ -59,8 +59,13 @@ export const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
         }),
       });
 
-      const data = await res.json();
-      if (res.ok && data.success) {
+      let data: any = {};
+      try {
+        data = await res.json();
+      } catch {
+        // Safe fallback
+      }
+      if (res.ok) {
         setSubmitted(true);
       } else {
         setError(data.error || 'Failed to dispatch message. You can email parthxcore@gmail.com directly.');
