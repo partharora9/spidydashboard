@@ -16,7 +16,6 @@ import { manualUpiProvider } from '../services/payment/ManualUpiProvider';
 import { emailService, EmailTemplates } from '../services/email/EmailProvider';
 import { orderCreationLimiter, utrSubmissionLimiter, statusPollingLimiter } from '../middleware/rateLimiter';
 import { verifyTurnstileToken } from '../middleware/security';
-import { DeliveryService } from '../services/deliveryService';
 import { env } from '../config/env';
 
 const router = Router();
@@ -170,7 +169,7 @@ router.post('/orders/:reference/utr', utrSubmissionLimiter, async (req: Request,
     }
 
     // Process submission via provider
-    const result = await manualUpiProvider.submitProof(order, { utr });
+    await manualUpiProvider.submitProof(order, { utr });
 
     const planConfig = SERVER_PLANS[order.plan];
     const amountFormatted = PaiseAllocator.formatAmountINR(order.total_amount_cents);
@@ -243,6 +242,9 @@ router.get('/orders/:reference/status', statusPollingLimiter, async (req: Reques
     rejectionReason: order.rejection_reason || undefined,
     accessUrl: order.status === 'approved'
       ? (planConfig.directAccessUrl || undefined)
+      : undefined,
+    accessLinks: order.status === 'approved'
+      ? (planConfig.directAccessUrls || undefined)
       : undefined,
   });
 });

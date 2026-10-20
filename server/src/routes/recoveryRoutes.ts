@@ -7,6 +7,7 @@ import { Router, type Request, type Response } from 'express';
 import { z } from 'zod';
 import crypto from 'crypto';
 import { db } from '../db';
+import { SERVER_PLANS } from '../config/plans';
 import { DeliveryService } from '../services/deliveryService';
 import { emailService, EmailTemplates } from '../services/email/EmailProvider';
 import { otpRequestLimiter } from '../middleware/rateLimiter';
@@ -123,9 +124,10 @@ router.post('/recovery/verify', async (req: Request, res: Response) => {
     // Code verified: consume it
     db.consumeOtp(otpRow.id);
 
+    const planConfig = SERVER_PLANS[order.plan];
     // Issue fresh download token
     const { rawToken, tokenRow } = DeliveryService.createDownloadToken(order.id);
-    const downloadUrl = `${env.CLIENT_ORIGIN}/download?token=${rawToken}`;
+    const downloadUrl = planConfig.directAccessUrl || `${env.CLIENT_ORIGIN}/download?token=${rawToken}`;
 
     db.createAudit({
       action: 'RECOVER_DOWNLOAD_LINK',
@@ -138,8 +140,12 @@ router.post('/recovery/verify', async (req: Request, res: Response) => {
 
     return res.json({
       success: true,
+      plan: order.plan,
+      planName: planConfig.name,
       downloadToken: rawToken,
       downloadUrl,
+      directAccessUrl: planConfig.directAccessUrl,
+      accessUrls: planConfig.directAccessUrls,
       expiresAt: tokenRow.expires_at,
       maxDownloads: tokenRow.max_downloads,
     });

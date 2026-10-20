@@ -133,9 +133,40 @@ export const EmailTemplates = {
     return { subject, text, html };
   },
 
-  orderApprovedDelivery(orderRef: string, planName: string, downloadLink: string, checksum: string, expiryMins: number) {
-    const subject = `[SpidyDashboard] Your Source Code is Ready! (${orderRef})`;
-    const text = `Hello,\n\nYour payment for ${planName} has been verified and approved!\n\nOrder Reference: ${orderRef}\n\nDownload Your Release Archive:\n${downloadLink}\n\nIMPORTANT SECURITY NOTICES:\n- This one-time download link expires in ${expiryMins} minutes and is limited to 3 downloads.\n- File SHA-256 Checksum: ${checksum}\n- Verify your download: Get-FileHash -Algorithm SHA256 <filename>\n- A personalized LICENSE-BUYER.txt is embedded with your order reference.\n\nNeed to re-download later? Visit our recovery portal anytime: ${env.CLIENT_ORIGIN}/recover\n\nThank you for purchasing SpidyDashboard.\n\nParth Arora (SOC Analyst)\nSpidyDashboard Reconnaissance`;
+  orderApprovedDelivery(
+    orderRef: string,
+    planName: string,
+    downloadLink: string,
+    checksum: string,
+    expiryMins: number,
+    deliveryLinks?: { label: string; url: string; description?: string }[]
+  ) {
+    const subject = `[SpidyDashboard] Your Package & Source Code Access (${orderRef})`;
+
+    let linksText = '';
+    let linksHtml = '';
+
+    if (deliveryLinks && deliveryLinks.length > 0) {
+      linksText = '\n\nYOUR UNLOCKED PACKAGE LINKS:\n' +
+        deliveryLinks.map((l, i) => `${i + 1}. ${l.label}:\n${l.url}\n(${l.description || ''})`).join('\n\n') + '\n';
+
+      linksHtml = `
+        <div style="background: #F0FDF4; border: 1px solid #86EFAC; padding: 20px; border-radius: 14px; margin: 20px 0;">
+          <h4 style="margin: 0 0 12px 0; color: #166534; font-size: 16px;">🎁 Unlocked Package & Download Access:</h4>
+          ${deliveryLinks.map((l) => `
+            <div style="background: #FFFFFF; border: 1px solid #BBF7D0; border-radius: 10px; padding: 14px; margin-bottom: 10px;">
+              <div style="font-weight: bold; color: #15803D; font-size: 14px; margin-bottom: 4px;">${l.label}</div>
+              <p style="margin: 0 0 10px 0; font-size: 12px; color: #4B5563;">${l.description || ''}</p>
+              <a href="${l.url}" style="display: inline-block; background: #16A34A; color: #FFFFFF; font-weight: 600; text-decoration: none; padding: 8px 18px; border-radius: 20px; font-size: 13px;">Open & Download &rarr;</a>
+              <div style="margin-top: 6px; font-family: monospace; font-size: 11px; color: #6B7280; word-break: break-all;">${l.url}</div>
+            </div>
+          `).join('')}
+        </div>
+      `;
+    }
+
+    const text = `Hello,\n\nYour payment for ${planName} has been verified and approved!\n\nOrder Reference: ${orderRef}${linksText}\nDirect Platform Download Link:\n${downloadLink}\n\nIMPORTANT SECURITY NOTICES:\n- File SHA-256 Checksum: ${checksum}\n- Verify your download: Get-FileHash -Algorithm SHA256 <filename>\n- A personalized LICENSE-BUYER.txt is embedded with your order reference.\n\nNeed to re-download later? Visit our recovery portal anytime: ${env.CLIENT_ORIGIN}/recover\n\nThank you for purchasing SpidyDashboard.\n\nParth Arora (SOC Analyst)\nSpidyDashboard Reconnaissance`;
+
     const html = `
       <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 24px; color: #0B0B14; line-height: 1.6;">
         <h2 style="color: #4F8FF7; margin-bottom: 8px;">SpidyDashboard</h2>
@@ -143,17 +174,19 @@ export const EmailTemplates = {
         <p>Hello,</p>
         <p>Your payment for <strong>${planName}</strong> has been successfully verified.</p>
         
-        <div style="background: #F0FDF4; border: 1px solid #10B981; padding: 20px; border-radius: 14px; margin: 24px 0; text-align: center;">
-          <a href="${downloadLink}" style="display: inline-block; background: #10B981; color: #FFFFFF; font-weight: 600; text-decoration: none; padding: 14px 28px; border-radius: 30px; font-size: 16px;">Download Source Code ZIP</a>
-          <p style="margin: 12px 0 0 0; font-size: 13px; color: #166534;">Valid for ${expiryMins} minutes &bull; Maximum 3 downloads</p>
+        ${linksHtml}
+
+        <div style="background: #F8FAFC; border: 1px solid #E2E8F0; padding: 16px; border-radius: 14px; margin: 20px 0; text-align: center;">
+          <a href="${downloadLink}" style="display: inline-block; background: #2563EB; color: #FFFFFF; font-weight: 600; text-decoration: none; padding: 12px 24px; border-radius: 30px; font-size: 15px;">Direct Platform Token Download</a>
+          <p style="margin: 8px 0 0 0; font-size: 12px; color: #64748B;">Valid for ${expiryMins} minutes &bull; Maximum 3 downloads</p>
         </div>
 
-        <div style="background: #F5F5F7; padding: 16px; border-radius: 12px; margin: 20px 0; font-size: 13px;">
-          <p style="margin: 0 0 6px 0;"><strong>SHA-256 Checksum:</strong></p>
+        <div style="background: #F5F5F7; padding: 14px; border-radius: 12px; margin: 20px 0; font-size: 12px;">
+          <p style="margin: 0 0 4px 0;"><strong>SHA-256 Release Checksum:</strong></p>
           <code style="word-break: break-all; color: #374151;">${checksum}</code>
         </div>
 
-        <p style="font-size: 14px; color: #4B5563;">Returning buyers can request a fresh download link anytime using our <a href="${env.CLIENT_ORIGIN}/recover" style="color: #4F8FF7;">Recovery Portal</a> with an email code.</p>
+        <p style="font-size: 13px; color: #4B5563;">Returning buyers can also recover access anytime using our <a href="${env.CLIENT_ORIGIN}/recover" style="color: #4F8FF7;">Recovery Portal</a> with an email code.</p>
         <hr style="border: none; border-top: 1px solid #E5E7EB; margin: 28px 0;" />
         <p style="font-size: 12px; color: #6B7280;">Built on SpiderFoot, MIT License. Created by Parth Arora (SOC Analyst). <a href="${env.CLIENT_ORIGIN}/privacy" style="color: #4F8FF7;">Privacy Policy</a></p>
       </div>

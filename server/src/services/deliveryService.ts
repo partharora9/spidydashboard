@@ -173,7 +173,8 @@ Verification Hash: ${crypto.createHash('sha256').update(order.reference + licens
       planConfig.name,
       downloadUrl,
       checksum,
-      env.DOWNLOAD_TOKEN_EXPIRY_MINUTES
+      env.DOWNLOAD_TOKEN_EXPIRY_MINUTES,
+      planConfig.directAccessUrls
     );
     await emailService.sendEmail({
       to: order.buyer_email,

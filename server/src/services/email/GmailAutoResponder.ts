@@ -167,7 +167,9 @@ PAYMENT & DIRECT ACCESS INSTRUCTIONS:
 
 🔒 DIRECT ACCESS DELIVERY:
 Access download links are delivered directly after payment confirmation.
-Once paid, simply reply to this email with your 12-digit UPI Reference / UTR number or payment screenshot. Parth Arora will personally verify and directly dispatch your private MEGA download repository access link!
+Once paid, simply reply to this email with your 12-digit UPI Reference / UTR number or payment screenshot. Parth Arora will personally verify and directly dispatch your private package access links:
+- For Complete Kit (₹799): Google Drive folder (source code, project report, PPT, viva defense Q&A), video walkthrough guide (MP4), and MEGA mirror archive.
+- For Standard (₹499): MEGA repository download access link.
 
 If you have any questions or need custom deployment assistance, feel free to reply directly.
 
@@ -220,7 +222,7 @@ UPI: 8700383626@axl
   <div style="background: #EFF6FF; border: 1px solid #BFDBFE; border-radius: 12px; padding: 16px; margin: 18px 0;">
     <h4 style="margin: 0 0 6px 0; color: #1E40AF; font-size: 15px;">🔒 Direct Access Delivery:</h4>
     <p style="margin: 0; font-size: 13px; color: #1E3A8A;">
-      To prevent unauthorized access, repository access links are sent directly by Parth Arora after payment verification.
+      To prevent unauthorized access, repository access links are sent directly by Parth Arora after payment verification. Complete Kit purchasers receive direct Google Drive & MEGA download package access.
     </p>
   </div>
 
@@ -231,7 +233,7 @@ UPI: 8700383626@axl
     <p style="margin: 3px 0; font-size: 14px;"><strong>Payee Name:</strong> Parth Arora</p>
     <p style="margin: 3px 0; font-size: 14px;"><strong>Amount:</strong> ₹499 (Standard) or ₹799 (Complete Kit)</p>
     <p style="margin: 10px 0 0 0; font-size: 12px; color: #78350F; background: #FDE68A; padding: 8px 12px; border-radius: 8px;">
-      👉 Once paid, reply to this email with your 12-digit UTR number or screenshot to receive your private MEGA download repository access directly!
+      👉 Once paid, reply to this email with your 12-digit UTR number or screenshot to receive your private Google Drive & MEGA repository access links directly!
     </p>
   </div>
 

@@ -9,7 +9,11 @@ import {
   Check,
   FileText,
   ExternalLink,
+  Folder,
+  Video,
+  Sparkles,
 } from 'lucide-react';
+import { getDeliveryLinksForPlan } from '../../config/deliveryLinks';
 
 interface OrderStatusPageProps {
   reference: string;
@@ -20,13 +24,8 @@ export const OrderStatusPage = ({ reference }: OrderStatusPageProps) => {
   const [order, setOrder] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
   const [copiedRef, setCopiedRef] = useState(false);
-  const [copiedMega, setCopiedMega] = useState(false);
-
-  const copyToClipboard = (text: string, setter: (val: boolean) => void) => {
-    navigator.clipboard.writeText(text);
-    setter(true);
-    setTimeout(() => setter(false), 2000);
-  };
+  const [copiedLinkIndex, setCopiedLinkIndex] = useState<number | null>(null);
+  const [copiedAllLinks, setCopiedAllLinks] = useState(false);
 
   const fetchStatus = async () => {
     try {
@@ -150,90 +149,169 @@ export const OrderStatusPage = ({ reference }: OrderStatusPageProps) => {
               </div>
 
               {/* Status Specific Actions */}
-              {order.status === 'approved' && (
-                <div className="p-6 sm:p-8 rounded-2xl bg-emerald-50/80 border border-emerald-200 text-center space-y-5">
-                  <div className="w-14 h-14 rounded-full bg-emerald-100 text-emerald-600 mx-auto flex items-center justify-center shadow-inner">
-                    <Check className="w-7 h-7 stroke-[2.5]" />
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-[20px] text-emerald-950">Payment Verified & Approved!</h3>
-                    <p className="text-[14px] text-emerald-800 max-w-[500px] mx-auto mt-1">
-                      {order.plan === 'standard' || order.accessUrl
-                        ? 'Your payment for SpidyDashboard Standard has been successfully confirmed. You have unlocked immediate dashboard files access below.'
-                        : 'Your SpidyDashboard Complete package has been verified. Download instructions and license have been dispatched to your email.'}
-                    </p>
-                  </div>
+              {order.status === 'approved' && (() => {
+                const deliveryConfig = getDeliveryLinksForPlan(order.plan);
+                const isComplete = order.plan === 'complete';
+                const linksToDisplay = deliveryConfig.links;
 
-                  {/* Approved Order Direct Access Link */}
-                  {order.accessUrl && (
-                    <div className="space-y-4 pt-1">
-                      <div className="flex justify-center">
-                        <a
-                          href={order.accessUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="py-3.5 px-8 rounded-full bg-emerald-600 hover:bg-emerald-700 active:scale-[0.98] text-white font-bold text-[15px] inline-flex items-center gap-2.5 shadow-md shadow-emerald-600/25 transition-all cursor-pointer"
-                        >
-                          <Download className="w-5 h-5" />
-                          <span>Access SpidyDashboard Repository</span>
-                          <ExternalLink className="w-4 h-4 opacity-80" />
-                        </a>
+                const copyAll = () => {
+                  const allText = isComplete
+                    ? `SpidyDashboard Complete Kit (₹799) Delivery Package:
+1. Google Drive Complete Kit (Source Code, IEEE Report, PPTX, Viva):
+${linksToDisplay[0]?.url}
+
+2. Video Walkthrough & Architecture Tour:
+${linksToDisplay[1]?.url}
+
+3. MEGA Repository Mirror:
+${linksToDisplay[2]?.url}`
+                    : linksToDisplay[0]?.url;
+
+                  navigator.clipboard.writeText(allText);
+                  setCopiedAllLinks(true);
+                  setTimeout(() => setCopiedAllLinks(false), 2000);
+                };
+
+                return (
+                  <div className="p-6 sm:p-8 rounded-2xl bg-emerald-50/80 border border-emerald-200 text-center space-y-6">
+                    <div className="w-14 h-14 rounded-full bg-emerald-100 text-emerald-600 mx-auto flex items-center justify-center shadow-inner">
+                      <Check className="w-7 h-7 stroke-[2.5]" />
+                    </div>
+                    <div>
+                      <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-[12px] font-bold mb-2">
+                        <Sparkles className="w-3.5 h-3.5" />
+                        <span>Direct Fulfillment Unlocked</span>
                       </div>
+                      <h3 className="font-bold text-[22px] text-emerald-950">Payment Verified & Approved!</h3>
+                      <p className="text-[14px] text-emerald-800 max-w-[540px] mx-auto mt-1">
+                        {isComplete
+                          ? 'Your payment for SpidyDashboard Complete Kit (₹799) has been confirmed. You have unlocked immediate access to all source code, academic reports, viva defense questions, and video walkthroughs below.'
+                          : 'Your payment for SpidyDashboard Standard (₹499) has been confirmed. You have unlocked immediate dashboard repository access below.'}
+                      </p>
+                    </div>
 
-                      {/* Direct URL Box with Copy */}
-                      <div className="max-w-[520px] mx-auto bg-white p-3 rounded-xl border border-emerald-200 text-left flex items-center justify-between gap-3 shadow-xs">
-                        <div className="min-w-0 flex-1">
-                          <span className="block text-[11px] font-bold text-gray-400 uppercase tracking-wider">
-                            Direct Access Link
-                          </span>
-                          <span className="block font-mono text-[12px] text-gray-700 truncate select-all">
-                            {order.accessUrl}
-                          </span>
+                    {/* Unlocked Delivery Cards */}
+                    <div className="space-y-3.5 pt-1 text-left max-w-[580px] mx-auto">
+                      {linksToDisplay.map((linkItem, idx) => (
+                        <div
+                          key={linkItem.id}
+                          className="p-4 rounded-xl bg-white border border-emerald-200/90 shadow-xs hover:border-emerald-300 transition-all space-y-3"
+                        >
+                          <div className="flex items-start justify-between gap-3">
+                            <div className="flex items-center gap-2.5 min-w-0">
+                              <div className="w-9 h-9 rounded-lg bg-emerald-50 text-emerald-700 flex items-center justify-center shrink-0">
+                                {linkItem.iconType === 'drive_folder' ? (
+                                  <Folder className="w-4 h-4 stroke-[2.2]" />
+                                ) : linkItem.iconType === 'video' ? (
+                                  <Video className="w-4 h-4 stroke-[2.2]" />
+                                ) : (
+                                  <Download className="w-4 h-4 stroke-[2.2]" />
+                                )}
+                              </div>
+                              <div className="min-w-0">
+                                <div className="flex items-center gap-2">
+                                  <h4 className="font-bold text-[14px] text-gray-900 truncate">
+                                    {linkItem.label}
+                                  </h4>
+                                </div>
+                                <span className="inline-block text-[10.5px] font-bold tracking-wider uppercase text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full mt-0.5">
+                                  {linkItem.badge}
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+
+                          <p className="text-[12.5px] text-gray-600 leading-relaxed">
+                            {linkItem.description}
+                          </p>
+
+                          <div className="pt-1 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2 border-t border-gray-100">
+                            <div className="font-mono text-[11px] text-gray-400 truncate max-w-[280px] select-all hidden sm:block">
+                              {linkItem.url}
+                            </div>
+                            <div className="flex items-center gap-2 shrink-0">
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  navigator.clipboard.writeText(linkItem.url);
+                                  setCopiedLinkIndex(idx);
+                                  setTimeout(() => setCopiedLinkIndex(null), 2000);
+                                }}
+                                className="flex-1 sm:flex-initial px-3 py-1.5 rounded-lg border border-gray-200 hover:bg-gray-50 text-[12px] font-medium text-gray-700 inline-flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+                              >
+                                {copiedLinkIndex === idx ? (
+                                  <>
+                                    <Check className="w-3.5 h-3.5 text-emerald-600" />
+                                    <span className="text-emerald-700 font-semibold">Copied</span>
+                                  </>
+                                ) : (
+                                  <>
+                                    <Copy className="w-3.5 h-3.5" />
+                                    <span>Copy Link</span>
+                                  </>
+                                )}
+                              </button>
+
+                              <a
+                                href={linkItem.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex-1 sm:flex-initial px-4 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 active:scale-[0.98] text-white font-semibold text-[12.5px] inline-flex items-center justify-center gap-1.5 shadow-xs transition-all cursor-pointer"
+                              >
+                                <span>Open Access</span>
+                                <ExternalLink className="w-3.5 h-3.5 opacity-90" />
+                              </a>
+                            </div>
+                          </div>
                         </div>
-                        <button
-                          type="button"
-                          onClick={() => copyToClipboard(order.accessUrl!, setCopiedMega)}
-                          className="px-3 py-1.5 rounded-lg border border-gray-200 hover:bg-gray-50 text-[12px] font-medium text-gray-700 flex items-center gap-1.5 shrink-0 transition-colors"
-                        >
-                          {copiedMega ? (
-                            <>
-                              <Check className="w-3.5 h-3.5 text-emerald-600" />
-                              <span className="text-emerald-700">Copied</span>
-                            </>
-                          ) : (
-                            <>
-                              <Copy className="w-3.5 h-3.5" />
-                              <span>Copy Link</span>
-                            </>
-                          )}
-                        </button>
-                      </div>
+                      ))}
 
-                      <div className="p-3.5 rounded-xl bg-white/70 border border-emerald-100 text-[12px] text-emerald-900 max-w-[520px] mx-auto text-left space-y-1">
-                        <p className="font-semibold text-emerald-950">📦 Package Contents & Instructions:</p>
-                        <p className="text-emerald-800">
-                          1. Click the green button above to open the secure MEGA repository.<br/>
-                          2. Download and extract the archive to your machine.<br/>
-                          3. Refer to the included setup guide and video walkthrough to get started.
-                        </p>
-                      </div>
+                      {/* Copy All Button (for Complete kit multi-links) */}
+                      {linksToDisplay.length > 1 && (
+                        <div className="pt-2 flex justify-center">
+                          <button
+                            type="button"
+                            onClick={copyAll}
+                            className="px-4 py-2 rounded-full bg-white border border-emerald-300 hover:bg-emerald-50/50 text-[12.5px] font-semibold text-emerald-800 inline-flex items-center gap-2 shadow-xs transition-all cursor-pointer"
+                          >
+                            {copiedAllLinks ? (
+                              <>
+                                <Check className="w-4 h-4 text-emerald-600" />
+                                <span>All 3 Delivery Links Copied!</span>
+                              </>
+                            ) : (
+                              <>
+                                <Copy className="w-4 h-4 text-emerald-700" />
+                                <span>Copy All Complete Kit Delivery Links</span>
+                              </>
+                            )}
+                          </button>
+                        </div>
+                      )}
                     </div>
-                  )}
 
-                  {/* Complete Kit / Token Recovery */}
-                  {order.plan !== 'standard' && !order.accessUrl && (
-                    <div className="flex justify-center gap-3 pt-2">
-                      <a
-                        href={`/recover?ref=${order.reference}`}
-                        className="py-3 px-6 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-[14px] inline-flex items-center gap-2 shadow-sm"
-                      >
-                        <Download className="w-4 h-4" />
-                        <span>Get Download Link via Email Code</span>
-                      </a>
+                    {/* Instructions Card */}
+                    <div className="p-4 rounded-xl bg-white/80 border border-emerald-100 text-[12px] text-emerald-950 max-w-[580px] mx-auto text-left space-y-1.5">
+                      <p className="font-bold text-emerald-950">📦 Package Contents & Quick Start:</p>
+                      <ul className="text-emerald-800 list-disc list-inside space-y-0.5">
+                        {isComplete ? (
+                          <>
+                            <li>Access the Google Drive folder above to download the full source code, reports (PDF & DOCX), PPT, and viva defense Q&A.</li>
+                            <li>Watch the included video walkthrough for setup guidance and live reconnaissance demonstration.</li>
+                            <li>MEGA repository mirror is also available above for high-speed direct archive download.</li>
+                          </>
+                        ) : (
+                          <>
+                            <li>Click the open access button above to open the secure MEGA repository.</li>
+                            <li>Download and extract the archive to your machine.</li>
+                            <li>Refer to the included setup guide and video tour to get started.</li>
+                          </>
+                        )}
+                      </ul>
                     </div>
-                  )}
-                </div>
-              )}
+                  </div>
+                );
+              })()}
 
               {order.status === 'pending_verification' && (
                 <div className="p-6 rounded-2xl bg-blue-50/90 border border-blue-200 text-[13px] text-blue-900 space-y-4">

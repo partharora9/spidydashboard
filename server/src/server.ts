@@ -95,7 +95,8 @@ Here is your direct access and package information:
 
 🔒 ACCESS DELIVERY:
 To maintain software integrity, access links are delivered directly after payment confirmation.
-Once paid, reply to this email with your 12-digit UTR number or payment screenshot. Parth Arora will personally verify and directly dispatch your private MEGA download repository access link!
+Once paid, reply to this email with your 12-digit UTR number or payment screenshot. Parth Arora will personally verify and directly dispatch your private package access links:
+${plan === 'complete' ? '- Google Drive Complete Kit (Source Code, IEEE Project Report, PPT, Viva Q&A)\n- Architecture & Walkthrough Tour Video (MP4)\n- MEGA Dashboard Repository Mirror' : '- Private MEGA Download Repository Access Link'}!
 
 Best regards,
 Parth Arora (SOC Analyst)
@@ -118,7 +119,9 @@ UPI: 8700383626@axl
       To maintain software security and authorized licensing, download access is directly dispatched after payment confirmation.
     </p>
     <p style="font-size: 13px; color: #1E40AF; margin: 0; font-weight: 500;">
-      Complete your UPI payment below and reply with your 12-digit UTR. Parth Arora will personally verify and immediately send your private MEGA repository download access!
+      ${plan === 'complete'
+        ? 'Complete your UPI payment below and reply with your 12-digit UTR. Parth Arora will personally verify and immediately send your private Google Drive package (full source code, academic reports, PPT, viva defense Q&A), video walkthrough, and MEGA mirror repository links!'
+        : 'Complete your UPI payment below and reply with your 12-digit UTR. Parth Arora will personally verify and immediately send your private MEGA repository download access!'}
     </p>
   </div>
 

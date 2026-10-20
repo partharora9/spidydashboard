@@ -3,6 +3,13 @@
  * Never trust prices sent from the client or browser!
  */
 
+export interface DeliveryLink {
+  label: string;
+  url: string;
+  description: string;
+  type: 'mega' | 'gdrive_folder' | 'gdrive_video';
+}
+
 export interface PlanConfig {
   id: 'standard' | 'complete';
   name: string;
@@ -12,6 +19,7 @@ export interface PlanConfig {
   features: string[];
   releaseFileName: string;
   directAccessUrl?: string;
+  directAccessUrls?: DeliveryLink[];
 }
 
 export const SERVER_PLANS: Record<'standard' | 'complete', PlanConfig> = {
@@ -28,6 +36,15 @@ export const SERVER_PLANS: Record<'standard' | 'complete', PlanConfig> = {
       'Personal & educational license',
     ],
     releaseFileName: 'spidydashboard-standard-v1.0.0.zip',
+    directAccessUrl: 'https://mega.nz/file/mC5HVarR#ZAwdE8l-icMVq7rrXy5UdKFVvilEFYbRM1QEQRqe25Q',
+    directAccessUrls: [
+      {
+        label: 'MEGA Dashboard Repository Download',
+        url: 'https://mega.nz/file/mC5HVarR#ZAwdE8l-icMVq7rrXy5UdKFVvilEFYbRM1QEQRqe25Q',
+        description: 'Complete step-by-step setup guide, architecture documentation, and video tour archive',
+        type: 'mega',
+      },
+    ],
   },
   complete: {
     id: 'complete',
@@ -45,6 +62,27 @@ export const SERVER_PLANS: Record<'standard' | 'complete', PlanConfig> = {
       'Personal & educational license',
     ],
     releaseFileName: 'spidydashboard-complete-v1.0.0.zip',
+    directAccessUrl: 'https://drive.google.com/drive/folders/11yYiGjmPlh5phJyrMYwq-OAimypkZbj_?usp=sharing',
+    directAccessUrls: [
+      {
+        label: 'Google Drive Complete Package (Source Code, Reports, PPTX, Viva)',
+        url: 'https://drive.google.com/drive/folders/11yYiGjmPlh5phJyrMYwq-OAimypkZbj_?usp=sharing',
+        description: 'Full SpiderFoot engine source code, academic IEEE report (PDF & DOCX), PPT presentation, and viva defense Q&A',
+        type: 'gdrive_folder',
+      },
+      {
+        label: 'Video Walkthrough & Architecture Tour (MP4)',
+        url: 'https://drive.google.com/file/d/1OU27pCr2AnxcfoLeazLZbWOiysxakZok/view?usp=sharing',
+        description: 'Comprehensive engine walkthrough and component architecture video tour',
+        type: 'gdrive_video',
+      },
+      {
+        label: 'MEGA Dashboard Repository Archive',
+        url: 'https://mega.nz/file/mC5HVarR#ZAwdE8l-icMVq7rrXy5UdKFVvilEFYbRM1QEQRqe25Q',
+        description: 'High-speed mirror of the complete dashboard repository archive and standalone release',
+        type: 'mega',
+      },
+    ],
   },
 };
 

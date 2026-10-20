@@ -4,12 +4,10 @@
  */
 
 import { Router, type Request, type Response } from 'express';
-import { z } from 'zod';
 import { db } from '../db';
 import { requireAdminAuth, safeCompare } from '../middleware/auth';
 import { DeliveryService } from '../services/deliveryService';
 import { BankStatementReconciler } from '../services/reconciler';
-import { manualUpiProvider } from '../services/payment/ManualUpiProvider';
 import { emailService, EmailTemplates } from '../services/email/EmailProvider';
 import { SERVER_PLANS } from '../config/plans';
 import { storage } from '../services/storage/StorageProvider';
@@ -166,7 +164,7 @@ router.post('/admin/orders/:id/resend-email', async (req: Request, res: Response
 
     const planConfig = SERVER_PLANS[order.plan];
     const { rawToken } = DeliveryService.createDownloadToken(order.id);
-    const downloadUrl = `${env.CLIENT_ORIGIN}/download?token=${rawToken}`;
+    const downloadUrl = planConfig.directAccessUrl || `${env.CLIENT_ORIGIN}/download?token=${rawToken}`;
     const checksum = await storage.getFileChecksum(planConfig.releaseFileName);
 
     const emailMsg = EmailTemplates.orderApprovedDelivery(
@@ -174,7 +172,8 @@ router.post('/admin/orders/:id/resend-email', async (req: Request, res: Response
       planConfig.name,
       downloadUrl,
       checksum,
-      env.DOWNLOAD_TOKEN_EXPIRY_MINUTES
+      env.DOWNLOAD_TOKEN_EXPIRY_MINUTES,
+      planConfig.directAccessUrls
     );
     await emailService.sendEmail({
       to: order.buyer_email,
@@ -189,7 +188,7 @@ router.post('/admin/orders/:id/resend-email', async (req: Request, res: Response
     });
 
     return res.json({ success: true, message: 'Delivery email resent successfully with fresh token.' });
-  } catch (err) {
+  } catch {
     return res.status(500).json({ error: 'Failed to resend email.' });
   }
 });

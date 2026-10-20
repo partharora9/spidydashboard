@@ -8,7 +8,12 @@ import {
   AlertCircle,
   Copy,
   Check,
+  ExternalLink,
+  Folder,
+  Video,
+  Sparkles,
 } from 'lucide-react';
+import { getDeliveryLinksForPlan } from '../../config/deliveryLinks';
 
 export const RecoveryPage = () => {
   const [step, setStep] = useState<'REQUEST' | 'VERIFY' | 'SUCCESS'>('REQUEST');
@@ -21,8 +26,12 @@ export const RecoveryPage = () => {
     downloadToken: string;
     downloadUrl: string;
     expiresAt: string;
+    plan?: 'standard' | 'complete';
+    planName?: string;
+    directAccessUrl?: string;
+    accessUrls?: any[];
   } | null>(null);
-  const [copiedToken, setCopiedToken] = useState(false);
+  const [copiedLinkIndex, setCopiedLinkIndex] = useState<number | null>(null);
 
   useEffect(() => {
     // Check if query params contain ref
@@ -188,48 +197,109 @@ export const RecoveryPage = () => {
             </form>
           )}
 
-          {step === 'SUCCESS' && downloadData && (
-            <div className="space-y-5 text-center">
-              <div className="w-14 h-14 rounded-full bg-emerald-50 text-emerald-600 mx-auto flex items-center justify-center">
-                <CheckCircle2 className="w-8 h-8" />
-              </div>
-              <h2 className="text-[20px] font-bold text-gray-900">Your Download Link is Ready!</h2>
-              <p className="text-[13px] text-gray-500">
-                Valid for 15 minutes. Maximum 3 downloads per link.
-              </p>
+          {step === 'SUCCESS' && downloadData && (() => {
+            const isComplete = downloadData.plan === 'complete' || reference.toUpperCase().includes('COMPLETE');
+            const deliveryConfig = getDeliveryLinksForPlan(isComplete ? 'complete' : 'standard');
+            const links = downloadData.accessUrls || deliveryConfig.links;
 
-              <div className="p-4 bg-gray-50 rounded-2xl border border-gray-200 text-left space-y-2">
-                <div className="text-[12px] font-bold uppercase text-gray-400">Download Link</div>
-                <div className="flex items-center gap-2">
-                  <input
-                    type="text"
-                    readOnly
-                    value={downloadData.downloadUrl}
-                    className="w-full bg-white px-3 py-2 text-[12px] font-mono border rounded-lg text-gray-600"
-                  />
-                  <button
-                    onClick={() => {
-                      navigator.clipboard.writeText(downloadData.downloadUrl);
-                      setCopiedToken(true);
-                      setTimeout(() => setCopiedToken(false), 2000);
-                    }}
-                    className="p-2 border rounded-lg hover:bg-white text-gray-500"
-                    title="Copy Link"
+            return (
+              <div className="space-y-5 text-center">
+                <div className="w-14 h-14 rounded-full bg-emerald-50 text-emerald-600 mx-auto flex items-center justify-center">
+                  <CheckCircle2 className="w-8 h-8" />
+                </div>
+                <div>
+                  <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-[11.5px] font-bold mb-2">
+                    <Sparkles className="w-3.5 h-3.5" />
+                    <span>Access Restored</span>
+                  </div>
+                  <h2 className="text-[20px] font-bold text-gray-900">Your Package Links are Ready!</h2>
+                  <p className="text-[13px] text-gray-500 max-w-[480px] mx-auto mt-1">
+                    Verified for {email}. Access the complete package assets below or use your secure platform link.
+                  </p>
+                </div>
+
+                {/* Package Assets Cards */}
+                <div className="space-y-3 text-left max-w-[500px] mx-auto">
+                  {links.map((linkItem: any, idx: number) => (
+                    <div
+                      key={linkItem.id || idx}
+                      className="p-3.5 bg-gray-50/90 rounded-xl border border-gray-200 text-left space-y-2 shadow-xs"
+                    >
+                      <div className="flex items-center justify-between gap-2">
+                        <div className="flex items-center gap-2 min-w-0">
+                          <div className="w-7 h-7 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0">
+                            {linkItem.type === 'gdrive_folder' || linkItem.iconType === 'drive_folder' ? (
+                              <Folder className="w-3.5 h-3.5" />
+                            ) : linkItem.type === 'gdrive_video' || linkItem.iconType === 'video' ? (
+                              <Video className="w-3.5 h-3.5" />
+                            ) : (
+                              <Download className="w-3.5 h-3.5" />
+                            )}
+                          </div>
+                          <div className="min-w-0">
+                            <span className="block font-bold text-[13px] text-gray-900 truncate">
+                              {linkItem.label}
+                            </span>
+                            <span className="block text-[10px] font-bold text-emerald-700 uppercase tracking-wider">
+                              {linkItem.badge || 'Verified Package'}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <p className="text-[11.5px] text-gray-600">
+                        {linkItem.description}
+                      </p>
+
+                      <div className="flex items-center gap-2 pt-1 border-t border-gray-100">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            navigator.clipboard.writeText(linkItem.url);
+                            setCopiedLinkIndex(idx);
+                            setTimeout(() => setCopiedLinkIndex(null), 2000);
+                          }}
+                          className="px-3 py-1.5 rounded-lg border border-gray-200 hover:bg-white text-[12px] font-medium text-gray-700 flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+                        >
+                          {copiedLinkIndex === idx ? (
+                            <>
+                              <Check className="w-3.5 h-3.5 text-emerald-600" />
+                              <span className="text-emerald-700 font-semibold">Copied</span>
+                            </>
+                          ) : (
+                            <>
+                              <Copy className="w-3.5 h-3.5" />
+                              <span>Copy Link</span>
+                            </>
+                          )}
+                        </button>
+                        <a
+                          href={linkItem.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex-1 py-1.5 px-3 rounded-lg bg-emerald-600 hover:bg-emerald-700 active:scale-[0.98] text-white font-semibold text-[12px] inline-flex items-center justify-center gap-1.5 transition-all cursor-pointer"
+                        >
+                          <span>Open Asset</span>
+                          <ExternalLink className="w-3.5 h-3.5 opacity-80" />
+                        </a>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Primary Download Button */}
+                <div className="pt-2">
+                  <a
+                    href={downloadData.downloadUrl}
+                    className="w-full py-3.5 px-6 rounded-full bg-gradient-to-b from-[#5B9BFA] to-[#3B7FF0] hover:from-[#4E91F5] hover:to-[#3174E6] text-white font-semibold text-[15px] inline-flex items-center justify-center gap-2 shadow-[0_4px_14px_rgba(79,143,247,0.35)] transition-all cursor-pointer"
                   >
-                    {copiedToken ? <Check className="w-4 h-4 text-emerald-600" /> : <Copy className="w-4 h-4" />}
-                  </button>
+                    <Download className="w-4 h-4" />
+                    <span>Download Package Repository Archive</span>
+                  </a>
                 </div>
               </div>
-
-              <a
-                href={downloadData.downloadUrl}
-                className="w-full py-4 px-6 rounded-full bg-gradient-to-b from-[#5B9BFA] to-[#3B7FF0] hover:from-[#4E91F5] hover:to-[#3174E6] text-white font-semibold text-[16px] inline-flex items-center justify-center gap-2 shadow-[0_4px_14px_rgba(79,143,247,0.35)] transition-all"
-              >
-                <Download className="w-5 h-5" />
-                <span>Start Download (Release ZIP)</span>
-              </a>
-            </div>
-          )}
+            );
+          })()}
         </div>
       </main>
 

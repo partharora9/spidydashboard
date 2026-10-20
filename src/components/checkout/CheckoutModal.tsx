@@ -12,8 +12,12 @@ import {
   Lock,
   Download,
   ExternalLink,
+  Folder,
+  Video,
+  Sparkles,
 } from 'lucide-react';
 import type { Plan } from '../../data/plans';
+import { getDeliveryLinksForPlan } from '../../config/deliveryLinks';
 
 interface CheckoutModalProps {
   isOpen: boolean;
@@ -47,7 +51,7 @@ export const CheckoutModal = ({ isOpen, onClose, plan }: CheckoutModalProps) => 
   const [copiedRef, setCopiedRef] = useState(false);
   const [copiedAmount, setCopiedAmount] = useState(false);
   const [copiedVpa, setCopiedVpa] = useState(false);
-  const [copiedMega, setCopiedMega] = useState(false);
+  const [copiedLinkIndex, setCopiedLinkIndex] = useState<number | null>(null);
   const [order, setOrder] = useState<OrderData | null>(null);
   const [timeLeft, setTimeLeft] = useState<string>('30:00');
 
@@ -526,98 +530,122 @@ export const CheckoutModal = ({ isOpen, onClose, plan }: CheckoutModalProps) => 
           )}
 
           {/* STEP 4: APPROVED & DELIVERY ACCESS */}
-          {step === 'APPROVED' && order && (
-            <div className="text-center py-4 space-y-4">
-              <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 mx-auto flex items-center justify-center shadow-inner">
-                <Check className="w-8 h-8 stroke-[2.5]" />
-              </div>
-              <h3 className="text-[20px] font-bold text-[#0B0B14]">Payment Verified & Approved!</h3>
-              <p className="text-[14px] text-gray-600 max-w-[440px] mx-auto">
-                Thank you! Your payment for <strong>{order.planName || plan.name}</strong> has been successfully reconciled.
-              </p>
+          {step === 'APPROVED' && order && (() => {
+            const isComplete = (order.planName || plan.name).toLowerCase().includes('complete') || plan.id === 'complete';
+            const deliveryConfig = getDeliveryLinksForPlan(isComplete ? 'complete' : 'standard');
+            const links = deliveryConfig.links;
 
-              {/* Approved Direct Download Link */}
-              {order.accessUrl ? (
-                <div className="space-y-4 pt-1">
-                  <div className="flex justify-center">
-                    <a
-                      href={order.accessUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-full sm:w-auto py-3.5 px-7 rounded-full bg-emerald-600 hover:bg-emerald-700 active:scale-[0.98] text-white font-bold text-[15px] inline-flex items-center justify-center gap-2.5 shadow-md shadow-emerald-600/25 transition-all cursor-pointer"
+            return (
+              <div className="text-center py-4 space-y-4">
+                <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 mx-auto flex items-center justify-center shadow-inner">
+                  <Check className="w-8 h-8 stroke-[2.5]" />
+                </div>
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-[11.5px] font-bold">
+                  <Sparkles className="w-3.5 h-3.5" />
+                  <span>Fulfillment Unlocked</span>
+                </div>
+                <h3 className="text-[20px] font-bold text-[#0B0B14]">Payment Verified & Approved!</h3>
+                <p className="text-[14px] text-gray-600 max-w-[460px] mx-auto">
+                  Thank you! Your payment for <strong>{order.planName || plan.name}</strong> has been successfully verified. You have unlocked immediate package access below:
+                </p>
+
+                {/* Delivery Links List */}
+                <div className="space-y-3 pt-1 text-left max-w-[500px] mx-auto">
+                  {links.map((linkItem, idx) => (
+                    <div
+                      key={linkItem.id}
+                      className="p-3.5 bg-gray-50/90 rounded-xl border border-gray-200 text-left space-y-2.5 shadow-xs"
                     >
-                      <Download className="w-5 h-5" />
-                      <span>Access SpidyDashboard Repository</span>
-                      <ExternalLink className="w-4 h-4 opacity-80" />
-                    </a>
-                  </div>
+                      <div className="flex items-center justify-between gap-2">
+                        <div className="flex items-center gap-2 min-w-0">
+                          <div className="w-7 h-7 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0">
+                            {linkItem.iconType === 'drive_folder' ? (
+                              <Folder className="w-3.5 h-3.5" />
+                            ) : linkItem.iconType === 'video' ? (
+                              <Video className="w-3.5 h-3.5" />
+                            ) : (
+                              <Download className="w-3.5 h-3.5" />
+                            )}
+                          </div>
+                          <div className="min-w-0">
+                            <span className="block font-bold text-[13px] text-gray-900 truncate">
+                              {linkItem.label}
+                            </span>
+                            <span className="block text-[10px] font-bold text-emerald-700 uppercase tracking-wider">
+                              {linkItem.badge}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
 
-                  <div className="p-3 bg-gray-50 rounded-xl border border-gray-200 text-left flex items-center justify-between gap-2">
-                    <div className="min-w-0 flex-1">
-                      <span className="block text-[10px] font-bold text-gray-400 uppercase tracking-wider">
-                        Direct Access Link
-                      </span>
-                      <span className="block font-mono text-[12px] text-gray-700 truncate select-all">
-                        {order.accessUrl}
-                      </span>
+                      <p className="text-[11.5px] text-gray-600">
+                        {linkItem.description}
+                      </p>
+
+                      <div className="flex items-center gap-2 pt-1 border-t border-gray-100">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            navigator.clipboard.writeText(linkItem.url);
+                            setCopiedLinkIndex(idx);
+                            setTimeout(() => setCopiedLinkIndex(null), 2000);
+                          }}
+                          className="px-3 py-1.5 rounded-lg border border-gray-200 hover:bg-white text-[12px] font-medium text-gray-700 flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+                        >
+                          {copiedLinkIndex === idx ? (
+                            <>
+                              <Check className="w-3.5 h-3.5 text-emerald-600" />
+                              <span className="text-emerald-700 font-semibold">Copied</span>
+                            </>
+                          ) : (
+                            <>
+                              <Copy className="w-3.5 h-3.5" />
+                              <span>Copy Link</span>
+                            </>
+                          )}
+                        </button>
+                        <a
+                          href={linkItem.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex-1 py-1.5 px-3 rounded-lg bg-emerald-600 hover:bg-emerald-700 active:scale-[0.98] text-white font-semibold text-[12px] inline-flex items-center justify-center gap-1.5 transition-all cursor-pointer"
+                        >
+                          <span>Open Access</span>
+                          <ExternalLink className="w-3.5 h-3.5 opacity-80" />
+                        </a>
+                      </div>
                     </div>
-                    <button
-                      type="button"
-                      onClick={() =>
-                        copyToClipboard(
-                          order.accessUrl!,
-                          setCopiedMega
-                        )
-                      }
-                      className="px-3 py-1.5 rounded-lg border border-gray-200 hover:bg-white text-[12px] font-medium text-gray-700 flex items-center gap-1.5 shrink-0 transition-colors"
-                    >
-                      {copiedMega ? (
-                        <>
-                          <Check className="w-3.5 h-3.5 text-emerald-600" />
-                          <span className="text-emerald-700">Copied</span>
-                        </>
-                      ) : (
-                        <>
-                          <Copy className="w-3.5 h-3.5" />
-                          <span>Copy</span>
-                        </>
-                      )}
-                    </button>
-                  </div>
+                  ))}
 
                   <div className="p-3 rounded-xl bg-emerald-50/70 border border-emerald-100 text-[12px] text-emerald-900 text-left space-y-1">
-                    <p className="font-semibold text-emerald-950">📦 Next Steps:</p>
+                    <p className="font-semibold text-emerald-950">📦 Package Instructions:</p>
                     <p className="text-emerald-800">
-                      Download the archive from MEGA, extract the files, and open the included setup guide. A confirmation receipt has also been dispatched to <strong>{email}</strong>.
+                      {isComplete
+                        ? 'Access the Google Drive folder for the source code, reports, presentation slides, and viva Q&A. Video walkthrough and MEGA repository mirror are also available above. A copy has been dispatched to '
+                        : 'Download the archive from MEGA, extract the files, and open the included setup guide. A copy has been dispatched to '}
+                      <strong>{email}</strong>.
                     </p>
                   </div>
                 </div>
-              ) : (
-                <div className="p-4 rounded-2xl bg-blue-50 border border-blue-200 text-left text-[13px] text-blue-900 space-y-2">
-                  <p className="font-semibold text-blue-950">Delivery Email Dispatched</p>
-                  <p>
-                    Your Complete Kit release archive and customized license have been sent to <strong>{email}</strong>. You can also view or recover your files anytime.
-                  </p>
-                </div>
-              )}
 
-              <div className="pt-3 flex flex-col sm:flex-row gap-3 justify-center">
-                <a
-                  href={`/orders/${order.reference}`}
-                  className="py-2.5 px-5 rounded-full border border-gray-300 text-[13px] font-medium text-gray-700 hover:bg-gray-50 flex items-center justify-center gap-1.5"
-                >
-                  <span>View Order Status & Receipt</span>
-                </a>
-                <button
-                  type="button"
-                  onClick={onClose}
-                  className="py-2.5 px-6 rounded-full bg-[#0B0B14] text-white text-[13px] font-medium hover:bg-black transition-colors"
-                >
-                  Done
-                </button>
+                <div className="pt-3 flex flex-col sm:flex-row gap-3 justify-center">
+                  <a
+                    href={`/orders/${order.reference}`}
+                    className="py-2.5 px-5 rounded-full border border-gray-300 text-[13px] font-medium text-gray-700 hover:bg-gray-50 flex items-center justify-center gap-1.5"
+                  >
+                    <span>View Order Status & Receipt</span>
+                  </a>
+                  <button
+                    type="button"
+                    onClick={onClose}
+                    className="py-2.5 px-6 rounded-full bg-[#0B0B14] text-white text-[13px] font-medium hover:bg-black transition-colors cursor-pointer"
+                  >
+                    Done
+                  </button>
+                </div>
               </div>
-            </div>
-          )}
+            );
+          })()}
 
           {/* STEP 4: EXPIRED SESSION */}
           {step === 'EXPIRED' && (
